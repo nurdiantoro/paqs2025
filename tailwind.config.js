@@ -14,6 +14,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors:{
+                'warna-02' :'#0c6196',
+            },
         },
     },
     plugins: [],

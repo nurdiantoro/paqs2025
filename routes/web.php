@@ -7,3 +7,4 @@ Route::get('/', function () {
     return view('frontend/homepage');
 });
 Route::get('/registration', [RegistrationController::class, 'index']);
+Route::get('/registration_form', [RegistrationController::class, 'form']);

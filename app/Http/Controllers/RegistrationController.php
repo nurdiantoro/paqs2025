@@ -11,4 +11,8 @@ class RegistrationController extends Controller
     {
         return view('frontend.registration');
     }
+    public function form()
+    {
+        return view('frontend.registration_form');
+    }
 }

@@ -37,7 +37,8 @@
                                 </li>
                             </ul>
                             <div class="pricing-btn mt-10">
-                                <a href="#" class="btn"><i class="far fa-ticket-alt"></i> Buy Ticket</a>
+                                <a href="{{ url('registration_form') }}" class="btn"><i
+                                        class="fas fa-sign-in-alt"></i>Registration</a>
                             </div>
                         </div>
 
@@ -63,7 +64,8 @@
                                 </li>
                             </ul>
                             <div class="pricing-btn mt-10">
-                                <a href="#" class="btn"><i class="far fa-ticket-alt"></i> Buy Ticket</a>
+                                <a href="{{ url('registration_form') }}" class="btn"><i
+                                        class="fas fa-sign-in-alt"></i>Registration</a>
                             </div>
                         </div>
 
@@ -89,7 +91,8 @@
                                 </li>
                             </ul>
                             <div class="pricing-btn mt-10">
-                                <a href="#" class="btn"><i class="far fa-ticket-alt"></i> Buy Ticket</a>
+                                <a href="{{ url('registration_form') }}" class="btn"><i
+                                        class="fas fa-sign-in-alt"></i>Registration</a>
                             </div>
                         </div>
 
@@ -115,7 +118,8 @@
                                 </li>
                             </ul>
                             <div class="pricing-btn mt-10">
-                                <a href="#" class="btn"><i class="far fa-ticket-alt"></i> Buy Ticket</a>
+                                <a href="{{ url('registration_form') }}" class="btn"><i
+                                        class="fas fa-sign-in-alt"></i>Registration</a>
                             </div>
                         </div>
 
