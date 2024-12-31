@@ -11,4 +11,5 @@ Route::get('/registration', [RegistrationController::class, 'index']);
 Route::get('/registration_form', [RegistrationController::class, 'form']);
 Route::get('/invoice/{no_invoice}', [RegistrationController::class, 'invoice']);
 
-Route::post('/order_store', [OrderController::class, 'store']);
+Route::post('/order/store', [OrderController::class, 'store']);
+Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'upload_payment']);

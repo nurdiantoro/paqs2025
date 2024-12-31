@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Addon;
+use App\Models\Category;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -14,12 +16,6 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        // Validasi input
-        // $validatedData = $request->validate([
-        //     'title' => 'required',
-        // ]);
-
 
         // Cek apakah kode sudah ada
         $no_invoice = date('Ymd') . rand(1000, 9999);
@@ -39,8 +35,8 @@ class OrderController extends Controller
                 'address' => $request->address,
                 'telephone' => $request->telephone,
                 'email' => $request->email,
-                'category' => $request->category,
-                'add_on' => $request->add_on,
+                'category_id' => $request->category,
+                'addon_id' => $request->add_on,
                 'quantity' => $request->quantity,
                 'total_price' => $request->total_price,
                 'payment_status' => 'unpaid',

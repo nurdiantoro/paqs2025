@@ -40,7 +40,7 @@
           canvasImageHeight
         );
       }
-      pdf.save("ivonne-invoice.pdf");
+      pdf.save("invoice.pdf");
     });
   });
 

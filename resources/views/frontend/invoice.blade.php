@@ -1,5 +1,8 @@
 @include('frontend.components.header')
 @include('frontend.components.navbar')
+
+
+
 <!-- main-area -->
 <main>
     <div class="cs-container tm-consulting mt-140 min-h-screen">
@@ -58,18 +61,34 @@
                                 <tbody>
                                     <tr>
                                         <td class="cs-width_5 cs-primary_color cs-f15">
-                                            {{ $data->category }}
+                                            {{ $category->name }}
                                         </td>
                                         <td class="cs-width_2 cs-primary_color cs-f15">
-                                            {{ $data->total_price }}
+                                            {{ $category->price }}
                                         </td>
                                         <td class="cs-width_2 cs-primary_color cs-f15">
                                             {{ $data->quantity }}
                                         </td>
                                         <td class="cs-width_2 cs-text_right cs-primary_color cs-f15">
-                                            {{ $data->total_price }}
+                                            {{ number_format($total_category, 2, ',', '.') }}
                                         </td>
                                     </tr>
+                                    @if ($addon != null)
+                                        <tr>
+                                            <td class="cs-width_5 cs-primary_color cs-f15">
+                                                {{ $addon->name }}
+                                            </td>
+                                            <td class="cs-width_2 cs-primary_color cs-f15">
+                                                {{ $addon->price }}
+                                            </td>
+                                            <td class="cs-width_2 cs-primary_color cs-f15">
+                                                {{ $data->quantity }}
+                                            </td>
+                                            <td class="cs-width_2 cs-text_right cs-primary_color cs-f15">
+                                                {{ number_format($total_addon, 2, ',', '.') }}
+                                            </td>
+                                        </tr>
+                                    @endif
                                     <tr>
                                         <td class="cs-width_5 cs-primary_color cs-f15">
                                             Total
@@ -77,7 +96,7 @@
                                         <td class="cs-width_2"></td>
                                         <td class="cs-width_2"></td>
                                         <td class="cs-width_2 cs-text_right cs-semi_bold cs-primary_color cs-f15">
-                                            BND1420
+                                            BND {{ number_format($total_price, 2, ',', '.') }}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -85,55 +104,104 @@
                         </div>
                     </div>
                 </div>
-                <div class="">
-                    <div class="">
-                        <div class="cs-note_right">
-                            <table class="border-none">
-                                <tr>
-                                    <td class="border-none py-0">Pricing</td>
-                                    <td class="border-none py-0">:</td>
-                                    <td class="border-none py-0">All prices listed are in BND.</td>
-                                </tr>
-                                <tr>
-                                    <td class="border-none py-0">Group rates</td>
-                                    <td class="border-none py-0">:</td>
-                                    <td class="border-none py-0">Contact registration@paqs2024.com (cc:
-                                        paqs2024@gmail.com)
-                                        for details.</td>
-                                </tr>
-                            </table>
+                <div class="cs-note_right">
+                    <table class="border-none">
+                        <tr>
+                            <td class="border-none py-0">Pricing</td>
+                            <td class="border-none py-0">:</td>
+                            <td class="border-none py-0">All prices listed are in BND.</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none py-0">Group rates</td>
+                            <td class="border-none py-0">:</td>
+                            <td class="border-none py-0">Contact registration@paqs2024.com (cc:
+                                paqs2024@gmail.com)
+                                for details.</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none py-0">Payment method</td>
+                            <td class="border-none py-0">:</td>
+                            <td class="border-none py-0">Bank Transfer.</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none py-0">Bank Name</td>
+                            <td class="border-none py-0">:</td>
+                            <td class="border-none py-0">Bank Islam Brunei Darussalam.</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none py-0">Beneficiary</td>
+                            <td class="border-none py-0">:</td>
+                            <td class="border-none py-0">Pertubuhan Ukur Jurutera dan Arkitek Brunei (PUJA
+                                BRUNEI)</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none py-0">Account Number</td>
+                            <td class="border-none py-0">:</td>
+                            <td class="border-none py-0">00-001-01-0048987</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none py-0">SWIFT Code</td>
+                            <td class="border-none py-0">:</td>
+                            <td class="border-none py-0">BIBDBNBB</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none py-0"><strong>Important</strong></td>
+                            <td class="border-none py-0">:</td>
+                            <td class="border-none py-0">Please use your full name as the reference for your bank
+                                transfer.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <form action="{{ url('/order_store/' . $data->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="input-group mt-8">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="validatedInputGroupCustomFile"
+                                name="proof_of_payment" required>
+                            <label class="custom-file-label" for="validatedInputGroupCustomFile">Upload
+                                Payment...</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="px-3 border border-gray-400 rounded-r-md bg-warna-01 text-white"
+                                type="submit">Send</button>
                         </div>
                     </div>
-                    <!-- .cs-note -->
-                    <div class="cs-invoice_btns cs-hide_print w-full">
-                        <a href="javascript:window.print()" class="cs-invoice_btn tm-bg-gray tm-border ">
-                            <svg class="cs-primary_color" xmlns="http://www.w3.org/2000/svg"
-                                class="ionicon cs_primary_color" viewBox="0 0 512 512">
-                                <path
-                                    d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
-                                    fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
-                                <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32"
-                                    fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
-                                <path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24"
-                                    fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
-                                <circle cx="392" cy="184" r="24" />
-                            </svg>
-                            <span class="cs-primary_color">Print</span>
-                        </a>
-                        <button id="download_btn" class="cs-invoice_btn bg-warna-01 text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                                <title>Download</title>
-                                <path
-                                    d="M336 176h40a40 40 0 0140 40v208a40 40 0 01-40 40H136a40 40 0 01-40-40V216a40 40 0 0140-40h40"
-                                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="32" />
-                                <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="32" d="M176 272l80 80 80-80M256 48v288" />
-                            </svg>
-                            <span>Download PDF</span>
-                        </button>
-                    </div>
+                </form>
+
+                <!-- .cs-note -->
+                <div class="cs-invoice_btns cs-hide_print w-full">
+                    <a href="javascript:window.print()" class="cs-invoice_btn tm-bg-gray tm-border ">
+                        <svg class="cs-primary_color" xmlns="http://www.w3.org/2000/svg"
+                            class="ionicon cs_primary_color" viewBox="0 0 512 512">
+                            <path
+                                d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
+                                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                            <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32"
+                                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                            <path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24" fill="none"
+                                stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                            <circle cx="392" cy="184" r="24" />
+                        </svg>
+                        <span class="cs-primary_color">Print</span>
+                    </a>
+                    <button id="download_btn" class="cs-invoice_btn bg-warna-01 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                            <title>Download</title>
+                            <path
+                                d="M336 176h40a40 40 0 0140 40v208a40 40 0 01-40 40H136a40 40 0 01-40-40V216a40 40 0 0140-40h40"
+                                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" />
+                            <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="32" d="M176 272l80 80 80-80M256 48v288" />
+                        </svg>
+                        <span>Download PDF</span>
+                    </button>
                 </div>
+
+                <p class="text-center mt-5 text-gray-500">
+                    Contact registration@paqs2024.com (cc: paqs2024@gmail.com) for details.
+                </p>
             </div>
         </div>
     </div>

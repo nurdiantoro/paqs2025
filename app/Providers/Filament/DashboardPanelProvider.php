@@ -27,8 +27,12 @@ class DashboardPanelProvider extends PanelProvider
             ->id('dashboard')
             ->path('dashboard')
             ->login()
+            ->brandName('PAQS 2025')
+            ->brandLogo(asset('img/LOGO PAQS CONGRESS.png'))
+            ->favicon(asset('img/PAQS Logo.png'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#0c6196',
+                // 'primary' => Color::Amber,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

@@ -24,13 +24,16 @@
 
     <!-- team-area -->
     <section id="team" class="team-area p-relative pt-120 pb-120 fix row">
-        <form method="POST" action="{{ url('/order_store') }}" class="col-md-6 mx-auto">
+        <form method="POST" action="{{ url('/order/store') }}" class="col-md-6 mx-auto">
             @csrf
             <div class="shadow-xl bg-white rounded-xl border border-blue-900 p-4 mb-4">
                 <div class="mb-8">
-                    <label for="title" class="text-warna-02 text-[16px] font-semibold">Title <span
-                            class="text-red-700">*</span></label>
-                    <input type="text" name="title" id="title" class=" rounded-md w-full border-b text-[16px]">
+                    <span for="title" class="text-warna-02 text-[16px] font-semibold block mb-2">Title <span
+                            class="text-red-700">*</span></span>
+                    <input type="radio" name="title" id="title" value="Mr.">
+                    <label for="title" class="text-warna-02 text-[16px] font-semibold mr-4">Mr.</label>
+                    <input type="radio" name="title" id="title2" value="Mrs.">
+                    <label for="title2" class="text-warna-02 text-[16px] font-semibold">Mrs.</label>
                 </div>
                 <div class="mb-8">
                     <label for="first_name" class="text-warna-02 text-[16px] font-semibold">First Name <span
@@ -73,19 +76,22 @@
                             class="text-red-700">*</span></label>
                     <select name="category" id="category" class="rounded-md w-full border-b text-[16px] outline-none">
                         <option disabled hidden selected>Select Category</option>
-                        <option value="PUJA Member with Gala Dinner">PUJA Member with Gala Dinner [BND400]</option>
-                        <option value="Non-PUJA Member with Gala Dinner">Non-PUJA Member with Gala Dinner [BND500]
-                        </option>
-                        <option value="Student (Conference Only)">Student (Conference Only) [BND100]</option>
-                        <option value="PAQS Golf 2024">PAQS Golf 2024 [BND250]</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }} [BND{{ $category->price }}]
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-8">
                     <div for="company" class="text-warna-02 text-[16px] font-semibold">Add on <span
                             class="text-red-700">*</span></div>
-                    <input type="checkbox" name="add_on" id="add_on" class=" rounded-md">
-                    <label for="add_on" class="text-warna-02 text-[16px]">PAQS Golf 2024
-                        [BND250]</label>
+                    @foreach ($addons as $addon)
+                        <input type="checkbox" name="add_on" id="add_on" class="rounded-md"
+                            value="{{ $addon->id }}">
+
+                        <label for="add_on" class="text-warna-02 text-[16px]">{{ $addon->name }}
+                            [BND{{ $addon->price }}]</label>
+                    @endforeach
                 </div>
                 <div class="mb-8">
                     <label for="quantity" class="text-warna-02 text-[16px] font-semibold">Quantity <span
