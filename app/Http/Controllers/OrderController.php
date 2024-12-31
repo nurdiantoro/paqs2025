@@ -49,6 +49,6 @@ class OrderController extends Controller
         );
 
         // Redirect ke halaman sukses
-        return redirect()->back()->with('success', 'Order berhasil disimpan!');
+        return redirect(url('/invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
     }
 }
