@@ -420,7 +420,7 @@ label {
 }
 .main-menu ul li a {
     display: inline-block;
-    color: #fff;
+    /* color: #fff; */
     font-family: "Karla", sans-serif;
     font-weight: bold;
     padding: 34px 0;

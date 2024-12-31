@@ -1,4 +1,13 @@
 <!-- header -->
+
+@php
+    if (url()->current() == url('/')) {
+        $navbarColor = 'text-white';
+    } else {
+        $navbarColor = 'gray-400';
+    }
+@endphp
+
 <header id="home" class="header-area">
     <div id="header-sticky" class="menu-area">
         <div class="container">
@@ -15,13 +24,14 @@
                         <div class="main-menu text-right text-xl-center">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="has-sub"><a href="{{ url('/') }}">Home</a>
+                                    <li class="has-sub"><a class="{{ $navbarColor }}"
+                                            href="{{ url('/') }}">Home</a>
                                     </li>
                                     <li class="has-sub">
-                                        <a href="#">About</a>
+                                        <a class="{{ $navbarColor }}" href="#">About</a>
                                     </li>
                                     <li class="has-sub">
-                                        <a href="#">Information</a>
+                                        <a class="{{ $navbarColor }}" href="#">Information</a>
                                         <ul>
                                             <li><a href="#">Programme</a></li>
                                             <li><a href="#">General Information</a></li>
@@ -29,13 +39,13 @@
                                         </ul>
                                     </li>
                                     <li class="has-sub">
-                                        <a href="#">Submission</a>
+                                        <a class="{{ $navbarColor }}" href="#">Submission</a>
                                         <ul>
                                             <li><a href="#">Call for Pappers</a></li>
                                             <li><a href="#">PAQS-Iwata Scholarship Competition</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li><a class="{{ $navbarColor }}" href="#">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>

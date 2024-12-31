@@ -51,7 +51,7 @@
 
 
 
-    <!-- JS here -->
+    <!-- Eventes - Template -->
     <script src="{{ asset('js/eventes/vendor/modernizr-3.5.0.min.js') }}"></script>
     <script src="{{ asset('js/eventes/vendor/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ asset('js/eventes/popper.min.js') }}"></script>
@@ -71,6 +71,12 @@
     <script src="{{ asset('js/eventes/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('js/eventes/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ asset('js/eventes/main.js') }}"></script>
+
+    {{-- Evonne - Template --}}
+    <script src="{{ asset('evonne/js/jspdf.min.js') }}"></script>
+    <script src="{{ asset('evonne/js/html2canvas.min.js') }}"></script>
+    <script src="{{ asset('evonne/js/main.js') }}"></script>
+
     </body>
 
     </html>

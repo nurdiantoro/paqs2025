@@ -20,12 +20,21 @@ class OrderController extends Controller
         //     'title' => 'required',
         // ]);
 
+
+        // Cek apakah kode sudah ada
+        $no_invoice = date('Ymd') . rand(1000, 9999);
+        while (Order::where('no_invoice', $no_invoice)->exists()) {
+            $no_invoice = date('Ymd') . rand(1000, 9999);
+        }
+
         // Simpan data ke database
         Order::create(
             [
-                'title' => $request->title,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
+                'no_invoice' => $no_invoice,
+                'title' => ucwords($request->title),
+                'first_name' => ucwords($request->first_name),
+                'last_name' => ucwords($request->last_name),
+                'full_name' => $request->first_name . ' ' . $request->last_name,
                 'company' => $request->company,
                 'address' => $request->address,
                 'telephone' => $request->telephone,
@@ -34,7 +43,7 @@ class OrderController extends Controller
                 'add_on' => $request->add_on,
                 'quantity' => $request->quantity,
                 'total_price' => $request->total_price,
-                'payment_status' => $request->payment_status,
+                'payment_status' => 'unpaid',
                 'proof_of_payment' => $request->proof_of_payment,
             ]
         );

@@ -15,15 +15,8 @@
     <link
         href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
         rel="stylesheet">
-    {{-- <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="css/dripicons.css">
-    <link rel="stylesheet" href="css/slick.css">
-    <link rel="stylesheet" href="css/default.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css"> --}}
+
+    {{-- Eventes Template --}}
     <link rel="stylesheet" href="{{ asset('css/eventes/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/eventes/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
@@ -32,6 +25,9 @@
     <link rel="stylesheet" href="{{ asset('css/eventes/default.css') }}">
     <link rel="stylesheet" href="{{ asset('css/eventes/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/eventes/responsive.css') }}">
+
+    {{-- Ivonne Template --}}
+    <link rel="stylesheet" href="{{ asset('evonne/css/style.css') }}">
 
     @vite('resources/css/app.css')
 </head>

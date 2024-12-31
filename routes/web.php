@@ -9,5 +9,6 @@ Route::get('/', function () {
 });
 Route::get('/registration', [RegistrationController::class, 'index']);
 Route::get('/registration_form', [RegistrationController::class, 'form']);
+Route::get('/invoice/{no_invoice}', [RegistrationController::class, 'invoice']);
 
 Route::post('/order_store', [OrderController::class, 'store']);

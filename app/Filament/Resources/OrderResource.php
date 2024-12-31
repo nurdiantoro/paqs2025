@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -32,16 +33,28 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('full_name')
-                    ->sortable(['first_name', 'last_name']),
-                TextColumn::make('email')->sortable(),
-                TextColumn::make('telephone')->sortable(),
+                TextColumn::make('no_invoice')->sortable()->searchable(),
+                TextColumn::make('full_name')->sortable()->searchable(),
+                TextColumn::make('email')->sortable()->searchable(),
+                TextColumn::make('telephone')->sortable()->searchable(),
                 TextColumn::make('quantity')->sortable(),
                 TextColumn::make('total_price')->sortable(),
-                TextColumn::make('payment_status')->sortable(),
+                TextColumn::make('payment_status')
+                    ->sortable()
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'unpaid' => 'warning',
+                        'paid' => 'success',
+                        'cancelled' => 'danger',
+                    }),
             ])
             ->filters([
-                //
+                SelectFilter::make('payment_status')
+                    ->options([
+                        'paid' => 'Paid',
+                        'unpaid' => 'Unpaid',
+                        'cancelled' => 'Cancelled',
+                    ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
