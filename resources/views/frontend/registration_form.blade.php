@@ -24,7 +24,8 @@
 
     <!-- team-area -->
     <section id="team" class="team-area p-relative pt-120 pb-120 fix row">
-        <form action="" class="col-md-6 mx-auto">
+        <form method="POST" action="{{ url('/order_store') }}" class="col-md-6 mx-auto">
+            @csrf
             <div class="shadow-xl bg-white rounded-xl border border-blue-900 p-4 mb-4">
                 <div class="mb-8">
                     <label for="title" class="text-warna-02 text-[16px] font-semibold">Title <span
@@ -32,9 +33,10 @@
                     <input type="text" name="title" id="title" class=" rounded-md w-full border-b text-[16px]">
                 </div>
                 <div class="mb-8">
-                    <label for="name" class="text-warna-02 text-[16px] font-semibold">First Name <span
+                    <label for="first_name" class="text-warna-02 text-[16px] font-semibold">First Name <span
                             class="text-red-700">*</span></label>
-                    <input type="text" name="name" id="name" class=" rounded-md w-full border-b text-[16px]">
+                    <input type="text" name="first_name" id="first_name"
+                        class=" rounded-md w-full border-b text-[16px]">
                 </div>
                 <div class="mb-8">
                     <label for="last_name" class="text-warna-02 text-[16px] font-semibold">Last Name <span
@@ -55,7 +57,7 @@
                 <div class="mb-8">
                     <label for="telephone" class="text-warna-02 text-[16px] font-semibold">Telephone / Mobile <span
                             class="text-red-700">*</span></label>
-                    <input type="number" name="telephone" id="telephone"
+                    <input type="tel" name="telephone" id="telephone"
                         class=" rounded-md w-full border-b text-[16px]">
                 </div>
                 <div class="">
@@ -85,9 +87,14 @@
                     <label for="add_on" class="text-warna-02 text-[16px]">PAQS Golf 2024
                         [BND250]</label>
                 </div>
+                <div class="mb-8">
+                    <label for="quantity" class="text-warna-02 text-[16px] font-semibold">Quantity <span
+                            class="text-red-700">*</span></label>
+                    <input type="number" name="quantity" id="quantity"
+                        class=" rounded-md w-full border-b text-[16px]">
+                </div>
                 <div class="text-center">
-                    <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i>
-                        Registration</button>
+                    <button type="submit" class="btn">Check Out</button>
                 </div>
             </div>
         </form>
