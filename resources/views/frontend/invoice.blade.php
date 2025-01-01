@@ -153,7 +153,8 @@
                     </table>
                 </div>
 
-                <form action="{{ url('/order_store/' . $data->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('/order/upload_payment/' . $data->no_invoice) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="input-group mt-8">
                         <div class="custom-file">

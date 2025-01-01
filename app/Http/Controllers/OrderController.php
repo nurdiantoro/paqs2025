@@ -6,6 +6,9 @@ use App\Models\Addon;
 use App\Models\Category;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -46,5 +49,27 @@ class OrderController extends Controller
 
         // Redirect ke halaman sukses
         return redirect(url('/invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
+    }
+
+    public function upload_payment($no_invoice, Request $request)
+    {
+        // Upload bukti pembayaran
+        $file = $request->file('proof_of_payment');
+        if ($file != Null) {
+            $nama_file = Str::random(12) . "." . $file->getClientOriginalExtension();
+            $manager = new ImageManager(new Driver());
+            $editImage = $manager->read($file);
+            $editImage->resize(height: 1080);
+            $editImage->save($file);
+            $editImage->toJpeg()->save('storage/' . $nama_file);
+        } else {
+            return redirect()->back()->with('error', 'Bukti pembayaran belum diupload!');
+        }
+
+        $data = Order::where('no_invoice', $no_invoice)->update([
+            // 'payment_status' => 'paid',
+            'proof_of_payment' => $nama_file,
+        ]);
+        return redirect(url('/invoice/' . $no_invoice))->with('success', 'Payment berhasil diupload!');
     }
 }

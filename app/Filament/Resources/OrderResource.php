@@ -3,17 +3,23 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
-use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
-use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Split;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
+use Illuminate\Contracts\View\View;
 
 class OrderResource extends Resource
 {
@@ -25,7 +31,48 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Split::make([
+                    Section::make('Personal Information')
+                        ->schema([
+                            TextInput::make('no_invoice')->readOnly(),
+
+                            TextInput::make('title'),
+                            TextInput::make('full_name'),
+                            TextInput::make('company'),
+                            TextInput::make('address'),
+                            TextInput::make('telephone')
+                                ->tel()
+                                ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/'),
+                            TextInput::make('email'),
+
+                        ]),
+                    Section::make('Payment')
+                        ->schema([
+                            FileUpload::make('proof_of_payment')
+                                ->image()
+                                ->disk('public')
+                                ->imagePreviewHeight('500')
+                                ->visibility('public')
+                                ->imageEditor()
+                                ->previewable(true),
+                            Select::make('category_id')
+                                ->label('Category')
+                                ->relationship('category', 'name')
+                                ->native(false),
+                            Select::make('addon_id')
+                                ->label('Addon')
+                                ->relationship('addon', 'name'),
+                            TextInput::make('quantity')->numeric(),
+                            TextInput::make('total_price')->numeric(),
+                            Select::make('payment_status')
+                                ->options([
+                                    'paid' => 'paid',
+                                    'unpaid' => 'unpaid',
+                                    'cancelled' => 'cancelled',
+                                ])
+                                ->native(false),
+                        ]),
+                ])->from('xl')->columnSpanFull(),
             ]);
     }
 
@@ -46,18 +93,26 @@ class OrderResource extends Resource
                         'unpaid' => 'warning',
                         'paid' => 'success',
                         'cancelled' => 'danger',
+                        'waiting confirmation' => 'danger',
                     }),
             ])
             ->filters([
                 SelectFilter::make('payment_status')
                     ->options([
-                        'paid' => 'Paid',
-                        'unpaid' => 'Unpaid',
-                        'cancelled' => 'Cancelled',
+                        'paid' => 'paid',
+                        'unpaid' => 'unpaid',
+                        'cancelled' => 'cancelled',
+                        'waiting confirmation' => 'waiting confirmation',
                     ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('See Payment')
+                    ->modalContent(function (Order $record): View {
+                        return view('frontend.components.modal_image', compact('record'));
+                    })
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Close'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

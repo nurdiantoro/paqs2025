@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Addon extends Model
 {
     protected $guarded = '';
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'addon_id');
+    }
 }
