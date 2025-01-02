@@ -1,15 +1,14 @@
 @include('frontend.components.header')
 @include('frontend.components.navbar')
 <main>
-    <section id="pricing" class="pricing-area pt-113 pb-90 fix"
-        style="background-image:url({{ asset('img/registration.jpg') }}); background-size: cover;">
+    <section id="pricing" class=" pt-113 pb-90 fix" style="">
         <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-8">
                 <div class="section-title text-center mt-40 mb-20">
                     <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">
                         Registration Plans
                     </span>
-                    <h2 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".4s">
+                    <h2 class="wow fadeInUp animated !text-bold" data-animation="fadeInUp animated" data-delay=".4s">
                         For Brunei Residents
                     </h2>
                 </div>
@@ -17,7 +16,7 @@
         </div>
         <div class="container">
             <div class="row mb-40">
-                <div class="col-12 col-lg-3 col-md-3">
+                <div class="col-12 col-lg-3 col-md-6">
                     <div class="pricing-box text-center mb-30 wow fadeInDown animated"
                         data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="text-white text-lg bg-yellow-600 rounded-t-md px-4 py-2 inline-block tag">Early Bid
@@ -41,10 +40,9 @@
                                         class="fas fa-sign-in-alt"></i>Registration</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
-                <div class="col-12 col-lg-3 col-md-3">
+                <div class="col-12 col-lg-3 col-md-6">
                     <div class="pricing-box text-center mb-30 wow fadeInDown animated"
                         data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="text-white text-lg bg-yellow-600 rounded-t-md px-4 py-2 inline-block tag">Early Bid
@@ -68,10 +66,9 @@
                                         class="fas fa-sign-in-alt"></i>Registration</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
-                <div class="col-12 col-lg-3 col-md-3">
+                <div class="col-12 col-lg-3 col-md-6">
                     <div class="pricing-box text-center mb-30 wow fadeInDown animated"
                         data-animation="fadeInDown animated" data-delay=".2s">
                         {{-- <div class="text-white text-lg bg-yellow-600 rounded-t-md px-4 py-2 inline-block tag">Early Bid
@@ -95,10 +92,9 @@
                                         class="fas fa-sign-in-alt"></i>Registration</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
-                <div class="col-12 col-lg-3 col-md-3">
+                <div class="col-12 col-lg-3 col-md-6">
                     <div class="pricing-box text-center mb-30 wow fadeInDown animated"
                         data-animation="fadeInDown animated" data-delay=".2s">
                         {{-- <div class="text-white text-lg bg-yellow-600 rounded-t-md px-4 py-2 inline-block tag">Early Bid
@@ -122,7 +118,6 @@
                                         class="fas fa-sign-in-alt"></i>Registration</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -1,22 +1,30 @@
 <?php
 
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return view('frontend/homepage');
 });
-Route::get('/registration', [RegistrationController::class, 'index']);
-Route::get('/registration_form', [RegistrationController::class, 'form']);
-Route::get('/invoice/{no_invoice}', [RegistrationController::class, 'invoice']);
+Route::get('/about', [FrontendController::class, 'about']);
+Route::get('/programme', [FrontendController::class, 'programme']);
+Route::get('/general-information', [FrontendController::class, 'general_information']);
+Route::get('/programme', [FrontendController::class, 'programme']);
+Route::get('/contact', [FrontendController::class, 'contact']);
 
+
+Route::get('/registration', [FrontendController::class, 'registration']);
+Route::get('/registration_form', [FrontendController::class, 'registration_form']);
+Route::get('/invoice/{no_invoice}', [FrontendController::class, 'invoice']);
+Route::get('/invoice', [FrontendController::class, 'ticket']);
+
+
+Route::post('/order/check/', [FrontendController::class, 'check_invoice']);
 Route::post('/order/store', [OrderController::class, 'store']);
 Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'upload_payment']);
 
 
 Route::get('/test', function () {
-    // dd(Storage::disk('public')->files('8zhYCI5z5Jqm.png'));
-    dd(Storage::url('8zhYCI5z5Jqm.png'));
+    return view('test');
 });

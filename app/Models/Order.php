@@ -22,16 +22,21 @@ class Order extends Model
         static::updated(function ($order) {
             // $order->isDirty('payment_status' => ada perubahan di field payment_status
             // $order->payment_status === 'paid' => perubahan di field payment_status adalah paid
-            if ($order->isDirty('payment_status') && $order->payment_status === 'paid') {
-                for ($i = 0; $i < $order->quantity; $i++) {
-                    do {
-                        $barcode = random_int(10000000, 99999999);
-                    } while (Ticket::where('barcode', $barcode)->exists());
+            if ($order->isDirty('updated_at')) {
+                if ($order->is_confirmed == true) {
+                    Ticket::where('order_id', $order->id)->delete();
+                    for ($i = 0; $i < $order->quantity; $i++) {
+                        do {
+                            $barcode = random_int(10000000, 99999999);
+                        } while (Ticket::where('barcode', $barcode)->exists());
 
-                    Ticket::create([
-                        'order_id' => $order->id,
-                        'barcode' => $barcode,
-                    ]);
+                        Ticket::create([
+                            'order_id' => $order->id,
+                            'barcode' => $barcode,
+                        ]);
+                    }
+                } elseif ($order->is_confirmed == false) {
+                    Ticket::where('order_id', $order->id)->delete();
                 }
             }
         });

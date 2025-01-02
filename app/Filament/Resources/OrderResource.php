@@ -9,6 +9,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Resources\Resource;
@@ -19,6 +20,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Contracts\View\View;
 
 class OrderResource extends Resource
@@ -71,6 +73,7 @@ class OrderResource extends Resource
                                     'cancelled' => 'cancelled',
                                 ])
                                 ->native(false),
+                            Toggle::make('is_confirmed')->label('Confirmed'),
                         ]),
                 ])->from('xl')->columnSpanFull(),
             ]);
@@ -90,8 +93,8 @@ class OrderResource extends Resource
                     ->sortable()
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
-                        'unpaid' => 'warning',
                         'paid' => 'success',
+                        'unpaid' => 'warning',
                         'cancelled' => 'danger',
                         'waiting confirmation' => 'danger',
                     }),
@@ -115,9 +118,9 @@ class OrderResource extends Resource
                     ->modalCancelActionLabel('Close'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
