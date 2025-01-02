@@ -104,10 +104,12 @@
                             <?php $i = 1; ?>
                             @foreach ($tickets as $ticket)
                                 <div
-                                    class="mx-auto mb-4 text-center text-black flex-col flex gap-2 border rounded-xl p-4 text-xl">
-                                    <span>Ticket {{ $i }}</span>
-                                    {!! DNS2D::getBarcodeHTML('$ticket->barcode', 'QRCODE') !!}
-                                    <span>{{ $ticket->barcode }}</span>
+                                    class="mx-auto mb-4 text-center text-black flex-row flex gap-2 items-center border rounded-xl p-4 text-xl">
+                                    <?php echo DNS2D::getBarcodeSVG($ticket->barcode, 'QRCODE', 6, 6); ?>
+                                    <div class="flex flex-col justify-start items-start">
+                                        <span>Ticket {{ $i }}</span>
+                                        <span>#{{ $ticket->barcode }}</span>
+                                    </div>
                                 </div>
                                 <?php $i++; ?>
                             @endforeach
