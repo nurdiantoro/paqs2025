@@ -16,4 +16,7 @@ export default defineConfig({
             ],
         }),
     ],
+    server: {
+        host: process.env.APP_URL || '127.0.0.1',
+    },
 })
