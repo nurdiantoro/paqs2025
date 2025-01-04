@@ -23,7 +23,8 @@
                                 <h5 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">
                                     The Pacific Association of Quantity Surveyors</h5>
                             </div>
-                            <p>The Pacific Association of Quantity Surveyors (PAQS) is an international association
+                            <p class="wow fadeInUp animated">The Pacific Association of Quantity Surveyors (PAQS) is an
+                                international association
                                 representing quantity surveyors in the Asia and Western Pacific region. In the early
                                 1990s, several professionals and academics from various countries in the Pan Pacific
                                 region began discussing the benefits of closer cooperation among members of the
@@ -54,38 +55,7 @@
                                 <i class="fal fa-analytics"></i>
                             </div>
                             <div class="content">
-                                <h5>Great Speakers</h5>
-                                <p>Improve your career prospects with our master's programme and study at our newly.</p>
-                            </div>
-                        </div>
-                        <div class="feature-box text-left wow fadeInDown animated" data-animation="fadeInDown animated"
-                            data-delay=".2s">
-                            <div class="icon color2">
-                                <i class="far fa-users"></i>
-                            </div>
-                            <div class="content">
-                                <h5>New People</h5>
-                                <p>Improve your career prospects with our master's programme and study at our newly.</p>
-                            </div>
-                        </div>
-                        <div class="feature-box text-left wow fadeInDown animated" data-animation="fadeInDown animated"
-                            data-delay=".2s">
-                            <div class="icon color3">
-                                <i class="far fa-cogs"></i>
-                            </div>
-                            <div class="content">
-                                <h5>More Networking</h5>
-                                <p>Improve your career prospects with our master's programme and study at our newly.</p>
-                            </div>
-                        </div>
-                        <div class="feature-box text-left wow fadeInDown animated" data-animation="fadeInDown animated"
-                            data-delay=".2s">
-                            <div class="icon color4">
-                                <i class="fal fa-magic"></i>
-                            </div>
-                            <div class="content">
-                                <h5>Have Fun</h5>
-                                <p>Improve your career prospects with our master's programme and study at our newly.</p>
+                                <p>The promotion of the practice of Quantity Surveying (QS) in the region.</p>
                             </div>
                         </div>
 
