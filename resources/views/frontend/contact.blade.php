@@ -12,8 +12,8 @@
                     <div class="about-title second-atitle">
                         <span class="wow fadeInUp animated" data-animation="fadeInUp animated"
                             data-delay=".2s">Contact</span>
-                        <h2 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">Get
-                            Direction to the Event Hall</h2>
+                        <h2 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">Contact
+                            Information</h2>
                     </div>
                     <div class="feature-box text-left wow fadeInDown animated" data-animation="fadeInDown animated"
                         data-delay=".2s">
@@ -21,18 +21,34 @@
                             <i class="fal fa-map-marker-alt"></i>
                         </div>
                         <div class="content">
-                            <h5>Venue Location</h5>
-                            <p>1Hd- 50, 010 Avenue, NY 90001 United States</p>
+                            <h5>PAQS Congress 2024 Secretariat</h5>
+                            <p>Pertubuhan Ukur Jurutera & Arkitek (Brunei)
+                                PUJA Office Unit PC-L1, 04, Ground Floor
+                                Engineering Block, Phase 3 Building
+                                Universiti Teknologi Brunei
+                                Jalan Tungku Link, Gadong BE1410
+                                Brunei Darussalam</p>
                         </div>
                     </div>
                     <div class="feature-box text-left wow fadeInDown animated" data-animation="fadeInDown animated"
                         data-delay=".2s">
                         <div class="icon">
-                            <i class="far fa-ticket-alt"></i>
+                            <i class="far fa-envelope"></i>
                         </div>
                         <div class="content">
-                            <h5>Tickets info</h5>
-                            <p>Name: Rosalina D. Williamson<br>Phone: 009-215-5595<br>Email: info@epicexample.com</p>
+                            <h5>For any general questions, please contact us at :</h5>
+                            <table>
+                                <tr>
+                                    <td>email</td>
+                                    <td>:</td>
+                                    <td>info@paqs2024.com</td>
+                                </tr>
+                                <tr>
+                                    <td>email</td>
+                                    <td>:</td>
+                                    <td>paqs2024@gmail.com</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div class="feature-box text-left wow fadeInDown animated" data-animation="fadeInDown animated"
@@ -43,26 +59,6 @@
                         <div class="content">
                             <h5>Phone Number</h5>
                             <p>009-215-5595<br>009-215-5595</p>
-                        </div>
-                    </div>
-                    <div class="feature-box text-left wow fadeInDown animated" data-animation="fadeInDown animated"
-                        data-delay=".2s">
-                        <div class="icon">
-                            <i class="fal fa-home"></i>
-                        </div>
-                        <div class="content">
-                            <h5>Programme Details</h5>
-                            <p>Name: Rosalina D. Williamson<br>Phone: 009-215-5595<br>Email: info@epicexample.com</p>
-                        </div>
-                    </div>
-                    <div class="feature-box text-left wow fadeInDown animated" data-animation="fadeInDown animated"
-                        data-delay=".2s">
-                        <div class="icon">
-                            <i class="fal fa-globe"></i>
-                        </div>
-                        <div class="content">
-                            <h5>Booking Website</h5>
-                            <p>www.ticket.epicexample.com</p>
                         </div>
                     </div>
 

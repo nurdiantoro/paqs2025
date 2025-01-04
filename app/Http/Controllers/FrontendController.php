@@ -23,6 +23,14 @@ class FrontendController extends Controller
     {
         return view('frontend.programme');
     }
+    public function information()
+    {
+        return view('frontend.information');
+    }
+    public function venue()
+    {
+        return view('frontend.venue');
+    }
     public function contact()
     {
         return view('frontend.contact');

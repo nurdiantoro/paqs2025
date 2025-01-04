@@ -11,6 +11,7 @@ export default {
         extend: {
             colors: {
                 'warna-01': '#0c6196',
+                'warna-temp-02': '#ff007a',
             },
         },
 },

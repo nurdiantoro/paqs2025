@@ -70,7 +70,7 @@
 
 
 
-    <section id="about" class="about-area about-p pt-120 pb-120">
+    <section id="about" class="about-area about-p md:pt-60 pb-120 md:px-80">
         <div class="container">
             <div class="">
                 <div class="about-content s-about-content pl-30">
@@ -87,24 +87,31 @@
                         </h2>
                     </div>
                     <div class="wow fadeInDown animated" data-animation="fadeInUp animated" data-delay=".2s">
-                        <p>Providing a platform for sharing knowledge and best practise among Quantity Surveying
+                        <p class="text-lg">Providing a platform for sharing knowledge and best practise among Quantity
+                            Surveying
                             professionals in particular, and construction practitioners, consultants, developers,
                             and academics in general.
-                        </p>
-                        <p>Improving education and training in the field of Quantity Surveying</p>
-                        <p>Promoting best practices and compliance with international standards, ensuring quality
-                            services.</p>
-                        <p>Being part of PAQS means having access to a wide professional network across the Asia-Pacific
-                            region, which fosters collaboration and the exchange of various knowledge</p>
-                        <p>Improving professionalism and standards in the Quantity Surveying profession in the Asia and
-                            Western Pacific region</p>
-                        <p>By becoming a member of PAQS, you ensure that you are working with highly skilled and
+                            <br><br>Improving education and training in the field of Quantity Surveying
+                            <br><br>Promoting best practices and compliance with international standards, ensuring
+                            quality
+                            services.
+                            <br><br>Being part of PAQS means having access to a wide professional network across the
+                            Asia-Pacific
+                            region, which fosters collaboration and the exchange of various knowledge
+                            <br><br>Improving professionalism and standards in the Quantity Surveying profession in the
+                            Asia
+                            and
+                            Western Pacific region
+                            <br><br>By becoming a member of PAQS, you ensure that you are working with highly skilled
+                            and
                             knowledgeable professionals who adhere to international standards and ethical practices.
                             PAQS members benefit from continuous professional development and a strong network,
-                            enhancing their ability to provide high-quality services.</p>
-                        <p>Encouraging innovation and sustainability in the construction industry through international
-                            collaboration.</p>
-                        <a href="#" class="btn mt-20"><i class="far fa-ticket-alt"></i> Buy Ticket</a>
+                            enhancing their ability to provide high-quality services.
+                            <br><br>Encouraging innovation and sustainability in the construction industry through
+                            international
+                            collaboration.
+                        </p>
+                        <a href="{{ url('/registration') }}" class="btn mt-20"></i> Register Now</a>
                     </div>
                 </div>
             </div>
@@ -112,12 +119,12 @@
     </section>
 
 
-    <section class="counter-area pt-120 pb-120">
+    <section class="counter-area md:pt-120 pb-120 md:px-80">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
                     <div class="rounded-xl border-dashed border-2 border-warna-01 p-4">
-                        <p class="text-2xl font-bold text-black">PAQS Congress 2024: ‘Digitalisation Towards a Smart
+                        <p class="text-2xl font-bold text-black">PAQS Congress 2025: ‘Digitalisation Towards a Smart
                             Nation’</p>
                         <p class="mb-4">Learn what this congress offers attendees and how it can benefit your
                             professional development.</p>
@@ -130,10 +137,10 @@
                 </div>
                 <div class="col-md-3">
                     <div class="rounded-xl border-dashed border-2 border-warna-01 p-4">
-                        <p class="text-2xl font-bold text-black">Dive Deeper: Explore the PAQS Congress 2024 Programme
+                        <p class="text-2xl font-bold text-black">Dive Deeper: Explore the PAQS Congress 2025 Programme
                         </p>
                         <p class="mb-4">Get a glimpse of the exciting sessions, presentations, and events planned for
-                            PAQS Congress 2024! Explore the full program. </p>
+                            PAQS Congress 2025! Explore the full program. </p>
                         <a href="{{ url('/programme') }} " class="group py-2">
                             View Full Programme
                             <x-heroicon-o-arrow-long-right
@@ -145,7 +152,7 @@
                     <div class="rounded-xl border-dashed border-2 border-warna-01 p-4">
                         <p class="text-2xl font-bold text-black">Win a Travel Scholarship! Enter the PAQS-Iwata
                             Foundation Competition</p>
-                        <p class="mb-4">Apply for the PAQS-Iwata Foundation scholarship to attend PAQS 2024 and gain
+                        <p class="mb-4">Apply for the PAQS-Iwata Foundation scholarship to attend PAQS 2025 and gain
                             valuable international exposure</p>
                         <a href="{{ url('/competition') }} " class="group py-2">
                             Learn More & Apply
@@ -158,8 +165,8 @@
                     <div class="rounded-xl border-dashed border-2 border-warna-01 p-4">
                         <p class="text-2xl font-bold text-black">Share Your Research:
                             Submit Your Abstract for PAQS
-                            2024</p>
-                        <p class="mb-4">We invite submissions for the PAQS 2024 abstract competition. Showcase your
+                            2025</p>
+                        <p class="mb-4">We invite submissions for the PAQS 2025 abstract competition. Showcase your
                             research and gain recognition among a global audience. Learn more about the competition
                             guidelines and submit your abstract today</p>
                         <a href="{{ url('/abstract') }}" class="group py-2">
@@ -169,6 +176,52 @@
                         </a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="md:pt-120 pb-120 md:px-80">
+        <div class="container">
+            <div class="row items-center">
+                <div class="col-md-6">
+                    <img src="{{ asset('img/form.png') }}" class="h-80 mx-auto">
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <p class="text-4xl font-bold text-warna-temp-02">Register Now and Secure Your Spot at PAQS
+                            2025!</p>
+                        <p class="mb-4">Don’t miss out on the opportunity to:</p>
+                        <table class="border-none" border="0">
+                            <tr class="">
+                                <td class="border-none align-top p-0"><x-heroicon-c-check
+                                        class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
+                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">Learn from
+                                    industry leaders and experts. </td>
+                            </tr>
+                            <tr class="">
+                                <td class="border-none align-top p-0"><x-heroicon-c-check
+                                        class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
+                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">Network
+                                    with a global community of professionals.</td>
+                            </tr>
+                            <tr class="">
+                                <td class="border-none align-top p-0"><x-heroicon-c-check
+                                        class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
+                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">Gain
+                                    valuable insights and advance your career. </td>
+                            </tr>
+                            <tr class="">
+                                <td class="border-none align-top p-0"><x-heroicon-c-check
+                                        class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
+                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">
+                                    <strong>Register Now:</strong> Secure your spot at PAQS Congress 2025 and unlock a
+                                    world of possibilities!
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

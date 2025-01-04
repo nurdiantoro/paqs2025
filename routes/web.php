@@ -9,7 +9,8 @@ Route::get('/', function () {
 });
 Route::get('/about', [FrontendController::class, 'about']);
 Route::get('/programme', [FrontendController::class, 'programme']);
-Route::get('/general-information', [FrontendController::class, 'general_information']);
+Route::get('/general-information', [FrontendController::class, 'information']);
+Route::get('/venue', [FrontendController::class, 'venue']);
 Route::get('/programme', [FrontendController::class, 'programme']);
 Route::get('/contact', [FrontendController::class, 'contact']);
 
@@ -20,9 +21,9 @@ Route::get('/invoice/{no_invoice}', [FrontendController::class, 'invoice']);
 Route::get('/invoice', [FrontendController::class, 'ticket']);
 
 
-Route::post('/order/check/', [FrontendController::class, 'check_invoice']);
-Route::post('/order/store', [OrderController::class, 'store']);
-Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'upload_payment']);
+// Route::post('/order/check/', [FrontendController::class, 'check_invoice']);
+// Route::post('/order/store', [OrderController::class, 'store']);
+// Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'upload_payment']);
 
 
 Route::get('/test', function () {
