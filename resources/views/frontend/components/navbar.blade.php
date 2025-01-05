@@ -39,14 +39,14 @@
                                             <li><a href="{{ url('invoice') }}">Check Invoice</a></li>
                                         </ul>
                                     </li>
-                                    <li class="has-sub">
+                                    {{-- <li class="has-sub">
                                         <a class="{{ $navbarColor }}" href="#">Submission</a>
                                         <ul>
                                             <li><a href="{{ url('call-for-papers') }}">Call for Pappers</a></li>
                                             <li><a href="{{ url('competition') }}">PAQS-Iwata Scholarship
                                                     Competition</a></li>
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                     <li><a class="{{ $navbarColor }}" href="{{ url('contact') }}">Contact</a></li>
                                 </ul>
                             </nav>

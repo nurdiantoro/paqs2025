@@ -69,11 +69,11 @@
     </section>
 
 
-
-    <section id="about" class="about-area about-p md:pt-60 pb-120 md:px-80">
+    {{-- WHY become a PAQS Member --}}
+    <section id="about" class="about-area about-p md:pt-60 mb-80 md:px-80">
         <div class="container">
             <div class="">
-                <div class="about-content s-about-content pl-30">
+                <div class="about-content s-about-content">
                     <div class="about-title second-atitle">
                         <div class="text-outline wow fadeInUp animated" data-animation="fadeInUp animated"
                             data-delay=".2s">
@@ -86,40 +86,79 @@
                             become a PAQS Member
                         </h2>
                     </div>
-                    <div class="wow fadeInDown animated" data-animation="fadeInUp animated" data-delay=".2s">
-                        <p class="text-lg">Providing a platform for sharing knowledge and best practise among Quantity
-                            Surveying
-                            professionals in particular, and construction practitioners, consultants, developers,
-                            and academics in general.
-                            <br><br>Improving education and training in the field of Quantity Surveying
-                            <br><br>Promoting best practices and compliance with international standards, ensuring
-                            quality
-                            services.
-                            <br><br>Being part of PAQS means having access to a wide professional network across the
-                            Asia-Pacific
-                            region, which fosters collaboration and the exchange of various knowledge
-                            <br><br>Improving professionalism and standards in the Quantity Surveying profession in the
-                            Asia
-                            and
-                            Western Pacific region
-                            <br><br>By becoming a member of PAQS, you ensure that you are working with highly skilled
-                            and
-                            knowledgeable professionals who adhere to international standards and ethical practices.
-                            PAQS members benefit from continuous professional development and a strong network,
-                            enhancing their ability to provide high-quality services.
-                            <br><br>Encouraging innovation and sustainability in the construction industry through
-                            international
-                            collaboration.
-                        </p>
-                        <a href="{{ url('/registration') }}" class="btn mt-20"></i> Register Now</a>
+                    <div class="flex">
+                        <div class="wow fadeInDown animated lg:basis-1/2" data-animation="fadeInUp animated"
+                            data-delay=".2s">
+                            <p class="text-lg">1. Providing a platform for sharing knowledge and best practice among
+                                Quantity Surveying professionals in particular, and construction practitioners,
+                                consultants,
+                                developers, and academics in general.
+                                <br><br>2. Improving education and training in the field of Quantity Surveying
+                                <br><br>3. Promoting best practices and compliance with international standards,
+                                ensuring
+                                quality services.
+                                <br><br>4. Being part of PAQS means having access to a wide professional network across
+                                the
+                                Asia-Pacific region, which fosters collaboration and the exchange of various knowledge
+                                <br><br>5. Improving professionalism and standards in the Quantity Surveying profession
+                                in
+                                the Asia and Western Pacific region
+                                <br><br>
+                            </p>
+                        </div>
+                        <div class="wow fadeInDown animated lg:basis-1/2" data-animation="fadeInUp animated"
+                            data-delay=".2s">
+                            <p>By becoming a member of PAQS, you ensure that you are working with highly skilled
+                                and knowledgeable professionals who adhere to international standards and ethical
+                                practices.
+                                PAQS members benefit from continuous professional development and a strong network,
+                                enhancing their ability to provide high-quality services. Encouraging innovation and
+                                sustainability in the construction industry through international collaboration.</p>
+                        </div>
                     </div>
+                    <a href="{{ url('/registration') }}" class="btn mt-20"></i> Register Now</a>
                 </div>
             </div>
         </div>
     </section>
 
 
-    <section class="counter-area md:pt-120 pb-120 md:px-80">
+    <section class="py-40 mb-40 md:px-80 flex">
+        <div class="lg:w-1/2">
+            <p class="text-xl font-bold text-warna-temp-02 mb-2 text-center">2025 Congress Theme </p>
+            <p class="text-center">HARNESSING AI AND DIGITAL TECHNOLOGY FOR SMART CONSTRUCTION TOWARDS NET ZERO,
+                DECARBONIZING AND
+                INNOVATIVE
+                BUILDING MATERIALS </p>
+            <div class="flex flex-wrap text-center">
+                <div class="flex flex-col lg:basis-1/2 p-4">
+                    <span class="font-bold text-blue-950">AI-Driven Construction Innovations</span>
+                    <span>Leveraging artificial intelligence for predictive analytics,
+                        automation, and enhanced decision-making</span>
+                </div>
+                <div class="flex flex-col lg:basis-1/2 p-4">
+                    <span class="font-bold text-blue-950">Pathways to Net Zero and Decarbonization</span>
+                    <span>Cutting-edge approaches to reducing carbon footprints in
+                        construction processes</span>
+                </div>
+                <div class="flex flex-col lg:basis-1/2 p-4">
+                    <span class="font-bold text-blue-950">Breakthroughs in Sustainable Materials</span>
+                    <span>Next-generation materials that drive both innovation and
+                        environmental responsibility. Modular and Prefabricated</span>
+                </div>
+                <div class="flex flex-col lg:basis-1/2 p-4">
+                    <span class="font-bold text-blue-950">Construction</span>
+                    <span>Revolutionizing building techniques for speed, efficiency, and sustainability</span>
+                </div>
+            </div>
+        </div>
+        <div class="lg:w-1/2 items-center">
+            <img src="{{ asset('img/mic.png') }}" class="w-80 mx-auto">
+        </div>
+    </section>
+
+
+    {{-- <section class="counter-area py-40 mb-40 md:px-80">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -178,9 +217,9 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <section class="md:pt-120 pb-120 md:px-80">
+    <section class="py-40 mb-40 md:px-80">
         <div class="container">
             <div class="row items-center">
                 <div class="col-md-6">
@@ -195,19 +234,19 @@
                             <tr class="">
                                 <td class="border-none align-top p-0"><x-heroicon-c-check
                                         class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
-                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">Learn from
-                                    industry leaders and experts. </td>
+                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">1. Learn
+                                    from industry leaders and experts. </td>
                             </tr>
                             <tr class="">
                                 <td class="border-none align-top p-0"><x-heroicon-c-check
                                         class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
-                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">Network
+                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">2. Network
                                     with a global community of professionals.</td>
                             </tr>
                             <tr class="">
                                 <td class="border-none align-top p-0"><x-heroicon-c-check
                                         class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
-                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">Gain
+                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">3. Gain
                                     valuable insights and advance your career. </td>
                             </tr>
                             <tr class="">

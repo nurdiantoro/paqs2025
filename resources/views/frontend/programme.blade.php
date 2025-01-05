@@ -6,22 +6,102 @@
 <!-- main-area -->
 <main>
     <div class="event fix pt-120 pb-120 md:px-80">
-        <div class="section-t team-t paroller" data-paroller-factor="0.15" data-paroller-factor-lg="0.15"
-            data-paroller-factor-md="0.15" data-paroller-factor-sm="0.15" data-paroller-type="foreground"
-            data-paroller-direction="horizontal">
-            <h2>Event</h2>
-        </div>
         <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-8">
                 <div class="section-title text-center mb-80">
-                    <span class="wow fadeInUp animated" data-animation="fadeInUp animated"
-                        data-delay=".2s">Timeline</span>
+                    {{-- <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">Timeline</span> --}}
                     <h2 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">Programme
                     </h2>
                 </div>
             </div>
         </div>
+
         <div class="container">
+
+            <div class="mb-40">
+                <p class="font-semibold text-2xl text-black">Overview</p>
+                <p class="text-gray-400">The annual congress of the Pacific Association of Quantity Surveyors (PAQS) is
+                    a premier event that
+                    brings together professionals, academics, and industry leaders in the field of quantity surveying
+                    from across the Asia and Western Pacific region. This congress serves as a platform for sharing
+                    knowledge, discussing advancements, and fostering collaboration among member countries.</p>
+            </div>
+
+            <div class="mb-40">
+                <p class="font-semibold text-2xl text-black mb-4">Main Program</p>
+                <div class="text-gray-400 flex gap-4">
+                    <div class="bg-white shadow-xl rounded-lg p-3 lg:basis-1/4 flex flex-col">
+                        <span class="font-bold mb-2">Young QS</span>
+                        <span>The Young QS Program is designed to support and develop young professionals in the field
+                            of Quantity
+                            Surveying. Its main activities are:</span>
+                        <ul>
+                            <li>• Seminars and Workshops</li>
+                            <li>• Essay and Research Competitions</li>
+                            <li>• Networking and meetings</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white shadow-xl rounded-lg p-3 lg:basis-1/4 flex flex-col">
+                        <span class="font-bold mb-2">PAQS Meeting</span>
+                        <span>Internal meetings among PAQS member countries consist of:</span>
+                        <ul>
+                            <li>• committee meetings (Education, Digitalization, Research, and Sustainability),</li>
+                            <li>• member leadership meetings (Board Meetings) to discuss the developments in each member
+                                country.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white shadow-xl rounded-lg p-3 lg:basis-1/4 flex flex-col">
+                        <span class="font-bold mb-2">Call for Papers</span>
+                        <span>The Papers Conference provides a valuable platform for professionals and academics to
+                            share
+                            knowledge, collaborate, and contribute to the advancement of a more progressive and
+                            sustainable
+                            construction industry, with participants from various countries.</span>
+                    </div>
+                    <div class="bg-white shadow-xl rounded-lg p-3 lg:basis-1/4 flex flex-col">
+                        <span class="font-bold mb-2">Plenary Session</span>
+                        <span>This session will discuss the main topics of the congress, including panel sessions and
+                            discussions,
+                            technical presentations, and research and innovation sessions from various countries that
+                            have
+                            participated in the Paper Conferences held over two days, open to the public and serving as
+                            a
+                            platform for networking to capture opportunities and collaboration</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap">
+                <div class="mb-40 basis-1/2">
+                    <p class="font-semibold text-2xl text-black mb-4">Social Activity Program</p>
+                    <div class="text-gray-500 flex gap-4">
+                        <span class="rounded-xl bg-white shadow-lg p-2">Project Visit</span>
+                        <span class="rounded-xl bg-white shadow-lg p-2">Golf Tournament</span>
+                        <span class="rounded-xl bg-white shadow-lg p-2">Spouse Program</span>
+                        <span class="rounded-xl bg-white shadow-lg p-2">Gala Dinner</span>
+                        <span class="rounded-xl bg-white shadow-lg p-2">Exhibition</span>
+                    </div>
+                </div>
+                <div class="mb-40 basis-1/2">
+                    <p class="font-semibold text-2xl text-black mb-4">2025 Congress Theme </p>
+                    <p class="text-black mb-2">HARNESSING AI AND DIGITAL TECHNOLOGY FOR SMART CONSTRUCTION TOWARDS NET
+                        ZERO, DECARBONIZING AND INNOVATIVE BUILDING MATERIALS</p>
+                    <div class="text-gray-400 flex flex-col gap-2">
+                        <span>AI-Driven Construction Innovations: Leveraging artificial intelligence
+                            for predictive analytics, automation, and enhanced decision-making</span>
+                        <span>Pathways to Net Zero and Decarbonization: Cutting-edge approaches to reducing carbon
+                            footprints in construction processes.</span>
+                        <span>Breakthroughs in Sustainable Materials: Next-generation materials that drive both
+                            innovation and environmental responsibility. Modular and Prefabricated</span>
+                        <span>Construction: Revolutionizing building techniques for speed, efficiency, and
+                            sustainability.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Timeline --}}
+        {{-- <div class="container">
             <div class="row">
                 <div class="col-lg-12 ">
                     <nav class="wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
@@ -187,436 +267,6 @@
                                     Dinner</span>
                             </div>
                         </div>
-
-
-
-
-                        {{-- <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_1.png" alt="img">
-                                            <h5>Rosalina William</h5>
-                                            <p>UX Deisgn</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>UX Design Trend Party 2019</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_2.png" alt="img">
-                                            <h5>Kelian M. Bappe</h5>
-                                            <p>youtubing</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>Rokolo DJ Dancing 2019</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_3.png" alt="img">
-                                            <h5>Hiliniam Nelson</h5>
-                                            <p>UX Deisgn</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>Google Youtube Stratigic Party</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_4.png" alt="img">
-                                            <h5>Kimjing J. Jalim</h5>
-                                            <p>UX Deisgn</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>Intro Jiknim Jikis 2019</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                        </div>
-                        <div class="tab-pane fade" id="three" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_1.png" alt="img">
-                                            <h5>Rosalina William</h5>
-                                            <p>UX Deisgn</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>UX Design Trend Party 2019</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_2.png" alt="img">
-                                            <h5>Kelian M. Bappe</h5>
-                                            <p>youtubing</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>Rokolo DJ Dancing 2019</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_3.png" alt="img">
-                                            <h5>Hiliniam Nelson</h5>
-                                            <p>UX Deisgn</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>Google Youtube Stratigic Party</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_4.png" alt="img">
-                                            <h5>Kimjing J. Jalim</h5>
-                                            <p>UX Deisgn</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>Intro Jiknim Jikis 2019</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                        </div>
-                        <div class="tab-pane fade" id="four" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_1.png" alt="img">
-                                            <h5>Rosalina William</h5>
-                                            <p>UX Deisgn</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>UX Design Trend Party 2019</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_2.png" alt="img">
-                                            <h5>Kelian M. Bappe</h5>
-                                            <p>youtubing</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>Rokolo DJ Dancing 2019</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_3.png" alt="img">
-                                            <h5>Hiliniam Nelson</h5>
-                                            <p>UX Deisgn</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>Google Youtube Stratigic Party</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                            <!-- row loop -->
-                            <div class="row mb-30">
-                                <div class="col-lg-2">
-                                    <div class="user">
-                                        <div class="title">
-                                            <img src="img/event_avatar_4.png" alt="img">
-                                            <h5>Kimjing J. Jalim</h5>
-                                            <p>UX Deisgn</p>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fal fa-coffee"></i> Coffe & Snacks</li>
-                                            <li><i class="fal fa-video"></i> Video Streming</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-10">
-                                    <div class="event-list-content fix">
-                                        <ul data-animation="fadeInUp animated" data-delay=".2s"
-                                            style="animation-delay: 0.2s;" class="">
-                                            <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-                                            <li><i class="far fa-clock"></i> 9.30 - 10.30 AM</li>
-                                        </ul>
-                                        <h2>Intro Jiknim Jikis 2019</h2>
-                                        <p>In order to save time you have to break down the content strategy for the
-                                            event or conference you are planning step by step. Creating this process
-                                            from scratch will take the longest amount of time to build, but once you
-                                            have content production foundation.</p>
-                                        <a href="#" class="btn mt-20 mr-10"><i class="far fa-ticket-alt"></i>
-                                            Buy Ticket</a>
-                                        <a href="#" class="btn mt-20">Read More</a>
-                                        <div class="crical"><i class="fal fa-video"></i> </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row loop -->
-                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-12 justify-content-center text-center">
@@ -624,7 +274,7 @@
                             class="w-8 h-8 inline" /></a>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </main>
 <!-- main-area-end -->

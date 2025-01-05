@@ -9,13 +9,13 @@
                                 <a href="{{ url('/') }}"><img src="{{ asset('img/LOGO PAQS CONGRESS.png') }}"
                                         alt="logo" class="h-12 mx-auto"></a>
                             </div>
-                            <div class="footer-text mb-20">
+                            {{-- <div class="footer-text mb-20">
                                 <p>The role of the Indonesian Association of Quantity Surveyors (IQSI) is crucial in
                                     addressing these challenges. IQSI can play a significant role in enhancing QS
                                     education and certification through internationally recognized training and
                                     accreditation programs, especially in PAQS (Pacific Association of Quantity
                                     Surveyors) member countries</p>
-                            </div>
+                            </div> --}}
                             <div class="footer-social">
                                 <a href="https://www.instagram.com/pujabrunei/"><i class="fab fa-instagram"></i></a>
                                 <a href="https://pujabrunei.com/"><i class="fas fa-globe"></i></a>

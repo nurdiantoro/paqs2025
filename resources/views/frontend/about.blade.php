@@ -7,41 +7,91 @@
 <main>
     <div class=" mt-140 min-h-screen mb-50 px-80">
         <div class="mb-60">
-            <div>
+            <div class="mb-40">
                 <div class="about-title second-atitle relative">
                     <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">About
                         Us</span>
                     <h2 class="wow fadeInUp animated text-bold" data-animation="fadeInUp animated" data-delay=".2s">
                         PAQS</h2>
                     <h5 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">
-                        The Pacific Association of Quantity Surveyors</h5>
+                        What is PAQS Congress</h5>
                 </div>
-                <p class="wow fadeInUp animated">The Pacific Association of Quantity Surveyors (PAQS) is an
-                    international association
-                    representing quantity surveyors in the Asia and Western Pacific region. In the early
-                    1990s, several professionals and academics from various countries in the Pan Pacific
-                    region began discussing the benefits of closer cooperation among members of the
-                    profession in different countries. On May 20, 1994, at the invitation of the Australian
-                    Institute of Quantity Surveyors (AIQS) and the New Zealand Institute of Quantity
-                    Surveyors (NZIQS), several professional organizations representing Quantity Surveyors in
-                    their respective countries attended a Regional Cooperation Workshop in Fremantle,
-                    Western Australia. The result of the workshop was the signing of a Memorandum of
-                    Understanding by the participants, initiating the process of forming a regional
-                    organization for Quantity Surveyors. In May 1995, AIQS hosted the Pan Pacific Congress
-                    on the Gold Coast, Queensland, and all signatories of the 1994 Memorandum of
-                    Understanding were invited to attend. At this meeting, it was agreed to form PAQS and
-                    establish various working groups to prepare for the official formation of this new body.
-                    In May 1996, another PAQS meeting was held in Hong Kong, where the first Chairman was
-                    appointed, and the draft Constitution prepared by NZIQS was officially accepted for the
-                    formation of PAQS. Professor Dennis Lenard from AIQS was confirmed as the first Chairman
-                    of PAQS, and AIQS accepted the role of PAQS Secretariat. PAQS was officially established
-                    to promote best practices in Quantity Surveying in the region, encourage dialogue among
-                    member organizations, and support relevant research for a better understanding of
-                    building practices in the region.
+                <p class="wow fadeInUp animated">The annual congress of the Pacific Association of Quantity Surveyors
+                    (PAQS) is a premier event that brings together professionals, academics, and industry leaders in the
+                    field of quantity surveying from across the Asia and Western Pacific region. This congress serves as
+                    a platform for sharing knowledge, discussing advancements, and fostering collaboration among member
+                    countries.
+                    <br><br>
+                    Each year, the congress features a series of keynote speeches, panel discussions, and technical
+                    sessions covering a wide range of topics, including construction practices, digitalization in
+                    quantity surveying, and innovative project management techniques.
+                    <br><br>
+                    The event also provides numerous networking opportunities, allowing participants to connect with
+                    peers, exchange ideas, and explore potential partnerships. The PAQS Congress is not only an
+                    important opportunity for professional development but also a celebration of the achievements and
+                    contributions of Quantity Surveyors in shaping the built environment.
+                </p>
+            </div>
+            <div class="mb-40">
+                <h5 class="wow fadeInUp animated text-2xl font-semibold" data-animation="fadeInUp animated"
+                    data-delay=".2s">
+                    Congress Goals</h5>
+                <ul class="wow fadeInUp animated">
+                    <li>Enhancing the standards of professionalism in the Quantity Surveying profession in the Asia
+                        and Western Pacific region.</li>
+                    <li>Encouraging collaboration and knowledge exchange among Quantity Surveying professionals from
+                        various countries</li>
+                    <li>Promoting innovation in technology and environmentally friendly practices in the construction
+                        industry</li>
+                    <li>Improving education and training for Quantity Surveyors, including the accreditation of
+                        related educational programs</li>
+                    <li>Discussing and promoting digitalization in the construction industry towards the development
+                        of smart cities and nations</li>
+                </ul>
+            </div>
+            <div class="mb-40">
+                <h5 class="wow fadeInUp animated text-2xl font-semibold" data-animation="fadeInUp animated"
+                    data-delay=".2s">
+                    Target Audience</h5>
+                <ul class="wow fadeInUp animated">
+                    <li>Professional QS</li>
+                    <li>Suppliers</li>
+                    <li>Developer & Property</li>
+                    <li>Consultant Engineering & Architect</li>
+                    <li>Academicians & Researcher</li>
+                    <li>Government & Regulatory</li>
+                </ul>
+            </div>
+            <div class="mb-40">
+                <h5 class="wow fadeInUp animated text-2xl font-semibold" data-animation="fadeInUp animated"
+                    data-delay=".2s">
+                    Overview of Indonesia’s Quantity Surveyor</h5>
+                <p class="wow fadeInUp animated">The Quantity Surveyor (QS) profession in Indonesia faces several major
+                    challenges that affect their
+                    effectiveness and development in the construction industry. Primarily, there is a lack of education
+                    and certification, with formal education programs and specialized training for QS still limited,
+                    resulting in many QS professionals not having internationally recognized certifications.
+                    Additionally, differences in understanding contracts among parties involved in construction projects
+                    often lead to conflicts and ambiguities in project execution. Although digitalization is a global
+                    trend, the adoption of digital technology in Indonesia’s construction industry is still relatively
+                    slow, necessitating QS professionals to master new technologies to improve their work efficiency and
+                    accuracy. The availability of skilled and experienced QS labor also remains a challenge, especially
+                    in handling large and complex projects. The lack of clear and uniform national contract standards
+                    makes project management processes more complicated and prone to errors. Lastly, promoting
+                    environmentally friendly practices and sustainability in construction projects remains a challenge,
+                    particularly in terms of cost and the implementation of green technologies. Addressing these
+                    challenges requires collaborative efforts between the government, educational institutions, and the
+                    construction industry to enhance the quality and professionalism of QS in Indonesia.
+                    <br><br>
+                    The role of the Indonesian Association of Quantity Surveyors (IQSI) is crucial in addressing these
+                    challenges. IQSI can play a significant role in enhancing QS education and certification through
+                    internationally recognized training and accreditation programs, especially in PAQS (Pacific
+                    Association of Quantity Surveyors) member countries
                 </p>
             </div>
         </div>
-        <div class="mb-60">
+
+        {{-- <div class="mb-60">
             <span></span>
             <div class="row items-start">
                 <div class="col-md-4 mb-4 wow fadeInDown md:px-12 animated flex flex-row items-start"
@@ -102,32 +152,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="mb-60">
-            <div>
-                <div class="about-title second-atitle relative">
-                    <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">ABOUT
-                        PUJA</span>
-                    <h5 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">
-                        The Institution of Surveyors, Engineers, and Architects (Brunei)</h5>
-                </div>
-                <p class="wow fadeInUp animated">This year, Brunei is proud to once again host the PAQS
-                    Congress, organised by the Surveyor Division of Pertubuhan Ukur, Jurutera & Arkitek
-                    (Institution of Surveyors, Engineers, and Architects), Brunei (PUJA). Established in 1984,
-                    PUJA has been the leading organisation in surveying, engineering, and architecture in the
-                    nation, dedicated to advancing professional standards and fostering innovation within the
-                    industry.
-                    Building on the success of the 16th PAQS Congress held in Brunei in 2012, this year’s
-                    gathering holds even greater significance as it continues to showcase Brunei’s ongoing
-                    commitment to propelling the fields of surveying, engineering, and architecture onto the
-                    global forefront. Brunei Darussalam, renowned for its rich cultural heritage, pristine
-                    landscapes, and warm hospitality, provides the perfect backdrop for this esteemed event.
-                    Delegates can look forward to not only engaging in thought-provoking discussions and forging
-                    connections but also immersing themselves in the captivating charm of The Abode of Peace.
-                </p>
-            </div>
-        </div>
+        </div> --}}
     </div>
 </main>
 <!-- main-area-end -->
