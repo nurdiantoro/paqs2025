@@ -160,8 +160,8 @@
     </section>
 
 
-    <section class="py-40 mb-40 md:px-80 flex lg:flex-col flex-row gap-24">
-        <div class="">
+    <section class="py-40 mb-40 md:px-80 flex lg:flex-col flex-row gap-24 items-center">
+        <div class="grow relative z-10">
             <p class="text-4xl font-bold text-warna-temp-02 mb-2 text-center wow fadeInLeft animated">2025 Congress
                 Theme
             </p>
@@ -206,8 +206,8 @@
                 </div>
             </div>
         </div>
-        <div class="wow fadeInRight animated">
-            <img src="{{ asset('img/cloud-computing.png') }}" class="w-2xl h-auto">
+        <div class="wow fadeInRight animated flex-none relative w-64">
+            <img src="{{ asset('img/cloud-computing.png') }}" class="w-80 absolute top-0 right-20 scale-[2] -z-10">
         </div>
     </section>
 
@@ -282,11 +282,11 @@
                 </div>
                 <div class="flex-1 wow fadeInUp animated">
                     <div class="px-24">
-                        <p class="text-4xl font-bold text-gray-300"><span class="text-white">Register</span> and
+                        <p class="text-4xl font-bold"><span class="text-white">Register</span> and
                             Secure
                             Your Spot at PAQS
                             2025!</p>
-                        <p class="mb-4 text-xl text-sky-600">Don’t miss out on the opportunity to:</p>
+                        <p class="mt-4 text-xl text-sky-600">Don’t miss out on the opportunity to:</p>
                         <table class="border-none mb-4" border="0">
                             <tr class="">
                                 <td class="border-none align-top p-0"><x-heroicon-c-check
