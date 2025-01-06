@@ -89,71 +89,125 @@
                     <div class="flex">
                         <div class="wow fadeInDown animated lg:basis-1/2" data-animation="fadeInUp animated"
                             data-delay=".2s">
-                            <p class="text-lg">1. Providing a platform for sharing knowledge and best practice among
-                                Quantity Surveying professionals in particular, and construction practitioners,
-                                consultants,
-                                developers, and academics in general.
-                                <br><br>2. Improving education and training in the field of Quantity Surveying
-                                <br><br>3. Promoting best practices and compliance with international standards,
-                                ensuring
-                                quality services.
-                                <br><br>4. Being part of PAQS means having access to a wide professional network across
-                                the
-                                Asia-Pacific region, which fosters collaboration and the exchange of various knowledge
-                                <br><br>5. Improving professionalism and standards in the Quantity Surveying profession
-                                in
-                                the Asia and Western Pacific region
-                                <br><br>
-                            </p>
+                            <table class="mb-8 text-justify">
+                                <tr>
+                                    <td><x-lucide-network class="w-8 h-8 mr-2" /></td>
+                                    <td class="text-lg">Providing a platform for sharing knowledge and best practice
+                                        among Quantity
+                                        Surveying professionals in particular, and construction practitioners,
+                                        consultants, developers, and academics in general</td>
+                                </tr>
+                                <tr>
+                                    <td><x-uni-graduation-cap-o class="w-8 h-8 mr-2" /></td>
+                                    <td class="text-lg">Improving education and training in the field of Quantity
+                                        Surveying</td>
+                                </tr>
+                                <tr>
+                                    <td><x-heroicon-o-trophy class="w-8 h-8 mr-2" /></td>
+                                    <td class="text-lg">Promoting best practices and compliance with international
+                                        standards, ensuring
+                                        quality services</td>
+                                </tr>
+                                <tr>
+                                    <td><x-akar-people-group class="w-8 h-8 mr-2" /></td>
+                                    <td class="text-lg">Being part of PAQS means having access to a wide professional
+                                        network across the
+                                        Asia-Pacific region, which fosters collaboration and the exchange of various
+                                        knowledge</td>
+                                </tr>
+                                <tr>
+                                    <td><x-lucide-file-badge-2 class="w-8 h-8 mr-2" /></td>
+                                    <td class="text-lg">Improving professionalism and standards in the Quantity
+                                        Surveying profession in
+                                        the Asia and Western Pacific region</td>
+                                </tr>
+                            </table>
+                            <a href="{{ url('/registration') }}" class="btn mx-auto"></i> Register Now</a>
                         </div>
                         <div class="wow fadeInDown animated lg:basis-1/2" data-animation="fadeInUp animated"
                             data-delay=".2s">
-                            <p>By becoming a member of PAQS, you ensure that you are working with highly skilled
-                                and knowledgeable professionals who adhere to international standards and ethical
-                                practices.
-                                PAQS members benefit from continuous professional development and a strong network,
-                                enhancing their ability to provide high-quality services. Encouraging innovation and
-                                sustainability in the construction industry through international collaboration.</p>
+                            <div
+                                class="rounded-xl bg-white shadow-lg p-4 lg:w-1/2 mx-auto relative before:contents[''] before:absolute before:w-full before:h-full before:top-20 before:left-10 before:z-[-1] before:bg-sky-100 before:rounded-xl">
+                                <p class="m-0 text-justify"><x-bxs-quote-right class="w-8 h-8" />By becoming a member of
+                                    PAQS, you
+                                    ensure that you are
+                                    working with
+                                    highly skilled
+                                    and knowledgeable professionals who adhere to international standards and ethical
+                                    practices.
+                                    PAQS members benefit from continuous professional development and a strong network,
+                                    enhancing their ability to provide high-quality services. Encouraging innovation and
+                                    sustainability in the construction industry through international collaboration.</p>
+                                <div class="flex flex-row -space-x-2 absolute -right-6 -bottom-16 ">
+                                    <img src="{{ asset('img/avatar1.png') }}"
+                                        class="w-12 h-12 rounded-full border border-sky-100 z-50">
+                                    <img src="{{ asset('img/avatar2.png') }}"
+                                        class="w-12 h-12 rounded-full border border-sky-100 z-40">
+                                    <img src="{{ asset('img/avatar3.png') }}"
+                                        class="w-12 h-12 rounded-full border border-sky-100 z-30">
+                                    <img src="{{ asset('img/avatar4.png') }}"
+                                        class="w-12 h-12 rounded-full border border-sky-100 z-20">
+                                    <img src="{{ asset('img/avatar5.png') }}"
+                                        class="w-12 h-12 rounded-full border border-sky-100 z-10">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <a href="{{ url('/registration') }}" class="btn mt-20"></i> Register Now</a>
+
                 </div>
             </div>
         </div>
     </section>
 
 
-    <section class="py-40 mb-40 md:px-80 flex">
-        <div class="lg:w-1/2">
-            <p class="text-xl font-bold text-warna-temp-02 mb-2 text-center">2025 Congress Theme </p>
-            <p class="text-center">HARNESSING AI AND DIGITAL TECHNOLOGY FOR SMART CONSTRUCTION TOWARDS NET ZERO,
-                DECARBONIZING AND
-                INNOVATIVE
-                BUILDING MATERIALS </p>
-            <div class="flex flex-wrap text-center">
-                <div class="flex flex-col lg:basis-1/2 p-4">
-                    <span class="font-bold text-blue-950">AI-Driven Construction Innovations</span>
-                    <span>Leveraging artificial intelligence for predictive analytics,
-                        automation, and enhanced decision-making</span>
+    <section class="py-40 mb-40 md:px-80 flex lg:flex-col flex-row gap-24">
+        <div class="">
+            <p class="text-4xl font-bold text-warna-temp-02 mb-2 text-center wow fadeInLeft animated">2025 Congress
+                Theme
+            </p>
+            <p
+                class="text-center capitalize mb-12 text-black font-semibold text-xl lg:w-1/2 lg:mx-auto wow fadeInLeft animated">
+                Harnessing Ai
+                And Digital
+                Technology For Smart Construction Towards
+                Net Zero, Decarbonizing And Innovative Building Materials </p>
+            <div class="flex text-center gap-8 wow fadeInLeft animated">
+                <div
+                    class="flex flex-col flex-1 p-2 relative before:contents[''] before:absolute before:w-full before:h-20 before:bottom-0 before:left-0 z-50 before:-z-50 before:bg-sky-400 before:rounded-2xl">
+                    <div class="flex flex-col flex-1 p-4 bg-white rounded-xl shadow-lg h-auto relative">
+                        <span class="font-bold text-slate-800">AI-Driven Construction Innovations</span>
+                        <span class="mt-2">Leveraging artificial intelligence for predictive analytics,
+                            automation, and enhanced decision-making</span>
+                    </div>
                 </div>
-                <div class="flex flex-col lg:basis-1/2 p-4">
-                    <span class="font-bold text-blue-950">Pathways to Net Zero and Decarbonization</span>
-                    <span>Cutting-edge approaches to reducing carbon footprints in
-                        construction processes</span>
+                <div
+                    class="flex flex-col flex-1 p-2 relative before:contents[''] before:absolute before:w-full before:h-20 before:bottom-0 before:left-0 z-50 before:-z-50 before:bg-green-400 before:rounded-2xl">
+                    <div class="flex flex-col flex-1 p-4 bg-white rounded-xl shadow-lg h-auto relative">
+                        <span class="font-bold text-slate-800">Pathways to Net Zero and Decarbonization</span>
+                        <span class="mt-2">Cutting-edge approaches to reducing carbon footprints in
+                            construction processes</span>
+                    </div>
                 </div>
-                <div class="flex flex-col lg:basis-1/2 p-4">
-                    <span class="font-bold text-blue-950">Breakthroughs in Sustainable Materials</span>
-                    <span>Next-generation materials that drive both innovation and
-                        environmental responsibility. Modular and Prefabricated</span>
+                <div
+                    class="flex flex-col flex-1 p-2 relative before:contents[''] before:absolute before:w-full before:h-20 before:bottom-0 before:left-0 z-50 before:-z-50 before:bg-yellow-400 before:rounded-2xl">
+                    <div class="flex flex-col flex-1 p-4 bg-white rounded-xl shadow-lg h-auto relative">
+                        <span class="font-bold text-slate-800">Breakthroughs in Sustainable Materials</span>
+                        <span class="mt-2">Next-generation materials that drive both innovation and
+                            environmental responsibility. Modular and Prefabricated</span>
+                    </div>
                 </div>
-                <div class="flex flex-col lg:basis-1/2 p-4">
-                    <span class="font-bold text-blue-950">Construction</span>
-                    <span>Revolutionizing building techniques for speed, efficiency, and sustainability</span>
+                <div
+                    class="flex flex-col flex-1 p-2 relative before:contents[''] before:absolute before:w-full before:h-20 before:bottom-0 before:left-0 z-50 before:-z-50 before:bg-red-500 before:rounded-2xl">
+                    <div class="flex flex-col flex-1 p-4 bg-white rounded-xl shadow-lg h-auto relative">
+                        <span class="font-bold text-slate-800">Construction</span>
+                        <span class="mt-2">Revolutionizing building techniques for speed, efficiency, and
+                            sustainability</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="lg:w-1/2 items-center">
-            <img src="{{ asset('img/mic.png') }}" class="w-80 mx-auto">
+        <div class="wow fadeInRight animated">
+            <img src="{{ asset('img/cloud-computing.png') }}" class="w-2xl h-auto">
         </div>
     </section>
 
@@ -221,43 +275,47 @@
 
     <section class="py-40 mb-40 md:px-80">
         <div class="container">
-            <div class="row items-center">
-                <div class="col-md-6">
-                    <img src="{{ asset('img/form.png') }}" class="h-80 mx-auto">
+            <div
+                class="flex items-center bg-slate-800 p-8 rounded-[30px] relative before:bg-[url('{{ asset('img/blue-background.png') }}')] before:bg-cover before:block before:h-full before:w-full before:absolute before:rounded-[30px] before:z-0">
+                <div class="flex-1 wow fadeInUp animated">
+                    <img src="{{ asset('img/Register Now.png') }}" class="h-80 mx-auto scale-[1.75]">
                 </div>
-                <div class="col-md-6">
-                    <div class="">
-                        <p class="text-4xl font-bold text-warna-temp-02">Register Now and Secure Your Spot at PAQS
+                <div class="flex-1 wow fadeInUp animated">
+                    <div class="px-24">
+                        <p class="text-4xl font-bold text-gray-300"><span class="text-white">Register</span> and
+                            Secure
+                            Your Spot at PAQS
                             2025!</p>
-                        <p class="mb-4">Don’t miss out on the opportunity to:</p>
-                        <table class="border-none" border="0">
+                        <p class="mb-4 text-xl text-sky-600">Don’t miss out on the opportunity to:</p>
+                        <table class="border-none mb-4" border="0">
                             <tr class="">
                                 <td class="border-none align-top p-0"><x-heroicon-c-check
-                                        class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
-                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">1. Learn
+                                        class="w-7 h-7 text-sky-400" /></td>
+                                <td class="border-none align-top pl-2 pb-2 pt-0 pr-0 text-sky-600 text-xl">Learn
                                     from industry leaders and experts. </td>
                             </tr>
                             <tr class="">
                                 <td class="border-none align-top p-0"><x-heroicon-c-check
-                                        class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
-                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">2. Network
+                                        class="w-7 h-7 text-sky-400" /></td>
+                                <td class="border-none align-top pl-2 pb-2 pt-0 pr-0 text-sky-600 text-xl">Network
                                     with a global community of professionals.</td>
                             </tr>
                             <tr class="">
                                 <td class="border-none align-top p-0"><x-heroicon-c-check
-                                        class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
-                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">3. Gain
+                                        class="w-7 h-7 text-sky-400" /></td>
+                                <td class="border-none align-top pl-2 pb-2 pt-0 pr-0 text-sky-600 text-xl">Gain
                                     valuable insights and advance your career. </td>
                             </tr>
                             <tr class="">
                                 <td class="border-none align-top p-0"><x-heroicon-c-check
-                                        class="w-7 h-7 text-green-700 bg-green-100 p-1 rounded-full" /></td>
-                                <td class="border-none align-top pl-2 pb-4 pt-0 pr-0 text-blue-900 text-xl">
+                                        class="w-7 h-7 text-sky-400" /></td>
+                                <td class="border-none align-top pl-2 pb-2 pt-0 pr-0 text-sky-600 text-xl">
                                     <strong>Register Now:</strong> Secure your spot at PAQS Congress 2025 and unlock a
                                     world of possibilities!
                                 </td>
                             </tr>
                         </table>
+                        <a href="{{ url('/registration') }}" class="btn mx-auto"></i> Register Now</a>
                     </div>
                 </div>
 

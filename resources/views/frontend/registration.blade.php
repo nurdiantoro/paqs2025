@@ -9,7 +9,7 @@
                         Registration Plans
                     </span>
                     <h2 class="wow fadeInUp animated !text-bold" data-animation="fadeInUp animated" data-delay=".4s">
-                        For Brunei Residents
+                        PAQS Congress 2025
                     </h2>
                 </div>
             </div>
@@ -29,10 +29,10 @@
                         </div>
                         <div class="pricing-body bg-white rounded-b-xl w-full">
                             <ul class="w-full text-left">
-                                <li style="list-style-type: disc;">Early Bird Rate (ends on 7 July 2024)</li>
+                                <li style="list-style-type: disc;">Early Bird Rate (ends on 7 July 2025)</li>
                                 <li style="list-style-type: disc;">Pricing: All prices listed are in BND.</li>
-                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2024.com (cc:
-                                    paqs2024@gmail.com) for details.
+                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2025.com (cc:
+                                    paqs2025@gmail.com) for details.
                                 </li>
                             </ul>
                             <div class="pricing-btn mt-10">
@@ -55,10 +55,10 @@
                         </div>
                         <div class="pricing-body bg-white rounded-b-xl w-full">
                             <ul class="w-full text-left">
-                                <li style="list-style-type: disc;">Early Bird Rate (ends on 7 July 2024)</li>
+                                <li style="list-style-type: disc;">Early Bird Rate (ends on 7 July 2025)</li>
                                 <li style="list-style-type: disc;">Pricing: All prices listed are in BND.</li>
-                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2024.com (cc:
-                                    paqs2024@gmail.com) for details.
+                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2025.com (cc:
+                                    paqs2025@gmail.com) for details.
                                 </li>
                             </ul>
                             <div class="pricing-btn mt-10">
@@ -81,10 +81,10 @@
                         </div>
                         <div class="pricing-body bg-white rounded-b-xl w-full">
                             <ul class="w-full text-left">
-                                <li style="list-style-type: disc;">Ends on 17 Aug 2024</li>
+                                <li style="list-style-type: disc;">Ends on 17 Aug 2025</li>
                                 <li style="list-style-type: disc;">Pricing: All prices listed are in BND.</li>
-                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2024.com (cc:
-                                    paqs2024@gmail.com) for details.
+                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2025.com (cc:
+                                    paqs2025@gmail.com) for details.
                                 </li>
                             </ul>
                             <div class="pricing-btn mt-10">
@@ -100,17 +100,17 @@
                         {{-- <div class="text-white text-lg bg-yellow-600 rounded-t-md px-4 py-2 inline-block tag">Early Bid
                         </div> --}}
                         <div class="pricing-head bg-white rounded-t-xl">
-                            <h4>PAQS Golf 2024</h4>
+                            <h4>PAQS Golf 2025</h4>
                             <div class="price-count mb-30">
                                 <h2><small>BND</small>250</h2>
                             </div>
                         </div>
                         <div class="pricing-body bg-white rounded-b-xl w-full">
                             <ul class="w-full text-left">
-                                <li style="list-style-type: disc;">Ends on 17 Aug 2024</li>
+                                <li style="list-style-type: disc;">Ends on 17 Aug 2025</li>
                                 <li style="list-style-type: disc;">Pricing: All prices listed are in BND.</li>
-                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2024.com (cc:
-                                    paqs2024@gmail.com) for details.
+                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2025.com (cc:
+                                    paqs2025@gmail.com) for details.
                                 </li>
                             </ul>
                             <div class="pricing-btn mt-10">
