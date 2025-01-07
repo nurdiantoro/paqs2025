@@ -4,9 +4,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('frontend/homepage');
-});
+Route::get('/', [FrontendController::class, 'index']);
 Route::get('/about', [FrontendController::class, 'about']);
 Route::get('/programme', [FrontendController::class, 'programme']);
 Route::get('/general-information', [FrontendController::class, 'information']);

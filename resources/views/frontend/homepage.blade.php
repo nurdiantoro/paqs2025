@@ -212,66 +212,52 @@
     </section>
 
 
-    {{-- <section class="counter-area py-40 mb-40 md:px-80">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="rounded-xl border-dashed border-2 border-warna-01 p-4">
-                        <p class="text-2xl font-bold text-black">PAQS Congress 2025: ‘Digitalisation Towards a Smart
-                            Nation’</p>
-                        <p class="mb-4">Learn what this congress offers attendees and how it can benefit your
-                            professional development.</p>
-                        <a href="{{ url('/about') }} " class="group py-2">
-                            Learn More
-                            <x-heroicon-o-arrow-long-right
-                                class="w-6 h-6 inline group-hover:translate-x-2 transition duration-300" />
-                        </a>
+    {{-- Timeline --}}
+    <section class="py-40 mb-40 md:px-80 flex lg:flex-col flex-row gap-24 items-center">
+        <div class="flex flex-col w-full">
+            <p class="text-4xl font-bold mx-auto text-warna-temp-02 mb-12 text-center wow fadeInLeft animated">
+                Roadmap Event
+            </p>
+            <div class="flex flex-col w-1/2 mx-auto">
+
+                <?php $i = 1; ?>
+                @foreach ($roadmaps as $roadmap)
+                    <div class="pt-24 relative z-0 group">
+                        <div
+                            class="bg-white rounded-xl shadow-lg flex-1 flex flex-col z-50 group-hover:before:bg-warna-02 before:content-[''] before:absolute before:w-1 before:h-full before:top-0 before:left-10 before:bg-slate-200 before:-z-50 overflow-hidden border before:duration-300">
+                            <div id="card-number"
+                                class="p-2 rounded-circle text-slate-400 bg-slate-200 absolute top-24 left-10 -translate-x-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center font-bold group-hover:bg-warna-02 group-hover:text-white duration-300">
+                                {{ $i }}
+                            </div>
+                            <div id="card-header"
+                                class="border-b-2 border-slate-400 flex justify-between p-4 bg-sky-100">
+                                <span class="font-bold text-xl text-warna-02">
+                                    {{ $roadmap->title }}
+                                </span>
+                                <span class="font-semibold text-slate-500">
+                                    {{ date_format(new DateTime($roadmap->date), 'F Y') }}
+                                </span>
+                            </div>
+                            <div id="card-body" class="p-4 flex items-center z-10">
+                                <div class="basis-1/4 hidden lg:inline">
+                                    <div
+                                        class="w-auto h-auto mx-auto group-hover:text-warna-02 group-hover:-translate-y-4 duration-300">
+                                        <x-sui-document />
+                                    </div>
+                                </div>
+                                <span class="basis-3/4 text-justify">
+                                    {{ $roadmap->description }}
+                                </span>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="rounded-xl border-dashed border-2 border-warna-01 p-4">
-                        <p class="text-2xl font-bold text-black">Dive Deeper: Explore the PAQS Congress 2025 Programme
-                        </p>
-                        <p class="mb-4">Get a glimpse of the exciting sessions, presentations, and events planned for
-                            PAQS Congress 2025! Explore the full program. </p>
-                        <a href="{{ url('/programme') }} " class="group py-2">
-                            View Full Programme
-                            <x-heroicon-o-arrow-long-right
-                                class="w-6 h-6 inline group-hover:translate-x-2 transition duration-300" />
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="rounded-xl border-dashed border-2 border-warna-01 p-4">
-                        <p class="text-2xl font-bold text-black">Win a Travel Scholarship! Enter the PAQS-Iwata
-                            Foundation Competition</p>
-                        <p class="mb-4">Apply for the PAQS-Iwata Foundation scholarship to attend PAQS 2025 and gain
-                            valuable international exposure</p>
-                        <a href="{{ url('/competition') }} " class="group py-2">
-                            Learn More & Apply
-                            <x-heroicon-o-arrow-long-right
-                                class="w-6 h-6 inline group-hover:translate-x-2 transition duration-300" />
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="rounded-xl border-dashed border-2 border-warna-01 p-4">
-                        <p class="text-2xl font-bold text-black">Share Your Research:
-                            Submit Your Abstract for PAQS
-                            2025</p>
-                        <p class="mb-4">We invite submissions for the PAQS 2025 abstract competition. Showcase your
-                            research and gain recognition among a global audience. Learn more about the competition
-                            guidelines and submit your abstract today</p>
-                        <a href="{{ url('/abstract') }}" class="group py-2">
-                            Learn More & Submit
-                            <x-heroicon-o-arrow-long-right
-                                class="w-6 h-6 inline group-hover:translate-x-2 transition duration-300" />
-                        </a>
-                    </div>
-                </div>
+                    <?php $i++; ?>
+                @endforeach
+
             </div>
         </div>
-    </section> --}}
+    </section>
 
     <section class="py-40 mb-40 md:px-80">
         <div class="container">

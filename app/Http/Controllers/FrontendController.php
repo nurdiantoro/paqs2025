@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Addon;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Roadmap;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.homepage');
+        $roadmaps = Roadmap::all();
+        return view('frontend.homepage', compact('roadmaps'));
     }
 
     public function about()
