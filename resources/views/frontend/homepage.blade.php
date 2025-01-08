@@ -218,11 +218,32 @@
             <p class="text-4xl font-bold mx-auto text-warna-temp-02 mb-12 text-center wow fadeInLeft animated">
                 Roadmap Event
             </p>
-            <div class="flex flex-col w-1/2 mx-auto">
+            {{-- <div class="flex flex-col w-1/2 mx-auto"> --}}
+            <div class="flex flex-wrap">
 
                 <?php $i = 1; ?>
                 @foreach ($roadmaps as $roadmap)
-                    <div class="pt-24 relative z-0 group">
+                    <div class=" p-4 w-1/4">
+                        <div
+                            class="rounded-xl bg-white hover:shadow-md p-4 h-full flex flex-col z-0 relative before:content-[''] before:absolute before:w-2 before:h-16 before:top-4 before:left-0 before:bg-sky-500 before:-z-50 before:rounded-s-md before:-translate-x-full">
+                            <div class="w-full mb-4 text-bold mx-auto flex justify-between items-center flex-row ">
+                                <span class="text-xl font-bold">
+                                    {{ $i }}
+                                </span>
+                                <span class="text-slate-400 text-right">
+                                    {{ date_format(new DateTime($roadmap->date), 'F Y') }}
+                                </span>
+                            </div>
+                            <p class="text-slate-900 font-semibold mb-2">
+                                {{ $roadmap->title }}
+                            </p>
+                            <p class="text-slate-500 text-sm">
+                                {{ $roadmap->description }}
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- <div class="pt-24 relative z-0 group">
                         <div
                             class="bg-white rounded-xl shadow-lg flex-1 flex flex-col z-50 group-hover:before:bg-warna-02 before:content-[''] before:absolute before:w-1 before:h-full before:top-0 before:left-10 before:bg-slate-200 before:-z-50 overflow-hidden border before:duration-300">
                             <div id="card-number"
@@ -251,7 +272,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <?php $i++; ?>
                 @endforeach
 
