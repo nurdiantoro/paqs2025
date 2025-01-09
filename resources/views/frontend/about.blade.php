@@ -5,61 +5,98 @@
 
 <!-- main-area -->
 <main>
-    <div class=" mt-140 min-h-screen mb-50 px-80">
+    <div class="mt-200 min-h-screen mb-50 px-80">
         <div class="mb-60">
-            <div class="mb-40">
-                <div class="about-title second-atitle relative">
-                    <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">About
-                        Us</span>
-                    <h2 class="wow fadeInUp animated text-bold" data-animation="fadeInUp animated" data-delay=".2s">
-                        PAQS</h2>
-                    <h5 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">
-                        What is PAQS Congress</h5>
+            <div class="mb-40 flex flex-wrap justify-between">
+                <div class="flex-1 flex justify-center items-center wow fadeInUp animated">
+                    <img src="{{ asset('img/forum.jpg') }}" class="w-[400px] rounded-xl">
                 </div>
-                <p class="wow fadeInUp animated">The annual congress of the Pacific Association of Quantity Surveyors
-                    (PAQS) is a premier event that brings together professionals, academics, and industry leaders in the
-                    field of quantity surveying from across the Asia and Western Pacific region. This congress serves as
-                    a platform for sharing knowledge, discussing advancements, and fostering collaboration among member
-                    countries.
-                    <br><br>
-                    Each year, the congress features a series of keynote speeches, panel discussions, and technical
-                    sessions covering a wide range of topics, including construction practices, digitalization in
-                    quantity surveying, and innovative project management techniques.
-                    <br><br>
-                    The event also provides numerous networking opportunities, allowing participants to connect with
-                    peers, exchange ideas, and explore potential partnerships. The PAQS Congress is not only an
-                    important opportunity for professional development but also a celebration of the achievements and
-                    contributions of Quantity Surveyors in shaping the built environment.
-                </p>
+                <div class="flex-1">
+                    <p class="text-4xl font-bold text-black wow fadeInUp animated">About Us</p>
+                    <p class="wow fadeInUp animated text-justify text-slate-500">The annual congress of the Pacific
+                        Association of Quantity Surveyors
+                        (PAQS) is a premier event that brings together professionals, academics, and industry leaders in
+                        the
+                        field of quantity surveying from across the Asia and Western Pacific region. This congress
+                        serves as
+                        a platform for sharing knowledge, discussing advancements, and fostering collaboration among
+                        member
+                        countries.
+                        <br><br>
+                        Each year, the congress features a series of keynote speeches, panel discussions, and technical
+                        sessions covering a wide range of topics, including construction practices, digitalization in
+                        quantity surveying, and innovative project management techniques.
+                        <br><br>
+                        The event also provides numerous networking opportunities, allowing participants to connect with
+                        peers, exchange ideas, and explore potential partnerships. The PAQS Congress is not only an
+                        important opportunity for professional development but also a celebration of the achievements
+                        and
+                        contributions of Quantity Surveyors in shaping the built environment.
+                    </p>
+                </div>
             </div>
             <div class="mb-40">
-                <h5 class="wow fadeInUp animated text-2xl font-semibold" data-animation="fadeInUp animated"
+                <h5 class="wow fadeInUp animated text-2xl font-semibold mb-8" data-animation="fadeInUp animated"
                     data-delay=".2s">
                     Congress Goals</h5>
-                <ul class="wow fadeInUp animated">
-                    <li>Enhancing the standards of professionalism in the Quantity Surveying profession in the Asia
+                <ul class="wow fadeInUp animated flex flex-wrap gap-4">
+                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">
+                        Enhancing the standards of professionalism
+                        in the
+                        Quantity Surveying
+                        profession in the Asia
                         and Western Pacific region.</li>
-                    <li>Encouraging collaboration and knowledge exchange among Quantity Surveying professionals from
+                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">Encouraging collaboration and knowledge
+                        exchange among
+                        Quantity
+                        Surveying professionals from
                         various countries</li>
-                    <li>Promoting innovation in technology and environmentally friendly practices in the construction
+                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">Promoting innovation in technology and
+                        environmentally
+                        friendly
+                        practices in the construction
                         industry</li>
-                    <li>Improving education and training for Quantity Surveyors, including the accreditation of
+                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">Improving education and training for
+                        Quantity Surveyors,
+                        including
+                        the accreditation of
                         related educational programs</li>
-                    <li>Discussing and promoting digitalization in the construction industry towards the development
+                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">Discussing and promoting digitalization in
+                        the
+                        construction industry
+                        towards the development
                         of smart cities and nations</li>
                 </ul>
             </div>
             <div class="mb-40">
-                <h5 class="wow fadeInUp animated text-2xl font-semibold" data-animation="fadeInUp animated"
+                <h5 class="wow fadeInUp animated text-2xl font-semibold mb-4" data-animation="fadeInUp animated"
                     data-delay=".2s">
                     Target Audience</h5>
-                <ul class="wow fadeInUp animated">
-                    <li>Professional QS</li>
-                    <li>Suppliers</li>
-                    <li>Developer & Property</li>
-                    <li>Consultant Engineering & Architect</li>
-                    <li>Academicians & Researcher</li>
-                    <li>Government & Regulatory</li>
+                <ul class="wow fadeInUp animated flex flex-wrap gap-4">
+                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl">
+                        <x-solar-suitcase-bold-duotone class="w-10 h-10 text-warna-temp-02" />
+                        Professional QS
+                    </li>
+                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl">
+                        <x-solar-delivery-bold-duotone class="w-10 h-10 text-warna-temp-02" />
+                        Suppliers
+                    </li>
+                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl">
+                        <x-solar-buildings-bold-duotone class="w-10 h-10 text-warna-temp-02" />
+                        Developer & Property
+                    </li>
+                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl">
+                        <x-fas-tools class="w-10 h-10 text-warna-temp-02" />
+                        Consultant Engineering & Architect
+                    </li>
+                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl">
+                        <x-solar-square-academic-cap-bold-duotone class="w-10 h-10 text-warna-temp-02" />
+                        Academicians & Researcher
+                    </li>
+                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl">
+                        <x-letsicon-form-duotone class="w-10 h-10 text-warna-temp-02" />
+                        Government & Regulatory
+                    </li>
                 </ul>
             </div>
             <div class="mb-40">

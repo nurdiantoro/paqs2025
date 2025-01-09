@@ -140,15 +140,15 @@
                                     sustainability in the construction industry through international collaboration.</p>
                                 <div class="flex flex-row -space-x-2 absolute -right-6 -bottom-16 ">
                                     <img src="{{ asset('img/avatar1.png') }}"
-                                        class="w-12 h-12 rounded-full border border-sky-100 z-50">
+                                        class="w-12 h-12 rounded-full outline outline-sky-100 z-50">
                                     <img src="{{ asset('img/avatar2.png') }}"
-                                        class="w-12 h-12 rounded-full border border-sky-100 z-40">
+                                        class="w-12 h-12 rounded-full outline outline-sky-100 z-40">
                                     <img src="{{ asset('img/avatar3.png') }}"
-                                        class="w-12 h-12 rounded-full border border-sky-100 z-30">
+                                        class="w-12 h-12 rounded-full outline outline-sky-100 z-30">
                                     <img src="{{ asset('img/avatar4.png') }}"
-                                        class="w-12 h-12 rounded-full border border-sky-100 z-20">
+                                        class="w-12 h-12 rounded-full outline outline-sky-100 z-20">
                                     <img src="{{ asset('img/avatar5.png') }}"
-                                        class="w-12 h-12 rounded-full border border-sky-100 z-10">
+                                        class="w-12 h-12 rounded-full outline outline-sky-100 z-10">
                                 </div>
                             </div>
                         </div>
@@ -218,12 +218,11 @@
             <p class="text-4xl font-bold mx-auto text-warna-temp-02 mb-12 text-center wow fadeInLeft animated">
                 Roadmap Event
             </p>
-            {{-- <div class="flex flex-col w-1/2 mx-auto"> --}}
             <div class="flex flex-wrap">
 
                 <?php $i = 1; ?>
                 @foreach ($roadmaps as $roadmap)
-                    <div class=" p-4 w-1/4">
+                    <div class=" p-4 w-1/4 wow fadeInUp animated">
                         <div
                             class="rounded-xl bg-white hover:shadow-md p-4 h-full flex flex-col z-0 relative before:content-[''] before:absolute before:w-2 before:h-16 before:top-4 before:left-0 before:bg-sky-500 before:-z-50 before:rounded-s-md before:-translate-x-full">
                             <div class="w-full mb-4 text-bold mx-auto flex justify-between items-center flex-row ">
@@ -242,37 +241,6 @@
                             </p>
                         </div>
                     </div>
-
-                    {{-- <div class="pt-24 relative z-0 group">
-                        <div
-                            class="bg-white rounded-xl shadow-lg flex-1 flex flex-col z-50 group-hover:before:bg-warna-02 before:content-[''] before:absolute before:w-1 before:h-full before:top-0 before:left-10 before:bg-slate-200 before:-z-50 overflow-hidden border before:duration-300">
-                            <div id="card-number"
-                                class="p-2 rounded-circle text-slate-400 bg-slate-200 absolute top-24 left-10 -translate-x-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center font-bold group-hover:bg-warna-02 group-hover:text-white duration-300">
-                                {{ $i }}
-                            </div>
-                            <div id="card-header"
-                                class="border-b-2 border-slate-400 flex justify-between p-4 bg-sky-100">
-                                <span class="font-bold text-xl text-warna-02">
-                                    {{ $roadmap->title }}
-                                </span>
-                                <span class="font-semibold text-slate-500">
-                                    {{ date_format(new DateTime($roadmap->date), 'F Y') }}
-                                </span>
-                            </div>
-                            <div id="card-body" class="p-4 flex items-center z-10">
-                                <div class="basis-1/4 hidden lg:inline">
-                                    <div
-                                        class="w-auto h-auto mx-auto group-hover:text-warna-02 group-hover:-translate-y-4 duration-300">
-                                        <x-sui-document />
-                                    </div>
-                                </div>
-                                <span class="basis-3/4 text-justify">
-                                    {{ $roadmap->description }}
-                                </span>
-
-                            </div>
-                        </div>
-                    </div> --}}
                     <?php $i++; ?>
                 @endforeach
 

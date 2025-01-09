@@ -1,50 +1,25 @@
-    <footer class="footer-bg footer-p" {{-- style="background-image:url({{ asset('img/maxresdefault.jpg') }});background-size: cover;"> --}} style="background-color: var(--warna-02);">
+    <footer class="footer-p py-12" style="background-color: var(--warna-02);">
+        <div class="container">
+            <div class="flex justify-between items-center w-full mb-6 pb-6 border-bottom-1 border-slate-700">
+                <div class="logo">
+                    <a href="{{ url('/') }}"><img src="{{ asset('img/LOGO PAQS CONGRESS.png') }}" alt="logo"
+                            class="h-16 mx-auto"></a>
+                </div>
+                <ul class="flex flex-row gap-12 text-white">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Registration</a></li>
+                </ul>
 
-        <div class="footer-top">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-xl-12 col-lg-12 col-sm-12 text-center">
-                        <div class="footer-widget pt-120 mb-30">
-                            <div class="logo mb-35">
-                                <a href="{{ url('/') }}"><img src="{{ asset('img/LOGO PAQS CONGRESS.png') }}"
-                                        alt="logo" class="h-12 mx-auto"></a>
-                            </div>
-                            {{-- <div class="footer-text mb-20">
-                                <p>The role of the Indonesian Association of Quantity Surveyors (IQSI) is crucial in
-                                    addressing these challenges. IQSI can play a significant role in enhancing QS
-                                    education and certification through internationally recognized training and
-                                    accreditation programs, especially in PAQS (Pacific Association of Quantity
-                                    Surveyors) member countries</p>
-                            </div> --}}
-                            <div class="footer-social">
-                                <a href="https://www.instagram.com/pujabrunei/"><i class="fab fa-instagram"></i></a>
-                                <a href="https://pujabrunei.com/"><i class="fas fa-globe"></i></a>
-                                <a href="https://www.facebook.com/paqs.net/"><i class="fab fa-facebook-f"></i></a>
-                                <a href="https://www.paqs.net/"><i class="fas fa-globe"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="flex flex-row gap-8 text-white text-lg">
+                    <a href="https://www.instagram.com/pujabrunei/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://pujabrunei.com/"><i class="fas fa-globe"></i></a>
+                    <a href="https://www.facebook.com/paqs.net/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.paqs.net/"><i class="fas fa-globe"></i></a>
                 </div>
             </div>
-        </div>
-        <div class="copyright-wrap pb-120">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="copyright-text text-center">
-                            <div class="footer-link">
-                                <ul>
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Contact</a></li>
-                                    <li><a href="#">Registration</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <p class="text-center">Copyright &copy; 2022 PAQS. All Rights Reserved</p>
         </div>
     </footer>
     <!-- footer-end -->
