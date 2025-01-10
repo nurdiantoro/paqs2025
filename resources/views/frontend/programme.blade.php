@@ -5,27 +5,25 @@
 
 <!-- main-area -->
 <main>
-    <div class="event fix pt-120 pb-120 md:px-80">
-        <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-8">
-                <div class="section-title text-center mb-80">
-                    {{-- <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">Timeline</span> --}}
-                    <h2 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">Programme
-                    </h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-
-            <div class="mb-40">
+    <div class="mt-200 min-h-screen mb-50 px-80">
+        <div class="text-center">
+            <span class="wow fadeInUp animated text-4xl text-black font-bold mb-12 block"
+                data-animation="fadeInUp animated" data-delay=".2s">Programme
+            </span>
+            <div class="mb-40 text-center">
                 <p class="font-semibold text-2xl text-black">Overview</p>
-                <p class="text-gray-400">The annual congress of the Pacific Association of Quantity Surveyors (PAQS) is
+                <p class="text-gray-400 md:w-1/2 mx-auto">The annual congress of the Pacific Association of Quantity
+                    Surveyors
+                    (PAQS) is
                     a premier event that
                     brings together professionals, academics, and industry leaders in the field of quantity surveying
                     from across the Asia and Western Pacific region. This congress serves as a platform for sharing
                     knowledge, discussing advancements, and fostering collaboration among member countries.</p>
             </div>
+        </div>
+
+        <div class="container">
+
 
             <div class="mb-40">
                 <p class="font-semibold text-2xl text-black mb-4">Main Program</p>
