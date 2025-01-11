@@ -10,7 +10,7 @@
             <span class="wow fadeInUp animated text-4xl text-black font-bold mb-12 block"
                 data-animation="fadeInUp animated" data-delay=".2s">Programme
             </span>
-            <div class="mb-40 text-center">
+            <div class="mb-60 text-center">
                 <p class="font-semibold text-2xl text-black">Overview</p>
                 <p class="text-gray-400 md:w-1/2 mx-auto">The annual congress of the Pacific Association of Quantity
                     Surveyors
@@ -25,62 +25,164 @@
         <div class="container">
 
 
-            <div class="mb-40">
-                <p class="font-semibold text-2xl text-black mb-4">Main Program</p>
-                <div class="text-gray-400 flex gap-4">
-                    <div class="bg-white shadow-xl rounded-lg p-3 lg:basis-1/4 flex flex-col">
-                        <span class="font-bold mb-2">Young QS</span>
-                        <span>The Young QS Program is designed to support and develop young professionals in the field
-                            of Quantity
-                            Surveying. Its main activities are:</span>
-                        <ul>
-                            <li>• Seminars and Workshops</li>
-                            <li>• Essay and Research Competitions</li>
-                            <li>• Networking and meetings</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white shadow-xl rounded-lg p-3 lg:basis-1/4 flex flex-col">
-                        <span class="font-bold mb-2">PAQS Meeting</span>
-                        <span>Internal meetings among PAQS member countries consist of:</span>
-                        <ul>
-                            <li>• committee meetings (Education, Digitalization, Research, and Sustainability),</li>
-                            <li>• member leadership meetings (Board Meetings) to discuss the developments in each member
-                                country.</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white shadow-xl rounded-lg p-3 lg:basis-1/4 flex flex-col">
-                        <span class="font-bold mb-2">Call for Papers</span>
-                        <span>The Papers Conference provides a valuable platform for professionals and academics to
-                            share
-                            knowledge, collaborate, and contribute to the advancement of a more progressive and
-                            sustainable
-                            construction industry, with participants from various countries.</span>
-                    </div>
-                    <div class="bg-white shadow-xl rounded-lg p-3 lg:basis-1/4 flex flex-col">
-                        <span class="font-bold mb-2">Plenary Session</span>
-                        <span>This session will discuss the main topics of the congress, including panel sessions and
-                            discussions,
-                            technical presentations, and research and innovation sessions from various countries that
-                            have
-                            participated in the Paper Conferences held over two days, open to the public and serving as
-                            a
-                            platform for networking to capture opportunities and collaboration</span>
+            <div class="mb-80 flex">
+                <div class="flex-1">
+                    <img src="{{ asset('img/programme.png') }}" class="scale-150">
+                </div>
+                <div class="flex-1 ">
+                    <p class="font-semibold text-2xl text-black mb-4">Main Program</p>
+                    <div class="text-gray-400 flex-col">
+
+                        <!-- Accordion 1 -->
+                        <div class="mb-4">
+                            <div class="bg-white flex flex-col shadow-xl rounded-xl relative">
+                                <input type="radio" name="accordion" id="accordion-1" class="peer hidden" />
+                                <label for="accordion-1"
+                                    class="mb-0 flex justify-between items-center cursor-pointer p-3 flex-row z-20">
+                                    <span class="font-bold text-warna-01">Young QS</span>
+                                </label>
+                                <x-fas-plus
+                                    class="h-4 w-4 opacity-100 peer-checked:opacity-0 peer-checked:rotate-90 duration-500 absolute right-4 top-4 z-10" />
+                                <x-fas-minus
+                                    class="h-4 w-4 opacity-0 peer-checked:opacity-100 peer-checked:rotate-0 -rotate-90 duration-500 absolute right-4 top-4 z-10" />
+                                <div
+                                    class="max-h-0 overflow-hidden peer-checked:max-h-96 transition-all duration-500 ease-in-out">
+                                    <div class="px-3 pb-3">
+                                        <span>The Young QS Program is designed to support and develop young
+                                            professionals in the field of
+                                            Quantity Surveying. Its main activities are:</span>
+                                        <ul class="mt-2 list-disc pl-5">
+                                            <li class="list-disc">Seminars and Workshops</li>
+                                            <li class="list-disc">Essay and Research Competitions</li>
+                                            <li class="list-disc">Networking and meetings</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion 2 -->
+                        <div class="mb-4">
+                            <div class="bg-white flex flex-col shadow-xl rounded-xl relative">
+                                <input type="radio" name="accordion" id="accordion-2" class="peer hidden" />
+                                <label for="accordion-2"
+                                    class="mb-0 flex justify-between items-center cursor-pointer p-3 flex-row z-20">
+                                    <span class="font-bold text-warna-01">PAQS Meeting</span>
+                                </label>
+                                <x-fas-plus
+                                    class="h-4 w-4 opacity-100 peer-checked:opacity-0 peer-checked:rotate-90 duration-500 absolute right-4 top-4 z-10" />
+                                <x-fas-minus
+                                    class="h-4 w-4 opacity-0 peer-checked:opacity-100 peer-checked:rotate-0 -rotate-90 duration-500 absolute right-4 top-4 z-10" />
+                                <div
+                                    class="max-h-0 overflow-hidden peer-checked:max-h-96 transition-all duration-500 ease-in-out">
+                                    <div class="px-3 pb-3">
+                                        <span>Internal meetings among PAQS member countries consist of:</span>
+                                        <ul class="mt-2 list-disc pl-5">
+                                            <li class="list-disc">Committee meetings (Education, Digitalization,
+                                                Research, and
+                                                Sustainability)</li>
+                                            <li class="list-disc">Member leadership meetings (Board Meetings) to discuss
+                                                the developments
+                                                in each member
+                                                country
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion 3 -->
+                        <div class="mb-4">
+                            <div class="bg-white flex flex-col shadow-xl rounded-xl relative">
+                                <input type="radio" name="accordion" id="accordion-3" class="peer hidden" />
+                                <label for="accordion-3"
+                                    class="mb-0 flex justify-between items-center cursor-pointer p-3 flex-row z-20">
+                                    <span class="font-bold text-warna-01">Call for Papers</span>
+                                </label>
+                                <x-fas-plus
+                                    class="h-4 w-4 opacity-100 peer-checked:opacity-0 peer-checked:rotate-90 duration-500 absolute right-4 top-4 z-10" />
+                                <x-fas-minus
+                                    class="h-4 w-4 opacity-0 peer-checked:opacity-100 peer-checked:rotate-0 -rotate-90 duration-500 absolute right-4 top-4 z-10" />
+                                <div
+                                    class="max-h-0 overflow-hidden peer-checked:max-h-96 transition-all duration-500 ease-in-out">
+                                    <div class="px-3 pb-3">
+                                        <span>The Papers Conference provides a valuable platform for professionals and
+                                            academics to share
+                                            knowledge, collaborate, and contribute to the advancement of a more
+                                            progressive and sustainable
+                                            construction industry, with participants from various countries.</span>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion 4 -->
+                        <div class="mb-4">
+                            <div class="bg-white flex flex-col shadow-xl rounded-xl relative">
+                                <input type="radio" name="accordion" id="accordion-4" class="peer hidden" />
+                                <label for="accordion-4"
+                                    class="mb-0 flex justify-between items-center cursor-pointer p-3 flex-row z-20">
+                                    <span class="font-bold text-warna-01">Plenary Session</span>
+                                </label>
+                                <x-fas-plus
+                                    class="h-4 w-4 opacity-100 peer-checked:opacity-0 peer-checked:rotate-90 duration-500 absolute right-4 top-4 z-10" />
+                                <x-fas-minus
+                                    class="h-4 w-4 opacity-0 peer-checked:opacity-100 peer-checked:rotate-0 -rotate-90 duration-500 absolute right-4 top-4 z-10" />
+                                <div
+                                    class="max-h-0 overflow-hidden peer-checked:max-h-96 transition-all duration-500 ease-in-out">
+                                    <div class="px-3 pb-3">
+                                        <span>This session will discuss the main topics of the congress, including panel
+                                            sessions and
+                                            discussions, technical presentations, and research and innovation sessions
+                                            from various
+                                            countries
+                                            that have participated in the Paper Conferences held over two days, open to
+                                            the public and
+                                            serving
+                                            as a platform for networking to capture opportunities and
+                                            collaboration.</span>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+
+            </div>
+
+            <div class="mb-80">
+                <p class="font-semibold text-2xl text-black mb-4">Social Activity Program</p>
+                <div class="text-gray-500 flex gap-4">
+                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
+                        <div id="icon-blueprint" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                        </div>
+                        <span class="font-bold text-lg group-hover:text-black">Project Visit</span>
+                    </div>
+                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
+                        <div id="icon-golf" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"></div>
+                        <span class="font-bold text-lg group-hover:text-black">Golf Tournament</span>
+                    </div>
+                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
+                        <div id="icon-calendar" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"></div>
+                        <span class="font-bold text-lg group-hover:text-black">Spouse Program</span>
+                    </div>
+                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
+                        <div id="icon-dinner" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"></div>
+                        <span class="font-bold text-lg group-hover:text-black">Gala Dinner</span>
+                    </div>
+                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
+                        <div id="icon-exhibition" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                        </div>
+                        <span class="font-bold text-lg group-hover:text-black">Exhibition</span>
+                    </div>
+                </div>
+
             </div>
 
             <div class="flex flex-wrap">
-                <div class="mb-40 basis-1/2">
-                    <p class="font-semibold text-2xl text-black mb-4">Social Activity Program</p>
-                    <div class="text-gray-500 flex gap-4">
-                        <span class="rounded-xl bg-white shadow-lg p-2">Project Visit</span>
-                        <span class="rounded-xl bg-white shadow-lg p-2">Golf Tournament</span>
-                        <span class="rounded-xl bg-white shadow-lg p-2">Spouse Program</span>
-                        <span class="rounded-xl bg-white shadow-lg p-2">Gala Dinner</span>
-                        <span class="rounded-xl bg-white shadow-lg p-2">Exhibition</span>
-                    </div>
-                </div>
-                <div class="mb-40 basis-1/2">
+
+                <div class="mb-80 basis-1/2">
                     <p class="font-semibold text-2xl text-black mb-4">2025 Congress Theme </p>
                     <p class="text-black mb-2">HARNESSING AI AND DIGITAL TECHNOLOGY FOR SMART CONSTRUCTION TOWARDS NET
                         ZERO, DECARBONIZING AND INNOVATIVE BUILDING MATERIALS</p>

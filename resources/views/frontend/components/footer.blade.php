@@ -52,6 +52,8 @@
     <script src="{{ asset('evonne/js/html2canvas.min.js') }}"></script>
     <script src="{{ asset('evonne/js/main.js') }}"></script>
 
+    @vite('resources/js/app.js')
+
     </body>
 
     </html>
