@@ -5,23 +5,34 @@
 
 <!-- main-area -->
 <main>
+    <div class="flex flex-col px-80 items-center h-[30rem] bg-slate-200 overflow-hidden relative bg-cover bg-bottom"
+        style="background-image: url('{{ asset('img/forum-2.jpg') }}');">
+        <div class="text-center mx-auto mt-auto pb-10">
+            <p class="text-4xl font-bold wow fadeInUp animated z-10 text-white mb-4">About Us</p>
+            <p class="lg:w-1/2 text-white  wow fadeInUp animated mx-auto">The annual congress of the Pacific
+                Association
+                of Quantity Surveyors (PAQS) is
+                a premier event that brings
+                together professionals, academics, and industry leaders in
+                the field of quantity surveying from across the Asia and Western Pacific region. This congress serves as
+                a
+                platform for sharing knowledge, discussing advancements, and fostering collaboration among
+                member countries.</p>
+        </div>
+        <div class="absolute w-full h-full bg-black opacity-75">
+
+        </div>
+        {{-- <img src="{{ asset('img/meeting.jpg') }}" class="absolute w-full h-full object-cover brightness-[0.2]"> --}}
+    </div>
     <div class="mt-200 min-h-screen mb-50 px-80">
         <div class="mb-60">
             <div class="mb-40 flex flex-wrap justify-between">
                 <div class="flex-1 flex justify-center items-center wow fadeInUp animated">
-                    <img src="{{ asset('img/about.png') }}" class="w-[400px] rounded-xl">
+                    <img src="{{ asset('img/about.png') }}"
+                        class="w-[400px] rounded-xl hover:scale-110 duration-300 ease-out">
                 </div>
                 <div class="flex-1">
-                    <p class="text-4xl font-bold text-black wow fadeInUp animated">About Us</p>
-                    <p class="wow fadeInUp animated text-justify text-slate-500">The annual congress of the Pacific
-                        Association of Quantity Surveyors
-                        (PAQS) is a premier event that brings together professionals, academics, and industry leaders in
-                        the
-                        field of quantity surveying from across the Asia and Western Pacific region. This congress
-                        serves as
-                        a platform for sharing knowledge, discussing advancements, and fostering collaboration among
-                        member
-                        countries.
+                    <p class="wow fadeInUp animated text-justify text-slate-500">
                         <br><br>
                         Each year, the congress features a series of keynote speeches, panel discussions, and technical
                         sessions covering a wide range of topics, including construction practices, digitalization in

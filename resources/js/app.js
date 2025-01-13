@@ -32,3 +32,16 @@ lottieAnimations.forEach(animation => {
         anim.stop(); // Stop animation when hover ends
     });
 });
+
+// ==========================================================
+
+var app = document.getElementById('theme');
+
+var typewriter = new Typewriter(app, {
+  loop: false,
+});
+
+typewriter
+  .typeString('HARNESSING AI AND DIGITAL TECHNOLOGY FOR SMART CONSTRUCTION TOWARDS NET ZERO, DECARBONIZING AND INNOVATIVE BUILDING MATERIALS')
+  .pauseFor(30000)
+  .start();

@@ -5,22 +5,25 @@
 
 <!-- main-area -->
 <main>
-    <div class="mt-200 min-h-screen mb-50 px-80">
-        <div class="text-center">
-            <span class="wow fadeInUp animated text-4xl text-black font-bold mb-12 block"
-                data-animation="fadeInUp animated" data-delay=".2s">Programme
-            </span>
-            <div class="mb-60 text-center">
-                <p class="font-semibold text-2xl text-black">Overview</p>
-                <p class="text-gray-400 md:w-1/2 mx-auto">The annual congress of the Pacific Association of Quantity
-                    Surveyors
-                    (PAQS) is
-                    a premier event that
-                    brings together professionals, academics, and industry leaders in the field of quantity surveying
-                    from across the Asia and Western Pacific region. This congress serves as a platform for sharing
-                    knowledge, discussing advancements, and fostering collaboration among member countries.</p>
-            </div>
+    <div class="flex flex-col px-80 items-center h-[30rem] bg-slate-200 overflow-hidden relative bg-cover bg-bottom"
+        style="background-image: url('{{ asset('img/forum-2.jpg') }}');">
+        <div class="text-center mx-auto mt-auto pb-10">
+            <p class="text-4xl font-bold wow fadeInUp animated z-10 text-white mb-4">Programme</p>
+            <p class="lg:w-1/2 text-white  wow fadeInUp animated mx-auto">The annual congress of the Pacific Association
+                of Quantity
+                Surveyors
+                (PAQS) is
+                a premier event that
+                brings together professionals, academics, and industry leaders in the field of quantity surveying
+                from across the Asia and Western Pacific region. This congress serves as a platform for sharing
+                knowledge, discussing advancements, and fostering collaboration among member countries.</p>
         </div>
+        <div class="absolute w-full h-full bg-black opacity-75">
+
+        </div>
+        {{-- <img src="{{ asset('img/meeting.jpg') }}" class="absolute w-full h-full object-cover brightness-[0.2]"> --}}
+    </div>
+    <div class="mt-200 min-h-screen mb-50 px-80">
 
         <div class="container">
 
@@ -151,7 +154,7 @@
 
             </div>
 
-            <div class="mb-80">
+            <div class="mb-60">
                 <p class="font-semibold text-2xl text-black mb-4">Social Activity Program</p>
                 <div class="text-gray-500 flex gap-4">
                     <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
@@ -180,23 +183,57 @@
 
             </div>
 
-            <div class="flex flex-wrap">
-
-                <div class="mb-80 basis-1/2">
-                    <p class="font-semibold text-2xl text-black mb-4">2025 Congress Theme </p>
-                    <p class="text-black mb-2">HARNESSING AI AND DIGITAL TECHNOLOGY FOR SMART CONSTRUCTION TOWARDS NET
-                        ZERO, DECARBONIZING AND INNOVATIVE BUILDING MATERIALS</p>
-                    <div class="text-gray-400 flex flex-col gap-2">
-                        <span>AI-Driven Construction Innovations: Leveraging artificial intelligence
-                            for predictive analytics, automation, and enhanced decision-making</span>
-                        <span>Pathways to Net Zero and Decarbonization: Cutting-edge approaches to reducing carbon
-                            footprints in construction processes.</span>
-                        <span>Breakthroughs in Sustainable Materials: Next-generation materials that drive both
-                            innovation and environmental responsibility. Modular and Prefabricated</span>
-                        <span>Construction: Revolutionizing building techniques for speed, efficiency, and
-                            sustainability.</span>
+            <div class="mb-80 flex flex-wrap gap-24">
+                <div class="flex-1 z-10">
+                    <p class="font-semibold text-2xl text-warna-temp-02 mb-4">2025 Congress Theme </p>
+                    <div class=" mb-2 relative">
+                        <x-bxs-quote-right
+                            class="w-12 h-12 text-warna-01 absolute top-0 left-0 translate-x-1/2 -translate-y-1/2" />
+                        <div id="theme" class="text-4xl font-bold text-warna-01 p-4 rounded-[2rem]  ">
+                        </div>
+                        {{-- Materi teks ada di js typewritter --}}
                     </div>
                 </div>
+
+                <div class="flex-1 text-gray-400 flex flex-row gap-4 z-10 bg-cover relative">
+                    <div class="flex flex-col flex-1 gap-6">
+                        <div class="bg-white rounded-lg p-2 shadow-lg text-lg">
+                            <span class="font-bold text-warna-01">AI-Driven Construction Innovations:</span>
+                            Leveraging
+                            artificial
+                            intelligence
+                            for predictive analytics, automation, and enhanced decision-making
+                        </div>
+                        <div class="bg-white rounded-lg p-2 shadow-lg text-lg">
+                            <span class="font-bold text-warna-01">Pathways to Net Zero and
+                                Decarbonization:</span>
+                            Cutting-edge
+                            approaches to reducing carbon
+                            footprints in construction processes.
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-1 gap-6 mt-8">
+                        <div class="bg-white rounded-lg p-2 shadow-lg text-lg">
+                            <span class="font-bold text-warna-01">Breakthroughs in Sustainable Materials:</span>
+                            Next-generation
+                            materials that drive both
+                            innovation and environmental responsibility. Modular and Prefabricated
+                        </div>
+                        <div class="bg-white rounded-lg p-2 shadow-lg text-lg">
+                            <span class="font-bold text-warna-01">Construction: </span>Revolutionizing building
+                            techniques
+                            for
+                            speed,
+                            efficiency, and
+                            sustainability.
+                        </div>
+                    </div>
+
+                    <img src="{{ asset('img/abstract-shape.png') }}"
+                        class="w-1/2 absolute left-0 translate-x-1/2 -z-10 scale-125">
+                </div>
+
+                {{-- <img src="{{ asset('img/grid-3.png') }}" class="w-screen absolute left-0 z-10"> --}}
             </div>
         </div>
 

@@ -13,7 +13,7 @@
                     <div class="breadcrumb-wrap text-center">
 
                         <div class="breadcrumb-title mb-30">
-                            <h2 class="font-semibold"><span class="text-warna-02">Registration</span> Brunei Residents
+                            <h2 class="font-semibold"><span class="text-warna-02">Registration</span> PAQS Congress 2025
                             </h2>
                         </div>
                     </div>

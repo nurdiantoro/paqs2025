@@ -8,7 +8,7 @@
     }
 @endphp
 
-<header id="home" class="header-area">
+<header id="home" class="header-area z-[999] relative">
     <div id="header-sticky" class="menu-area">
         <div class="container">
             <div class="second-menu">
