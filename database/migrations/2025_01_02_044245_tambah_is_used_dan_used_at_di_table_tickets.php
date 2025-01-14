@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('Tickets', function (Blueprint $table) {
+        Schema::table('tickets', function (Blueprint $table) {
             $table->boolean('is_used')->default(false)->after('barcode');
             $table->timestamp('used_at')->nullable()->after('is_used');
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('Tickets', function (Blueprint $table) {
+        Schema::table('tickets', function (Blueprint $table) {
             $table->dropColumn('is_used');
             $table->dropColumn('used_at');
         });
