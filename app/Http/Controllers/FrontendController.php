@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Addon;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Order;
 use App\Models\Roadmap;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use libphonenumber\PhoneNumberFormat;
 
 class FrontendController extends Controller
 {
@@ -35,7 +37,23 @@ class FrontendController extends Controller
     }
     public function contact()
     {
-        return view('frontend.contact');
+        $phoneNumberUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+
+        // Ambil semua kontak dan format nomor telepon
+        $contacts = Contact::all()->map(function ($contact) use ($phoneNumberUtil) {
+            try {
+                // Format nomor telepon
+                $phoneNumber = $phoneNumberUtil->parse($contact->telephone, 'ID'); // Ganti 'ID' jika perlu
+                $contact->formatted_telephone = $phoneNumberUtil->format($phoneNumber, PhoneNumberFormat::INTERNATIONAL);
+            } catch (\libphonenumber\NumberParseException $e) {
+                // Jika parsing gagal, tetap gunakan nomor asli
+                $contact->formatted_telephone = $contact->telephone;
+            }
+
+            return $contact;
+        });
+
+        return view('frontend.contact', compact('contacts'));
     }
 
     public function registration()
