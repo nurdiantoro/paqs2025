@@ -1,126 +1,51 @@
 @include('frontend.components.header')
 @include('frontend.components.navbar')
 <main>
-    <section id="pricing" class=" pt-113 pb-90 fix" style="">
+    <section pt-113 pb-90 fix min-h-screen" style="">
         <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-8">
-                <div class="section-title text-center mt-40 mb-20">
-                    <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">
+                <div class="flex flex-col text-center mt-40 mb-20">
+                    <span class="wow fadeInUp animated text-3xl font-semibold" data-animation="fadeInUp animated"
+                        data-delay=".2s">
                         Registration Plans
                     </span>
-                    <h2 class="wow fadeInUp animated !text-bold" data-animation="fadeInUp animated" data-delay=".4s">
+                    <span class="wow fadeInUp animated font-bold text-6xl text-slate-900"
+                        data-animation="fadeInUp animated" data-delay=".4s">
                         PAQS Congress 2025
-                    </h2>
+                    </span>
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="row mb-40">
-                <div class="col-12 col-lg-3 col-md-6">
-                    <div class="pricing-box text-center mb-30 wow fadeInDown animated"
-                        data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="text-white text-lg bg-yellow-600 rounded-t-md px-4 py-2 inline-block tag">Early Bid
-                        </div>
-                        <div class="pricing-head bg-white rounded-t-xl">
-                            <h4>PUJA Member with Gala Dinner</h4>
-                            <div class="price-count mb-30">
-                                <h2><small>BND <span class="line-through">500</span></small>400</h2>
+            @foreach ($datas as $type => $items)
+                <span class="text-4xl font-bold text-black block mb-4">{{ $type }}</span>
+                <div class="flex flex-wrap mb-32">
+                    @foreach ($items as $item)
+                        <div class="basis-1/4 p-2 h-auto">
+                            <div class="h-full p-4 rounded-xl flex flex-col bg-cover border border-white"
+                                style="background-image: url('{{ asset('img/glass.png') }}')">
+                                <div class="font-bold text-warna-01 mx-auto mb-12">
+                                    <span class="">{{ $item->currency }}</span>
+                                    <span class="text-5xl">
+                                        <?php
+                                        if ($item->price > 1000) {
+                                            echo number_format(floor($item->price / 1000)) . '</span><span class="align-super">,000</span>';
+                                        } else {
+                                            echo number_format($item->price) . '</span>';
+                                        }
+                                        ?>
+                                </div>
+                                <span class="text-lg text-slate-900 text-center mb-auto">{{ $item->name }}</span>
+                                <a href="{{ url('registration_form') }}" class="text-center mt-4 ">
+                                    <span
+                                        class="hover:bg-slate-100 hover:text-warna-01 text-slate-700 py-3 px-4 rounded-lg">Register
+                                        now!</span>
+                                </a>
                             </div>
                         </div>
-                        <div class="pricing-body bg-white rounded-b-xl w-full">
-                            <ul class="w-full text-left">
-                                <li style="list-style-type: disc;">Early Bird Rate (ends on 7 July 2025)</li>
-                                <li style="list-style-type: disc;">Pricing: All prices listed are in BND.</li>
-                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2025.com (cc:
-                                    paqs2025@gmail.com) for details.
-                                </li>
-                            </ul>
-                            <div class="pricing-btn mt-10">
-                                <a href="{{ url('registration_form') }}" class="btn"><i
-                                        class="fas fa-sign-in-alt"></i>Registration</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                <div class="col-12 col-lg-3 col-md-6">
-                    <div class="pricing-box text-center mb-30 wow fadeInDown animated"
-                        data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="text-white text-lg bg-yellow-600 rounded-t-md px-4 py-2 inline-block tag">Early Bid
-                        </div>
-                        <div class="pricing-head bg-white rounded-t-xl">
-                            <h4>Non-PUJA Member with Gala Dinner</h4>
-                            <div class="price-count mb-30">
-                                <h2><small>BND <span class="line-through">600</span></small>500</h2>
-                            </div>
-                        </div>
-                        <div class="pricing-body bg-white rounded-b-xl w-full">
-                            <ul class="w-full text-left">
-                                <li style="list-style-type: disc;">Early Bird Rate (ends on 7 July 2025)</li>
-                                <li style="list-style-type: disc;">Pricing: All prices listed are in BND.</li>
-                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2025.com (cc:
-                                    paqs2025@gmail.com) for details.
-                                </li>
-                            </ul>
-                            <div class="pricing-btn mt-10">
-                                <a href="{{ url('registration_form') }}" class="btn"><i
-                                        class="fas fa-sign-in-alt"></i>Registration</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-3 col-md-6">
-                    <div class="pricing-box text-center mb-30 wow fadeInDown animated"
-                        data-animation="fadeInDown animated" data-delay=".2s">
-                        {{-- <div class="text-white text-lg bg-yellow-600 rounded-t-md px-4 py-2 inline-block tag">Early Bid
-                        </div> --}}
-                        <div class="pricing-head bg-white rounded-t-xl">
-                            <h4>Student (Conference Only)</h4>
-                            <div class="price-count mb-30">
-                                <h2><small>BND</small>100</h2>
-                            </div>
-                        </div>
-                        <div class="pricing-body bg-white rounded-b-xl w-full">
-                            <ul class="w-full text-left">
-                                <li style="list-style-type: disc;">Ends on 17 Aug 2025</li>
-                                <li style="list-style-type: disc;">Pricing: All prices listed are in BND.</li>
-                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2025.com (cc:
-                                    paqs2025@gmail.com) for details.
-                                </li>
-                            </ul>
-                            <div class="pricing-btn mt-10">
-                                <a href="{{ url('registration_form') }}" class="btn"><i
-                                        class="fas fa-sign-in-alt"></i>Registration</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-3 col-md-6">
-                    <div class="pricing-box text-center mb-30 wow fadeInDown animated"
-                        data-animation="fadeInDown animated" data-delay=".2s">
-                        {{-- <div class="text-white text-lg bg-yellow-600 rounded-t-md px-4 py-2 inline-block tag">Early Bid
-                        </div> --}}
-                        <div class="pricing-head bg-white rounded-t-xl">
-                            <h4>PAQS Golf 2025</h4>
-                            <div class="price-count mb-30">
-                                <h2><small>BND</small>250</h2>
-                            </div>
-                        </div>
-                        <div class="pricing-body bg-white rounded-b-xl w-full">
-                            <ul class="w-full text-left">
-                                <li style="list-style-type: disc;">Ends on 17 Aug 2025</li>
-                                <li style="list-style-type: disc;">Pricing: All prices listed are in BND.</li>
-                                <li style="list-style-type: disc;">Group rates: Contact registration@paqs2025.com (cc:
-                                    paqs2025@gmail.com) for details.
-                                </li>
-                            </ul>
-                            <div class="pricing-btn mt-10">
-                                <a href="{{ url('registration_form') }}" class="btn"><i
-                                        class="fas fa-sign-in-alt"></i>Registration</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 </main>

@@ -58,12 +58,14 @@ class FrontendController extends Controller
 
     public function registration()
     {
-        return view('frontend.registration');
+        $datas = Category::get()->groupBy('type');
+        // dd($datas);
+        return view('frontend.registration', compact('datas'));
     }
 
     public function registration_form()
     {
-        $categories = Category::all();
+        $categories = Category::get()->groupBy('type');
         $addons = Addon::all();
         return view('frontend.registration_form', compact('categories', 'addons'));
     }

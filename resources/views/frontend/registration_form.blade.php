@@ -105,28 +105,41 @@
                     <select name="category" id="category"
                         class="rounded-md w-full border-b text-[16px] outline-none">
                         <option disabled hidden selected>Select Category</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" <?php if (old('category') == $category->id) {
-                                echo 'selected';
-                            }
-                            ?>>{{ $category->name }}
-                                [BND{{ $category->price }}]
-                            </option>
+                        @foreach ($categories as $type => $items)
+                            <optgroup label="{{ $type }}">
+                                @foreach ($items as $category)
+                                    <option value="{{ $category->id }}" <?php if (old('category') == $category->id) {
+                                        echo 'selected';
+                                    }
+                                    ?>>
+                                        <span>{{ $category->name }} - </span>
+                                        <span class="font-bold text-warna-01">
+                                            {{ $category->currency . ' ' . number_format($category->price, 0, ',', '.') }}
+                                        </span>
+                                    </option>
+                                @endforeach
+                            </optgroup>
                         @endforeach
                     </select>
                 </div>
-                <div class="mb-8">
-                    <div for="company" class="text-warna-02 text-[16px] font-semibold">Add on</div>
-                    @foreach ($addons as $addon)
-                        <input type="checkbox" name="addon_id" id="addon_id" class="rounded-md"
-                            value="{{ $addon->id }}" <?php if (old('addon_id') == $addon->id) {
-                                echo 'checked';
-                            } ?>>
 
-                        <label for="addon_id" class="text-warna-02 text-[16px]">{{ $addon->name }}
-                            [BND{{ $addon->price }}]</label>
+                {{-- Addons --}}
+                {{-- <div class="mb-8">
+                    <div for="company" class="text-warna-02 text-[16px] font-semibold">Add on</div>
+                    @foreach ($addons as $type => $items)
+                        <optgroup label="{{ $type }}">
+                            @foreach ($items as $addon)
+                                <input type="checkbox" name="addon_id" id="addon_id" class="rounded-md"
+                                    value="{{ $addon->id }}" <?php if (old('addon_id') == $addon->id) {
+                                        echo 'checked';
+                                    } ?>>
+
+                                <label for="addon_id" class="text-warna-02 text-[16px]">{{ $addon->name }}
+                                    [BND{{ $addon->price }}]</label>
+                            @endforeach
+                        </optgroup>
                     @endforeach
-                </div>
+                </div> --}}
                 <div class="mb-8">
                     <label for="quantity" class="text-warna-02 text-[16px] font-semibold">Quantity <span
                             class="text-red-700">*</span></label>

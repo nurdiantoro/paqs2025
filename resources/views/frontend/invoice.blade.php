@@ -58,13 +58,13 @@
                                             {{ $category->name }}
                                         </td>
                                         <td class="cs-width_2 cs-primary_color cs-f15">
-                                            {{ $category->price }}
+                                            {{ number_format($category->price, 0, ',', '.') }}
                                         </td>
                                         <td class="cs-width_2 cs-primary_color cs-f15">
                                             {{ $data->quantity }}
                                         </td>
                                         <td class="cs-width_2 cs-text_right cs-primary_color cs-f15">
-                                            {{ number_format($total_category, 2, ',', '.') }}
+                                            {{ number_format($total_category, 0, ',', '.') }}
                                         </td>
                                     </tr>
                                     @if ($addon != null)
@@ -73,13 +73,13 @@
                                                 {{ $addon->name }}
                                             </td>
                                             <td class="cs-width_2 cs-primary_color cs-f15">
-                                                {{ $addon->price }}
+                                                {{ number_format($addon->$price, 0, ',', '.') }}
                                             </td>
                                             <td class="cs-width_2 cs-primary_color cs-f15">
                                                 {{ $data->quantity }}
                                             </td>
                                             <td class="cs-width_2 cs-text_right cs-primary_color cs-f15">
-                                                {{ number_format($total_addon, 2, ',', '.') }}
+                                                {{ number_format($total_addon, 0, ',', '.') }}
                                             </td>
                                         </tr>
                                     @endif
@@ -90,7 +90,7 @@
                                         <td class="cs-width_2"></td>
                                         <td class="cs-width_2"></td>
                                         <td class="cs-width_2 cs-text_right cs-semi_bold cs-primary_color cs-f15">
-                                            BND {{ number_format($total_price, 2, ',', '.') }}
+                                            {{ $category->currency . ' ' . number_format($total_price, 0, ',', '.') }}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -125,6 +125,53 @@
                 @else
                     <div class="cs-note_right">
                         <table class="border-none">
+                            <tr>
+                                <td class="border-none py-0">Pricing</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0"></td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">Group rates</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">Contact registration@paqs2025.com (cc:
+                                    paqs2025@gmail.com)
+                                    for details.</td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">Payment method</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">Bank Transfer.</td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">Bank Name</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0"></td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">Beneficiary</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0"></td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">Account Number</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0"></td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">SWIFT Code</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0"></td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0"><strong>Important</strong></td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">Please use your full name as the reference for your bank
+                                    transfer.</td>
+                            </tr>
+                        </table>
+
+                        {{-- Contoh Tahun 2024 --}}
+                        {{-- <table class="border-none">
                             <tr>
                                 <td class="border-none py-0">Pricing</td>
                                 <td class="border-none py-0">:</td>
@@ -169,7 +216,7 @@
                                 <td class="border-none py-0">Please use your full name as the reference for your bank
                                     transfer.</td>
                             </tr>
-                        </table>
+                        </table> --}}
                     </div>
 
                     <form action="{{ url('/order/upload_payment/' . $data->no_invoice) }}" method="POST"

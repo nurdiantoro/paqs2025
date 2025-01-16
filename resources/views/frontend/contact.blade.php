@@ -18,9 +18,9 @@
                         <div
                             class="relative mb-4 before:contents-[''] before:absolute before:w-3 before:h-3 before:bg-green-500 before:outline before:outline-white before:rounded-full before:bottom-2 before:right-2 before:z-10">
                             <img src="
-                            @if ($contact->gender == 'male') {{ asset('img/profile picture - man.jpg') }}
+                            @if ($contact->image != null) {{ asset('storage/' . $contact->image) }}
                             @else
-                                {{ asset('img/profile picture - woman.jpg') }} @endif
+                                {{ asset('img/profile picture - man.jpg') }} @endif
                             "
                                 class="w-24 h-24 rounded-full">
                         </div>

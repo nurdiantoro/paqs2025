@@ -14,9 +14,9 @@
             <div class="second-menu">
                 <div class="row align-items-center">
                     <div class="col-xl-3 col-lg-3">
-                        <div class="logo w-24">
+                        <div class="logo w-32">
                             <a href="{{ url('/') }}"><img src="{{ asset('img/LOGO PAQS CONGRESS.png') }}"
-                                    alt="logo" class="img-fluid"></a>
+                                    alt="logo" class="img-fluid drop-shadow"></a>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-9">

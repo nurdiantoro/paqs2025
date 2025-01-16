@@ -8,7 +8,7 @@ Route::get('/', [FrontendController::class, 'index']);
 Route::get('/about', [FrontendController::class, 'about']);
 Route::get('/programme', [FrontendController::class, 'programme']);
 Route::get('/general-information', [FrontendController::class, 'information']);
-Route::get('/venue', [FrontendController::class, 'venue']);
+// Route::get('/venue', [FrontendController::class, 'venue']);
 Route::get('/programme', [FrontendController::class, 'programme']);
 Route::get('/contact', [FrontendController::class, 'contact']);
 
