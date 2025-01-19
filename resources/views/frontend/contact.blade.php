@@ -81,8 +81,8 @@
                             </div>
                             <input type="text" class="rounded-lg p-3 outline-none border-none basis-full"
                                 placeholder="Your email" name="email">
-                            <textarea name="" id="" cols="" rows="10"
-                                class="rounded-lg p-3 outline-none border-none basis-full" placeholder="Message..." name="message"></textarea>
+                            <textarea name="message" id="" cols="" rows="10"
+                                class="rounded-lg p-3 outline-none border-none basis-full" placeholder="Message..."></textarea>
                             <button type="submit"
                                 class="mt-4 px-6 py-2 w-1/2 bg-warna-01 text-white mx-auto rounded-full">Send</button>
                         </div>
