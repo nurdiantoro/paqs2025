@@ -5,7 +5,7 @@
 
 <!-- main-area -->
 <main>
-    <div class="mt-200 min-h-screen mb-50 px-80">
+    <div class="mt-200 min-h-screen mb-50 px-2 md:px-80">
         <div class="container">
 
             <div class="wow fadeInUp animated text-4xl font-bold mb-4 text-black" data-animation="fadeInUp animated"
@@ -35,7 +35,8 @@
                 @endforeach
             </div>
 
-            <div class="flex gap-12 mb-80 bg-slate-800 p-8 rounded-[2rem] relative overflow-hidden">
+            <div
+                class="flex flex-col-reverse md:flex-row gap-12 mb-80 bg-slate-800 md:p-8 rounded-[2rem] relative overflow-hidden">
                 <div class="flex flex-col flex-1 z-20 gap-4">
                     <div class="wow fadeInUp animated text-4xl font-bold mb-2 text-white"
                         data-animation="fadeInUp animated" data-delay=".2s">
@@ -54,7 +55,7 @@
                 </div>
 
                 <div class="flex-1 z-20">
-                    <div class="w-full h-80 rounded-lg overflow-hidden">
+                    <div class="w-full h-80 rounded-[1rem] md:rounded-lg overflow-hidden">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1174.7638884622168!2d106.80909255150115!3d-6.290478113959374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1fa5b9f59a3%3A0x772f6f7bc1fbc6c0!2sMenara%20165!5e1!3m2!1sid!2sid!4v1736871532955!5m2!1sid!2sid"
                             style="border:0;" allowfullscreen="" loading="lazy" width="100%" height="100%"
@@ -62,24 +63,26 @@
                     </div>
                 </div>
 
-                <img src="{{ asset('img/maps.png') }}" class="absolute z-10 left-0 bottom-0 h-1/2 w-auto">
+                <img src="{{ asset('img/maps.png') }}"
+                    class="absolute z-10 left-0 bottom-0 h-1/2 w-auto hidden md:block">
             </div>
 
             <div class="flex flex-row mb-80 gap-20">
                 <div class="lg:w-1/2 mx-auto">
                     <span class="text-2xl font-bold text-black block mx-auto text-center mb-8">More Information</span>
-                    <form action="">
+                    <form method="POST" action="{{ url('/inbox/store') }}">
+                        @csrf
                         <div class="flex flex-col gap-4 text-lg mb-2">
-                            <div class="flex flex-row gap-4">
+                            <div class="flex flex-wrap gap-4">
                                 <input type="text" class="rounded-lg p-3 outline-none border-none flex-1"
-                                    placeholder="First Name">
+                                    placeholder="First Name" name="first_name">
                                 <input type="text" class="rounded-lg p-3 outline-none border-none flex-1"
-                                    placeholder="Last Name">
+                                    placeholder="Last Name" name="last_name">
                             </div>
                             <input type="text" class="rounded-lg p-3 outline-none border-none basis-full"
-                                placeholder="Your email">
+                                placeholder="Your email" name="email">
                             <textarea name="" id="" cols="" rows="10"
-                                class="rounded-lg p-3 outline-none border-none basis-full" placeholder="Message..."></textarea>
+                                class="rounded-lg p-3 outline-none border-none basis-full" placeholder="Message..." name="message"></textarea>
                             <button type="submit"
                                 class="mt-4 px-6 py-2 w-1/2 bg-warna-01 text-white mx-auto rounded-full">Send</button>
                         </div>
@@ -93,9 +96,30 @@
                         your Email</a>
                 </div>
             </div>
+
         </div>
     </div>
 </main>
+
+@if (session('success'))
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "bottom",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "success",
+            title: "Message Sent Successfully"
+        });
+    </script>
+@endif
 <!-- main-area-end -->
 <!-- footer -->
 @include('frontend.components.footer')

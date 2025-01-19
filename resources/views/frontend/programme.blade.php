@@ -5,7 +5,7 @@
 
 <!-- main-area -->
 <main>
-    <div class="flex flex-col px-80 items-center h-[30rem] bg-slate-200 overflow-hidden relative bg-cover bg-bottom"
+    <div class="flex flex-col px-2 md:px-80 items-center h-[30rem] bg-slate-200 overflow-hidden relative bg-cover bg-bottom"
         style="background-image: url('{{ asset('img/forum-2.jpg') }}');">
         <div class="text-center mx-auto mt-auto pb-10">
             <p class="text-4xl font-bold wow fadeInUp animated z-10 text-white mb-4">Programme</p>
@@ -23,16 +23,16 @@
         </div>
         {{-- <img src="{{ asset('img/meeting.jpg') }}" class="absolute w-full h-full object-cover brightness-[0.2]"> --}}
     </div>
-    <div class="mt-200 min-h-screen mb-50 px-80">
+    <div class="mt-200 min-h-screen mb-50 px-2 md:px-80">
 
         <div class="container">
 
 
-            <div class="mb-80 flex">
-                <div class="flex-1">
+            <div class="mb-80 flex flex-wrap-reverse">
+                <div class="w-full md:w-1/2 md:translate-y-0 translate-y-[-50%] absolute bottom-0 md:relative ">
                     <img src="{{ asset('img/programme.png') }}" class="scale-150">
                 </div>
-                <div class="flex-1 ">
+                <div class="w-full md:w-1/2 ">
                     <p class="font-semibold text-2xl text-black mb-4">Main Program</p>
                     <div class="text-gray-400 flex-col">
 
@@ -156,28 +156,41 @@
 
             <div class="mb-60">
                 <p class="font-semibold text-2xl text-black mb-4">Social Activity Program</p>
-                <div class="text-gray-500 flex gap-4">
-                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
-                        <div id="icon-blueprint" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                <div class="text-gray-500 flex flex-wrap justify-center">
+                    <div class="p-2 md:w-1/5 w-1/2">
+                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
+                            <div id="icon-blueprint" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                            </div>
+                            <span class="font-bold text-lg group-hover:text-black">Project Visit</span>
                         </div>
-                        <span class="font-bold text-lg group-hover:text-black">Project Visit</span>
                     </div>
-                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
-                        <div id="icon-golf" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"></div>
-                        <span class="font-bold text-lg group-hover:text-black">Golf Tournament</span>
-                    </div>
-                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
-                        <div id="icon-calendar" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"></div>
-                        <span class="font-bold text-lg group-hover:text-black">Spouse Program</span>
-                    </div>
-                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
-                        <div id="icon-dinner" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"></div>
-                        <span class="font-bold text-lg group-hover:text-black">Gala Dinner</span>
-                    </div>
-                    <div class="rounded-xl flex-1 text-center bg-white shadow-lg p-2 group">
-                        <div id="icon-exhibition" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                    <div class="p-2 md:w-1/5 w-1/2">
+                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
+                            <div id="icon-golf" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"></div>
+                            <span class="font-bold text-lg group-hover:text-black">Golf Tournament</span>
                         </div>
-                        <span class="font-bold text-lg group-hover:text-black">Exhibition</span>
+                    </div>
+                    <div class="p-2 md:w-1/5 w-1/2">
+                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
+                            <div id="icon-calendar" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                            </div>
+                            <span class="font-bold text-lg group-hover:text-black">Spouse Program</span>
+                        </div>
+                    </div>
+                    <div class="p-2 md:w-1/5 w-1/2">
+                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
+                            <div id="icon-dinner" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                            </div>
+                            <span class="font-bold text-lg group-hover:text-black">Gala Dinner</span>
+                        </div>
+                    </div>
+                    <div class="p-2 md:w-1/5 w-1/2">
+                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
+                            <div id="icon-exhibition"
+                                class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                            </div>
+                            <span class="font-bold text-lg group-hover:text-black">Exhibition</span>
+                        </div>
                     </div>
                 </div>
 
@@ -196,7 +209,7 @@
                 </div>
 
                 <div class="flex-1 text-gray-400 flex flex-row gap-4 z-10 bg-cover relative">
-                    <div class="flex flex-col flex-1 gap-6">
+                    <div class="flex flex-wrap md:flex-col flex-1 gap-6">
                         <div class="bg-white rounded-lg p-2 shadow-lg text-lg">
                             <span class="font-bold text-warna-01">AI-Driven Construction Innovations:</span>
                             Leveraging

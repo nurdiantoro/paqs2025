@@ -21,27 +21,30 @@
                 <span class="text-4xl font-bold text-black block mb-4">{{ $type }}</span>
                 <div class="flex flex-wrap mb-32">
                     @foreach ($items as $item)
-                        <div class="basis-1/4 p-2 h-auto">
-                            <div class="h-full p-4 rounded-xl flex flex-col bg-cover border border-white"
-                                style="background-image: url('{{ asset('img/glass.png') }}')">
-                                <div class="font-bold text-warna-01 mx-auto mb-12">
-                                    <span class="">{{ $item->currency }}</span>
-                                    <span class="text-5xl">
-                                        <?php
-                                        if ($item->price > 1000) {
-                                            echo number_format(floor($item->price / 1000)) . '</span><span class="align-super">,000</span>';
-                                        } else {
-                                            echo number_format($item->price) . '</span>';
-                                        }
-                                        ?>
-                                </div>
-                                <span class="text-lg text-slate-900 text-center mb-auto">{{ $item->name }}</span>
-                                <a href="{{ url('registration_form') }}" class="text-center mt-4 ">
+                        <div class="w-full md:w-1/4 p-2 h-auto">
+                            <a href="{{ url('registration_form') }}">
+                                <div class="h-full p-4 rounded-xl flex flex-col bg-cover border border-white"
+                                    style="background-image: url('{{ asset('img/glass.png') }}')">
+                                    <div class="font-bold text-warna-01 mx-auto mb-12">
+                                        <span class="">{{ $item->currency }}</span>
+                                        <span class="text-5xl">
+                                            <?php
+                                            if ($item->price > 1000) {
+                                                echo number_format(floor($item->price / 1000)) . '</span><span class="align-super">,000</span>';
+                                            } else {
+                                                echo number_format($item->price) . '</span>';
+                                            }
+                                            ?>
+                                    </div>
                                     <span
-                                        class="hover:bg-slate-100 hover:text-warna-01 text-slate-700 py-3 px-4 rounded-lg">Register
-                                        now!</span>
-                                </a>
-                            </div>
+                                        class="text-lg text-slate-900 text-center mb-auto font-semibold">{{ $item->name }}</span>
+                                    <div class="text-center mt-4">
+                                        <span
+                                            class="hover:bg-slate-100 hover:text-warna-01 text-slate-700 py-3 px-4 rounded-lg">Register
+                                            now!</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     @endforeach
                 </div>

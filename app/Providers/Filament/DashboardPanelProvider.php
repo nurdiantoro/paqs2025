@@ -29,7 +29,7 @@ class DashboardPanelProvider extends PanelProvider
             ->login()
             ->brandName('PAQS 2025')
             ->brandLogo(asset('img/LOGO PAQS CONGRESS.png'))
-            ->favicon(asset('img/PAQS Logo.png'))
+            ->favicon(asset('img/LOGO PAQS CONGRESS.png'))
             ->colors([
                 'primary' => '#0c6196',
                 // 'primary' => Color::Amber,

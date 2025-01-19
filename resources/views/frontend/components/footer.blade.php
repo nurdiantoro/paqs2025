@@ -1,6 +1,7 @@
-    <footer class="footer-p py-12" style="background-color: var(--warna-02);">
+    <footer class="footer-p py-12 bg-warna-temp-01">
         <div class="container">
-            <div class="flex justify-between items-center w-full mb-6 pb-6 border-bottom-1 border-slate-700">
+            <div
+                class="flex flex-wrap justify-center gap-6 md:gap-0 md:justify-between items-center w-full mb-6 pb-6 border-bottom-1 border-slate-700">
                 <div class="logo">
                     <a href="{{ url('/') }}"><img src="{{ asset('img/LOGO PAQS CONGRESS.png') }}" alt="logo"
                             class="h-16 mx-auto"></a>
@@ -54,7 +55,11 @@
 
     <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
 
-    @vite('resources/js/app.js')
+
+    {{-- @vite('resources/js/app.js') --}}
+
+
+    <script></script>
 
     </body>
 

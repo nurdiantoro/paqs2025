@@ -5,7 +5,7 @@
 
 <!-- main-area -->
 <main>
-    <div class="flex flex-col px-80 items-center h-[30rem] bg-slate-200 overflow-hidden relative bg-cover bg-bottom"
+    <div class="flex flex-col px-2 md:px-80 items-center h-[30rem] bg-slate-200 overflow-hidden relative bg-cover bg-bottom"
         style="background-image: url('{{ asset('img/forum-2.jpg') }}');">
         <div class="text-center mx-auto mt-auto pb-10">
             <p class="text-4xl font-bold wow fadeInUp animated z-10 text-white mb-4">About Us</p>
@@ -24,9 +24,9 @@
         </div>
         {{-- <img src="{{ asset('img/meeting.jpg') }}" class="absolute w-full h-full object-cover brightness-[0.2]"> --}}
     </div>
-    <div class="mt-200 min-h-screen mb-50 px-80">
-        <div class="mb-60">
-            <div class="mb-40 flex flex-wrap justify-between">
+    <div class="min-h-screen mb-50 md:px-80 md:mt-200 ">
+        <div class="mb-60 px-2 md:px-0">
+            <div class="mb-40 flex flex-col md:flex-row justify-between">
                 <div class="flex-1 flex justify-center items-center wow fadeInUp animated">
                     <img src="{{ asset('img/about.png') }}"
                         class="w-[400px] rounded-xl hover:scale-110 duration-300 ease-out">
@@ -46,76 +46,96 @@
                     </p>
                 </div>
             </div>
+
             <div class="mb-40">
                 <h5 class="wow fadeInUp animated text-2xl font-semibold mb-8" data-animation="fadeInUp animated"
                     data-delay=".2s">
                     Congress Goals</h5>
-                <ul class="wow fadeInUp animated flex flex-wrap gap-4">
-                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">
+                <ul class="wow fadeInUp animated flex flex-col md:flex-row gap-4">
+                    <li class="bg-white rounded-xl md:w-1/5 w-full p-4 text-slate-500">
                         Enhancing the standards of professionalism
                         in the
                         Quantity Surveying
                         profession in the Asia
                         and Western Pacific region.</li>
-                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">Encouraging collaboration and knowledge
+                    <li class="bg-white rounded-xl md:w-1/5 w-full p-4 text-slate-500">Encouraging collaboration and
+                        knowledge
                         exchange among
                         Quantity
                         Surveying professionals from
                         various countries</li>
-                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">Promoting innovation in technology and
+                    <li class="bg-white rounded-xl md:w-1/5 w-full p-4 text-slate-500">Promoting innovation in
+                        technology and
                         environmentally
                         friendly
                         practices in the construction
                         industry</li>
-                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">Improving education and training for
+                    <li class="bg-white rounded-xl md:w-1/5 w-full p-4 text-slate-500">Improving education and training
+                        for
                         Quantity Surveyors,
                         including
                         the accreditation of
                         related educational programs</li>
-                    <li class="bg-white rounded-xl flex-1 p-4 text-slate-500">Discussing and promoting digitalization in
+                    <li class="bg-white rounded-xl md:w-1/5 w-full p-4 text-slate-500">Discussing and promoting
+                        digitalization in
                         the
                         construction industry
                         towards the development
                         of smart cities and nations</li>
                 </ul>
             </div>
+
             <div class="mb-40">
                 <h5 class="wow fadeInUp animated text-2xl font-semibold mb-4" data-animation="fadeInUp animated"
                     data-delay=".2s">
                     Target Audience</h5>
-                <ul class="wow fadeInUp animated flex flex-wrap gap-4">
-                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl group">
-                        <x-solar-suitcase-bold-duotone
-                            class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
-                        Professional QS
+                <ul class="wow fadeInUp animated flex flex-wrap">
+                    <li class="w-1/2 md:w-1/6 p-2 h-auto">
+                        <div class="text-slate-500 h-full flex flex-col gap-2 p-4 bg-white rounded-xl group">
+                            <x-solar-suitcase-bold-duotone
+                                class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
+                            Professional QS
+                        </div>
                     </li>
-                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl group">
-                        <x-solar-delivery-bold-duotone
-                            class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
-                        Suppliers
+                    <li class="w-1/2 md:w-1/6 p-2 h-auto">
+                        <div class="text-slate-500 h-full flex flex-col gap-2 p-4 bg-white rounded-xl group">
+                            <x-solar-delivery-bold-duotone
+                                class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
+                            Suppliers
+                        </div>
                     </li>
-                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl group">
-                        <x-solar-buildings-bold-duotone
-                            class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
-                        Developer & Property
+                    <li class="w-1/2 md:w-1/6 p-2 h-auto">
+                        <div class="text-slate-500 h-full flex flex-col gap-2 p-4 bg-white rounded-xl group">
+                            <x-solar-buildings-bold-duotone
+                                class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
+                            Developer & Property
+                        </div>
                     </li>
-                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl group">
-                        <x-fas-tools class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
-                        Consultant Engineering & Architect
+                    <li class="w-1/2 md:w-1/6 p-2 h-auto">
+                        <div class="text-slate-500 h-full flex flex-col gap-2 p-4 bg-white rounded-xl group">
+                            <x-fas-tools class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
+                            Consultant Engineering & Architect
+                        </div>
                     </li>
-                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl group">
-                        <x-solar-square-academic-cap-bold-duotone
-                            class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
-                        Academicians & Researcher
+                    <li class="w-1/2 md:w-1/6 p-2 h-auto">
+                        <div class="text-slate-500 h-full flex flex-col gap-2 p-4 bg-white rounded-xl group">
+                            <x-solar-square-academic-cap-bold-duotone
+                                class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
+                            Academicians & Researcher
+                        </div>
                     </li>
-                    <li class="flex-1 p-4 text-slate-500 flex flex-col gap-2 bg-white rounded-xl group">
-                        <x-letsicon-form-duotone class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
-                        Government & Regulatory
+                    <li class="w-1/2 md:w-1/6 p-2 h-auto">
+                        <div class="text-slate-500 h-full flex flex-col gap-2 p-4 bg-white rounded-xl group">
+                            <x-letsicon-form-duotone
+                                class="w-10 h-10 text-warna-01 opacity-50 group-hover:opacity-100" />
+                            Government & Regulatory
+                        </div>
                     </li>
                 </ul>
             </div>
+
             <div class="mb-40 flex flex-row gap-20">
-                <div class="basis-2/3">
+                <div class="md:basis-2/3">
                     <h5 class="wow fadeInUp animated text-2xl font-semibold mb-4" data-animation="fadeInUp animated"
                         data-delay=".2s">
                         Overview of Indonesia’s Quantity Surveyor</h5>
@@ -155,7 +175,7 @@
                         Association of Quantity Surveyors) member countries
                     </p>
                 </div>
-                <div class="basis-1/3 flex justify-content-center items-center">
+                <div class="md:basis-1/3 hidden md:flex justify-content-center items-center">
                     <img src="{{ asset('img/kontruksi.png') }}" class="w-100">
                 </div>
             </div>

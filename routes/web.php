@@ -22,6 +22,7 @@ Route::get('/invoice', [FrontendController::class, 'ticket']);
 Route::post('/order/check/', [FrontendController::class, 'check_invoice']);
 Route::post('/order/store', [OrderController::class, 'store']);
 Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'upload_payment']);
+Route::post('/inbox/store/', [FrontendController::class, 'inbox_store']);
 
 
 Route::get('/test', function () {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Addon;
 use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Inbox;
 use App\Models\Order;
 use App\Models\Roadmap;
 use App\Models\Ticket;
@@ -105,5 +106,16 @@ class FrontendController extends Controller
         } else {
             return redirect()->back()->with('error', 'Invoice tidak ditemukan!');
         }
+    }
+
+    public function inbox_store(Request $request)
+    {
+        Inbox::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'message' => $request->message
+        ]);
+        return redirect()->back()->with('success', 'Pesan berhasil dikirim!');
     }
 }
