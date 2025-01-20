@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,9 @@ Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'uplo
 Route::post('/inbox/store/', [FrontendController::class, 'inbox_store']);
 
 
-Route::get('/test', function () {
-    return view('test');
-});
+// Route::get('/test', function () {
+//     return view('test');
+// });
+
+
+Route::get('/email', [EmailController::class, 'sendEmail']);

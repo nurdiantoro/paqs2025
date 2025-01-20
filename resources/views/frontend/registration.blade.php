@@ -23,7 +23,7 @@
                     @foreach ($items as $item)
                         <div class="w-full md:w-1/4 p-2 h-auto">
                             <a href="{{ url('registration_form') }}">
-                                <div class="h-full p-4 rounded-xl flex flex-col bg-cover border border-white"
+                                <div class="h-full p-4 rounded-xl flex flex-col bg-cover border-[1px] border-slate-100  hover:shadow-lg hover:border-slate-300"
                                     style="background-image: url('{{ asset('img/glass.png') }}')">
                                     <div class="font-bold text-warna-01 mx-auto mb-12">
                                         <span class="">{{ $item->currency }}</span>
@@ -39,8 +39,7 @@
                                     <span
                                         class="text-lg text-slate-900 text-center mb-auto font-semibold">{{ $item->name }}</span>
                                     <div class="text-center mt-4">
-                                        <span
-                                            class="hover:bg-slate-100 hover:text-warna-01 text-slate-700 py-3 px-4 rounded-lg">Register
+                                        <span class=" text-slate-700 py-3 px-4 rounded-lg">Register
                                             now!</span>
                                     </div>
                                 </div>
