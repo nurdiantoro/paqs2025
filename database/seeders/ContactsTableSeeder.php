@@ -17,22 +17,22 @@ class ContactsTableSeeder extends Seeder
             [
                 "name" => "Retno Dwi (Eno)",
                 "telephone" => "+6281211116900",
-                "gender" => "male",
+                "image" => "profile picture - woman.jpg",
             ],
             [
                 "name" => "Rizka",
                 "telephone" => "+6282125917021",
-                "gender" => "female",
+                "image" => "profile picture - woman.jpg",
             ],
             [
                 "name" => "Geraldine",
                 "telephone" => "+628114030903",
-                "gender" => "female",
+                "image" => "profile picture - woman.jpg",
             ],
             [
                 "name" => "Graha",
                 "telephone" => "+6282280286961",
-                "gender" => "male",
+                "image" => "profile picture - woman.jpg",
             ],
         ]);
     }

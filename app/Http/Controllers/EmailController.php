@@ -17,7 +17,7 @@ class EmailController extends Controller
             'url' => url('/') . '/invoice/' . '123',
         ];
 
-        $kirim = Mail::to('nurdiantoro100@gmail.com')->send(new Invoice($data));
+        $kirim = Mail::to('nurdiantoro1999@gmail.com')->send(new Invoice($data));
         if ($kirim) {
             return "Email sent successfully.";
         } else {

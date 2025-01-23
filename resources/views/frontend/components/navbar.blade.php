@@ -1,10 +1,31 @@
 <!-- header -->
 
 @php
+    $navbarColor = 'hover:text-warna-temp-02 font-semibold text-gray-400';
+    $home = $about = $information = $programme = $contact = 'text-gray-400';
     if (url()->current() == url('/')) {
-        $navbarColor = 'hover:text-warna-temp-02 font-semibold text-slate-400';
+        $home = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/about')) {
+        $about = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/programme')) {
+        $information = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/general-information')) {
+        $information = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/venue')) {
+        $information = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/invoice')) {
+        $information = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/contact')) {
+        $contact = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/news')) {
+        $news = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/sponsor')) {
+        $sponsor = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/registration')) {
+        $registration = 'text-warna-temp-02';
     } else {
-        $navbarColor = 'gray-400';
+        if (url()->current() == url('/registration')) {
+        }
     }
 @endphp
 
@@ -27,14 +48,14 @@
                         <div class="main-menu text-right text-xl-center">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="has-sub"><a class="{{ $navbarColor }}"
-                                            href="{{ url('/') }}">Home</a>
+                                    <li class="has-sub {{ $home . ' ' . $navbarColor }}">
+                                        <a href="{{ url('/') }}">Home</a>
                                     </li>
-                                    <li class="has-sub">
-                                        <a class="{{ $navbarColor }}" href="{{ url('about') }}">About</a>
+                                    <li class="has-sub {{ $about . ' ' . $navbarColor }}">
+                                        <a href="{{ url('about') }}">About</a>
                                     </li>
-                                    <li class="has-sub">
-                                        <a class="{{ $navbarColor }}" href="#">Information</a>
+                                    <li class="has-sub {{ $information . ' ' . $navbarColor }}">
+                                        <a href="#">Information</a>
                                         <ul>
                                             <li><a href="{{ url('programme') }}">Programme</a></li>
                                             <li><a href="{{ url('general-information') }}">General Information</a></li>
@@ -42,7 +63,9 @@
                                             <li><a href="{{ url('invoice') }}">Check Invoice</a></li>
                                         </ul>
                                     </li>
-                                    <li><a class="{{ $navbarColor }}" href="{{ url('contact') }}">Contact</a></li>
+                                    <li class="has-sub {{ $contact . ' ' . $navbarColor }}">
+                                        <a href="{{ url('contact') }}">Contact</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
