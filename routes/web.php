@@ -27,7 +27,7 @@ Route::post('/inbox/store/', [FrontendController::class, 'inbox_store']);
 
 
 // Route::get('/test', function () {
-//     return view('test');
+//     return view('welcome');
 // });
 
 

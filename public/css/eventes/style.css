@@ -1017,7 +1017,7 @@ label {
     margin-bottom: 20px;
 }
 .slider-content h2 {
-    font-size: 80px;
+    /* font-size: 80px; */
     color: #fff;
     letter-spacing: -2px;
     line-height: 1.1;

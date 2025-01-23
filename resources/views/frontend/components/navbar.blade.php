@@ -32,7 +32,7 @@
 <header id="home" class="header-area z-[999] relative">
     <div id="header-sticky" class="menu-area">
         <div class="container">
-            <div class="second-menu">
+            <div class="second-menu p-0">
                 <div class="row align-items-center">
                     <div class="col-xl-3 col-lg-3">
                         <div class="logo w-24 lg:w-32">
@@ -49,13 +49,19 @@
                             <nav id="mobile-menu">
                                 <ul>
                                     <li class="has-sub {{ $home . ' ' . $navbarColor }}">
-                                        <a href="{{ url('/') }}">Home</a>
+                                        <a href="{{ url('/') }}">
+                                            <span class="text-2xl">Home</span>
+                                        </a>
                                     </li>
                                     <li class="has-sub {{ $about . ' ' . $navbarColor }}">
-                                        <a href="{{ url('about') }}">About</a>
+                                        <a href="{{ url('about') }}">
+                                            <span class="text-2xl">About</span>
+                                        </a>
                                     </li>
                                     <li class="has-sub {{ $information . ' ' . $navbarColor }}">
-                                        <a href="#">Information</a>
+                                        <a href="#">
+                                            <span class="text-2xl">Information</span>
+                                        </a>
                                         <ul>
                                             <li><a href="{{ url('programme') }}">Programme</a></li>
                                             <li><a href="{{ url('general-information') }}">General Information</a></li>
@@ -64,7 +70,9 @@
                                         </ul>
                                     </li>
                                     <li class="has-sub {{ $contact . ' ' . $navbarColor }}">
-                                        <a href="{{ url('contact') }}">Contact</a>
+                                        <a href="{{ url('contact') }}">
+                                            <span class="text-2xl">Contact</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </nav>

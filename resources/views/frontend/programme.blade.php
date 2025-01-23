@@ -203,8 +203,8 @@
                         <x-bxs-quote-right
                             class="w-12 h-12 text-warna-01 absolute top-0 left-0 translate-x-1/2 -translate-y-1/2" />
                         <div id="theme" class="text-4xl font-bold text-warna-01 p-4 rounded-[2rem]  ">
+                            {{-- Materi teks ada di js typewritter --}}
                         </div>
-                        {{-- Materi teks ada di js typewritter --}}
                     </div>
                 </div>
 
