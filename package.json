@@ -470,6 +470,7 @@
         "side-channel-weakmap": "^1.0.2",
         "signal-exit": "^4.1.0",
         "slash": "^3.0.0",
+        "slick-carousel": "^1.8.1",
         "sockjs": "^0.3.24",
         "source-list-map": "^2.0.1",
         "source-map": "^0.6.1",

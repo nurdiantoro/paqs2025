@@ -11,7 +11,7 @@
         <div class="relative z-50 w-full min-h-screen flex flex-col items-center justify-center p-4">
             <div class="slider-content second-slider-content">
                 <h2 data-animation="fadeInUp animated" data-delay=".4s"
-                    class="text-4xl! md:text-xl! font-bold font-[Oswald] drop-shadow-lg">PAQS
+                    class="text-4xl! md:text-xl! font-bold font-[Oswald] drop-shadow-lg wow fadeInUp animated">PAQS
                     CONGRESS
                     <span class="text-sky-500">2025</span>
                 </h2>
@@ -38,8 +38,10 @@
                     </div>
                 </div>
                 <ul data-animation="fadeInUp animated" data-delay=".2s">
-                    <li><i class="fas fa-map-marker-alt text-3xl"></i> Jakarta - Indonesia</li>
-                    <li><i class="far fa-clock text-3xl"></i> 22 - 26 August 2025, </li>
+                    <li class="wow fadeInLeft animated"><i class="fas fa-map-marker-alt text-3xl"></i> Jakarta -
+                        Indonesia</li>
+                    <li class="wow fadeInRight animated"><i class="far fa-clock text-3xl"></i> 22 - 26 August 2025,
+                    </li>
                 </ul>
             </div>
         </div>
@@ -75,8 +77,7 @@
 
                 <div
                     class="flex flex-col flex-1 p-2 relative before:contents[''] before:absolute before:w-full before:h-20 before:bottom-0 before:left-0 z-50 before:-z-50 before:bg-sky-400 before:rounded-2xl wow fadeInUp animated">
-                    <div
-                        class="flex flex-col flex-1 p-2 py-4 md:px-4 bg-white rounded-xl shadow-lg h-full h-auto relative">
+                    <div class="flex flex-col flex-1 p-2 py-4 md:px-4 bg-white rounded-xl shadow-lg h-auto relative">
                         <span class="font-bold text-slate-800">AI-Driven Construction Innovations</span>
                         <span class="mt-2">Leveraging artificial intelligence for predictive analytics,
                             automation, and enhanced decision-making</span>
@@ -85,8 +86,7 @@
 
                 <div
                     class="flex flex-col flex-1 p-2 relative before:contents[''] before:absolute before:w-full before:h-20 before:bottom-0 before:left-0 z-50 before:-z-50 before:bg-green-400 before:rounded-2xl wow fadeInUp animated">
-                    <div
-                        class="flex flex-col flex-1 p-2 py-4 md:px-4 bg-white rounded-xl shadow-lg h-full h-auto relative">
+                    <div class="flex flex-col flex-1 p-2 py-4 md:px-4 bg-white rounded-xl shadow-lg h-auto relative">
                         <span class="font-bold text-slate-800">Pathways to Net Zero and Decarbonization</span>
                         <span class="mt-2">Cutting-edge approaches to reducing carbon footprints in
                             construction processes</span>
@@ -95,8 +95,7 @@
 
                 <div
                     class="flex flex-col flex-1 p-2 relative before:contents[''] before:absolute before:w-full before:h-20 before:bottom-0 before:left-0 z-50 before:-z-50 before:bg-yellow-400 before:rounded-2xl wow fadeInUp animated">
-                    <div
-                        class="flex flex-col flex-1 p-2 py-4 md:px-4 bg-white rounded-xl shadow-lg h-full h-auto relative">
+                    <div class="flex flex-col flex-1 p-2 py-4 md:px-4 bg-white rounded-xl shadow-lg h-auto relative">
                         <span class="font-bold text-slate-800">Breakthroughs in Sustainable Materials</span>
                         <span class="mt-2">Next-generation materials that drive both innovation and
                             environmental responsibility. Modular and Prefabricated</span>
@@ -123,7 +122,7 @@
         <div class="flex  flex-wrap">
 
             {{-- Card --}}
-            <a href="" class="w-full md:w-1/2 p-4 group h-auto">
+            <a href="{{ url('about') }}" class="w-full md:w-1/2 p-4 group h-auto wow fadeInUp animated">
                 <div class="p-4 bg-white rounded-xl shadow-lg h-full">
                     <span class="rounded-full p-3 bg-red-100 w-20 h-20 flex items-center justify-center mb-4">
                         <x-sui-globe class="w-10 h-10 text-red-500 inline" />
@@ -143,7 +142,7 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="w-full md:w-1/2 p-4 group h-auto">
+            <a href="{{ url('programme') }}" class="w-full md:w-1/2 p-4 group h-auto wow fadeInUp animated">
                 <div class="p-4 bg-white rounded-xl shadow-lg h-full">
                     <span class="rounded-full p-3 bg-amber-100 w-20 h-20 flex items-center justify-center mb-4">
                         <x-sui-document class="w-10 h-10 text-amber-500 inline" />
@@ -162,7 +161,7 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="w-full md:w-1/2 p-4 group h-auto">
+            <a href="{{ url('call-for-papers') }}" class="w-full md:w-1/2 p-4 group h-auto wow fadeInUp animated">
                 <div class="p-4 bg-white rounded-xl shadow-lg h-full">
                     <span class="rounded-full p-3 bg-lime-100 w-20 h-20 flex items-center justify-center mb-4">
                         <x-sui-write class="w-10 h-10 text-lime-500 inline" />
@@ -182,7 +181,7 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="w-full md:w-1/2 p-4 group h-auto">
+            <a href="{{ url('general-information') }}" class="w-full md:w-1/2 p-4 group h-auto wow fadeInUp animated">
                 <div class="p-4 bg-white rounded-xl shadow-lg h-full">
                     <span class="rounded-full p-3 bg-cyan-100 w-20 h-20 flex items-center justify-center mb-4">
                         <x-sui-ticket class="w-10 h-10 text-cyan-500 inline" />
@@ -208,11 +207,11 @@
     <section class="py-10 mb-10 md:py-20 md:px-80 md:mb-40">
         <div class="container">
             <div
-                class="flex items-center bg-slate-800 p-8 rounded-[30px] relative before:bg-[url('{{ asset('img/blue-background.png') }}')] before:bg-cover before:block before:h-full before:w-full before:absolute before:rounded-[30px] before:z-0">
-                <div class="flex-1 wow fadeInUp animated hidden md:block">
+                class="flex items-center bg-slate-800 p-8 rounded-[30px] relative before:bg-[url('{{ asset('img/blue-background.png') }}')] before:bg-cover before:block before:h-full before:w-full before:absolute before:rounded-[30px] before:z-0 wow fadeInUp animated">
+                <div class="flex-1 hidden md:block">
                     <img src="{{ asset('img/Register Now.png') }}" class="h-80 mx-auto scale-[1.75]">
                 </div>
-                <div class="flex-1 wow fadeInUp animated">
+                <div class="flex-1">
                     <div class="md:px-24">
                         <p class="text-4xl font-bold"><span class="text-white">Register</span>
                             and
@@ -261,6 +260,30 @@
             </div>
         </div>
     </section>
+
+    <section class="mb-10">
+        <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Glimpse from our
+            last session </div>
+
+        <swiper-container class="mySwiper" pagination="false" navigation="false" centered-slides="true"
+            autoplay-delay="0" slides-per-view="5" space-between="10" loop="true" speed="3000">
+
+            <?php for ($i = 1; $i < 15; $i++) { ?>
+            <swiper-slide>
+                <img src="{{ asset('img/dokumentasi/dokumentasi-' . $i . '.jpg') }}"
+                    class="rounded-xl md:brightness-50 hover:brightness-100 md:grayscale hover:grayscale-0"></swiper-slide>
+            <?php } ?>
+        </swiper-container>
+        {{-- <div class="slider">
+            <?php for ($i = 1; $i < 15; $i++) { ?>
+            <div class="p-2 flex justify-center items-center">
+                <img src="{{ asset('img/dokumentasi/dokumentasi-' . $i . '.jpg') }}"
+                    class="rounded-xl md:brightness-50 hover:brightness-100 md:grayscale hover:grayscale-0">
+            </div>
+            <?php } ?>
+        </div> --}}
+    </section>
+
 </main>
 
 @include('frontend.components.footer')
