@@ -26,6 +26,7 @@
         "faisal50x/blade-ionicons": "^1.0",
         "filament/filament": "^3.2",
         "filament/infolists": "^3.2",
+        "filament/notifications": "^3.2",
         "giggsey/libphonenumber-for-php": "^8.13",
         "intervention/image": "^3.10",
         "laravel/framework": "^11.31",

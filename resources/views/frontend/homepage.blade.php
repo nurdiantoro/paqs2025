@@ -9,9 +9,9 @@
         style="background-image:url({{ url('img/PAQS-Opening-1.jpg') }})">
 
         <div class="relative z-50 w-full min-h-screen flex flex-col items-center justify-center p-4">
-            <div class="slider-content second-slider-content">
+            <div class="slider-content second-slider-content drop-shadow-[2px_4px_2px_rgba(0,0,0,1)]">
                 <h2 data-animation="fadeInUp animated" data-delay=".4s"
-                    class="text-4xl! md:text-xl! font-bold font-[Oswald] drop-shadow-lg wow fadeInUp animated">PAQS
+                    class="text-4xl! md:text-xl! font-bold font-[Oswald]  wow fadeInUp animated">PAQS
                     CONGRESS
                     <span class="text-sky-500">2025</span>
                 </h2>
@@ -61,7 +61,7 @@
         <div class="slider-shape ss-six layer z-50 relative" data-depth="0.15"><img src="img/shape/slider_shape06.png"
                 alt="shape">
         </div>
-        <div class="absolute h-full w-full z-10 bg-black opacity-75"></div>
+        <div class="absolute h-full w-full z-10 bg-black opacity-20"></div>
     </section>
 
     {{-- 2025 Congress Theme --}}

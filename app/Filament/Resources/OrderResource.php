@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\OrderExporter;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Models\Order;
+use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -17,6 +19,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
+use Filament\Tables\Actions\ExportAction;
 
 class OrderResource extends Resource
 {
@@ -72,13 +75,21 @@ class OrderResource extends Resource
                                 ->native(false),
                             Toggle::make('is_confirmed')->label('Confirmed'),
                         ]),
-                ])->from('xl')->columnSpanFull(),
+                ])->columnSpanFull(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(OrderExporter::class)
+                    ->columnMapping(false)
+                    ->formats([
+                        ExportFormat::Xlsx,
+                    ])
+            ])
             ->columns([
                 TextColumn::make('no_invoice')->sortable()->searchable(),
                 TextColumn::make('full_name')->sortable()->searchable(),
@@ -132,7 +143,7 @@ class OrderResource extends Resource
     {
         return [
             'index' => Pages\ListOrders::route('/'),
-            'create' => Pages\CreateOrder::route('/create'),
+            // 'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }

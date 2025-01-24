@@ -5,8 +5,8 @@
 
 <!-- main-area -->
 <main>
-    <div class="flex flex-col px-2 md:px-80 items-center h-[30rem] bg-slate-200 overflow-hidden relative bg-cover bg-bottom"
-        style="background-image: url('{{ asset('img/forum-2.jpg') }}');">
+    <div class="flex flex-col px-2 md:px-80 items-center h-[30rem] bg-center overflow-hidden relative bg-cover"
+        style="background-image: url('{{ asset('img/dokumentasi/dokumentasi-7.jpg') }}');">
         <div class="text-center mx-auto mt-auto pb-10">
             <p class="text-4xl font-bold wow fadeInUp animated z-10 text-white mb-4">Programme</p>
             <p class="lg:w-1/2 text-white  wow fadeInUp animated mx-auto">The annual congress of the Pacific Association
