@@ -35,9 +35,14 @@ class TicketResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('barcode'),
+                Tables\Columns\TextColumn::make('barcode')
+                    ->searchable(),
                 Tables\Columns\ToggleColumn::make('is_used')->disabled(),
                 Tables\Columns\TextColumn::make('used_at'),
+                Tables\Columns\TextColumn::make('order.no_invoice')
+                    ->searchable()
+                    ->sortable()
+                    ->label('No Invoice'),
             ])
             ->filters([
                 //

@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Exports\OrderExporter;
 use App\Filament\Resources\OrderResource\Pages;
+use App\Filament\Resources\OrderResource\RelationManagers\TicketsRelationManager;
 use App\Models\Order;
-use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -15,11 +14,14 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
-use Filament\Tables\Actions\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+
 
 class OrderResource extends Resource
 {
@@ -82,21 +84,9 @@ class OrderResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->headerActions([
-                ExportAction::make()
-                    ->exporter(OrderExporter::class)
-                    ->columnMapping(false)
-                    ->formats([
-                        ExportFormat::Xlsx,
-                    ])
-            ])
             ->columns([
-                TextColumn::make('no_invoice')->sortable()->searchable(),
-                TextColumn::make('full_name')->sortable()->searchable(),
-                TextColumn::make('email')->sortable()->searchable(),
-                TextColumn::make('telephone')->sortable()->searchable(),
-                TextColumn::make('quantity')->sortable(),
-                TextColumn::make('total_price')->sortable(),
+                IconColumn::make('is_confirmed')
+                    ->boolean(),
                 TextColumn::make('payment_status')
                     ->sortable()
                     ->badge()
@@ -106,6 +96,12 @@ class OrderResource extends Resource
                         'cancelled' => 'danger',
                         'waiting confirmation' => 'danger',
                     }),
+                TextColumn::make('no_invoice')->sortable()->searchable(),
+                TextColumn::make('full_name')->sortable()->searchable(),
+                TextColumn::make('email')->sortable()->searchable(),
+                TextColumn::make('telephone')->sortable()->searchable(),
+                TextColumn::make('quantity')->sortable(),
+                TextColumn::make('total_price')->sortable(),
             ])
             ->filters([
                 SelectFilter::make('payment_status')
@@ -126,6 +122,7 @@ class OrderResource extends Resource
                     ->modalCancelActionLabel('Close'),
             ])
             ->bulkActions([
+                ExportBulkAction::make(),
                 // Tables\Actions\BulkActionGroup::make([
                 //     Tables\Actions\DeleteBulkAction::make(),
                 // ]),
@@ -135,7 +132,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TicketsRelationManager::class,
         ];
     }
 
