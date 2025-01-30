@@ -133,9 +133,7 @@
                             <tr>
                                 <td class="border-none py-0">Group rates</td>
                                 <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Contact registration@paqs2025.com (cc:
-                                    paqs2025@gmail.com)
-                                    for details.</td>
+                                <td class="border-none py-0">Contact info@paqs2025.com for details.</td>
                             </tr>
                             <tr>
                                 <td class="border-none py-0">Payment method</td>

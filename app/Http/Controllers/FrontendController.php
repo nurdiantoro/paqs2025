@@ -36,6 +36,10 @@ class FrontendController extends Controller
     {
         return view('frontend.venue');
     }
+    public function call_for_paper()
+    {
+        return view('frontend.call_for_paper');
+    }
     public function contact()
     {
         $phoneNumberUtil = \libphonenumber\PhoneNumberUtil::getInstance();

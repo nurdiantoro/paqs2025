@@ -13,6 +13,7 @@ Route::get('/programme', [FrontendController::class, 'programme']);
 Route::get('/general-information', [FrontendController::class, 'information']);
 // Route::get('/venue', [FrontendController::class, 'venue']);
 Route::get('/programme', [FrontendController::class, 'programme']);
+Route::get('/call-for-paper', [FrontendController::class, 'call_for_paper']);
 Route::get('/contact', [FrontendController::class, 'contact']);
 
 
