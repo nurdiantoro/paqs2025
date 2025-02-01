@@ -18,17 +18,20 @@ class Invoice extends Mailable
     public $total_category;
     public $total_addon;
     public $total_price;
+    public $logo;
     /**
      * Create a new message instance.
      */
-    public function __construct($data, $category, $addon, $total_category, $total_addon, $total_price)
+    public function __construct($data, $category, $addon, $total_category, $total_addon, $total_price, $logo)
     {
+
         $this->data = $data;
         $this->category = $category;
         $this->addon = $addon;
         $this->total_category = $total_category;
         $this->total_addon = $total_addon;
         $this->total_price = $total_price;
+        $this->logo = $logo;
     }
 
     /**

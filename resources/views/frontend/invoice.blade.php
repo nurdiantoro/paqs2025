@@ -126,14 +126,9 @@
                     <div class="cs-note_right">
                         <table class="border-none">
                             <tr>
-                                <td class="border-none py-0">Pricing</td>
+                                <td class="border-none py-0">Contact</td>
                                 <td class="border-none py-0">:</td>
-                                <td class="border-none py-0"></td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Group rates</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Contact info@paqs2025.com for details.</td>
+                                <td class="border-none py-0">info@paqs2025.com for details.</td>
                             </tr>
                             <tr>
                                 <td class="border-none py-0">Payment method</td>

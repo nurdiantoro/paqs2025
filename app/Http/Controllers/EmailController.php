@@ -13,11 +13,12 @@ use Illuminate\Http\Request;
 class EmailController extends Controller
 {
 
-    public function sendEmail()
+    public function sendEmail($no_invoice, $email)
     {
-        $data = Order::with(['category', 'addon'])->firstOrFail();
+        $data = Order::where('no_invoice', $no_invoice)->first();
         $category = Category::where('id', $data->category_id)->first();
         $addon = Addon::where('id', $data->addon_id)->first();
+        $logo = 'https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png';
 
         $total_category = $category->price * $data->quantity;
         if ($addon != null) {
@@ -27,11 +28,11 @@ class EmailController extends Controller
         }
         $total_price = $total_category + $total_addon;
 
-        $kirim = Mail::to('nurdiantoro100@gmail.com')
-            ->send(new Invoice($data, $category, $addon, $total_category, $total_addon, $total_price));
+        $kirim = Mail::to($email)
+            ->send(new Invoice($data, $category, $addon, $total_category, $total_addon, $total_price, $logo));
 
         if ($kirim) {
-            return "Email sent successfully.";
+            return redirect(url('/invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
         } else {
             return "Email not sent.";
         }

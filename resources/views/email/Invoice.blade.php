@@ -15,8 +15,11 @@
                 <div>
                     <div
                         style="display: flex; justify-content: flex-start; gap: 1rem; width: 100%; margin-bottom: 25px; line-height: 1.5rem">
-                        <img style="max-width: 120px; height: fit-content"
-                            src="https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png" alt="Logo">
+                        {{-- <img style="max-width: 120px; height: fit-content"
+                            src="https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png" alt="Logo"> --}}
+                        <img style="max-width: 120px; height: fit-content" src="{{ $message->embed($logo) }}"
+                            alt="Logo">
+
                         <div style="margin-left: 25px">
                             <span class="font-semibold text-black" style="margin: 0px; font-weight: 600; color: #000;">
                                 Invoice No:
@@ -104,14 +107,9 @@
                     <div class="cs-note_right" style="overflow-x: auto;margin-bottom: 20px">
                         <table class="border-none">
                             <tr>
-                                <td style="padding:0px 10px; text-wrap: nowrap;">Pricing</td>
+                                <td style="padding:0px 10px; text-wrap: nowrap;">Contact</td>
                                 <td style="padding:0px 10px">:</td>
-                                <td style="padding:0px 10px"></td>
-                            </tr>
-                            <tr>
-                                <td style="padding:0px 10px; text-wrap: nowrap;">Group rates</td>
-                                <td style="padding:0px 10px">:</td>
-                                <td style="padding:0px 10px">Contact info@paqs2025.com for details.</td>
+                                <td style="padding:0px 10px">info@paqs2025.com for details.</td>
                             </tr>
                             <tr>
                                 <td style="padding:0px 10px; text-wrap: nowrap;">Payment method</td>

@@ -71,7 +71,8 @@ class OrderController extends Controller
         );
 
         // Redirect ke halaman sukses
-        return redirect(url('/invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
+        return redirect(url('/email/' . $no_invoice . '/' . $request->email));
+        // return redirect(url('/invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
     }
 
     public function upload_payment($no_invoice, Request $request)
