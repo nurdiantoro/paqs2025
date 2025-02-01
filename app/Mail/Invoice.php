@@ -13,12 +13,22 @@ class Invoice extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
+    public $category;
+    public $addon;
+    public $total_category;
+    public $total_addon;
+    public $total_price;
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+    public function __construct($data, $category, $addon, $total_category, $total_addon, $total_price)
     {
         $this->data = $data;
+        $this->category = $category;
+        $this->addon = $addon;
+        $this->total_category = $total_category;
+        $this->total_addon = $total_addon;
+        $this->total_price = $total_price;
     }
 
     /**

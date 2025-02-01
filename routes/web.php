@@ -34,4 +34,5 @@ Route::get('/test', function () {
 });
 
 
+Route::get('/email/{no_invoice}', [EmailController::class, 'testViews']);
 Route::get('/email', [EmailController::class, 'sendEmail']);

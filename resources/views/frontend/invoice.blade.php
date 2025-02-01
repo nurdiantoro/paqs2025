@@ -73,7 +73,7 @@
                                                 {{ $addon->name }}
                                             </td>
                                             <td class="cs-width_2 cs-primary_color cs-f15">
-                                                {{ number_format($addon->$price, 0, ',', '.') }}
+                                                {{ number_format($addon->price, 0, ',', '.') }}
                                             </td>
                                             <td class="cs-width_2 cs-primary_color cs-f15">
                                                 {{ $data->quantity }}
@@ -266,7 +266,7 @@
                     </div>
 
                     <p class="text-center mt-5 text-gray-500">
-                        Contact registration@paqs2024.com (cc: paqs2024@gmail.com) for details.
+                        Contact info@paqs2025.com for details.
                     </p>
                 @endif
 
