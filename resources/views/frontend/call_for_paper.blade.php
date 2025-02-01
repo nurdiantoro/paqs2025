@@ -27,8 +27,63 @@
     <div class="mt-200 min-h-screen mb-50 px-2 md:px-80">
 
         <div class="container">
-            <div class="mb-80 flex justify-center">
-                <img src="{{ asset('img/call for paper.jpeg') }}" alt="call for paper">
+            <div class="mb-40 flex justify-center">
+                <img src="{{ asset('img/call_for_paper.jpeg') }}" alt="call for paper">
+            </div>
+            <div class="flex flex-col justify-center items-center">
+                <div class="rounded-xl bg-white shadow-xl p-8 border">
+                    <span class="text-xl mb-2 font-semibold inline-block">Please read carefully before formatting and
+                        submitting your
+                        paper!</span>
+                    <table class="mb-8">
+                        <tr>
+                            <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
+                                    class="w-6 h-6 inline mr-2" />
+                            </td>
+                            <td class="border-none p-2 align-top">Please follow the Template and use the file name
+                                format:
+                                PAQS2025_Poster/Fullpaper_Track
+                                Name_First Author</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
+                                    class="w-6 h-6 inline mr-2" />
+                            </td>
+                            <td class="border-none p-2 align-top">If you are going to submit your full paper, please
+                                follow
+                                the
+                                Fullpaper Template</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
+                                    class="w-6 h-6 inline mr-2" />
+                            </td>
+                            <td class="border-none p-2 align-top">If you are going to submit your Poster, please follow
+                                the
+                                Poster
+                                Template</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
+                                    class="w-6 h-6 inline mr-2" />
+                            </td>
+                            <td class="border-none p-2 align-top">Please write the paper title in the submit-manuscript
+                                platform with
+                                the format:
+                                POSTER/FULL PAPER_TITLE</td>
+                        </tr>
+                        <tr>
+                            <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
+                                    class="w-6 h-6 inline mr-2" />
+                            </td>
+                            <td class="border-none p-2 align-top">Please upload the file in PDF format</td>
+                        </tr>
+                    </table>
+
+                    <a href="{{ asset('documents/Paper Template Information_PAQS 2025.docx') }}" download=""
+                        class="text-white bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Download
+                        Paper Template</a>
+                </div>
             </div>
         </div>
 

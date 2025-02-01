@@ -20,7 +20,7 @@
                     <a href="https://www.paqs.net/"><i class="fas fa-globe"></i></a>
                 </div>
             </div>
-            <p class="text-center">Copyright &copy; 2022 PAQS. All Rights Reserved</p>
+            <p class="text-center">Copyright &copy; PAQS 2025. All Rights Reserved</p>
         </div>
     </footer>
     <!-- footer-end -->
