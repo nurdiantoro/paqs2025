@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/eventes/dripicons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/eventes/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('css/eventes/default.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/eventes/style.1.1.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/eventes/style.1.2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/eventes/responsive.1.1.css') }}">
 
     {{-- Ivonne Template --}}

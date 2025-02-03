@@ -11,7 +11,7 @@
         <div class="relative z-50 w-full min-h-screen flex flex-col items-center justify-center p-4">
             <div class="slider-content second-slider-content drop-shadow-[2px_4px_2px_rgba(0,0,0,1)]">
                 <h2 data-animation="fadeInUp animated" data-delay=".4s"
-                    class="text-4xl! md:text-xl! font-bold wow fadeInUp animated font-panton">PAQS
+                    class="text-[4.5rem] md:text-[7rem] font-bold wow fadeInUp animated font-panton">PAQS
                     CONGRESS
                     <span class="text-sky-500">2025</span>
                 </h2>
