@@ -38,6 +38,7 @@
 
     {{-- Ivonne Template --}}
     <link rel="stylesheet" href="{{ asset('evonne/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url('css/fonts.css') }}">
 
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
