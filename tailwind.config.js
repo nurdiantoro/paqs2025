@@ -16,6 +16,9 @@ export default {
                 'warna-temp-02': '#ff007a',
                 'warna-background': '#f5f7ff',
             },
+            fontFamily: {
+                'panton': ['panton'],
+            },
         },
 },
 }

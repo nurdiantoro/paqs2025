@@ -16,3 +16,12 @@ swiper-slide {
     justify-content: center;
     align-items: center;
 }
+
+@font-face {
+    font-family: "Panton";
+    src: url("/fonts/Panton-Trial-Bold.woff2") format("woff2"),
+        url("/fonts/Panton-Trial-Bold.woff") format("woff"),
+        url("/fonts/Panton-Trial-Bold.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+}

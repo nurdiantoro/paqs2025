@@ -14,8 +14,8 @@
                 </ul>
 
                 <div class="flex flex-row gap-8 text-white text-lg">
-                    <a href="https://www.instagram.com/pujabrunei/"><i class="fab fa-instagram"></i></a>
-                    <a href="https://pujabrunei.com/"><i class="fas fa-globe"></i></a>
+                    <a href="https://www.instagram.com/perkumpulan_iqsi"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.iqsi.org/"><i class="fas fa-globe"></i></a>
                     <a href="https://www.facebook.com/paqs.net/"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.paqs.net/"><i class="fas fa-globe"></i></a>
                 </div>
