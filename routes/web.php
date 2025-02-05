@@ -29,9 +29,9 @@ Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'uplo
 Route::post('/inbox/store/', [FrontendController::class, 'inbox_store']);
 
 
-Route::get('/test', function () {
-    return view('test');
-});
+// Route::get('/test', function () {
+//     return view('test');
+// });
 
 
 Route::get('/email/{no_invoice}', [EmailController::class, 'testViews']);
