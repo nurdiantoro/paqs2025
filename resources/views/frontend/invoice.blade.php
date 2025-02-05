@@ -151,6 +151,11 @@
                                 <td class="border-none py-0">1589766766</td>
                             </tr>
                             <tr>
+                                <td class="border-none py-0">SWIFT Code</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">CENAIDJA or CENAIDJAXXX</td>
+                            </tr>
+                            <tr>
                                 <td class="border-none py-0"><strong>Important</strong></td>
                                 <td class="border-none py-0">:</td>
                                 <td class="border-none py-0">Please use your full name as the reference for your bank
@@ -235,7 +240,8 @@
                                 <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32"
                                     fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
                                 <path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24"
-                                    fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                                    fill="none" stroke="currentColor" stroke-linejoin="round"
+                                    stroke-width="32" />
                                 <circle cx="392" cy="184" r="24" />
                             </svg>
                             <span class="cs-primary_color">Print</span>
