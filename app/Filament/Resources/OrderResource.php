@@ -63,9 +63,9 @@ class OrderResource extends Resource
                                 ->label('Category')
                                 ->relationship('category', 'name')
                                 ->native(false),
-                            Select::make('addon_id')
-                                ->label('Addon')
-                                ->relationship('addon', 'name'),
+                            // Select::make('addon_id')
+                            //     ->label('Addon')
+                            //     ->relationship('addon', 'name'),
                             TextInput::make('quantity')->numeric(),
                             TextInput::make('total_price')->numeric(),
                             Select::make('payment_status')

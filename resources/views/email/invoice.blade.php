@@ -119,22 +119,22 @@
                             <tr>
                                 <td style="padding:0px 10px; text-wrap: nowrap;">Bank Name</td>
                                 <td style="padding:0px 10px">:</td>
-                                <td style="padding:0px 10px"></td>
+                                <td style="padding:0px 10px">BCA Cab. Andalas Kota Makassar</td>
                             </tr>
                             <tr>
                                 <td style="padding:0px 10px; text-wrap: nowrap;">Beneficiary</td>
                                 <td style="padding:0px 10px">:</td>
-                                <td style="padding:0px 10px"></td>
+                                <td style="padding:0px 10px">PT Debindo Mega Promo</td>
                             </tr>
                             <tr>
                                 <td style="padding:0px 10px; text-wrap: nowrap;">Account Number</td>
                                 <td style="padding:0px 10px">:</td>
-                                <td style="padding:0px 10px"></td>
+                                <td style="padding:0px 10px">1589766766</td>
                             </tr>
                             <tr>
                                 <td style="padding:0px 10px; text-wrap: nowrap;">SWIFT Code</td>
                                 <td style="padding:0px 10px">:</td>
-                                <td style="padding:0px 10px"></td>
+                                <td style="padding:0px 10px">CENAIDJA or CENAIDJAXXX</td>
                             </tr>
                             <tr>
                                 <td style="padding:0px 10px; text-wrap: nowrap;"><strong>Important</strong></td>

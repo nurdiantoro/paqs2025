@@ -100,19 +100,25 @@
                 </div>
                 @if ($data->payment_status == 'paid')
                     @if ($data->is_confirmed == true)
-                        <div class="w-full flex flex-col">
+                        <div class="w-full flex flex-row flex-wrap justify-center">
                             <?php $i = 1; ?>
                             @foreach ($tickets as $ticket)
-                                <div
-                                    class="mx-auto mb-4 text-center text-black flex-row flex gap-2 items-center border rounded-xl p-4 text-xl">
-                                    <?php echo DNS2D::getBarcodeSVG($ticket->barcode, 'QRCODE', 6, 6); ?>
-                                    <div class="flex flex-col justify-start items-start">
-                                        <span>Ticket {{ $i }}</span>
-                                        <span>#{{ $ticket->barcode }}</span>
+                                <div class="p-2 w-full md:w-1/2 lg:w-1/3">
+                                    <div
+                                        class="mx-auto mb-4 text-center text-black flex-col flex items-center border rounded-xl p-4 text-xl ">
+                                        <?php echo DNS2D::getBarcodeSVG($ticket->barcode, 'QRCODE', 6, 6); ?>
+                                        <span class="mt-2">Ticket {{ $i }}</span>
+                                        <span class="font-semibold">#{{ $ticket->barcode }}</span>
                                     </div>
                                 </div>
                                 <?php $i++; ?>
                             @endforeach
+                        </div>
+                        <div class="text-center mb-4">
+
+                            <a href=""
+                                class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-3 py-2 hover:text-white hover:bg-warna-01">Manage
+                                Your Ticket</a>
                         </div>
                         <p class="text-black text-center">
                             Bring the ticket to entry the PAQS Congress 2025.
@@ -162,54 +168,6 @@
                                     transfer.</td>
                             </tr>
                         </table>
-
-                        {{-- Contoh Tahun 2024 --}}
-                        {{-- <table class="border-none">
-                            <tr>
-                                <td class="border-none py-0">Pricing</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">All prices listed are in BND.</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Group rates</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Contact registration@paqs2024.com (cc:
-                                    paqs2024@gmail.com)
-                                    for details.</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Payment method</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Bank Transfer.</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Bank Name</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Bank Islam Brunei Darussalam.</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Beneficiary</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Pertubuhan Ukur Jurutera dan Arkitek Brunei (PUJA
-                                    BRUNEI)</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Account Number</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">00-001-01-0048987</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">SWIFT Code</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">BIBDBNBB</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0"><strong>Important</strong></td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Please use your full name as the reference for your bank
-                                    transfer.</td>
-                            </tr>
-                        </table> --}}
                     </div>
 
                     <form action="{{ url('/order/upload_payment/' . $data->no_invoice) }}" method="POST"
@@ -238,7 +196,8 @@
                                     d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
                                     fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
                                 <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32"
-                                    fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                                    fill="none" stroke="currentColor" stroke-linejoin="round"
+                                    stroke-width="32" />
                                 <path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24"
                                     fill="none" stroke="currentColor" stroke-linejoin="round"
                                     stroke-width="32" />
