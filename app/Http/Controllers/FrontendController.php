@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\GetBarcode;
+use App\Mail\GetBarcodePersonal;
 use App\Models\Addon;
 use App\Models\Category;
 use App\Models\Contact;
@@ -11,6 +13,7 @@ use App\Models\Order;
 use App\Models\Roadmap;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use libphonenumber\PhoneNumberFormat;
 use PDO;
 
@@ -133,10 +136,18 @@ class FrontendController extends Controller
     public function manage_tickets(Request $request)
     {
         foreach ($request->id as $index => $id) {
-            Ticket::where('id', $id)->update([
+            $tickets = Ticket::where('id', $id);
+            $tickets->update([
                 'name' => $request->name[$index],
                 'email' => $request->email[$index],
             ]);
+
+            $tickets->first();
+            $mail = Mail::to($request->email[$index])->send(new GetBarcodePersonal($tickets));
+            if ($mail) {
+            } else {
+                echo 'gagal terkirim ke' . $request->email[$index];
+            }
         }
         return redirect()->back()->with('success', 'Data berhasil disimpan!');
     }

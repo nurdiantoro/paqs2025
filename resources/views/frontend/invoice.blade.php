@@ -126,6 +126,7 @@
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                     <form action="{{ url('/manage_ticket') }}" method="post" class="modal-content">
                                         @csrf
+                                        <input type="hidden" name="no_invoice" value="{{ $data->no_invoice }}">
                                         <div class="modal-header">
                                             <span class="font-semibold text-xl" id="exampleModalLabel">Manage
                                                 Tickets</span>
