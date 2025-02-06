@@ -35,5 +35,7 @@ Route::post('/manage_ticket', [FrontendController::class, 'manage_tickets']);
 // });
 
 
-Route::get('/email/{no_invoice}', [EmailController::class, 'testView']);
-Route::get('/email/{no_invoice}/{email}', [EmailController::class, 'sendEmail']);
+// Route::get('/email/{no_invoice}', [EmailController::class, 'testView']);
+// Route::get('/email/{no_invoice}/{email}', [EmailController::class, 'sendEmail']);
+// Route::get('/barcode/{no_invoice}', [EmailController::class, 'testGetBarcode']);
+// Route::get('/barcode/{no_invoice}/{email}', [EmailController::class, 'sendGetBarcode']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\GetBarcode;
 use App\Mail\Invoice;
 use App\Models\Addon;
 use App\Models\Category;
@@ -69,5 +70,21 @@ class EmailController extends Controller
         $tickets = Ticket::where('order_id', $data->id)->get();
 
         return view('email.invoice', compact('data', 'category', 'addon', 'total_category', 'total_addon', 'total_price', 'tickets'));
+    }
+
+    public function sendGetBarcode($no_invoice, $email)
+    {
+        $data = Order::where('no_invoice', $no_invoice)->first();
+        $tickets = Ticket::where('order_id', $data->id)->get();
+        // dd($tickets);
+        Mail::to($email)->send(new GetBarcode($data, $tickets));
+    }
+    public function testGetBarcode($no_invoice)
+    {
+        $data = Order::where('no_invoice', $no_invoice)->first();
+        $tickets = Ticket::where('order_id', $data->id)->get();
+        // dd($tickets);
+
+        return view('email.get_barcode', compact('tickets'));
     }
 }
