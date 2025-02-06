@@ -19,10 +19,11 @@ class Invoice extends Mailable
     public $total_addon;
     public $total_price;
     public $logo;
+    public $tickets;
     /**
      * Create a new message instance.
      */
-    public function __construct($data, $category, $addon, $total_category, $total_addon, $total_price, $logo)
+    public function __construct($data, $category, $addon, $total_category, $total_addon, $total_price, $logo, $tickets)
     {
 
         $this->data = $data;
@@ -32,6 +33,7 @@ class Invoice extends Mailable
         $this->total_addon = $total_addon;
         $this->total_price = $total_price;
         $this->logo = $logo;
+        $this->tickets = $tickets;
     }
 
     /**
@@ -51,7 +53,9 @@ class Invoice extends Mailable
     {
         return new Content(
             view: 'email.invoice', // Specify the Blade view
-            with: ['data' => $this->data], // Pass data to the view
+            with: [
+                // 'tickets' => $this->tickets,
+            ], // Pass data to the view
         );
     }
 

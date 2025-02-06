@@ -15,8 +15,6 @@
                 <div>
                     <div
                         style="display: flex; justify-content: flex-start; gap: 1rem; width: 100%; margin-bottom: 25px; line-height: 1.5rem">
-                        {{-- <img style="max-width: 120px; height: fit-content"
-                            src="https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png" alt="Logo"> --}}
                         <img style="max-width: 120px; height: fit-content" src="{{ $message->embed($logo) }}"
                             alt="Logo">
 
@@ -156,6 +154,15 @@
                         Contact info@paqs2025.com for details.
                     </p>
 
+
+                    <span>test barcode</span>
+                    @foreach ($tickets as $ticket)
+                        <?php
+                        \Storage::disk('public')->put($ticket->barcode . '.png', base64_decode(DNS2D::getBarcodePNG($ticket->barcode, 'QRCODE', 20, 20)));
+                        ?>
+                        <img style="max-width: 120px; height: fit-content"
+                            src={{ ' https://paqs2025.com/storage/' . $ticket->barcode . '.png' }} alt="Logo">
+                    @endforeach
                 </div>
             </div>
         </div>

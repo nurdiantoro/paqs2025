@@ -115,10 +115,63 @@
                             @endforeach
                         </div>
                         <div class="text-center mb-4">
+                            <button action="manage_ticket" data-toggle="modal" data-target="#exampleModal"
+                                type="button"
+                                class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-4 py-3 hover:text-white hover:bg-warna-01">Manage
+                                Your Tickets</button>
 
-                            <a href=""
-                                class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-3 py-2 hover:text-white hover:bg-warna-01">Manage
-                                Your Ticket</a>
+                            <!-- Modal -->
+                            <div class="modal fade text-black" id="exampleModal" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <form action="{{ url('/manage_ticket') }}" method="post" class="modal-content">
+                                        @csrf
+                                        <div class="modal-header">
+                                            <span class="font-semibold text-xl" id="exampleModalLabel">Manage
+                                                Tickets</span>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="text-xl">
+                                                @foreach ($tickets as $tic)
+                                                    <tr>
+                                                        <input type="hidden" name="id[]"
+                                                            value="{{ $tic->id }}">
+                                                        <td class="border-none text-lg p-0 text-left">
+                                                            #{{ $tic->barcode }}</td>
+                                                        <td class="border-none text-lg relative">
+                                                            <label
+                                                                class="absolute text-sm top-0 left-8bg-white rounded-md">Name</label>
+                                                            <input type="text" name="name[]"
+                                                                class="w-full rounded-md bg-slate-100 border-none text-lg p-3 focus:outline-none focus:ring-0"
+                                                                value="{{ $tic->name }}">
+                                                        </td>
+                                                        <td class="border-none text-lg relative">
+                                                            <label
+                                                                class="absolute text-sm top-0 left-8bg-white rounded-md">Email</label>
+                                                            <input type="email" name="email[]"
+                                                                class="w-full rounded-md bg-slate-100 border-none text-lg p-3 focus:outline-none focus:ring-0"
+                                                                value="{{ $tic->email }}">
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </table>
+                                            <p class="text-left text-slate-500 mt-8">Barcodes will be sent to users'
+                                                emails.
+                                                Please double-check the email
+                                                addresses carefully</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit"
+                                                class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-4 py-3 hover:text-white hover:bg-warna-01">Save
+                                                changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <p class="text-black text-center">
                             Bring the ticket to entry the PAQS Congress 2025.
@@ -194,7 +247,8 @@
                                 class="ionicon cs_primary_color" viewBox="0 0 512 512">
                                 <path
                                     d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
-                                    fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                                    fill="none" stroke="currentColor" stroke-linejoin="round"
+                                    stroke-width="32" />
                                 <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32"
                                     fill="none" stroke="currentColor" stroke-linejoin="round"
                                     stroke-width="32" />

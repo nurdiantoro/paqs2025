@@ -28,8 +28,18 @@ class EmailController extends Controller
         }
         $total_price = $total_category + $total_addon;
 
+        $tickets = Ticket::where('order_id', $data->id)->get();
         $kirim = Mail::to($email)
-            ->send(new Invoice($data, $category, $addon, $total_category, $total_addon, $total_price, $logo));
+            ->send(new Invoice(
+                $data,
+                $category,
+                $addon,
+                $total_category,
+                $total_addon,
+                $total_price,
+                $logo,
+                $tickets,
+            ));
 
         if ($kirim) {
             return redirect(url('/invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
@@ -38,28 +48,7 @@ class EmailController extends Controller
         }
     }
 
-    public function testView()
-    {
-
-        $data = Order::get()->first();
-        $category = Category::where('id', $data->category_id)->first();
-        $addon = Addon::where('id', $data->addon_id)->first();
-
-        $total_category = $category->price * $data->quantity;
-        if ($addon != null) {
-            $total_addon = $addon->price * $data->quantity;
-        } else {
-            $total_addon = 0;
-        }
-        $total_price = $total_category + $total_addon;
-
-        // buat variabel ticket
-        $tickets = Ticket::where('order_id', $data->id)->get();
-
-        return view('email.invoice', compact('data', 'category', 'addon', 'total_category', 'total_addon', 'total_price', 'tickets'));
-    }
-
-    public function testViews($no_invoice)
+    public function testView($no_invoice)
     {
 
         $data = Order::where('no_invoice', $no_invoice)->first();

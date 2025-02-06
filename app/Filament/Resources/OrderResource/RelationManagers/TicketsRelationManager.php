@@ -29,6 +29,8 @@ class TicketsRelationManager extends RelationManager
             ->recordTitleAttribute('barcode')
             ->columns([
                 Tables\Columns\TextColumn::make('barcode'),
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('email'),
                 IconColumn::make('is_used')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('used_at'),
@@ -40,7 +42,7 @@ class TicketsRelationManager extends RelationManager
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

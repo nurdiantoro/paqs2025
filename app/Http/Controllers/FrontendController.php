@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Addon;
 use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Hotel;
 use App\Models\Inbox;
 use App\Models\Order;
 use App\Models\Roadmap;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use libphonenumber\PhoneNumberFormat;
+use PDO;
 
 class FrontendController extends Controller
 {
@@ -24,18 +26,23 @@ class FrontendController extends Controller
     {
         return view('frontend.about');
     }
+
     public function programme()
     {
         return view('frontend.programme');
     }
+
     public function information()
     {
         return view('frontend.information');
     }
+
     public function venue()
     {
-        return view('frontend.venue');
+        $hotels = Hotel::all();
+        return view('frontend.venue', compact('hotels'));
     }
+
     public function call_for_paper()
     {
         return view('frontend.call_for_paper');
@@ -121,5 +128,16 @@ class FrontendController extends Controller
             'message' => $request->message
         ]);
         return redirect()->back()->with('success', 'Pesan berhasil dikirim!');
+    }
+
+    public function manage_tickets(Request $request)
+    {
+        foreach ($request->id as $index => $id) {
+            Ticket::where('id', $id)->update([
+                'name' => $request->name[$index],
+                'email' => $request->email[$index],
+            ]);
+        }
+        return redirect()->back()->with('success', 'Data berhasil disimpan!');
     }
 }

@@ -11,7 +11,7 @@ Route::get('/', [FrontendController::class, 'index']);
 Route::get('/about', [FrontendController::class, 'about']);
 Route::get('/programme', [FrontendController::class, 'programme']);
 Route::get('/general-information', [FrontendController::class, 'information']);
-// Route::get('/venue', [FrontendController::class, 'venue']);
+Route::get('/venue', [FrontendController::class, 'venue']);
 Route::get('/programme', [FrontendController::class, 'programme']);
 Route::get('/call-for-paper', [FrontendController::class, 'call_for_paper']);
 Route::get('/contact', [FrontendController::class, 'contact']);
@@ -19,14 +19,15 @@ Route::get('/contact', [FrontendController::class, 'contact']);
 
 Route::get('/registration', [FrontendController::class, 'registration']);
 Route::get('/registration_form', [FrontendController::class, 'registration_form']);
-Route::get('/invoice/{no_invoice}', [FrontendController::class, 'invoice']);
 Route::get('/invoice', [FrontendController::class, 'ticket']);
+Route::get('/invoice/{no_invoice}', [FrontendController::class, 'invoice']);
 
 
 Route::post('/order/check/', [FrontendController::class, 'check_invoice']);
 Route::post('/order/store', [OrderController::class, 'store']);
 Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'upload_payment']);
 Route::post('/inbox/store/', [FrontendController::class, 'inbox_store']);
+Route::post('/manage_ticket', [FrontendController::class, 'manage_tickets']);
 
 
 // Route::get('/test', function () {
@@ -34,5 +35,5 @@ Route::post('/inbox/store/', [FrontendController::class, 'inbox_store']);
 // });
 
 
-Route::get('/email/{no_invoice}', [EmailController::class, 'testViews']);
+Route::get('/email/{no_invoice}', [EmailController::class, 'testView']);
 Route::get('/email/{no_invoice}/{email}', [EmailController::class, 'sendEmail']);

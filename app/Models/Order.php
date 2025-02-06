@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Milon\Barcode\DNS2D;
 
 class Order extends Model
 {
@@ -32,7 +33,9 @@ class Order extends Model
             if ($order->isDirty('updated_at')) {
                 if ($order->is_confirmed == true) {
                     Ticket::where('order_id', $order->id)->delete();
-                    for ($i = 0; $i < $order->quantity; $i++) {
+
+                    // jika daftar personal namanya langsung ditambah
+                    if ($order->quantity == 1) {
                         do {
                             $barcode = random_int(10000000, 99999999);
                         } while (Ticket::where('barcode', $barcode)->exists());
@@ -40,7 +43,23 @@ class Order extends Model
                         Ticket::create([
                             'order_id' => $order->id,
                             'barcode' => $barcode,
+                            'name' => $order->full_name,
+                            'email' => $order->email,
                         ]);
+                    }
+
+                    // jika daftar group namanya kosong
+                    else {
+                        for ($i = 0; $i < $order->quantity; $i++) {
+                            do {
+                                $barcode = random_int(10000000, 99999999);
+                            } while (Ticket::where('barcode', $barcode)->exists());
+
+                            Ticket::create([
+                                'order_id' => $order->id,
+                                'barcode' => $barcode,
+                            ]);
+                        }
                     }
                 } elseif ($order->is_confirmed == false) {
                     Ticket::where('order_id', $order->id)->delete();
