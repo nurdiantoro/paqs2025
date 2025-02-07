@@ -136,17 +136,18 @@ class FrontendController extends Controller
     public function manage_tickets(Request $request)
     {
         foreach ($request->id as $index => $id) {
-            $tickets = Ticket::where('id', $id);
-            $tickets->update([
-                'name' => $request->name[$index],
-                'email' => $request->email[$index],
-            ]);
+            $ticket = Ticket::find($id);
 
-            $tickets->first();
-            $mail = Mail::to($request->email[$index])->send(new GetBarcodePersonal($tickets));
-            if ($mail) {
+            if ($request->email[$index] != $ticket->email) {
+                $ticket->update([
+                    'name' => $request->name[$index],
+                    'email' => $request->email[$index],
+                ]);
+                Mail::to($request->email[$index])->send(new GetBarcodePersonal($ticket));
             } else {
-                echo 'gagal terkirim ke' . $request->email[$index];
+                $ticket->update([
+                    'name' => $request->name[$index],
+                ]);
             }
         }
         return redirect()->back()->with('success', 'Data berhasil disimpan!');

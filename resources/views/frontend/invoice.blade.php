@@ -103,12 +103,14 @@
                         <div class="w-full flex flex-row flex-wrap justify-center">
                             <?php $i = 1; ?>
                             @foreach ($tickets as $ticket)
-                                <div class="p-2 w-full md:w-1/2 lg:w-1/3">
+                                <div class="p-2 w-full md:w-1/2 h-auto">
                                     <div
-                                        class="mx-auto mb-4 text-center text-black flex-col flex items-center border rounded-xl p-4 text-xl ">
+                                        class="mx-auto mb-4 text-center text-black flex-col flex items-center border rounded-xl p-4 text-xl h-full">
                                         <?php echo DNS2D::getBarcodeSVG($ticket->barcode, 'QRCODE', 6, 6); ?>
                                         <span class="mt-2">Ticket {{ $i }}</span>
                                         <span class="font-semibold">#{{ $ticket->barcode }}</span>
+                                        <p class="">{{ $ticket->name }}</p>
+                                        <p class="break-all">{{ $ticket->email }}</p>
                                     </div>
                                 </div>
                                 <?php $i++; ?>
@@ -117,7 +119,7 @@
                         <div class="text-center mb-4">
                             <button action="manage_ticket" data-toggle="modal" data-target="#exampleModal"
                                 type="button"
-                                class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-4 py-3 hover:text-white hover:bg-warna-01">Manage
+                                class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-4 py-3 hover:text-white hover:bg-warna-01 mt-6">Manage
                                 Your Tickets</button>
 
                             <!-- Modal -->
@@ -239,6 +241,7 @@
                                     type="submit">Send</button>
                             </div>
                         </div>
+                        <span class="text-danger">*Max 2mb size of image</span>
                     </form>
 
                     <!-- .cs-note -->

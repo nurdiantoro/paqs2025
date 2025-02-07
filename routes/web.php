@@ -36,8 +36,8 @@ Route::get('/email/{no_invoice}', [EmailController::class, 'testView']);
 Route::get('/email/{no_invoice}/{email}', [EmailController::class, 'sendEmail']);
 
 // Matiin kalo udah production
-// Route::get('/barcode/{no_invoice}', [EmailController::class, 'testGetBarcode']);
-// Route::get('/barcode/{no_invoice}/{email}', [EmailController::class, 'sendGetBarcode']);
+Route::get('/barcode/{no_invoice}', [EmailController::class, 'testGetBarcode']);
+Route::get('/barcode/{no_invoice}/{email}', [EmailController::class, 'sendGetBarcode']);
 
 // Route::get('/test', function () {
 //     return view('test');

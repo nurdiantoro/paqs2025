@@ -153,16 +153,6 @@
                     <p class="text-center mt-5 text-gray-500" style="text-align: center; margin-bottom: 20px">
                         Contact info@paqs2025.com for details.
                     </p>
-
-
-                    <span>test barcode</span>
-                    @foreach ($tickets as $ticket)
-                        <?php
-                        \Storage::disk('public')->put($ticket->barcode . '.png', base64_decode(DNS2D::getBarcodePNG($ticket->barcode, 'QRCODE', 20, 20)));
-                        ?>
-                        <img style="max-width: 120px; height: fit-content"
-                            src={{ ' https://paqs2025.com/storage/' . $ticket->barcode . '.png' }} alt="Logo">
-                    @endforeach
                 </div>
             </div>
         </div>

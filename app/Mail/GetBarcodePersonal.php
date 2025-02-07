@@ -13,14 +13,14 @@ class GetBarcodePersonal extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $tickets;
+    public $ticket;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($tickets)
+    public function __construct($ticket)
     {
-        $this->tickets = $tickets;
+        $this->ticket = $ticket;
     }
 
     /**
