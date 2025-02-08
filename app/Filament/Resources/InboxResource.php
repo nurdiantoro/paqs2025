@@ -31,6 +31,7 @@ class InboxResource extends Resource
                     ->email()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('message')
+                    ->rows(10)
                     ->columnSpanFull(),
             ]);
     }
@@ -50,11 +51,13 @@ class InboxResource extends Resource
                     ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
+            ->defaultPaginationPageOption(50)
+            ->paginated([50, 100, 'all'])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -74,8 +77,8 @@ class InboxResource extends Resource
     {
         return [
             'index' => Pages\ListInboxes::route('/'),
-            'create' => Pages\CreateInbox::route('/create'),
-            'edit' => Pages\EditInbox::route('/{record}/edit'),
+            // 'create' => Pages\CreateInbox::route('/create'),
+            // 'edit' => Pages\EditInbox::route('/{record}/edit'),
         ];
     }
 }

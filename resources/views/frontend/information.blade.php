@@ -5,7 +5,7 @@
 
 <!-- main-area -->
 <main>
-    <div class="event fix pt-120 pb-120 md:px-80">
+    <div class="event fix pt-120 pb-120 max-w-[100rem] mx-auto">
         <div class="section-t team-t paroller" data-paroller-factor="0.15" data-paroller-factor-lg="0.15"
             data-paroller-factor-md="0.15" data-paroller-factor-sm="0.15" data-paroller-type="foreground"
             data-paroller-direction="horizontal">

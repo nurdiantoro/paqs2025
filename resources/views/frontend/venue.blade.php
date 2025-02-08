@@ -27,11 +27,11 @@
                                     class="group-hover:scale-110 transition duration-300" alt="{{ $hotel->name }}">
                             </div>
                             <div class="pl-4 w-2/3 flex flex-col">
-                                <div>
-                                    <span class="text-lg text-slate-800 font-semibold">{{ $hotel->name }}</span>
-                                    <span class="p-2 bg-yellow-50 text-amber-400 rounded-full inline text-nowrap">
-                                        <x-bi-star-fill class="w-4 h-4 inline mr-1" />{{ $hotel->star }}
+                                <div class="flex flex-col">
+                                    <span class="mb-2 text-amber-400 rounded-full inline text-nowrap">
+                                        <x-bi-star-fill class="w-4 h-4 inline mr-1" />{{ $hotel->star }} star
                                     </span>
+                                    <span class="text-lg text-slate-800 font-semibold">{{ $hotel->name }}</span>
                                 </div>
                                 <span class="block mt-2"><a
                                         href="tel:{{ $hotel->telephone }}">{{ $hotel->telephone }}</a></span>

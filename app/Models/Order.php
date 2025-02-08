@@ -6,9 +6,13 @@ use App\Mail\GetBarcode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Order extends Model
 {
+    use LogsActivity;
+
     protected $guarded = '';
     // protected $fillable = [''];
 
@@ -71,5 +75,12 @@ class Order extends Model
                 }
             }
         });
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['is_confirmed', 'updated_at']);
+        // Chain fluent methods for configuration options
     }
 }

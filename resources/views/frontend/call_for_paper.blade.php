@@ -80,7 +80,7 @@
                         </tr>
                     </table>
 
-                    <a href="{{ asset('documents/Paper Template Information_PAQS 2025.docx') }}" download=""
+                    <a href="{{ asset('documents/Fullpaper_Template_PAQS_Congress_2025.docx') }}" download=""
                         class="text-white bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Download
                         Paper Template</a>
                 </div>

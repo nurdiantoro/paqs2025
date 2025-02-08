@@ -42,7 +42,7 @@
                     <div class="col-xl-6 col-lg-9">
                         <div class="responsive">
                             <x-heroicon-o-bars-3-bottom-right
-                                class="w-6 h-6 hover:text-warna-temp-02 font-semibold text-slate-400" />
+                                class="w-8 h-8 hover:text-warna-temp-02 font-semibold text-white" />
                         </div>
                         <div class="main-menu text-right text-xl-center">
                             <nav id="mobile-menu">

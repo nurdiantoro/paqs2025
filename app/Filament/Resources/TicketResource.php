@@ -3,15 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TicketResource\Pages;
-use App\Filament\Resources\TicketResource\RelationManagers;
 use App\Models\Ticket;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TicketResource extends Resource
 {
@@ -23,7 +21,11 @@ class TicketResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('barcode')->readOnly(),
+                TextInput::make('name')->readOnly(),
+                TextInput::make('email')->readOnly(),
+                TextInput::make('order.no_invoice')->readOnly(),
+                TextInput::make('used_at')->readOnly(),
             ]);
     }
     public static function canCreate(): bool
@@ -37,18 +39,24 @@ class TicketResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('barcode')
                     ->searchable(),
-                Tables\Columns\ToggleColumn::make('is_used')->disabled(),
+
+                Tables\Columns\IconColumn::make('is_used')->boolean()->disabled(),
                 Tables\Columns\TextColumn::make('used_at'),
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('order.no_invoice')
                     ->searchable()
                     ->sortable()
                     ->label('No Invoice'),
             ])
+            ->defaultSort('created_at', 'desc')
+            ->defaultPaginationPageOption(50)
+            ->paginated([50, 100, 'all'])
             ->filters([
                 //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
@@ -68,7 +76,7 @@ class TicketResource extends Resource
     {
         return [
             'index' => Pages\ListTickets::route('/'),
-            'create' => Pages\CreateTicket::route('/create'),
+            // 'create' => Pages\CreateTicket::route('/create'),
             'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }

@@ -65,7 +65,7 @@
     </section>
 
     {{-- 2025 Congress Theme --}}
-    <section class="py-10 mb-10 md:py-20 md:px-80 flex flex-col lg:flex-row gap-24 items-center">
+    <section class="mt-120 mb-120 max-w-[100rem] mx-auto flex flex-col lg:flex-row gap-24 items-center ">
         <div class="grow relative z-10">
             <p class="text-4xl font-bold text-warna-temp-02 mb-2 text-center wow fadeInLeft animated">2025 Congress
                 Theme
@@ -118,7 +118,7 @@
         </div>
     </section>
 
-    <section class="py-10 mb-10 md:py-20 md:px-80">
+    <section class="mt-120 mb-120 max-w-[100rem] mx-auto">
         <div class="flex  flex-wrap">
 
             {{-- Card --}}
@@ -204,11 +204,11 @@
     </section>
 
     {{-- Register --}}
-    <section class="py-10 mb-10 md:py-20 md:px-80 md:mb-40">
+    <section class="mt-120 mb-120 max-w-[100rem] mx-auto md:mb-40">
         <div class="container">
             <div
                 class="flex items-center bg-slate-800 p-8 rounded-[30px] relative before:bg-[url('{{ asset('img/blue-background.png') }}')] before:bg-cover before:block before:h-full before:w-full before:absolute before:rounded-[30px] before:z-0 wow fadeInUp animated">
-                <div class="flex-1 hidden md:block">
+                <div class="flex-1 hidden lg:block">
                     <img src="{{ asset('img/Register Now.png') }}" class="h-80 mx-auto scale-[1.75]">
                 </div>
                 <div class="flex-1">

@@ -24,7 +24,7 @@
         </div>
         {{-- <img src="{{ asset('img/meeting.jpg') }}" class="absolute w-full h-full object-cover brightness-[0.2]"> --}}
     </div>
-    <div class="min-h-screen mb-50 md:px-80 md:mt-200 ">
+    <div class="min-h-screen mb-50 max-w-[100rem] mx-auto md:mt-200 ">
         <div class="mb-60 px-2 md:px-0">
             <div class="mb-40 flex flex-col md:flex-row justify-between">
                 <div class="flex-1 flex justify-center items-center wow fadeInUp animated">
