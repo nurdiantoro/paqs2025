@@ -23,8 +23,10 @@
                         <div class="bg-white rounded p-4 flex flex-row group">
                             <div
                                 class="h-40 w-1/3 bg-gray-50-800 rounded-2xl overflow-hidden border-2 border-white shadow-md flex items-center justify-center">
-                                <img src="{{ $hotel->image_cover ?? asset('img/no_image.png') }}"
-                                    class="group-hover:scale-110 transition duration-300" alt="{{ $hotel->name }}">
+                                <?php $hotel->image_cover ? ($img = 'storage/' . $hotel->image_cover) : ($img = 'img/no_image.png'); ?>
+                                <img src="{{ asset($img) }}"
+                                    class="group-hover:scale-110 transition duration-300 h-full w-full object-cover"
+                                    alt="{{ $hotel->name }}">
                             </div>
                             <div class="pl-4 w-2/3 flex flex-col">
                                 <div class="flex flex-col">
