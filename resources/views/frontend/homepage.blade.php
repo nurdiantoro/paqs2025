@@ -161,7 +161,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ url('call-for-papers') }}" class="w-full md:w-1/2 p-4 group h-auto wow fadeInUp animated">
+            <a href="{{ url('call-for-paper') }}" class="w-full md:w-1/2 p-4 group h-auto wow fadeInUp animated">
                 <div class="p-4 bg-white rounded-xl shadow-lg h-full">
                     <span class="rounded-full p-3 bg-lime-100 w-20 h-20 flex items-center justify-center mb-4">
                         <x-sui-write class="w-10 h-10 text-lime-500 inline" />

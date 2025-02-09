@@ -7,10 +7,13 @@
                             class="h-16 mx-auto"></a>
                 </div>
                 <ul class="flex flex-row gap-12 text-white">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Registration</a></li>
+                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li><a href="{{ url('/about') }}">About</a></li>
+                    <li><a href="{{ url('/contact') }}">Contact</a></li>
+                    <li><a href="{{ url('/general-information') }}">Information</a></li>
+                    <li><a href="{{ url('/call-for-paper') }}">Call for paper</a></li>
+                    <li><a href="{{ url('/contact') }}">Contact</a></li>
+                    <li><a href="{{ url('/registration') }}">Registration</a></li>
                 </ul>
 
                 <div class="flex flex-row gap-8 text-white text-lg">
