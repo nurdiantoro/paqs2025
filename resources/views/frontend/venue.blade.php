@@ -15,14 +15,38 @@
             </div>
         </div>
 
-        <div class="bg-white p-4 rounded-lg">
-            <img src="{{ asset('img/no_image.png') }}" alt="">
-            <div>
-                <div>Raffles Hotel Jakarta</div>
+        <div class="mb-52 flex flex-col md:flex-row h-[30rem] relative px-4">
+            <img src="{{ asset('img/raffles-1.webp') }}" class="w-full h-full object-cover rounded-2xl">
+            <div
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[90%] md:w-3/4 lg:w-2/3 bg-white rounded-3xl px-4 py-3 shadow-lg gap-4">
+                <div class="flex flex-col mb-6">
+                    <div>
+                        <span class="font-semibold text-xl text-black">Raffles Hotel</span>
+                        <span class="mb-2 text-amber-400 rounded-full inline text-nowrap">
+                            <x-bi-star-fill class="w-4 h-4 inline mr-1 text-amber-400" />5 star
+                        </span>
+                    </div>
+
+
+                    <span>Jl. Prof. DR. Satrio Kav. 3-5, RT.18/RW.05, Kuningan, Karet Kuningan, Kecamatan Setiabudi,
+                        Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12940</span>
+                </div>
+
+                <a href="https://www.raffles.com/" target="_blank" class="flex flex-row gap-2 mb-6 hover:text-warna-01">
+                    <x-entypo-globe class="w-6 h-6" />
+                    <span>raffles.com</span>
+                </a>
+                <a href="https://maps.app.goo.gl/hhj4fEUqv8RG1AaA8"
+                    class="bg-warna-temp-02 rounded-full px-6 py-4 inline-block text-white font-semibold group">
+                    <span class="inline-block mr-4">Get Directions</span>
+                    <x-fas-arrow-right-long
+                        class="w-5 h-5 inline group-hover:translate-x-2 duration-300 transition-transform mr-2" />
+                </a>
             </div>
         </div>
 
         {{-- Hotel --}}
+        <div class="text-4xl font-bold wow fadeInUp animated z-10 mt-40 mb-4 text-warna-01 text-center">Hotels</div>
         <div x-data="{ visibleCount: 9, total: {{ count($hotels) }} }">
             <div class="flex flex-wrap justify-center">
                 @foreach ($hotels as $index => $hotel)
