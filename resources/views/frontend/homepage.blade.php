@@ -38,8 +38,8 @@
                     </div>
                 </div>
                 <ul data-animation="fadeInUp animated" data-delay=".2s">
-                    <li class="wow fadeInLeft animated"><i class="fas fa-map-marker-alt text-3xl"></i> Jakarta -
-                        Indonesia</li>
+                    <li class="wow fadeInLeft animated"><i class="fas fa-map-marker-alt text-3xl"></i> Raffles Hotel
+                        Jakarta - Indonesia</li>
                     <li class="wow fadeInRight animated"><i class="far fa-clock text-3xl"></i> 22 - 26 August 2025,
                     </li>
                 </ul>

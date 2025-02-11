@@ -15,6 +15,13 @@
             </div>
         </div>
 
+        <div class="bg-white p-4 rounded-lg">
+            <img src="{{ asset('img/no_image.png') }}" alt="">
+            <div>
+                <div>Raffles Hotel Jakarta</div>
+            </div>
+        </div>
+
         {{-- Hotel --}}
         <div x-data="{ visibleCount: 9, total: {{ count($hotels) }} }">
             <div class="flex flex-wrap justify-center">
