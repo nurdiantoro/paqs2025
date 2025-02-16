@@ -28,7 +28,7 @@
 
         <div class="container">
             <div class="mb-40 flex justify-center">
-                <img src="{{ asset('img/call_for_paper.jpeg') }}" alt="call for paper">
+            <img src="{{ asset('img/call_for_paper_2.jpeg') }}" alt="call for paper" class="rounded-xl">
             </div>
             <div class="flex flex-col justify-center items-center">
                 <div class="rounded-xl bg-white shadow-xl p-8 border">
