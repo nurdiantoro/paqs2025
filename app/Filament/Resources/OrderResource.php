@@ -48,14 +48,16 @@ class OrderResource extends Resource
                         ->schema([
                             TextInput::make('no_invoice')->readOnly(),
 
-                            TextInput::make('title'),
-                            TextInput::make('full_name'),
-                            TextInput::make('company'),
-                            TextInput::make('address'),
+                            TextInput::make('title')->readOnly(),
+                            TextInput::make('full_name')->readOnly(),
+                            TextInput::make('member_id')->readOnly(),
+                            TextInput::make('company')->readOnly(),
+                            TextInput::make('address')->readOnly(),
                             TextInput::make('telephone')
+                                ->readOnly()
                                 ->tel()
                                 ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/'),
-                            TextInput::make('email'),
+                            TextInput::make('email')->readOnly()->email(),
 
                         ]),
                     Section::make('Payment')
@@ -126,8 +128,8 @@ class OrderResource extends Resource
                         ->icon('heroicon-o-eye')
                         ->visible(fn() => auth()->user()->role === 'Admin'),
                     EditAction::make()
-                        ->icon('heroicon-o-pencil-square')
-                        ->visible(fn() => auth()->user()->role === 'Root'),
+                        // ->visible(fn() => auth()->user()->role === 'Root')
+                        ->icon('heroicon-o-pencil-square'),
                     Action::make('See Payment')
                         ->icon('heroicon-o-photo')
                         ->modalContent(function (Order $record): View {

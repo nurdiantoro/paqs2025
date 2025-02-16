@@ -59,6 +59,14 @@
                         class=" rounded-md w-full border-b text-[16px]">
                 </div>
                 <div class="mb-8">
+                    <label for="member_id" class="text-warna-02 text-[16px] font-semibold">Member ID (Optional)</label>
+                    @error('member_id')
+                        <span class="text-danger block m-0 text-sm">{{ $message }}</span>
+                    @enderror
+                    <input type="text" name="member_id" id="member_id" value="{{ old('member_id') }}"
+                        class=" rounded-md w-full border-b text-[16px]">
+                </div>
+                <div class="mb-8">
                     <label for="company" class="text-warna-02 text-[16px] font-semibold">Company / Organization <span
                             class="text-red-700">*</span></label>
                     @error('company')
