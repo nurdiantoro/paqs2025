@@ -28,7 +28,7 @@
 
         <div class="container">
             <div class="mb-40 flex justify-center">
-            <img src="{{ asset('img/call_for_paper_2.jpeg') }}" alt="call for paper" class="rounded-xl">
+                <img src="{{ asset('img/call_for_paper_2.jpeg') }}" alt="call for paper" class="rounded-xl">
             </div>
             <div class="flex flex-col justify-center items-center">
                 <div class="rounded-xl bg-white shadow-xl p-8 border">
@@ -83,6 +83,9 @@
                     <a href="{{ asset('documents/Fullpaper_Template_PAQS_Congress_2025.docx') }}" download=""
                         class="text-white bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Download
                         Paper Template</a>
+                    <a href="http://bit.ly/Submission-PAQS2025" target="_blank"
+                        class="text-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Submit
+                        Paper</a>
                 </div>
             </div>
         </div>
