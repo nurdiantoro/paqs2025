@@ -3,7 +3,7 @@
 @php
     $navbarColor = 'hover:text-warna-temp-02 font-semibold text-gray-400';
     $home = $about = $information = $programme = $contact = $call_for_paper = 'text-gray-400';
-    if (url()->current() == url('/')) {
+    if (url()->current() == url('')) {
         $home = 'text-warna-temp-02';
     } elseif (url()->current() == url('/about')) {
         $about = 'text-warna-temp-02';

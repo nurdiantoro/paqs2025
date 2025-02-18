@@ -22,18 +22,20 @@
         <div class="absolute w-full h-full bg-black opacity-75">
 
         </div>
-        {{-- <img src="{{ asset('img/meeting.jpg') }}" class="absolute w-full h-full object-cover brightness-[0.2]"> --}}
     </div>
-    <div class="min-h-screen mb-50 max-w-[100rem] mx-auto md:mt-200 ">
+
+    <div class="min-h-screen mb-50 max-w-[100rem] mx-auto md:mt-[10rem] ">
         <div class="mb-60 px-2 md:px-0">
-            <div class="mb-40 flex flex-col md:flex-row justify-between">
-                <div class="flex-1 flex justify-center items-center wow fadeInUp animated">
-                    <img src="{{ asset('img/about.png') }}"
-                        class="w-[400px] rounded-xl hover:scale-110 duration-300 ease-out">
+            <div class="mb-40 flex flex-col lg:flex-row justify-between items-center">
+                <div
+                    class="w-full lg:w-1/2 flex justify-center items-center wow fadeInUp animated lg:pr-20 lg:mb-0 mb-12">
+                    <img src="{{ asset('img/53951347333_17a4bf21f5_o.jpg') }}"
+                        class="w-[400px] rounded-xl hover:scale-110 duration-300 ease-out drop-shadow-lg">
                 </div>
-                <div class="flex-1">
+
+                <div class="w-full
+                        lg:w-1/2">
                     <p class="wow fadeInUp animated text-justify text-slate-500">
-                        <br><br>
                         Each year, the congress features a series of keynote speeches, panel discussions, and technical
                         sessions covering a wide range of topics, including construction practices, digitalization in
                         quantity surveying, and innovative project management techniques.

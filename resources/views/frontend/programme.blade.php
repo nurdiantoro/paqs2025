@@ -26,8 +26,6 @@
     <div class="mt-200 min-h-screen mb-50 px-2 md:px-80">
 
         <div class="container">
-
-
             <div class="mb-80 flex flex-wrap-reverse">
                 <div class="w-full md:w-1/2 md:translate-y-0 translate-y-[-50%] absolute bottom-0 md:relative ">
                     <img src="{{ asset('img/programme.png') }}" class="scale-150">
@@ -54,11 +52,35 @@
                                         <span>The Young QS Program is designed to support and develop young
                                             professionals in the field of
                                             Quantity Surveying. Its main activities are:</span>
-                                        <ul class="mt-2 list-disc pl-5">
+                                        <ul class="mb-2 list-disc pl-5">
                                             <li class="list-disc">Seminars and Workshops</li>
                                             <li class="list-disc">Essay and Research Competitions</li>
                                             <li class="list-disc">Networking and meetings</li>
                                         </ul>
+                                        <swiper-container id="swiper-about" class="mySwiper" pagination="false"
+                                            navigation="false" centered-slides="true" autoplay-delay="0"
+                                            slides-per-view="3" space-between="0" loop="true" speed="3000">
+                                            <swiper-slide>
+                                                <img src="{{ asset('img/about/53949717937_6aa269b3f9_o.jpg') }}"
+                                                    class="w-full h-full object-cover rounded-xl">
+                                            </swiper-slide>
+                                            <swiper-slide>
+                                                <img src="{{ asset('img/about/53949723002_f9006228e4_o.jpg') }}"
+                                                    class="w-full h-full object-cover rounded-xl">
+                                            </swiper-slide>
+                                            <swiper-slide>
+                                                <img src="{{ asset('img/about/53950105187_e1bb1f1e28_o.jpg') }}"
+                                                    class="w-full h-full object-cover rounded-xl">
+                                            </swiper-slide>
+                                            <swiper-slide>
+                                                <img src="{{ asset('img/about/53951546280_59f6071da2_o.jpg') }}"
+                                                    class="w-full h-full object-cover rounded-xl">
+                                            </swiper-slide>
+                                            <swiper-slide>
+                                                <img src="{{ asset('img/about/53951546480_690e0ab5cd_o.jpg') }}"
+                                                    class="w-full h-full object-cover rounded-xl">
+                                            </swiper-slide>
+                                        </swiper-container>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +188,8 @@
                     </div>
                     <div class="p-2 md:w-1/5 w-1/2">
                         <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
-                            <div id="icon-golf" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"></div>
+                            <div id="icon-golf" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                            </div>
                             <span class="font-bold text-lg group-hover:text-black">Golf Tournament</span>
                         </div>
                     </div>
