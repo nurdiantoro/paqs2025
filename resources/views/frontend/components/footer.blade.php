@@ -6,10 +6,9 @@
                     <a href="{{ url('/') }}"><img src="{{ asset('img/LOGO PAQS CONGRESS.png') }}" alt="logo"
                             class="h-16 mx-auto"></a>
                 </div>
-                <ul class="flex flex-row gap-12 text-white">
+                <ul class="flex flex-row flex-wrap gap-x-12 gap-y-4 justify-center text-white my-4 md:my-0">
                     <li><a href="{{ url('/') }}">Home</a></li>
                     <li><a href="{{ url('/about') }}">About</a></li>
-                    <li><a href="{{ url('/contact') }}">Contact</a></li>
                     <li><a href="{{ url('/general-information') }}">Information</a></li>
                     <li><a href="{{ url('/call-for-paper') }}">Call for paper</a></li>
                     <li><a href="{{ url('/contact') }}">Contact</a></li>

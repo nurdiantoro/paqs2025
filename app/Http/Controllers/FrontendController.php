@@ -9,8 +9,10 @@ use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Hotel;
 use App\Models\Inbox;
+use App\Models\Itinerary;
 use App\Models\Order;
 use App\Models\Roadmap;
+use App\Models\Speaker;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -32,7 +34,9 @@ class FrontendController extends Controller
 
     public function programme()
     {
-        return view('frontend.programme');
+        $itinerary_day1 = Itinerary::where('day', 1)->orderBy('time_1', 'asc')->get();
+        $itinerary_day2 = Itinerary::where('day', 2)->orderBy('time_1', 'asc')->get();
+        return view('frontend.programme', compact('itinerary_day1', 'itinerary_day2'));
     }
 
     public function information()
@@ -48,7 +52,8 @@ class FrontendController extends Controller
 
     public function call_for_paper()
     {
-        return view('frontend.call_for_paper');
+        $speakers = Speaker::all();
+        return view('frontend.call_for_paper', compact('speakers'));
     }
     public function contact()
     {

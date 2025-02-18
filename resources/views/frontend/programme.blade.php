@@ -23,11 +23,12 @@
         </div>
         {{-- <img src="{{ asset('img/meeting.jpg') }}" class="absolute w-full h-full object-cover brightness-[0.2]"> --}}
     </div>
-    <div class="mt-200 min-h-screen mb-50 px-2 md:px-80">
+    <div class="mt-20 md:mt-[15rem] min-h-screen md:mb-56 px-2 md:px-80">
 
         <div class="container">
-            <div class="mb-80 flex flex-wrap-reverse">
-                <div class="w-full md:w-1/2 md:translate-y-0 translate-y-[-50%] absolute bottom-0 md:relative ">
+            <div class="mb-20 md:mb-80 flex flex-wrap-reverse">
+                <div
+                    class="w-full md:w-1/2 md:translate-y-0 translate-y-[-50%] absolute bottom-0 md:relative hidden md:block ">
                     <img src="{{ asset('img/programme.png') }}" class="scale-150">
                 </div>
                 <div class="w-full md:w-1/2 ">
@@ -47,7 +48,7 @@
                                 <x-fas-minus
                                     class="h-4 w-4 opacity-0 peer-checked:opacity-100 peer-checked:rotate-0 -rotate-90 duration-500 absolute right-4 top-4 z-10" />
                                 <div
-                                    class="max-h-0 overflow-hidden peer-checked:max-h-96 transition-all duration-500 ease-in-out">
+                                    class="max-h-0 overflow-hidden peer-checked:max-h-min transition-all duration-1000">
                                     <div class="px-3 pb-3">
                                         <span>The Young QS Program is designed to support and develop young
                                             professionals in the field of
@@ -57,30 +58,13 @@
                                             <li class="list-disc">Essay and Research Competitions</li>
                                             <li class="list-disc">Networking and meetings</li>
                                         </ul>
-                                        <swiper-container id="swiper-about" class="mySwiper" pagination="false"
-                                            navigation="false" centered-slides="true" autoplay-delay="0"
-                                            slides-per-view="3" space-between="0" loop="true" speed="3000">
-                                            <swiper-slide>
-                                                <img src="{{ asset('img/about/53949717937_6aa269b3f9_o.jpg') }}"
-                                                    class="w-full h-full object-cover rounded-xl">
-                                            </swiper-slide>
-                                            <swiper-slide>
-                                                <img src="{{ asset('img/about/53949723002_f9006228e4_o.jpg') }}"
-                                                    class="w-full h-full object-cover rounded-xl">
-                                            </swiper-slide>
-                                            <swiper-slide>
-                                                <img src="{{ asset('img/about/53950105187_e1bb1f1e28_o.jpg') }}"
-                                                    class="w-full h-full object-cover rounded-xl">
-                                            </swiper-slide>
-                                            <swiper-slide>
-                                                <img src="{{ asset('img/about/53951546280_59f6071da2_o.jpg') }}"
-                                                    class="w-full h-full object-cover rounded-xl">
-                                            </swiper-slide>
-                                            <swiper-slide>
-                                                <img src="{{ asset('img/about/53951546480_690e0ab5cd_o.jpg') }}"
-                                                    class="w-full h-full object-cover rounded-xl">
-                                            </swiper-slide>
-                                        </swiper-container>
+
+
+                                        <span class="block text-center text-sm mt-6 text-red-500">The itinerary below is
+                                            tentative and subject to
+                                            change</span>
+                                        @include('frontend.components.itinerary_yqs')
+                                        @include('frontend.components.swipper_yqs')
                                     </div>
                                 </div>
                             </div>
