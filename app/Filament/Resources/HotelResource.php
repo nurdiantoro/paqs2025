@@ -39,6 +39,7 @@ class HotelResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image_cover')
                     ->image(),
+                Forms\Components\Toggle::make('recomended'),
             ]);
     }
 
@@ -51,19 +52,9 @@ class HotelResource extends Resource
                 Tables\Columns\TextColumn::make('star')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('telephone')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('location')
-                    ->searchable(),
+                Tables\Columns\IconColumn::make('recomended')
+                    ->boolean(),
                 Tables\Columns\ImageColumn::make('image_cover'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
