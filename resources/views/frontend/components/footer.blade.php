@@ -59,7 +59,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    {{-- @vite('resources/js/app.js') --}}
+    @vite(['resources/js/footer.js'])
 
     <script></script>
 
