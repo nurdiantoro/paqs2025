@@ -19,6 +19,7 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
 
         // Generate no invoice random & unique
         $no_invoice = date('Ymd') . rand(1000, 9999);
@@ -30,7 +31,6 @@ class OrderController extends Controller
             'title' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
-            'member_id' => 'numeric|nullable',
             'company' => 'required',
             'address' => 'required',
             'telephone' => 'required|numeric',
@@ -39,16 +39,21 @@ class OrderController extends Controller
             'quantity' => 'required|numeric',
         ]);
 
-        // Hitung total harga
         $category = Category::find($request->category);
-        $addon = Addon::find($request->add_on);
-        $total_category = $category->price * $request->quantity;
-        if ($addon != null) {
-            $total_addon = $addon->price * $request->quantity;
+        $total_price = $category->price * $request->quantity;
+
+        if ($request->association == true) {
+            $request->validate([
+                'association' => 'required',
+                'member_id' => 'numeric|required',
+            ]);
+            $association = $request->association;
+            $member_id = $request->member_id;
         } else {
-            $total_addon = 0;
+            $association = NULL;
+            $member_id = NULL;
         }
-        $total_price = $total_category + $total_addon;
+
 
         // Simpan data ke database
         Order::create(
@@ -58,7 +63,9 @@ class OrderController extends Controller
                 'first_name' => ucwords($request->first_name),
                 'last_name' => ucwords($request->last_name),
                 'full_name' => $request->first_name . ' ' . $request->last_name,
-                'member_id' => $request->member_id,
+                'is_member' => $request->member,
+                'member_id' => $member_id,
+                'association_id' => $association,
                 'company' => $request->company,
                 'address' => $request->address,
                 'telephone' => $request->telephone,

@@ -51,6 +51,11 @@ class OrderResource extends Resource
                             TextInput::make('title')->readOnly(),
                             TextInput::make('full_name')->readOnly(),
                             TextInput::make('member_id')->readOnly(),
+                            Select::make('association_id')
+                                ->label('Association')
+                                ->relationship('association', 'name')
+                                ->native(true)
+                                ->disabled(fn() => auth()->user()->role_id !== 'Root'),
                             TextInput::make('company')->readOnly(),
                             TextInput::make('address')->readOnly(),
                             TextInput::make('telephone')
@@ -81,7 +86,7 @@ class OrderResource extends Resource
                                     'unpaid' => 'unpaid',
                                     'cancelled' => 'cancelled',
                                 ])
-                                ->native(false),
+                                ->native(true),
                             Toggle::make('is_confirmed')->label('Confirmed'),
                         ]),
                 ])->columnSpanFull(),

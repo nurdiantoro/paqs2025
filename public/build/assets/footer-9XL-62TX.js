@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("member"),n=document.getElementById("member2"),d=document.getElementById("member_details");function t(){e.checked?(console.log(e.checked),d.style.display="flex"):(console.log(n.checked),d.style.display="none")}t(),e.addEventListener("change",t),n.addEventListener("change",t)});

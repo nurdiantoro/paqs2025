@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\GetBarcode;
 use App\Mail\GetBarcodePersonal;
 use App\Models\Addon;
+use App\Models\Association;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Hotel;
@@ -87,7 +88,9 @@ class FrontendController extends Controller
     {
         $categories = Category::get()->groupBy('type');
         $addons = Addon::all();
-        return view('frontend.registration_form', compact('categories', 'addons'));
+        $associations = Association::all();
+
+        return view('frontend.registration_form', compact('categories', 'addons', 'associations'));
     }
 
     public function ticket()

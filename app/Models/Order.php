@@ -20,6 +20,10 @@ class Order extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+    public function association()
+    {
+        return $this->belongsTo(Association::class, 'association_id');
+    }
     public function addon()
     {
         return $this->belongsTo(Addon::class, 'addon_id');
