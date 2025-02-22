@@ -24,257 +24,143 @@
         </div>
         {{-- <img src="{{ asset('img/meeting.jpg') }}" class="absolute w-full h-full object-cover brightness-[0.2]"> --}}
     </div>
-    <div class="mt-200 min-h-screen mb-50 px-2 md:px-80 container flex flex-wrap">
 
-        <div class="flex justify-center w-full lg:w-1/2 p-4">
-            <img src="{{ asset('img/call_for_paper_2.jpeg') }}" alt="call for paper" class="rounded-xl">
+    {{-- Poster --}}
+    <div class="lg:mt-200 mb-50 px-2 md:px-80 container flex flex-wrap">
+
+        <div class="flex justify-center w-full lg:w-1/3 p-4 wow animated fadeInLeftBig">
+            <img src="{{ asset('img/call_for_paper_2.jpeg') }}" alt="call for paper" class="rounded-xl object-contain">
         </div>
 
-        <div class="flex flex-col justify-center items-center w-full lg:w-1/2 p-4">
-            <div class="rounded-xl bg-white shadow-xl p-8 border w-full">
-                <span class="text-xl mb-2 font-semibold inline-block">Please read carefully before formatting and
-                    submitting your
-                    paper!</span>
-                <table class="mb-8">
-                    <tr>
-                        <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
-                                class="w-6 h-6 inline mr-2" />
-                        </td>
-                        <td class="border-none p-2 align-top">Please follow the Template and use the file name
-                            format:
-                            PAQS2025_Poster/Fullpaper_Track
-                            Name_First Author</td>
-                    </tr>
-                    <tr>
-                        <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
-                                class="w-6 h-6 inline mr-2" />
-                        </td>
-                        <td class="border-none p-2 align-top">If you are going to submit your full paper, please
-                            follow
-                            the
-                            Fullpaper Template</td>
-                    </tr>
-                    <tr>
-                        <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
-                                class="w-6 h-6 inline mr-2" />
-                        </td>
-                        <td class="border-none p-2 align-top">If you are going to submit your Poster, please follow
-                            the
-                            Poster
-                            Template</td>
-                    </tr>
-                    <tr>
-                        <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
-                                class="w-6 h-6 inline mr-2" />
-                        </td>
-                        <td class="border-none p-2 align-top">Please write the paper title in the submit-manuscript
-                            platform with
-                            the format:
-                            POSTER/FULL PAPER_TITLE</td>
-                    </tr>
-                    <tr>
-                        <td class="border-none p-2 align-top"><x-ionicon-document-text-outline
-                                class="w-6 h-6 inline mr-2" />
-                        </td>
-                        <td class="border-none p-2 align-top">Please upload the file in PDF format</td>
-                    </tr>
-                </table>
+        <div class="flex flex-col w-full lg:w-2/3 p-4 wow animated fadeInRightBig">
+            <div class="text-warna-temp-02 font-bold text-4xl text-left w-full mb-2">CALL FOR PAPER – PAQS
+                CONGRESS
+                2025</div>
+            <div class="rounded-xl bg-white shadow-xl p-8 border w-full h-full flex flex-col gap-4 justify-between">
+                <div>
+                    <p class="text-slate-800 font-semibold text-lg">Description</p>
+                    <p class="text-slate-700 mb-3"><span class="font-bold">The Pacific Association of Quantity Surveyors
+                            (PAQS) Congress 2025</span>
+                        invites
+                        researchers, academics,
+                        and industry professionals to submit their papers and contribute to the advancement of smart
+                        construction.</p>
+                    <p class="text-slate-800 font-semibold text-lg">Conference Theme:</p>
+                    <p class="text-slate-700 mb-3 italic"> Harnessing AI and Digital Technology for Smart Construction –
+                        Towards Net Zero, Decarbonizing, and
+                        Innovative Building Materials</p>
+                    <p class="text-slate-800 font-semibold text-lg">
+                        Key Topics:
+                    </p>
+                    <ul class="text-slate-700 mb-3 pl-4">
+                        <li>AI-Driven Construction Innovations</li>
+                        <li>Pathways to Net Zero and Decarbonization</li>
+                        <li>Breakthroughs in Sustainable Materials</li>
+                        <li>Modular and Prefabricated Construction</li>
+                    </ul>
+                    <p class="text-slate-700 mb-3">
+                        Selected papers will be published in <span class="font-bold">Scopus-indexed journals</span>,
+                        providing an opportunity for
+                        global
+                        recognition and impact.</p>
+                    <ul class="text-slate-700 mb-3">
+                        <li><span class="font-bold">📍 Conference Venue:</span> Hotel Raffles Jakarta</li>
+                        <li><span class="font-bold">📆 Conference Dates:</span> 25-26 August 2025</li>
+                        <li><span class="font-bold">📝 Paper Submission Deadline:</span> April 2025</li>
+                    </ul>
+                    <p class="text-slate-700 mb-3">
+                        For full submission guidelines and to submit your paper, please visit:
+                        <br>
+                        🔗
+                        <a href="http://bit.ly/Submission-PAQS2025"
+                            class="text-warna-temp-02 hover:text-warna-temp-02 hover:underline">
+                            http://bit.ly/Submission-PAQS2025</a>
+                    </p>
+                    <p class="text-slate-700 mb-3">
+                        For inquiries, contact: <span class="font-bold">Eno +62 812 1111 6900, Okta: +62 896
+                            36132308</span></p>
+                </div>
 
-                <a href="{{ asset('documents/Fullpaper_Template_PAQS_Congress_2025.docx') }}" download=""
-                    class="text-white bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Download
-                    Paper Template</a>
-                <a href="http://bit.ly/Submission-PAQS2025" target="_blank"
-                    class="text-warna-temp-02   hover:text-white hover:bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Submit
-                    Paper</a>
+                <div class="flex flex-wrap gap-4">
+                    <a href="{{ asset('documents/Fullpaper_Template_PAQS_Congress_2025.docx') }}" download=""
+                        class="text-warna-temp-02 bg-rose-100 hover:text-white hover:bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Download
+                        Paper Template</a>
+                    <a href="http://bit.ly/Submission-PAQS2025" target="_blank"
+                        class="text-warna-temp-02 bg-rose-100 hover:text-white hover:bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Book
+                        now</a>
+                </div>
             </div>
         </div>
 
     </div>
 
-    {{-- Timeline --}}
-    <div class="container ">
-        <span class="text-2xl mb-2 font-semibold block text-black text-center">Speakers Profile</span>
+    {{-- Speakers Profile --}}
+    <div class="container mb-[10rem]">
+        <span class="text-2xl mb-2 font-semibold block text-warna-temp-02 text-center wow zoomIn animated">Featured
+            Speaker</span>
         <div class="flex flex-wrap flex-col md:flex-row">
+            {{-- @foreach ($speakers as $speaker)
+                <div class="p-2 w-full md:w-1/2 lg:w-1/3 ">
+                    <div class="relative overflow-hidden rounded-xl bg-white border min-h-[30rem] h-full group">
+                        <div class="p-4 h-full flex flex-col gap-4 group">
+                            <img src="{{ asset('storage/' . $speaker->image) }}"
+                                class="overflow-hidden rounded-full w-40 h-40 mx-auto bg-slate-50 object-cover z-30 group-hover:-translate-y-[50px] group-hover:scale-[0.4] duration-300 ease-in-out border">
+                            <div class="text-xl text-center mb-2 font-bold text-slate-900">
+                                {{ $speaker->name }}
+                            </div>
+                            <div
+                                class="w-full h-20 bg-slate-700 absolute top-0 left-0 group-hover:opacity-100 duration-300 ease-in-out z-20">
+                            </div>
+                        </div>
+                        <div
+                            class="absolute z-10 rounded-xl bottom-0 left-0 translate-y-full group-hover:translate-y-0 duration-300 ease-in-out w-full h-full bg-slate-700 border border-slate-900 overflow-y-auto p-4">
+                            <p class="text-white pt-24">{!! $speaker->description !!}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach --}}
             @foreach ($speakers as $speaker)
-                <div class="p-2 w-full md:w-1/2">
-                    <div class="bg-white rounded-xl border p-2">
-                        <img src="{{ asset('storage/' . $speaker->image) }}"
-                            class="ratio-1x1 rounded-full w-[100px] mx-auto">
-                        <span class="text-2xl mb-2 font-bold inline-block text-slate-900">{{ $speaker->name }}</span>
-                        <p class="line-clamp-3 text-justify text-gray-500">{!! $speaker->description !!}</p>
-                        {{-- <span class="text-justify inline-block">{!! $speaker->description !!}</span> --}}
+                <div class="p-2 w-full md:w-1/2 lg:w-1/3 wow wow zoomIn animated">
+                    <div
+                        class="relative overflow-hidden rounded-xl border h-full shadow-md group bg-slate-50 hover:bg-warna-temp-01 duration-300 ease-in-out cursor-pointer">
+                        <div class="p-4 h-full flex flex-col gap-4 relative">
+                            <div
+                                class="overflow-hidden rounded-full w-40 h-40 mx-auto bg-slate-50 z-30 border duration-300 ease-in-out">
+                                <img src="{{ asset('storage/' . $speaker->image) }}"
+                                    class="object-cover group-hover:scale-105">
+                            </div>
+                            <div
+                                class="text-xl text-center mb-2 font-bold text-slate-900 group-hover:text-white duration-300 ease-in-out">
+                                {{ $speaker->name }}
+                            </div>
+                            <div class="overflow-y-auto h-40 overflow-scroll">
+                                <p class="text-slate-500 group-hover:text-slate-300 duration-300 ease-in-out">
+                                    {!! $speaker->description !!}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
-        </div>
-    </div>
-
-    <div class="container my-40">
-        <div class="row">
-            <div class="col-lg-12 ">
-                <nav class="wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
-                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active show" id="day-one" data-toggle="tab" href="#one"
-                            role="tab" aria-selected="true">
-                            <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                            <div class="nav-content">
-                                <strong>22<sup>nd</sup></strong>
-                                <span>August 2025</span>
+            {{-- @foreach ($speakers as $speaker)
+                <div class="flip-card w-full md:w-1/2 lg:w-1/3 p-4">
+                    <div class="flip-card-inner relative w-full h-[30rem]">
+                        <div
+                            class="flip-card-front shadow-md bg-white rounded-xl border p-4 h-full flex flex-col gap-4">
+                            <img src="{{ asset('storage/' . $speaker->image) }}" alt="{{ $speaker->image }}"
+                                style="overflow-hidden rounded-full mx-auto bg-slate-50 object-cover">
+                            <div class="text-xl text-center mb-2 font-bold text-slate-900">
+                                {{ $speaker->name }}
                             </div>
-                        </a>
-                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#two"
-                            role="tab" aria-selected="false">
-                            <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                            <div class="nav-content">
-                                <strong>23<sup>th</sup></strong>
-                                <span>August 2025</span>
-                            </div>
-                        </a>
-                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#three"
-                            role="tab" aria-selected="false">
-                            <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                            <div class="nav-content">
-                                <strong>24<sup>th</sup></strong>
-                                <span>August 2025</span>
-                            </div>
-                        </a>
-                        <a class="nav-item nav-link" id="nav-contact-tab2" data-toggle="tab" href="#four"
-                            role="tab" aria-selected="false">
-                            <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                            <div class="nav-content">
-                                <strong>25<sup>th</sup></strong>
-                                <span>August 2025</span>
-                            </div>
-                        </a>
-                        <a class="nav-item nav-link" id="nav-contact-tab3" data-toggle="tab" href="#four"
-                            role="tab" aria-selected="false">
-                            <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                            <div class="nav-content">
-                                <strong>26<sup>th</sup></strong>
-                                <span>August 2025</span>
-                            </div>
-                        </a>
-                    </div>
-                </nav>
-
-
-                <div class="tab-content py-3 px-3 px-sm-0 wow fadeInDown animated" data-animation="fadeInDown animated"
-                    data-delay=".2s" id="nav-tabContent">
-
-
-                    <div class="tab-pane fade active show relative" id="one" role="tabpanel"
-                        aria-labelledby="day-one">
-                        <div class="relative w-full text-center h-24">
-                            <div
-                                class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                            </div>
-                            <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                    class="w-6 h-6 inline mr-2" />08.00AM
-                                - 09.00AM</span>
-                            <span
-                                class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Young
-                                QS Programme</span>
                         </div>
-                    </div>
-
-                    <div class="tab-pane fade relative" id="two" role="tabpanel" aria-labelledby="day-one">
-                        <div class="relative w-full text-center h-24">
-                            <div
-                                class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                            </div>
-                            <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                    class="w-6 h-6 inline mr-2" />09.00AM
-                                - 11.00AM</span>
-                            <span
-                                class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Education
-                                & Accreditation Committee Meeting</span>
-                        </div>
-                        <div class="relative w-full text-center h-24">
-                            <div
-                                class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                            </div>
-                            <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                    class="w-6 h-6 inline mr-2" />11.00AM
-                                - 01.00PM</span>
-                            <span
-                                class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Research
-                                Committe Meeting</span>
-                        </div>
-                        <div class="relative w-full text-center h-24">
-                            <div
-                                class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                            </div>
-                            <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                    class="w-6 h-6 inline mr-2" />01.00PM
-                                - 03.00PM</span>
-                            <span
-                                class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Sustainability
-                                Committee Meeting</span>
-                        </div>
-                        <div class="relative w-full text-center h-24">
-                            <div
-                                class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                            </div>
-                            <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                    class="w-6 h-6 inline mr-2" />03.00PM
-                                - 05.00PM</span>
-                            <span
-                                class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">BIM
-                                Committee Meeting</span>
-                        </div>
-                        <div class="relative w-full text-center h-24">
-                            <div
-                                class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                            </div>
-                            <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                    class="w-6 h-6 inline mr-2" />06.30AM
-                                - 1.00PM</span>
-                            <span
-                                class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Golf
-                                Tournament</span>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade relative" id="three" role="tabpanel" aria-labelledby="day-one">
-                        <div class="relative w-full text-center h-24">
-                            <div
-                                class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                            </div>
-                            <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                    class="w-6 h-6 inline mr-2" />08.30AM
-                                - 09.00AM</span>
-                            <span
-                                class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Registration</span>
-                        </div>
-                        <div class="relative w-full text-center h-24">
-                            <div
-                                class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                            </div>
-                            <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                    class="w-6 h-6 inline mr-2" />09.00AM
-                                - 05.00PM</span>
-                            <span
-                                class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Board
-                                Meeting Session</span>
-                        </div>
-                        <div class="relative w-full text-center h-24">
-                            <div
-                                class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                            </div>
-                            <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                    class="w-6 h-6 inline mr-2" />07.00AM
-                                - 09.00PM</span>
-                            <span
-                                class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">President
-                                Dinner</span>
+                        <div class="flip-card-back shadow-md">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
+                            <p>We love that guy</p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-12 justify-content-center text-center">
-                <a href="#" class="btn mt-20">Download Programme <x-gmdi-download-r
-                        class="w-8 h-8 inline" /></a>
-            </div>
+            @endforeach --}}
+            {{-- <p class="line-clamp-3 text-justify text-gray-500">{!! $speaker->description !!}</p> --}}
         </div>
     </div>
 </main>

@@ -36,7 +36,7 @@
                                 Kecamatan
                                 Setiabudi,
                                 Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12940</span>
-                            <a href="https://www.raffles.com/" target="_blank"
+                            <a href="https://www.raffles.com/jakarta/" target="_blank"
                                 class="flex flex-row gap-2 mb-6 hover:text-warna-01">
                                 <x-entypo-globe class="w-6 h-6" />
                                 <span>raffles.com</span>

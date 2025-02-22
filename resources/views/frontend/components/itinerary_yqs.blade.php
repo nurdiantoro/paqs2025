@@ -27,7 +27,8 @@
                     class="relative w-full group flex flex-row justify-between items-center before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 after:contents[''] after:w-4 after:h-4 after:bg-sky-400  after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full py-2">
 
 
-                    <div class="w-[49%] mr-12 group-hover:text-warna-01 duration-300 text-right">
+                    <div
+                        class="w-[49%] group-hover:bg-slate-700 group-hover:text-white p-3 rounded-lg mr-12 text-right">
                         {{ date('h.ia', strtotime($day_1->time_1)) }}
                         <?php
                         if ($day_1->time_2 != null) {
@@ -35,26 +36,10 @@
                         }
                         ?>
                     </div>
-                    <div
-                        class="w-[49%] bg-white group-hover:shadow-lg group-hover:text-warna-01 duration-300 p-3 rounded-lg ml-12 ">
+                    <div class="w-[49%] group-hover:bg-slate-700 group-hover:text-white p-3 rounded-lg ml-12">
                         {{ $day_1->title }}</div>
                 </div>
             @endforeach
-            {{-- @foreach ($itineraries as $itinerary)
-                <div class="relative w-full min-h-24 h-min py-2 group">
-                    <div
-                        class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-sky-400  after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                    </div>
-
-
-                    <div class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 group-hover:text-black">
-                        {{ date('h.ia', strtotime($itinerary->time_1)) }}
-                        - {{ date('h.ia', strtotime($itinerary->time_2)) }}</div>
-                    <div
-                        class="bg-white group-hover:shadow-lg group-hover:text-black p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">
-                        {{ $itinerary->title }}</div>
-                </div>
-            @endforeach --}}
         </div>
 
         <div class="tab-pane fade relative" id="two" role="tabpanel" aria-labelledby="day-one">
@@ -63,11 +48,11 @@
                     class="relative w-full group flex flex-row justify-between items-center before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 after:contents[''] after:w-4 after:h-4 after:bg-sky-400  after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full py-2">
 
 
-                    <div class="w-[49%] mr-12 group-hover:text-warna-01 duration-300 text-right">
+                    <div
+                        class="w-[49%] group-hover:bg-slate-700 group-hover:text-white p-3 rounded-lg mr-12 text-right">
                         {{ date('h.ia', strtotime($day_2->time_1)) }}
                         - {{ date('h.ia', strtotime($day_2->time_2)) }}</div>
-                    <div
-                        class="w-[49%] bg-white group-hover:shadow-lg group-hover:text-warna-01 duration-300 p-3 rounded-lg ml-12 ">
+                    <div class="w-[49%] group-hover:bg-slate-700 group-hover:text-white p-3 rounded-lg ml-12">
                         {{ $day_2->title }}</div>
                 </div>
             @endforeach

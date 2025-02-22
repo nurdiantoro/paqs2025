@@ -20,3 +20,7 @@ swiper-slide {
 .custom_form {
     @apply rounded-md w-full border-b text-[16px] bg-slate-50 border-slate-200 focus:outline-none focus:ring-0 focus:border-sky-300 focus:bg-sky-100 text-slate-800;
 }
+
+.overflow-scroll::-webkit-scrollbar {
+    display: none;
+}
