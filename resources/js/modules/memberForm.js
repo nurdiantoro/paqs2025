@@ -1,25 +1,20 @@
 (() => {
-    document.addEventListener("DOMContentLoaded", function () {
-        const memberYes = document.getElementById("member");
-        const memberNo = document.getElementById("member2");
+    function toggleMemberDetails() {
+        const isMemberChecked = document.getElementById("member").checked;
         const memberDetails = document.getElementById("member_details");
+        const categoryOptions = document.querySelectorAll(".toggle_category");
 
-        function toggleMemberDetails() {
-            if (memberYes.checked) {
-                console.log(memberYes.checked);
-                memberDetails.style.display = "flex"; // Tampilkan jika "Yes" dipilih
-            } else {
-                console.log(memberNo.checked);
-                memberDetails.style.display = "none"; // Sembunyikan jika "No" dipilih
-            }
-        }
+        memberDetails.style.display = isMemberChecked ? "flex" : "none";
 
-        // Panggil saat halaman dimuat untuk menangani old value dari Laravel
-        toggleMemberDetails();
+        categoryOptions.forEach(option => {
+            option.hidden = !isMemberChecked; // Jika isMemberChecked = true, tampilkan
+        });
+    }
 
-        // Tambahkan event listener untuk perubahan pada radio button
-        memberYes.addEventListener("change", toggleMemberDetails);
-        memberNo.addEventListener("change", toggleMemberDetails);
-    });
+    // Panggil saat halaman dimuat
+    toggleMemberDetails();
 
+    // Tambahkan event listener
+    document.getElementById("member").addEventListener("change", toggleMemberDetails);
+    document.getElementById("member2").addEventListener("change", toggleMemberDetails);
 })();

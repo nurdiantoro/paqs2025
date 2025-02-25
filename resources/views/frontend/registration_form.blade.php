@@ -187,14 +187,14 @@
                         @foreach ($categories as $type => $items)
                             <optgroup label="{{ $type }}">
                                 @foreach ($items as $category)
-                                    <option value="{{ $category->id }}" <?php if (old('category') == $category->id) {
-                                        echo 'selected';
-                                    }
-                                    ?>>
-                                        <span>{{ $category->name }} - </span>
-                                        <span class="font-bold text-warna-01">
+                                    <option value="{{ $category->id }}"
+                                        class="{{ $category->is_member ? 'toggle_category' : '' }}"
+                                        {{ old('category') == $category->id ? 'selected' : '' }}
+                                        {{ $category->is_member ? 'hidden' : '' }}>
+                                        {{ $category->name }} -
+                                        <strong class="text-warna-01">
                                             {{ $category->currency . ' ' . number_format($category->price, 0, ',', '.') }}
-                                        </span>
+                                        </strong>
                                     </option>
                                 @endforeach
                             </optgroup>

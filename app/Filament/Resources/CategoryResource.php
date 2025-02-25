@@ -9,12 +9,14 @@ use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -51,6 +53,7 @@ class CategoryResource extends Resource
                             ->numeric()
                             ->required()
                             ->maxLength(255),
+                        Toggle::make('is_member'),
                     ])
             ]);
     }
@@ -61,6 +64,8 @@ class CategoryResource extends Resource
             ->columns([
                 TextColumn::make('type')
                     ->searchable(),
+                IconColumn::make('is_member')
+                    ->boolean(),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('currency')
@@ -93,8 +98,8 @@ class CategoryResource extends Resource
     {
         return [
             'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            // 'create' => Pages\CreateCategory::route('/create'),
+            // 'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
     }
 }
