@@ -24,8 +24,9 @@
         {{-- <img src="{{ asset('img/meeting.jpg') }}" class="absolute w-full h-full object-cover brightness-[0.2]"> --}}
     </div>
     <div class="mt-20 md:mt-[15rem] min-h-screen md:mb-56 px-2 md:px-80">
-
         <div class="container">
+
+            {{-- Main Program --}}
             <div class="mb-20 md:mb-80 flex flex-wrap-reverse">
                 <div
                     class="w-full md:w-1/2 md:translate-y-0 translate-y-[-50%] absolute bottom-0 md:relative hidden md:block ">
@@ -160,49 +161,69 @@
 
             </div>
 
+            {{-- Social Activity --}}
             <div class="mb-60">
                 <p class="font-semibold text-2xl text-black mb-4">Social Activity Program</p>
                 <div class="text-gray-500 flex flex-wrap justify-center">
-                    <div class="p-2 md:w-1/5 w-1/2">
-                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
-                            <div id="icon-blueprint" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
+                        <input type="radio" name="activity" id="activity-1" class="hidden peer" />
+                        <label for="activity-1"
+                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
+                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4" id="icon-blueprint">
                             </div>
                             <span class="font-bold text-lg group-hover:text-black">Project Visit</span>
-                        </div>
+                        </label>
                     </div>
-                    <div class="p-2 md:w-1/5 w-1/2">
-                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
-                            <div id="icon-golf" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
-                            </div>
+                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
+                        <input type="radio" name="activity" id="activity-2" class="hidden peer" />
+                        <label for="activity-2"
+                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
+                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4" id="icon-golf"></div>
                             <span class="font-bold text-lg group-hover:text-black">Golf Tournament</span>
-                        </div>
+                        </label>
                     </div>
-                    <div class="p-2 md:w-1/5 w-1/2">
-                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
-                            <div id="icon-calendar" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
+                        <input type="radio" name="activity" id="activity-3" class="hidden peer" />
+                        <label for="activity-3"
+                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
+                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4" id="icon-calendar">
                             </div>
                             <span class="font-bold text-lg group-hover:text-black">Spouse Program</span>
-                        </div>
+                        </label>
                     </div>
-                    <div class="p-2 md:w-1/5 w-1/2">
-                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
-                            <div id="icon-dinner" class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
+                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
+                        <input type="radio" name="activity" id="activity-4" class="hidden peer" />
+                        <label for="activity-4"
+                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
+                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4" id="icon-dinner">
                             </div>
                             <span class="font-bold text-lg group-hover:text-black">Gala Dinner</span>
-                        </div>
+                        </label>
                     </div>
-                    <div class="p-2 md:w-1/5 w-1/2">
-                        <div class="rounded-xl  text-center bg-white shadow-lg p-2 group">
-                            <div id="icon-exhibition"
-                                class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4">
-                            </div>
+                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
+                        <input type="radio" name="activity" id="activity-5" class="hidden peer" />
+                        <label for="activity-5"
+                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
+                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"
+                                id="icon-exhibition"></div>
                             <span class="font-bold text-lg group-hover:text-black">Exhibition</span>
-                        </div>
+                        </label>
                     </div>
                 </div>
-
+                <div>
+                    <div id="activity1_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Project Visit
+                    </div>
+                    <div id="activity2_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Golf Tournament
+                    </div>
+                    <div id="activity3_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Spouse Program
+                    </div>
+                    <div id="activity4_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Gala Dinner</div>
+                    <div id="activity5_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Exhibition</div>
+                </div>
             </div>
 
+
+            {{-- Theme --}}
             <div class="mb-80 flex flex-wrap gap-24">
                 <div class="flex-1 z-10">
                     <p class="font-semibold text-2xl text-warna-temp-02 mb-4">2025 Congress Theme </p>
@@ -256,182 +277,6 @@
                 {{-- <img src="{{ asset('img/grid-3.png') }}" class="w-screen absolute left-0 z-10"> --}}
             </div>
         </div>
-
-        {{-- Timeline --}}
-        {{-- <div class="container">
-            <div class="row">
-                <div class="col-lg-12 ">
-                    <nav class="wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active show" id="day-one" data-toggle="tab" href="#one"
-                                role="tab" aria-selected="true">
-                                <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                                <x-heroicon-o-calendar-date-range class="lgt-icon w-12 h-12 text-white" />
-                                <div class="nav-content">
-                                    <strong>22<sup>nd</sup></strong>
-                                    <span>August 2025</span>
-                                </div>
-                            </a>
-                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#two"
-                                role="tab" aria-selected="false">
-                                <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                                <x-heroicon-o-calendar-date-range class="lgt-icon w-12 h-12 text-white" />
-                                <div class="nav-content">
-                                    <strong>23<sup>th</sup></strong>
-                                    <span>August 2025</span>
-                                </div>
-                            </a>
-                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#three"
-                                role="tab" aria-selected="false">
-                                <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                                <x-heroicon-o-calendar-date-range class="lgt-icon w-12 h-12 text-white" />
-                                <div class="nav-content">
-                                    <strong>24<sup>th</sup></strong>
-                                    <span>August 2025</span>
-                                </div>
-                            </a>
-                            <a class="nav-item nav-link" id="nav-contact-tab2" data-toggle="tab" href="#four"
-                                role="tab" aria-selected="false">
-                                <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                                <x-heroicon-o-calendar-date-range class="lgt-icon w-12 h-12 text-white" />
-                                <div class="nav-content">
-                                    <strong>25<sup>th</sup></strong>
-                                    <span>August 2025</span>
-                                </div>
-                            </a>
-                            <a class="nav-item nav-link" id="nav-contact-tab3" data-toggle="tab" href="#four"
-                                role="tab" aria-selected="false">
-                                <x-heroicon-o-calendar-date-range class="drk-icon w-12 h-12 text-warna-01" />
-                                <x-heroicon-o-calendar-date-range class="lgt-icon w-12 h-12 text-white" />
-                                <div class="nav-content">
-                                    <strong>26<sup>th</sup></strong>
-                                    <span>August 2025</span>
-                                </div>
-                            </a>
-                        </div>
-                    </nav>
-
-
-                    <div class="tab-content py-3 px-3 px-sm-0 wow fadeInDown animated"
-                        data-animation="fadeInDown animated" data-delay=".2s" id="nav-tabContent">
-
-
-                        <div class="tab-pane fade active show relative" id="one" role="tabpanel"
-                            aria-labelledby="day-one">
-                            <div class="relative w-full text-center h-24">
-                                <div
-                                    class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                                </div>
-                                <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                        class="w-6 h-6 inline mr-2" />08.00AM
-                                    - 09.00AM</span>
-                                <span
-                                    class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Young
-                                    QS Programme</span>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade relative" id="two" role="tabpanel" aria-labelledby="day-one">
-                            <div class="relative w-full text-center h-24">
-                                <div
-                                    class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                                </div>
-                                <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                        class="w-6 h-6 inline mr-2" />09.00AM
-                                    - 11.00AM</span>
-                                <span
-                                    class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Education
-                                    & Accreditation Committee Meeting</span>
-                            </div>
-                            <div class="relative w-full text-center h-24">
-                                <div
-                                    class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                                </div>
-                                <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                        class="w-6 h-6 inline mr-2" />11.00AM
-                                    - 01.00PM</span>
-                                <span
-                                    class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Research
-                                    Committe Meeting</span>
-                            </div>
-                            <div class="relative w-full text-center h-24">
-                                <div
-                                    class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                                </div>
-                                <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                        class="w-6 h-6 inline mr-2" />01.00PM
-                                    - 03.00PM</span>
-                                <span
-                                    class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Sustainability
-                                    Committee Meeting</span>
-                            </div>
-                            <div class="relative w-full text-center h-24">
-                                <div
-                                    class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                                </div>
-                                <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                        class="w-6 h-6 inline mr-2" />03.00PM
-                                    - 05.00PM</span>
-                                <span
-                                    class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">BIM
-                                    Committee Meeting</span>
-                            </div>
-                            <div class="relative w-full text-center h-24">
-                                <div
-                                    class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                                </div>
-                                <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                        class="w-6 h-6 inline mr-2" />06.30AM
-                                    - 1.00PM</span>
-                                <span
-                                    class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Golf
-                                    Tournament</span>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade relative" id="three" role="tabpanel"
-                            aria-labelledby="day-one">
-                            <div class="relative w-full text-center h-24">
-                                <div
-                                    class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                                </div>
-                                <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                        class="w-6 h-6 inline mr-2" />08.30AM
-                                    - 09.00AM</span>
-                                <span
-                                    class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Registration</span>
-                            </div>
-                            <div class="relative w-full text-center h-24">
-                                <div
-                                    class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                                </div>
-                                <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                        class="w-6 h-6 inline mr-2" />09.00AM
-                                    - 05.00PM</span>
-                                <span
-                                    class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">Board
-                                    Meeting Session</span>
-                            </div>
-                            <div class="relative w-full text-center h-24">
-                                <div
-                                    class="before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 w-full after:contents[''] after:w-4 after:h-4 after:bg-slate-100 after:border-2 after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full">
-                                </div>
-                                <span class=" absolute top-1/2 right-1/2 -translate-y-1/2 mr-12 "><x-heroicon-s-clock
-                                        class="w-6 h-6 inline mr-2" />07.00AM
-                                    - 09.00PM</span>
-                                <span
-                                    class="bg-white shadow-lg p-3 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 ml-12 ">President
-                                    Dinner</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 justify-content-center text-center">
-                    <a href="#" class="btn mt-20">Download Programme <x-gmdi-download-r
-                            class="w-8 h-8 inline" /></a>
-                </div>
-            </div>
-        </div> --}}
     </div>
 </main>
 <!-- main-area-end -->

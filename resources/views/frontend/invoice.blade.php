@@ -2,19 +2,23 @@
 @include('frontend.components.navbar')
 
 
-
 <!-- main-area -->
 <main>
     <div class="cs-container tm-consulting mt-140 min-h-screen">
         <div class="cs-invoice cs-style1">
-            <div class="cs-invoice_in" id="download_section">
+
+            <div class="cs-invoice_in " id="download_section">
+
                 <div class="cs-type1 cs-mb25 flex-horizontal-center space-between">
                     <div class="cs-invoice_left">
                         <div class="cs-logo cs-mb5 tm-align-item-center flex-wrap">
                             <img class="cs-mr20 max-width120" src="{{ asset('img/LOGO PAQS CONGRESS.png') }}"
                                 alt="Logo">
                             <div class="tm-right-logo">
-                                <p class="cs-invoice_number cs-primary_color cs-mb3 cs-f18">Invoice No:
+                                <p class="cs-invoice_number cs-primary_color cs-mb3 cs-f18">
+                                    <span>
+                                        <?php echo $data->is_confirmed ? 'Receipt' : 'Invoice'; ?>
+                                        No:</span>
                                     <Span class="cs-semi_bold">#{{ $data->no_invoice }}</Span>
                                 </p>
                                 <div class="">
@@ -29,14 +33,19 @@
                     </div>
                 </div>
                 <div class="tm-border-1px cs-mb30"></div>
-                <div class="display-flex cs-mb30 flex-wrap gap-135">
-                    <div class="cs-invoice_left">
-                        <b class="cs-primary_color cs-f16">Invoice To:</b>
+                <div class="display-flex cs-mb30 flex-wrap justify-between gap-135">
+                    <div class="cs-invoice_left items-center">
+                        <b class="cs-primary_color cs-f16">
+                            <?php echo $data->is_confirmed ? 'Receipt' : 'Invoice'; ?> To:</b>
                         <p>
                             {{ $data->full_name }}, <br />
                             {{ $data->address }}, <br />
                             {{ $data->email }}
                         </p>
+                    </div>
+                    <div
+                        class="font-bold text-6xl text-warna-01 opacity-50 flex justify-center items-center rounded-xl">
+                        Paid
                     </div>
                 </div>
                 <div class="cs-table cs-style2 cs-mb50">
@@ -121,6 +130,9 @@
                                 type="button"
                                 class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-4 py-3 hover:text-white hover:bg-warna-01 mt-6">Manage
                                 Your Tickets</button>
+                            <a href="{{ url('/invoice/' . $data->no_invoice . '/pdf') }}"
+                                class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-4 py-3 hover:text-white hover:bg-warna-01 mt-6">Download
+                                Receipt</a>
 
                             <!-- Modal -->
                             <div class="modal fade text-black" id="exampleModal" tabindex="-1"
@@ -185,7 +197,7 @@
                         </p>
                     @endif
                 @else
-                    <div class="cs-note_right">
+                    <div class="cs-note_right relative">
                         <table class="border-none">
                             <tr>
                                 <td class="border-none py-0">Contact</td>
@@ -224,6 +236,7 @@
                                     transfer.</td>
                             </tr>
                         </table>
+
                     </div>
 
                     <form action="{{ url('/order/upload_payment/' . $data->no_invoice) }}" method="POST"

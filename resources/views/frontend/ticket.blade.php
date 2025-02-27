@@ -23,6 +23,11 @@
                     </div>
                 </div>
 
+                @if (session()->has('error'))
+                    <div class="alert alert-danger">
+                        Data not found !
+                    </div>
+                @endif
                 <form action="{{ url('/order/check') }}" method="POST">
                     @csrf
                     <div class="input-group mt-8">

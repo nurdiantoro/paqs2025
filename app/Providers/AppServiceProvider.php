@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(\Milon\Barcode\BarcodeServiceProvider::class);
+        $this->app->register(\Barryvdh\DomPDF\ServiceProvider::class);
 
         // Register the alias dynamically
         $loader = AliasLoader::getInstance();
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
         //
     }
 }

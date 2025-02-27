@@ -101,26 +101,31 @@ class FrontendController extends Controller
     public function invoice($no_invoice)
     {
         $data = Order::where('no_invoice', $no_invoice)->first();
-        $category = Category::where('id', $data->category_id)->first();
-        $addon = Addon::where('id', $data->addon_id)->first();
+        if ($data != null) {
+            $category = Category::where('id', $data->category_id)->first();
+            $addon = Addon::where('id', $data->addon_id)->first();
 
-        // buat variabel total harga
-        $total_category = $category->price * $data->quantity;
-        if ($addon != null) {
-            $total_addon = $addon->price * $data->quantity;
+            // buat variabel total harga
+            $total_category = $category->price * $data->quantity;
+            if ($addon != null) {
+                $total_addon = $addon->price * $data->quantity;
+            } else {
+                $total_addon = 0;
+            }
+            $total_price = $total_category + $total_addon;
+
+            // buat variabel ticket
+            $tickets = Ticket::where('order_id', $data->id)->get();
+
+            return view('frontend.invoice', compact('data', 'category', 'addon', 'total_category', 'total_addon', 'total_price', 'tickets'));
         } else {
-            $total_addon = 0;
+            return redirect(url('/invoice'))->with('error');
         }
-        $total_price = $total_category + $total_addon;
-
-        // buat variabel ticket
-        $tickets = Ticket::where('order_id', $data->id)->get();
-
-        return view('frontend.invoice', compact('data', 'category', 'addon', 'total_category', 'total_addon', 'total_price', 'tickets'));
     }
 
     public function check_invoice(Request $request)
     {
+        // dd($request);
         $order = Order::where('no_invoice', $request->no_invoice)->first();
 
         if ($order != null) {

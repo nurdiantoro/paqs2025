@@ -413,6 +413,7 @@
         "proxy-from-env": "^1.1.0",
         "public-encrypt": "^4.0.3",
         "punycode": "^1.4.1",
+        "puppeteer": "^24.3.0",
         "qs": "^6.13.1",
         "querystring-es3": "^0.2.1",
         "queue-microtask": "^1.2.3",
