@@ -6,8 +6,8 @@ use App\Models\Addon;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Ticket;
-// use Barryvdh\DomPDF\Facade\Pdf;
-use function Spatie\LaravelPdf\Support\pdf;
+use Barryvdh\DomPDF\Facade\Pdf;
+// use function Spatie\LaravelPdf\Support\pdf;
 
 use Illuminate\Http\Request;
 
@@ -37,11 +37,11 @@ class PdfController extends Controller
 
         // return view('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets'));
 
-        // $pdf = Pdf::loadView('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'));
-        // return $pdf->download('Receipt - #' . $data->no_invoice . '.pdf');
+        $pdf = Pdf::loadView('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'));
+        return $pdf->download('Receipt - #' . $data->no_invoice . '.pdf');
 
-        return pdf()
-            ->view('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'))
-            ->name('Receipt #' . $data->no_invoice . ' - ' . date_format($data->created_at, 'd F Y') . '.pdf');
+        // return pdf()
+        //     ->view('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'))
+        //     ->name('Receipt #' . $data->no_invoice . ' - ' . date_format($data->created_at, 'd F Y') . '.pdf');
     }
 }
