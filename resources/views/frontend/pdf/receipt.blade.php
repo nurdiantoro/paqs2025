@@ -15,7 +15,10 @@
                 <div>
                     <div
                         style="display: flex; justify-content: flex-start; gap: 1rem; width: 100%; margin-bottom: 25px; line-height: 1.5rem">
-                        <img style="max-width: 120px; height: fit-content" src="{{ $logo }}" alt="Logo">
+                        {{-- <img style="max-width: 120px; height: fit-content" src="{{ $logo }}" alt="Logo"> --}}
+                        <img style="max-width: 120px; height: fit-content"
+                            src="data:image/png;base64,{{ $logo }}">
+
 
                         <div style="margin-left: 25px">
                             <span style="margin: 0px; font-weight: 600; color: #000;">

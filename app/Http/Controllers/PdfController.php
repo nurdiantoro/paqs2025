@@ -32,10 +32,12 @@ class PdfController extends Controller
         }
         $total_price = $total_category + $total_addon;
         $tickets = Ticket::where('order_id', $data->id)->get();
-        $logo = 'https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png';
+        // $logo = base64_encode('https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png');
+        $logo = base64_encode(file_get_contents('https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png'));
 
 
-        // return view('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets'));
+
+        // return view('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'));
 
         $pdf = Pdf::loadView('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'));
         return $pdf->download('Receipt - #' . $data->no_invoice . '.pdf');
