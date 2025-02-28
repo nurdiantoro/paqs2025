@@ -39,9 +39,9 @@
                             <a href="https://www.raffles.com/jakarta/" target="_blank"
                                 class="flex flex-row gap-2 mb-6 hover:text-warna-01">
                                 <x-entypo-globe class="w-6 h-6" />
-                                <span>raffles.com</span>
+                                <span>raffles.com/jakarta/</span>
                             </a>
-                            <a href="https://maps.app.goo.gl/hhj4fEUqv8RG1AaA8"
+                            <a href="https://www.raffles.com/jakarta/"
                                 class="bg-warna-temp-02 rounded-full px-3 py-2 inline-block text-white font-semibold group">
                                 <span class="inline-block mr-2">Get Directions</span>
                                 <x-fas-arrow-right-long
