@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\GetBarcode;
 use App\Mail\GetBarcodePersonal;
+use App\Models\ActivityProgram;
 use App\Models\Addon;
 use App\Models\Association;
 use App\Models\Category;
@@ -35,9 +36,11 @@ class FrontendController extends Controller
 
     public function programme()
     {
+        $programs = ActivityProgram::all()->groupBy('category');
+        // dd($programs);
         $itinerary_day1 = Itinerary::where('day', 1)->orderBy('time_1', 'asc')->get();
         $itinerary_day2 = Itinerary::where('day', 2)->orderBy('time_1', 'asc')->get();
-        return view('frontend.programme', compact('itinerary_day1', 'itinerary_day2'));
+        return view('frontend.programme', compact('itinerary_day1', 'itinerary_day2', 'programs'));
     }
 
     public function information()

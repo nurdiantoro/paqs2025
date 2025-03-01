@@ -165,62 +165,80 @@
             <div class="mb-60">
                 <p class="font-semibold text-2xl text-black mb-4">Social Activity Program</p>
                 <div class="text-gray-500 flex flex-wrap justify-center">
-                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
-                        <input type="radio" name="activity" id="activity-1" class="hidden peer" />
-                        <label for="activity-1"
-                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
-                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4" id="icon-blueprint">
-                            </div>
-                            <span class="font-bold text-lg group-hover:text-black">Project Visit</span>
-                        </label>
-                    </div>
-                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
-                        <input type="radio" name="activity" id="activity-2" class="hidden peer" />
-                        <label for="activity-2"
-                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
-                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4" id="icon-golf"></div>
-                            <span class="font-bold text-lg group-hover:text-black">Golf Tournament</span>
-                        </label>
-                    </div>
-                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
-                        <input type="radio" name="activity" id="activity-3" class="hidden peer" />
-                        <label for="activity-3"
-                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
-                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4" id="icon-calendar">
-                            </div>
-                            <span class="font-bold text-lg group-hover:text-black">Spouse Program</span>
-                        </label>
-                    </div>
-                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
-                        <input type="radio" name="activity" id="activity-4" class="hidden peer" />
-                        <label for="activity-4"
-                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
-                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4" id="icon-dinner">
-                            </div>
-                            <span class="font-bold text-lg group-hover:text-black">Gala Dinner</span>
-                        </label>
-                    </div>
-                    <div class="p-1 md:p-2 md:w-1/5 w-1/3">
-                        <input type="radio" name="activity" id="activity-5" class="hidden peer" />
-                        <label for="activity-5"
-                            class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
-                            <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"
-                                id="icon-exhibition"></div>
-                            <span class="font-bold text-lg group-hover:text-black">Exhibition</span>
-                        </label>
-                    </div>
+                    @php $index = 1; @endphp
+                    @foreach ($programs as $category => $activities)
+                        @php
+                            // Mapping kategori ke ID yang sesuai
+                            $iconMap = [
+                                'Project Visit' => 'icon-blueprint',
+                                'Golf Tournament' => 'icon-golf',
+                                'Spouse Program' => 'icon-calendar',
+                                'Gala Dinner' => 'icon-dinner',
+                                'Exhibition' => 'icon-exhibition',
+                            ];
+                            $iconId = $iconMap[$category] ?? 'icon-default';
+                        @endphp
+
+                        <div class="p-1 md:p-2 md:w-1/5 w-1/3">
+                            <input type="radio" name="activity" id="activity-{{ $index }}" class="hidden peer"
+                                data-images="{{ json_encode($activities->first()->image) }}"
+                                data-videos="{{ json_encode($activities->first()->video) }}"
+                                data-category="{{ $category }}" />
+                            <label for="activity-{{ $index }}"
+                                class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
+
+                                <!-- Ikon Lottie -->
+                                <div class="w-20 h-20 mx-auto opacity-50 group-hover:opacity-100 mb-4"
+                                    id="{{ $iconId }}"></div>
+
+                                <span class="font-bold text-lg group-hover:text-black">{{ $category }}</span>
+                            </label>
+                        </div>
+                        @php $index++; @endphp
+                    @endforeach
                 </div>
-                <div>
-                    <div id="activity1_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Project Visit
-                    </div>
-                    <div id="activity2_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Golf Tournament
-                    </div>
-                    <div id="activity3_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Spouse Program
-                    </div>
-                    <div id="activity4_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Gala Dinner</div>
-                    <div id="activity5_active" class="hidden p-4 bg-gray-100 rounded-lg mt-4">Detail Exhibition</div>
+
+                <!-- Tempat untuk menampilkan video & gambar -->
+                <div id="activity_details" class="hidden p-4 bg-gray-100 rounded-lg mt-4">
+                    <div id="activity_content" class="flex flex-wrap justify-center"></div>
                 </div>
             </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.querySelectorAll("input[name='activity']").forEach(input => {
+                        input.addEventListener("change", function() {
+                            const images = JSON.parse(this.getAttribute("data-images"));
+                            const videos = JSON.parse(this.getAttribute("data-videos"));
+                            const category = this.getAttribute("data-category");
+
+                            let contentHTML = "";
+
+                            // Tambahkan video terlebih dahulu
+                            videos.forEach(video => {
+                                contentHTML += `
+                        <video controls class="w-64 lg:w-[20rem] rounded-lg shadow-lg m-2">
+                            <source src="{{ asset('storage') }}/${video}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    `;
+                            });
+
+                            // Tambahkan gambar setelah video
+                            images.forEach(img => {
+                                contentHTML += `
+                        <img src="{{ asset('storage') }}/${img}" class="w-32 h-32 lg:w-[16rem] lg:h-[16rem] object-cover rounded-lg shadow-lg m-2">
+                    `;
+                            });
+
+                            document.getElementById("activity_content").innerHTML = contentHTML;
+                            document.getElementById("activity_details").classList.remove("hidden");
+                        });
+                    });
+                });
+            </script>
+
+
 
 
             {{-- Theme --}}
