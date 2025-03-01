@@ -1,1 +1,0 @@
-(()=>{function e(){const t=document.getElementById("member").checked,n=document.getElementById("member_details"),m=document.querySelectorAll(".toggle_category");n.style.display=t?"flex":"none",m.forEach(d=>{d.hidden=!t})}e(),document.getElementById("member").addEventListener("change",e),document.getElementById("member2").addEventListener("change",e)})();

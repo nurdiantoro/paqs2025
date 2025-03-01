@@ -1,19 +1,29 @@
 {
+  "_lottie-animations-DaojxPAz.js": {
+    "file": "assets/lottie-animations-DaojxPAz.js",
+    "name": "lottie-animations"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-C4LjO44E.css",
+    "file": "assets/app-C8pO6X15.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-B2wWAy09.js",
+    "file": "assets/app-5v41gXgL.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_lottie-animations-DaojxPAz.js"
+    ]
   },
   "resources/js/footer.js": {
-    "file": "assets/footer-DuCWPHuC.js",
+    "file": "assets/footer-DrLbRb_9.js",
     "name": "footer",
     "src": "resources/js/footer.js",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_lottie-animations-DaojxPAz.js"
+    ]
   }
 }
