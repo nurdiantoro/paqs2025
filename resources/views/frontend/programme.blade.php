@@ -199,7 +199,7 @@
                 </div>
 
                 <!-- Tempat untuk menampilkan video & gambar -->
-                <div id="activity_details" class="hidden p-4 bg-gray-100 rounded-lg mt-4">
+                <div id="activity_details" class="hidden bg-gray-100 rounded-lg mt-4">
                     <div id="activity_content" class="flex flex-wrap justify-center"></div>
                 </div>
             </div>
@@ -235,18 +235,25 @@
                             // Tambahkan video terlebih dahulu
                             videos.forEach(video => {
                                 contentHTML += `
-                        <video controls class="w-64 lg:w-[20rem] rounded-lg shadow-lg m-2 cursor-pointer" onclick="openModal('video', '{{ asset('storage') }}/${video}')">
-                            <source src="{{ asset('storage') }}/${video}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+<div class="w-1/2 aspect-square lg:w-[16rem] lg:h-[16rem] p-2">
+    <div class="aspect-square rounded-lg shadow-lg overflow-hidden cursor-pointer"
+    onclick="openModal('video', '{{ asset('storage') }}/${video}')">
+    <video class="w-full h-full object-cover" muted>
+        <source src="{{ asset('storage') }}/${video}" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            </div>
+                    </div>
                     `;
                             });
 
                             // Tambahkan gambar setelah video
                             images.forEach(img => {
                                 contentHTML += `
-                        <img src="{{ asset('storage') }}/${img}" class="w-32 h-32 lg:w-[16rem] lg:h-[16rem] object-cover rounded-lg shadow-lg m-2 cursor-pointer" onclick="openModal('image', '{{ asset('storage') }}/${img}')">
-                    `;
+                                <div class="w-1/2 aspect-square lg:w-[16rem] lg:h-[16rem] p-2">
+                        <img src="{{ asset('storage') }}/${img}" class="aspect-square object-cover rounded-lg shadow-lg cursor-pointer" onclick="openModal('image', '{{ asset('storage') }}/${img}')">
+                    </div>
+                        `;
                             });
 
                             document.getElementById("activity_content").innerHTML = contentHTML;

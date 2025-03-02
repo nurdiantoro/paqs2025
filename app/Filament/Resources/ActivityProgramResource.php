@@ -38,6 +38,7 @@ class ActivityProgramResource extends Resource
                     ])
                     ->native(true),
                 FileUpload::make('video')
+                    ->hint('Max Size 20MB')
                     ->multiple(),
                 FileUpload::make('image')
                     ->multiple()
@@ -54,7 +55,7 @@ class ActivityProgramResource extends Resource
                 Tables\Columns\TextColumn::make('category')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\ImageColumn::make('video'),
+                Tables\Columns\TextColumn::make('video'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
