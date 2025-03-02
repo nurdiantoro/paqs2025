@@ -26,32 +26,38 @@
 
         {{-- Wheater --}}
         <div class="bg-white shadow rounded-lg p-4 w-full max-w-sm mx-auto">
-            <h2 class="text-xl font-semibold text-center">{{ $weatherData['location']['name'] }}</h2>
-            <p class="text-center text-gray-600">
-                {{ $weatherData['location']['region'] }}, {{ $weatherData['location']['country'] }}
-            </p>
+            @if (isset($weatherData['error']))
+                <h2 class="text-xl font-semibold text-center text-red-500">Weather Info Unavailable</h2>
+                <p class="text-center text-gray-600">{{ $weatherData['message'] }}</p>
+            @else
+                <h2 class="text-xl font-semibold text-center">{{ $weatherData['location']['name'] }}</h2>
+                <p class="text-center text-gray-600">
+                    {{ $weatherData['location']['region'] }}, {{ $weatherData['location']['country'] }}
+                </p>
 
-            <div class="d-flex justify-content-center align-items-center mt-3">
-                <img src="https:{{ $weatherData['current']['condition']['icon'] }}" alt="Weather Icon"
-                    class="w-12 h-12">
-                <p class="ml-3 text-2xl font-bold">{{ $weatherData['current']['temp_c'] }}°C</p>
-            </div>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                    <img src="https:{{ $weatherData['current']['condition']['icon'] }}" alt="Weather Icon"
+                        class="w-12 h-12">
+                    <p class="ml-3 text-2xl font-bold">{{ $weatherData['current']['temp_c'] }}°C</p>
+                </div>
 
-            <p class="text-center text-gray-500">{{ $weatherData['current']['condition']['text'] }}</p>
+                <p class="text-center text-gray-500">{{ $weatherData['current']['condition']['text'] }}</p>
 
-            <div class="mt-3 text-sm text-gray-700">
-                <p><strong>Feels Like:</strong> {{ $weatherData['current']['feelslike_c'] }}°C</p>
-                <p><strong>Humidity:</strong> {{ $weatherData['current']['humidity'] }}%</p>
-                <p><strong>Wind Speed:</strong> {{ $weatherData['current']['wind_kph'] }} km/h
-                    ({{ $weatherData['current']['wind_dir'] }})</p>
-                <p><strong>Pressure:</strong> {{ $weatherData['current']['pressure_mb'] }} mb</p>
-                <p><strong>UV Index:</strong> {{ $weatherData['current']['uv'] }}</p>
-            </div>
+                <div class="mt-3 text-sm text-gray-700">
+                    <p><strong>Feels Like:</strong> {{ $weatherData['current']['feelslike_c'] }}°C</p>
+                    <p><strong>Humidity:</strong> {{ $weatherData['current']['humidity'] }}%</p>
+                    <p><strong>Wind Speed:</strong> {{ $weatherData['current']['wind_kph'] }} km/h
+                        ({{ $weatherData['current']['wind_dir'] }})</p>
+                    <p><strong>Pressure:</strong> {{ $weatherData['current']['pressure_mb'] }} mb</p>
+                    <p><strong>UV Index:</strong> {{ $weatherData['current']['uv'] }}</p>
+                </div>
 
-            <p class="text-xs text-gray-400 text-center mt-3">
-                Last updated: {{ $weatherData['current']['last_updated'] }}
-            </p>
+                <p class="text-xs text-gray-400 text-center mt-3">
+                    Last updated: {{ $weatherData['current']['last_updated'] }}
+                </p>
+            @endif
         </div>
+
 
 
         <div class="container flex flex-col divide-y divide-dashed divide-slate-600 text-slate-900">

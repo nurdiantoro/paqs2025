@@ -60,7 +60,11 @@ class FrontendController extends Controller
         $weatherData = $this->fetchWeather($kota);
 
         if (!$weatherData) {
-            return response()->json(['error' => 'Gagal mengambil data cuaca'], 500);
+            // Jika gagal, buat array default dengan status error
+            $weatherData = [
+                'error' => true,
+                'message' => 'Failed to retrieve weather data. Please try again later.'
+            ];
         }
 
         // dd($weatherData);
