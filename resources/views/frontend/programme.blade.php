@@ -183,7 +183,8 @@
                             <input type="radio" name="activity" id="activity-{{ $index }}" class="hidden peer"
                                 data-images="{{ json_encode($activities->first()->image) }}"
                                 data-videos="{{ json_encode($activities->first()->video) }}"
-                                data-category="{{ $category }}" />
+                                data-category="{{ $category }}"
+                                {{ $category == 'Project Visit' ? 'checked' : '' }} />
                             <label for="activity-{{ $index }}"
                                 class="rounded-xl block text-center bg-white shadow-lg p-2 group peer-checked:ring-2 peer-checked:ring-warna-temp-02 h-full">
 
@@ -224,6 +225,8 @@
 
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
+                    let defaultChecked = false;
+
                     document.querySelectorAll("input[name='activity']").forEach(input => {
                         input.addEventListener("change", function() {
                             const images = JSON.parse(this.getAttribute("data-images"));
@@ -235,30 +238,37 @@
                             // Tambahkan video terlebih dahulu
                             videos.forEach(video => {
                                 contentHTML += `
-<div class="w-1/2 aspect-square lg:w-[16rem] lg:h-[16rem] p-2">
-    <div class="aspect-square rounded-lg shadow-lg overflow-hidden cursor-pointer"
-    onclick="openModal('video', '{{ asset('storage') }}/${video}')">
-    <video class="w-full h-full object-cover" muted>
-        <source src="{{ asset('storage') }}/${video}" type="video/mp4">
-            Your browser does not support the video tag.
-            </video>
-            </div>
+                    <div class="w-1/2 aspect-square lg:w-[16rem] lg:h-[16rem] p-2">
+                        <div class="aspect-square rounded-lg shadow-lg overflow-hidden cursor-pointer"
+                            onclick="openModal('video', '{{ asset('storage') }}/${video}')">
+                            <video class="w-full h-full object-cover" muted>
+                                <source src="{{ asset('storage') }}/${video}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </div>
-                    `;
+                `;
                             });
 
                             // Tambahkan gambar setelah video
                             images.forEach(img => {
                                 contentHTML += `
-                                <div class="w-1/2 aspect-square lg:w-[16rem] lg:h-[16rem] p-2">
+                    <div class="w-1/2 aspect-square lg:w-[16rem] lg:h-[16rem] p-2">
                         <img src="{{ asset('storage') }}/${img}" class="aspect-square object-cover rounded-lg shadow-lg cursor-pointer" onclick="openModal('image', '{{ asset('storage') }}/${img}')">
                     </div>
-                        `;
+                `;
                             });
 
                             document.getElementById("activity_content").innerHTML = contentHTML;
                             document.getElementById("activity_details").classList.remove("hidden");
                         });
+
+                        // Jika kategori adalah "Project Visit", tandai sebagai checked dan jalankan event change()
+                        if (input.getAttribute("data-category") === "Project Visit" && !defaultChecked) {
+                            input.checked = true;
+                            input.dispatchEvent(new Event("change"));
+                            defaultChecked = true; // Pastikan hanya satu input yang dijalankan
+                        }
                     });
                 });
 
@@ -266,11 +276,11 @@
                     let modalContent = "";
                     if (type === "video") {
                         modalContent = `
-                <video controls autoplay class="w-100">
-                    <source src="${src}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            `;
+            <video controls autoplay class="w-100">
+                <source src="${src}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        `;
                     } else {
                         modalContent = `<img src="${src}" class="w-100 rounded-lg shadow-lg">`;
                     }
