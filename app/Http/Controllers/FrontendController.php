@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\GetBarcode;
 use App\Mail\GetBarcodePersonal;
 use App\Models\ActivityProgram;
 use App\Models\Addon;
@@ -19,10 +18,22 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use libphonenumber\PhoneNumberFormat;
-use PDO;
+use Illuminate\Support\Facades\Http;
 
 class FrontendController extends Controller
 {
+    public function fetchWeather($kota)
+    {
+        $apiKey = config('services.weatherapi.key');
+        $response = Http::get("https://api.weatherapi.com/v1/current.json?key=$apiKey&q=$kota&aqi=no");
+
+        if ($response->successful()) {
+            return $response->json(); // Return data JSON langsung
+        } else {
+            return null; // Return null jika gagal
+        }
+    }
+
     public function index()
     {
         $roadmaps = Roadmap::all();
@@ -45,7 +56,16 @@ class FrontendController extends Controller
 
     public function information()
     {
-        return view('frontend.information');
+        $kota = "Jakarta"; // Default kota
+        $weatherData = $this->fetchWeather($kota);
+
+        if (!$weatherData) {
+            return response()->json(['error' => 'Gagal mengambil data cuaca'], 500);
+        }
+
+        // dd($weatherData);
+
+        return view('frontend.information', compact('weatherData'));
     }
 
     public function venue()
