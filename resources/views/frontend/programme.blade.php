@@ -204,6 +204,24 @@
                 </div>
             </div>
 
+            <!-- Modal Bootstrap -->
+            <div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediaModalLabel">Preview</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <div id="modal_media"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
                     document.querySelectorAll("input[name='activity']").forEach(input => {
@@ -217,7 +235,7 @@
                             // Tambahkan video terlebih dahulu
                             videos.forEach(video => {
                                 contentHTML += `
-                        <video controls class="w-64 lg:w-[20rem] rounded-lg shadow-lg m-2">
+                        <video controls class="w-64 lg:w-[20rem] rounded-lg shadow-lg m-2 cursor-pointer" onclick="openModal('video', '{{ asset('storage') }}/${video}')">
                             <source src="{{ asset('storage') }}/${video}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -227,7 +245,7 @@
                             // Tambahkan gambar setelah video
                             images.forEach(img => {
                                 contentHTML += `
-                        <img src="{{ asset('storage') }}/${img}" class="w-32 h-32 lg:w-[16rem] lg:h-[16rem] object-cover rounded-lg shadow-lg m-2">
+                        <img src="{{ asset('storage') }}/${img}" class="w-32 h-32 lg:w-[16rem] lg:h-[16rem] object-cover rounded-lg shadow-lg m-2 cursor-pointer" onclick="openModal('image', '{{ asset('storage') }}/${img}')">
                     `;
                             });
 
@@ -236,7 +254,25 @@
                         });
                     });
                 });
+
+                function openModal(type, src) {
+                    let modalContent = "";
+                    if (type === "video") {
+                        modalContent = `
+                <video controls autoplay class="w-100">
+                    <source src="${src}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            `;
+                    } else {
+                        modalContent = `<img src="${src}" class="w-100 rounded-lg shadow-lg">`;
+                    }
+
+                    document.getElementById("modal_media").innerHTML = modalContent;
+                    $("#mediaModal").modal("show");
+                }
             </script>
+
 
 
 

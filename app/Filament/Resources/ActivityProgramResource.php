@@ -21,6 +21,11 @@ class ActivityProgramResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -52,6 +57,7 @@ class ActivityProgramResource extends Resource
                 Tables\Columns\TextColumn::make('category')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('video'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -68,9 +74,9 @@ class ActivityProgramResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
@@ -85,7 +91,7 @@ class ActivityProgramResource extends Resource
     {
         return [
             'index' => Pages\ListActivityPrograms::route('/'),
-            'create' => Pages\CreateActivityProgram::route('/create'),
+            // 'create' => Pages\CreateActivityProgram::route('/create'),
             'edit' => Pages\EditActivityProgram::route('/{record}/edit'),
         ];
     }

@@ -4,8 +4,6 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PdfController;
-use Filament\Notifications\Actions\Action;
-use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Route;
 
 // Frontend
