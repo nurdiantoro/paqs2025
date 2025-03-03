@@ -24,3 +24,10 @@ swiper-slide {
 .overflow-scroll::-webkit-scrollbar {
     display: none;
 }
+
+@layer components {
+    .nav-item.nav-link.active,
+    .nav-item.nav-link.show {
+        @apply bg-warna-01 text-white;
+    }
+}
