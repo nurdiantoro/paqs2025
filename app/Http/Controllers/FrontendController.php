@@ -11,6 +11,7 @@ use App\Models\Contact;
 use App\Models\Hotel;
 use App\Models\Inbox;
 use App\Models\Itinerary;
+use App\Models\MainProgram;
 use App\Models\Order;
 use App\Models\Roadmap;
 use App\Models\Speaker;
@@ -47,11 +48,23 @@ class FrontendController extends Controller
 
     public function programme()
     {
-        $programs = ActivityProgram::all()->groupBy('category');
-        // dd($programs);
+        $activities = ActivityProgram::all()->groupBy('category');
+        // $main_programs  = MainProgram::where('category', 'Young QS')->get();
+        $main_programs = MainProgram::all()->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'category' => $item->category,
+                'title' => $item->title, // Jika ada kolom judul
+                'images' => json_decode($item->image, true) ?? [], // Decode JSON jadi array
+                'videos' => json_decode($item->video, true) ?? [], // Decode JSON jadi array
+            ];
+        })->groupBy('category');
+
+        // dd($yqs);
+
         $itinerary_day1 = Itinerary::where('day', 1)->orderBy('time_1', 'asc')->get();
         $itinerary_day2 = Itinerary::where('day', 2)->orderBy('time_1', 'asc')->get();
-        return view('frontend.programme', compact('itinerary_day1', 'itinerary_day2', 'programs'));
+        return view('frontend.programme', compact('itinerary_day1', 'itinerary_day2', 'activities', 'main_programs'));
     }
 
     public function information()

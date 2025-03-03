@@ -166,7 +166,7 @@
                 <p class="font-semibold text-2xl text-black mb-4">Social Activity Program</p>
                 <div class="text-gray-500 flex flex-wrap justify-center">
                     @php $index = 1; @endphp
-                    @foreach ($programs as $category => $activities)
+                    @foreach ($activities as $category => $activities)
                         @php
                             // Mapping kategori ke ID yang sesuai
                             $iconMap = [
