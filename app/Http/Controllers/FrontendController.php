@@ -50,17 +50,9 @@ class FrontendController extends Controller
     {
         $activities = ActivityProgram::all()->groupBy('category');
         // $main_programs  = MainProgram::where('category', 'Young QS')->get();
-        $main_programs = MainProgram::all()->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'category' => $item->category,
-                'title' => $item->title, // Jika ada kolom judul
-                'images' => json_decode($item->image, true) ?? [], // Decode JSON jadi array
-                'videos' => json_decode($item->video, true) ?? [], // Decode JSON jadi array
-            ];
-        })->groupBy('category');
+        $main_programs = MainProgram::all()->groupBy('category');
 
-        // dd($yqs);
+        // dd($main_programs);
 
         $itinerary_day1 = Itinerary::where('day', 1)->orderBy('time_1', 'asc')->get();
         $itinerary_day2 = Itinerary::where('day', 2)->orderBy('time_1', 'asc')->get();

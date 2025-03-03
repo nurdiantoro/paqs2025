@@ -5,19 +5,32 @@
 
 <!-- main-area -->
 <main>
-    <div class="flex flex-col px-2 md:px-80 items-center h-[30rem] bg-center overflow-hidden relative bg-cover"
+    <div class="flex flex-col px-2 md:px-80 items-center bg-center overflow-hidden relative bg-cover"
         style="background-image: url('{{ asset('img/dokumentasi/dokumentasi-7.jpg') }}');">
-        <div class="text-center mx-auto mt-auto pb-10">
+        <div class="text-center mx-auto pb-10 pt-40">
             <p class="text-4xl font-bold wow fadeInUp animated z-10 text-white mb-4">About Us</p>
-            <p class="lg:w-1/2 text-white  wow fadeInUp animated mx-auto">The annual congress of the Pacific
-                Association
-                of Quantity Surveyors (PAQS) is
-                a premier event that brings
-                together professionals, academics, and industry leaders in
-                the field of quantity surveying from across the Asia and Western Pacific region. This congress serves as
-                a
-                platform for sharing knowledge, discussing advancements, and fostering collaboration among
-                member countries.</p>
+            <p class="lg:w-1/2 text-white  wow fadeInUp animated mx-auto">
+                PAQS Annual Congress: The Premier Gathering for Quantity Surveying Professionals
+                <br>
+                <br>
+                The Pacific Association of Quantity Surveyors (PAQS) Annual Congress is the most anticipated event for
+                Quantity Surveying professionals, academics, and industry leaders across Asia and the Western Pacific.
+                This prestigious gathering provides a dynamic platform for sharing cutting-edge knowledge, discussing
+                industry advancements, and strengthening collaboration among member countries.
+                <br>
+                <br>
+                Each year, the congress features a diverse program, including keynote speeches from global experts,
+                technical sessions on emerging trends, panel discussions on industry challenges, and networking
+                opportunities that foster international partnerships. Participants gain valuable insights into the
+                latest innovations, best practices, and research shaping the future of Quantity Surveying and the built
+                environment.
+                <br>
+                <br>
+                Beyond professional development, the PAQS Congress also offers a unique cultural experience, allowing
+                delegates to explore the host country’s heritage, industry landscape, and hospitality. Whether you are
+                an experienced practitioner or a young professional, this congress is an invaluable opportunity to
+                connect, learn, and contribute to the continuous evolution of the Quantity Surveying profession.
+            </p>
         </div>
         <div class="absolute w-full h-full bg-black opacity-75">
 

@@ -65,7 +65,8 @@
                                             tentative and subject to
                                             change</span>
                                         @include('frontend.components.itinerary_yqs')
-                                        @include('frontend.components.swipper_yqs')
+                                        <x-swiper-gallery :programs="$main_programs['Young QS']" />
+
                                     </div>
                                 </div>
                             </div>
@@ -96,6 +97,8 @@
                                                 country
                                             </li>
                                         </ul>
+                                        <x-swiper-gallery :programs="$main_programs['PAQS Meeting']" />
+
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +123,8 @@
                                             knowledge, collaborate, and contribute to the advancement of a more
                                             progressive and sustainable
                                             construction industry, with participants from various countries.</span>
-                                        </ul>
+                                        <x-swiper-gallery :programs="$main_programs['Call for Papers']" />
+
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +154,8 @@
                                             serving
                                             as a platform for networking to capture opportunities and
                                             collaboration.</span>
-                                        </ul>
+                                        <x-swiper-gallery :programs="$main_programs['Plenary Session']" />
+
                                     </div>
                                 </div>
                             </div>
