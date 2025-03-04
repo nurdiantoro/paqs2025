@@ -91,4 +91,18 @@ class MainProgramResource extends Resource
             'edit' => Pages\EditMainProgram::route('/{record}/edit'),
         ];
     }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        if (auth()->user()->role == 'Root') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->role == 'Root';
+    }
 }
