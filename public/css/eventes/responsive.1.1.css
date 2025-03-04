@@ -1,10 +1,13 @@
 /* Normal desktop :1200px. */
+.second-menu .main-menu ul li {
+    margin-left: 57px;
+}
 @media (min-width: 1200px) and (max-width: 1500px) {
     .slider-bg {
         min-height: 950px !important;
     }
     .second-menu .main-menu ul li {
-        margin-left: 57px;
+        margin-left: 25px;
     }
     .sponsors ul {
         margin: 0 -5%;

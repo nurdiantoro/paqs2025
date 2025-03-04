@@ -36,6 +36,10 @@ class MainProgramResource extends Resource
                 FileUpload::make('video')
                     ->hint('Max Size 20MB')
                     ->multiple(),
+                FileUpload::make('image_preview')
+                    ->image()
+                    ->imageResizeMode('cover')
+                    ->imageResizeTargetHeight('1080'),
                 FileUpload::make('image')
                     ->multiple()
                     ->image()

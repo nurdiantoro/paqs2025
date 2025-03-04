@@ -7,12 +7,16 @@
         // Responsive breakpoints
         breakpoints: {
             // when window width is >= 320px
-            320: {
-                slidesPerView: 2,
+            0: {
+                slidesPerView: 1,
+                spaceBetween: 6
+            },
+            448: {
+                slidesPerView: 1,
                 spaceBetween: 6
             },
             // when window width is >= 480px
-            768: {
+            576: {
                 slidesPerView: 3,
                 spaceBetween: 10
             },

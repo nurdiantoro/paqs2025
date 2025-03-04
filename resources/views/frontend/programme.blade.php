@@ -27,144 +27,228 @@
         <div class="container">
 
             {{-- Main Program --}}
-            <div class="mb-20 md:mb-80 flex flex-wrap-reverse">
-                <div
-                    class="w-full md:w-1/2 md:translate-y-0 translate-y-[-50%] absolute bottom-0 md:relative hidden md:block ">
-                    <img src="{{ asset('img/programme.png') }}" class="scale-150">
-                </div>
-                <div class="w-full md:w-1/2 ">
-                    <p class="font-semibold text-2xl text-black mb-4">Main Program</p>
-                    <div class="text-gray-400 flex-col">
-
-                        <!-- Accordion 1 -->
-                        <div class="mb-4">
-                            <div class="bg-white flex flex-col shadow-xl rounded-xl relative">
-                                <input type="radio" name="accordion" id="accordion-1" class="peer hidden" />
-                                <label for="accordion-1"
-                                    class="mb-0 flex justify-between items-center cursor-pointer p-3 flex-row z-20">
-                                    <span class="font-bold text-warna-01">Young QS</span>
-                                </label>
-                                <x-fas-plus
-                                    class="h-4 w-4 opacity-100 peer-checked:opacity-0 peer-checked:rotate-90 duration-500 absolute right-4 top-4 z-10" />
-                                <x-fas-minus
-                                    class="h-4 w-4 opacity-0 peer-checked:opacity-100 peer-checked:rotate-0 -rotate-90 duration-500 absolute right-4 top-4 z-10" />
-                                <div
-                                    class="max-h-0 overflow-hidden peer-checked:max-h-min transition-all duration-1000">
-                                    <div class="px-3 pb-3">
-                                        <span>The Young QS Program is designed to support and develop young
-                                            professionals in the field of
-                                            Quantity Surveying. Its main activities are:</span>
-                                        <ul class="mb-2 list-disc pl-5">
-                                            <li class="list-disc">Seminars and Workshops</li>
-                                            <li class="list-disc">Essay and Research Competitions</li>
-                                            <li class="list-disc">Networking and meetings</li>
-                                        </ul>
+            <div class="mb-20 md:mb-40">
+                <p class="font-semibold text-2xl text-black mb-4">Main Program</p>
+                <div class="flex flex-wrap">
 
 
-                                        <span class="block text-center text-sm mt-6 text-red-500">The itinerary below is
-                                            tentative and subject to
-                                            change</span>
-                                        @include('frontend.components.itinerary_yqs')
-                                        <x-swiper-gallery :programs="$main_programs['Young QS']" />
+                    {{-- YOUNG QS --}}
+                    <div class="w-full md:w-1/2 lg:w-1/4 p-3 h-auto drop-shadow-lg">
+                        <button
+                            class=" bg-neutral-50 p-4 hover:shadow-lg hover:bg-warna-01 group rounded-lg overflow-hidden text-left h-full flex flex-row gap-4 items-center w-full relative"
+                            type="button" data-toggle="modal" data-target="#young-qs-modal">
+                            <img src="{{ asset('img/meeting.svg') }}" alt="main program"
+                                class="w-12 h-12 object-cover group-hover:rotate-6 group-hover:scale-105 duration-300">
+                            <p
+                                class="text-center font-bold text-warna-01 group-hover:text-neutral-50 group-hover:pl-2 duration-300 text-xl">
+                                Young QS
+                            </p>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Accordion 2 -->
-                        <div class="mb-4">
-                            <div class="bg-white flex flex-col shadow-xl rounded-xl relative">
-                                <input type="radio" name="accordion" id="accordion-2" class="peer hidden" />
-                                <label for="accordion-2"
-                                    class="mb-0 flex justify-between items-center cursor-pointer p-3 flex-row z-20">
-                                    <span class="font-bold text-warna-01">PAQS Meeting</span>
-                                </label>
-                                <x-fas-plus
-                                    class="h-4 w-4 opacity-100 peer-checked:opacity-0 peer-checked:rotate-90 duration-500 absolute right-4 top-4 z-10" />
-                                <x-fas-minus
-                                    class="h-4 w-4 opacity-0 peer-checked:opacity-100 peer-checked:rotate-0 -rotate-90 duration-500 absolute right-4 top-4 z-10" />
-                                <div
-                                    class="max-h-0 overflow-hidden peer-checked:max-h-96 transition-all duration-500 ease-in-out">
-                                    <div class="px-3 pb-3">
-                                        <span>Internal meetings among PAQS member countries consist of:</span>
-                                        <ul class="mt-2 list-disc pl-5">
-                                            <li class="list-disc">Committee meetings (Education, Digitalization,
-                                                Research, and
-                                                Sustainability)</li>
-                                            <li class="list-disc">Member leadership meetings (Board Meetings) to discuss
-                                                the developments
-                                                in each member
-                                                country
-                                            </li>
-                                        </ul>
-                                        <x-swiper-gallery :programs="$main_programs['PAQS Meeting']" />
+                            @foreach ($main_programs['Young QS'] as $program)
+                                @if ($program->image_preview != null)
+                                    <img src="{{ asset('storage/' . $program->image_preview) }}" alt="main program"
+                                        class="aspect-video absolute top-0 right-0 w-32 h-32 translate-x-full group-hover:translate-x-0 rounded-xl object-cover group-hover:rotate-6 group-hover:scale-105 duration-300">
+                                @endif
+                            @endforeach
+                        </button>
+                    </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Accordion 3 -->
-                        <div class="mb-4">
-                            <div class="bg-white flex flex-col shadow-xl rounded-xl relative">
-                                <input type="radio" name="accordion" id="accordion-3" class="peer hidden" />
-                                <label for="accordion-3"
-                                    class="mb-0 flex justify-between items-center cursor-pointer p-3 flex-row z-20">
-                                    <span class="font-bold text-warna-01">Call for Papers</span>
-                                </label>
-                                <x-fas-plus
-                                    class="h-4 w-4 opacity-100 peer-checked:opacity-0 peer-checked:rotate-90 duration-500 absolute right-4 top-4 z-10" />
-                                <x-fas-minus
-                                    class="h-4 w-4 opacity-0 peer-checked:opacity-100 peer-checked:rotate-0 -rotate-90 duration-500 absolute right-4 top-4 z-10" />
-                                <div
-                                    class="max-h-0 overflow-hidden peer-checked:max-h-96 transition-all duration-500 ease-in-out">
-                                    <div class="px-3 pb-3">
-                                        <span>The Papers Conference provides a valuable platform for professionals and
-                                            academics to share
-                                            knowledge, collaborate, and contribute to the advancement of a more
-                                            progressive and sustainable
-                                            construction industry, with participants from various countries.</span>
-                                        <x-swiper-gallery :programs="$main_programs['Call for Papers']" />
+                    {{-- PAQS Meeting --}}
+                    <div class="w-full md:w-1/2 lg:w-1/4 p-3 h-auto drop-shadow-lg">
+                        <button
+                            class=" bg-neutral-50 p-4 hover:shadow-lg hover:bg-warna-01 group rounded-lg overflow-hidden text-left h-full flex flex-row gap-4 items-center w-full relative"
+                            type="button" data-toggle="modal" data-target="#paqs-meeting-modal">
+                            <img src="{{ asset('img/conversation.svg') }}" alt="main program"
+                                class="w-12 h-12 object-cover group-hover:rotate-6 group-hover:scale-105 duration-300">
+                            <p
+                                class="text-center font-bold text-warna-01 group-hover:text-neutral-50 group-hover:pl-2 duration-300 text-xl">
+                                PAQS Meeting
+                            </p>
+                            @foreach ($main_programs['PAQS Meeting'] as $program)
+                                @if ($program->image_preview != null)
+                                    <img src="{{ asset('storage/' . $program->image_preview) }}" alt="main program"
+                                        class="aspect-video absolute top-0 right-0 w-32 h-32 translate-x-full group-hover:translate-x-0 rounded-xl object-cover group-hover:rotate-6 group-hover:scale-105 duration-300">
+                                @endif
+                            @endforeach
+                        </button>
+                    </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Accordion 4 -->
-                        <div class="mb-4">
-                            <div class="bg-white flex flex-col shadow-xl rounded-xl relative">
-                                <input type="radio" name="accordion" id="accordion-4" class="peer hidden" />
-                                <label for="accordion-4"
-                                    class="mb-0 flex justify-between items-center cursor-pointer p-3 flex-row z-20">
-                                    <span class="font-bold text-warna-01">Plenary Session</span>
-                                </label>
-                                <x-fas-plus
-                                    class="h-4 w-4 opacity-100 peer-checked:opacity-0 peer-checked:rotate-90 duration-500 absolute right-4 top-4 z-10" />
-                                <x-fas-minus
-                                    class="h-4 w-4 opacity-0 peer-checked:opacity-100 peer-checked:rotate-0 -rotate-90 duration-500 absolute right-4 top-4 z-10" />
-                                <div
-                                    class="max-h-0 overflow-hidden peer-checked:max-h-96 transition-all duration-500 ease-in-out">
-                                    <div class="px-3 pb-3">
-                                        <span>This session will discuss the main topics of the congress, including panel
-                                            sessions and
-                                            discussions, technical presentations, and research and innovation sessions
-                                            from various
-                                            countries
-                                            that have participated in the Paper Conferences held over two days, open to
-                                            the public and
-                                            serving
-                                            as a platform for networking to capture opportunities and
-                                            collaboration.</span>
-                                        <x-swiper-gallery :programs="$main_programs['Plenary Session']" />
+                    {{-- Call for Papers --}}
+                    <div class="w-full md:w-1/2 lg:w-1/4 p-3 h-auto drop-shadow-lg">
+                        <button
+                            class=" bg-neutral-50 p-4 hover:shadow-lg hover:bg-warna-01 group rounded-lg overflow-hidden text-left h-full flex flex-row gap-4 items-center w-full relative"
+                            type="button" data-toggle="modal" data-target="#call-for-papers-modal">
+                            <img src="{{ asset('img/essay.svg') }}" alt="main program"
+                                class="w-12 h-12 object-cover group-hover:rotate-6 group-hover:scale-105 duration-300">
+                            <p
+                                class="text-center font-bold text-warna-01 group-hover:text-neutral-50 group-hover:pl-2 duration-300 text-xl">
+                                Call for Papers
+                            </p>
+                            @foreach ($main_programs['Call for Papers'] as $program)
+                                @if ($program->image_preview != null)
+                                    <img src="{{ asset('storage/' . $program->image_preview) }}" alt="main program"
+                                        class="aspect-video absolute top-0 right-0 w-32 h-32 translate-x-full group-hover:translate-x-0 rounded-xl object-cover group-hover:rotate-6 group-hover:scale-105 duration-300">
+                                @endif
+                            @endforeach
+                        </button>
+                    </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    {{-- Plenary Session --}}
+                    <div class="w-full md:w-1/2 lg:w-1/4 p-3 h-auto drop-shadow-lg">
+                        <button
+                            class=" bg-neutral-50 p-4 hover:shadow-lg hover:bg-warna-01 group rounded-lg overflow-hidden text-left h-full flex flex-row gap-4 items-center w-full relative"
+                            type="button" data-toggle="modal" data-target="#plenary-session-modal">
+                            <img src="{{ asset('img/conference.svg') }}" alt="main program"
+                                class="w-12 h-12 object-cover group-hover:rotate-6 group-hover:scale-105 duration-300">
+                            <p
+                                class="text-center font-bold text-warna-01 group-hover:text-neutral-50 group-hover:pl-2 duration-300 text-xl">
+                                Plenary Session
+                            </p>
+                            @foreach ($main_programs['Plenary Session'] as $program)
+                                @if ($program->image_preview != null)
+                                    <img src="{{ asset('storage/' . $program->image_preview) }}" alt="main program"
+                                        class="aspect-video absolute top-0 right-0 w-32 h-32 translate-x-full group-hover:translate-x-0 rounded-xl object-cover group-hover:rotate-6 group-hover:scale-105 duration-300">
+                                @endif
+                            @endforeach
+                        </button>
                     </div>
                 </div>
-
             </div>
+
+            <!-- Modal Main Program -->
+            <div class="modal fade" id="young-qs-modal" tabindex="-1" aria-labelledby="young-qs-modal"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[1024px]">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="text-lg font-bold text-warna-01" id="exampleModalLabel">Young QS</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="flex flex-col gap-4">
+                                <span>The Young QS Program is designed to support and develop young
+                                    professionals in the field of
+                                    Quantity Surveying. Its main activities are:</span>
+                                <ul class="mb-2 list-disc pl-5">
+                                    <li class="list-disc">Seminars and Workshops</li>
+                                    <li class="list-disc">Essay and Research Competitions</li>
+                                    <li class="list-disc">Networking and meetings</li>
+                                </ul>
+                                <x-swiper-gallery :programs="$main_programs['Young QS']" />
+                                <span class="block text-center text-sm mt-6 text-red-500">The itinerary below
+                                    is
+                                    tentative and subject to
+                                    change</span>
+                                @include('frontend.components.itinerary_yqs')
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                class="px-3 py-2 rounded bg-warna-01 text-white md:mx-auto font-bold text-lg w-full md:w-min"
+                                data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="paqs-meeting-modal" tabindex="-1" aria-labelledby="paqs-meeting-modal"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[1024px]">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="text-lg font-bold text-warna-01" id="exampleModalLabel">PAQS Meeting</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="flex flex-col gap-4">
+                                <span>Internal meetings among PAQS member countries consist of:</span>
+                                <ul class="mt-2 list-disc pl-5">
+                                    <li class="list-disc">Committee meetings (Education, Digitalization,
+                                        Research, and
+                                        Sustainability)</li>
+                                    <li class="list-disc">Member leadership meetings (Board Meetings) to
+                                        discuss
+                                        the developments
+                                        in each member
+                                        country
+                                    </li>
+                                </ul>
+                                <x-swiper-gallery :programs="$main_programs['PAQS Meeting']" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                class="px-3 py-2 rounded bg-warna-01 text-white md:mx-auto font-bold text-lg w-full md:w-min"
+                                data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="call-for-papers-modal" tabindex="-1"
+                aria-labelledby="call-for-papers-modal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[1024px]">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="text-lg font-bold text-warna-01" id="exampleModalLabel">Call for Papers</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="flex flex-col gap-4">
+                                <span>The Papers Conference provides a valuable platform for professionals and
+                                    academics to share
+                                    knowledge, collaborate, and contribute to the advancement of a more
+                                    progressive and sustainable
+                                    construction industry, with participants from various countries.</span>
+                                <x-swiper-gallery :programs="$main_programs['Call for Papers']" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                class="px-3 py-2 rounded bg-warna-01 text-white md:mx-auto font-bold text-lg w-full md:w-min"
+                                data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="plenary-session-modal" tabindex="-1"
+                aria-labelledby="plenary-session-modal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[1024px]">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="text-lg font-bold text-warna-01" id="exampleModalLabel">Plenary Session</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="flex flex-col gap-4">
+                                <span>This session will discuss the main topics of the congress, including panel
+                                    sessions and
+                                    discussions, technical presentations, and research and innovation sessions
+                                    from various
+                                    countries
+                                    that have participated in the Paper Conferences held over two days, open to
+                                    the public and
+                                    serving
+                                    as a platform for networking to capture opportunities and
+                                    collaboration.</span>
+                                <x-swiper-gallery :programs="$main_programs['Plenary Session']" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                class="px-3 py-2 rounded bg-warna-01 text-white md:mx-auto font-bold text-lg w-full md:w-min"
+                                data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             {{-- Social Activity --}}
             <div class="mb-60">
@@ -185,8 +269,8 @@
                         @endphp
 
                         <div class="p-1 md:p-2 md:w-1/5 w-1/3">
-                            <input type="radio" name="activity" id="activity-{{ $index }}" class="hidden peer"
-                                data-images="{{ json_encode($activities->first()->image) }}"
+                            <input type="radio" name="activity" id="activity-{{ $index }}"
+                                class="hidden peer" data-images="{{ json_encode($activities->first()->image) }}"
                                 data-videos="{{ json_encode($activities->first()->video) }}"
                                 data-category="{{ $category }}"
                                 {{ $category == 'Project Visit' ? 'checked' : '' }} />
@@ -213,10 +297,10 @@
             <!-- Modal Bootstrap -->
             <div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="mediaModalLabel">Preview</h5>
+                            <h5 class="text-lg font-bold text-warna-01" id="mediaModalLabel">Preview</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
