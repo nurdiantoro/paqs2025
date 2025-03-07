@@ -31,7 +31,7 @@ class EmailController extends Controller
 
         $tickets = Ticket::where('order_id', $data->id)->get();
         $kirim = Mail::to($email)
-            ->send(new Invoice(
+            ->queue(new Invoice(
                 $data,
                 $category,
                 $addon,
