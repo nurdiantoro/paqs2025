@@ -53,6 +53,15 @@
                             <td></td>
                         </tr>
                         <tr class="group hover:bg-neutral-100">
+                            <td>08:15 - 08:30</td>
+                            <td>15 min</td>
+                            <td>Opening</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>All Participants</td>
+                        </tr>
+                        <tr class="group hover:bg-neutral-100">
                             <td rowspan="3">08:30 - 08:40</td>
                             <td></td>
                             <td>Prayer</td>
@@ -147,7 +156,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr class="group hover:bg-neutral-100">
+                        <tr class="group bg-neutral-300 text-warna-01">
                             <td>10:45 - 11:00</td>
                             <td>15 min</td>
                             <td>Coffee Break</td>
@@ -165,7 +174,7 @@
                             <td>Parallel Session (5 participants)</td>
                             <td>Participants</td>
                         </tr>
-                        <tr class="group hover:bg-neutral-100">
+                        <tr class="group bg-neutral-300 text-warna-01">
                             <td>12:00 - 13:00</td>
                             <td>60 min</td>
                             <td>Lunch & Prayer Break (ISHOMA)</td>
