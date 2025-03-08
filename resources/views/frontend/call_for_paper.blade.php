@@ -99,42 +99,22 @@
         <span class="text-2xl mb-2 font-semibold block text-warna-temp-02 text-center wow zoomIn animated">Featured
             Speaker</span>
         <div class="flex flex-wrap flex-col md:flex-row">
-            {{-- @foreach ($speakers as $speaker)
-                <div class="p-2 w-full md:w-1/2 lg:w-1/3 ">
-                    <div class="relative overflow-hidden rounded-xl bg-white border min-h-[30rem] h-full group">
-                        <div class="p-4 h-full flex flex-col gap-4 group">
-                            <img src="{{ asset('storage/' . $speaker->image) }}"
-                                class="overflow-hidden rounded-full w-40 h-40 mx-auto bg-slate-50 object-cover z-30 group-hover:-translate-y-[50px] group-hover:scale-[0.4] duration-300 ease-in-out border">
-                            <div class="text-xl text-center mb-2 font-bold text-slate-900">
-                                {{ $speaker->name }}
-                            </div>
-                            <div
-                                class="w-full h-20 bg-slate-700 absolute top-0 left-0 group-hover:opacity-100 duration-300 ease-in-out z-20">
-                            </div>
-                        </div>
-                        <div
-                            class="absolute z-10 rounded-xl bottom-0 left-0 translate-y-full group-hover:translate-y-0 duration-300 ease-in-out w-full h-full bg-slate-700 border border-slate-900 overflow-y-auto p-4">
-                            <p class="text-white pt-24">{!! $speaker->description !!}</p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach --}}
             @foreach ($speakers as $speaker)
-                <div class="p-2 w-full md:w-1/2 lg:w-1/3 wow wow zoomIn animated">
+                <div class="p-2 w-full md:w-1/2 lg:w-1/2 xl:w-1/4 wow zoomIn animated h-auto]">
                     <div
-                        class="relative overflow-hidden rounded-xl border h-full shadow-md group bg-slate-50 hover:bg-warna-temp-01 duration-300 ease-in-out cursor-pointer">
-                        <div class="p-4 h-full flex flex-col gap-4 relative">
-                            <div
-                                class="overflow-hidden rounded-full w-40 h-40 mx-auto bg-slate-50 z-30 border duration-300 ease-in-out">
+                        class="relative overflow-hidden rounded-xl border h-full shadow-md group bg-slate-50 hover:bg-warna-temp-01  cursor-pointer">
+                        <div class="relative h-[40rem] overflow-scroll overflow-y-auto  cursor-pointer">
+                            <div class="overflow-hidden rounded-full w-40 h-40 mx-auto bg-slate-50 z-30 border mt-4">
                                 <img src="{{ asset('storage/' . $speaker->image) }}"
                                     class="object-cover group-hover:scale-105">
                             </div>
+
                             <div
-                                class="text-xl text-center mb-2 font-bold text-slate-900 group-hover:text-white duration-300 ease-in-out">
+                                class="text-xl text-center mb-2 font-bold text-slate-900  sticky top-0 z-10 bg-slate-50 group-hover:bg-warna-temp-01 group-hover:text-white p-4">
                                 {{ $speaker->name }}
                             </div>
-                            <div class="overflow-y-auto h-40 overflow-scroll">
-                                <p class="text-slate-500 group-hover:text-slate-300 duration-300 ease-in-out">
+                            <div class=" p-4">
+                                <p class="text-slate-500 group-hover:text-slate-300 ">
                                     {!! $speaker->description !!}</p>
                             </div>
                         </div>

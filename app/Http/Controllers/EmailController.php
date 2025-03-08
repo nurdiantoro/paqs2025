@@ -8,10 +8,11 @@ use App\Models\Addon;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Ticket;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
-class EmailController extends Controller
+class EmailController extends Controller implements ShouldQueue
 {
 
     public function sendEmail($no_invoice, $email)
@@ -30,6 +31,7 @@ class EmailController extends Controller
         $total_price = $total_category + $total_addon;
 
         $tickets = Ticket::where('order_id', $data->id)->get();
+
         $kirim = Mail::to($email)
             ->queue(new Invoice(
                 $data,
@@ -45,7 +47,7 @@ class EmailController extends Controller
         if ($kirim) {
             return redirect(url('/invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
         } else {
-            return "Email not sent.";
+            return redirect(url('/invoice/' . $no_invoice))->with('error', 'email tidak terkirim!');
         }
     }
 
