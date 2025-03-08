@@ -43,10 +43,14 @@
                             {{ $data->email }}
                         </p>
                     </div>
-                    <div
-                        class="font-bold text-6xl text-warna-01 opacity-50 flex justify-center items-center rounded-xl">
-                        Paid
-                    </div>
+                    @if ($data->payment_status == 'paid')
+                        @if ($data->is_confirmed == true)
+                            <div
+                                class="font-bold text-6xl text-warna-01 opacity-50 flex justify-center items-center rounded-xl">
+                                Paid
+                            </div>
+                        @endif
+                    @endif
                 </div>
                 <div class="cs-table cs-style2 cs-mb50">
                     <div class="cs-round_border tm-border-radious-12">
