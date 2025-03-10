@@ -16,12 +16,13 @@ use App\Models\Order;
 use App\Models\Roadmap;
 use App\Models\Speaker;
 use App\Models\Ticket;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use libphonenumber\PhoneNumberFormat;
 use Illuminate\Support\Facades\Http;
 
-class FrontendController extends Controller
+class FrontendController extends Controller implements ShouldQueue
 {
     public function fetchWeather($kota)
     {
@@ -188,7 +189,7 @@ class FrontendController extends Controller
                     'name' => $request->name[$index],
                     'email' => $request->email[$index],
                 ]);
-                Mail::to($request->email[$index])->send(new GetBarcodePersonal($ticket));
+                Mail::to($request->email[$index])->queue(new GetBarcodePersonal($ticket));
             } else {
                 $ticket->update([
                     'name' => $request->name[$index],
