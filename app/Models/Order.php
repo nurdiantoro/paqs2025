@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Mail\GetBarcode;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class Order extends Model
+class Order extends Model implements ShouldQueue
 {
     use LogsActivity;
 
@@ -73,7 +74,7 @@ class Order extends Model
 
                     $data = Order::where('no_invoice', $order->no_invoice)->first();
                     $tickets = Ticket::where('order_id', $data->id)->get();
-                    Mail::to($data->email)->send(new GetBarcode($data, $tickets));
+                    Mail::to($data->email)->queue(new GetBarcode($data, $tickets));
                 } elseif ($order->is_confirmed == false) {
                     Ticket::where('order_id', $order->id)->delete();
                 }
