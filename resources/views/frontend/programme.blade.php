@@ -27,189 +27,64 @@
         <div class="container">
 
             {{-- Table --}}
-            <div
-                class="bg-white border rounded-xl overflow-x-auto mb-20 md:mb-40 shadow-md h-[calc(100vh-15rem)] md:h-auto">
-                <table class="w-full text-center" border="1">
-                    <thead class=" ">
-                        <tr class="font-bold  text-white">
-                            <th class="sticky top-0 text-center bg-warna-01 w-40">Time</th>
-                            <th class="sticky top-0 text-center bg-warna-01">Duration</th>
-                            <th class="sticky top-0 text-center bg-warna-01">Activities</th>
-                            <th class="sticky top-0 text-center bg-warna-01">Room 1</th>
-                            <th class="sticky top-0 text-center bg-warna-01">Room 2</th>
-                            <th class="sticky top-0 text-center bg-warna-01">Room 3</th>
-                            <th class="sticky top-0 text-center bg-warna-01">Speakers/Participants</th>
-                        </tr>
+            <div class="w-full flex flex-row justify-center">
+                <div class="w-full md:w-1/2 overflow-x-auto mb-20 md:mb-40 bg-white rounded-xl border shadow-xl">
+                    <table class="w-full text-center">
+                        <thead class=" ">
+                            <tr class="font-bold  text-white">
+                                <th class="sticky top-0 text-center bg-warna-01 w-40">Date</th>
+                                <th class="sticky top-0 text-center bg-warna-01">Activities</th>
+                                <th class="sticky top-0 text-center bg-warna-01">Time</th>
+                                <th class="sticky top-0 text-center bg-warna-01">Information</th>
+                            </tr>
 
-                    </thead>
-                    <tbody class="">
-                        <tr class="group hover:bg-neutral-100">
-                            <td>07:15 - 08:15</td>
-                            <td>60 min</td>
-                            <td>Registration</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>08:15 - 08:30</td>
-                            <td>15 min</td>
-                            <td>Opening</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>All Participants</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td rowspan="3">08:30 - 08:40</td>
-                            <td></td>
-                            <td>Prayer</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>MC</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td></td>
-                            <td>National Anthem & PAQS/IQSI March</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Religious Leader</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td></td>
-                            <td>Welcome Speech by Chairperson</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>All Participants</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>08:40 - 08:50</td>
-                            <td>10 min</td>
-                            <td>Speech by Other Leaders</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Chairperson</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>08:50 - 09:00</td>
-                            <td>10 min</td>
-                            <td>Symbolic Gift Presentation</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Other Leaders</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td rowspan="2">09:00 - 09:30</td>
-                            <td rowspan="2">30 min</td>
-                            <td>Opening Ceremony (Traditional Dance)</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Chairperson</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>Keynote Speech 1 (Prof. Dr. (H.C.) Ir. Mohammed Ali Berawi, M.Eng. Sc, Ph.D.)</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Performers</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>09:30 - 09:45</td>
-                            <td>15 min</td>
-                            <td>Keynote 1 Discussion Session</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Prof. Dr. (H.C.) Ir. Mohammed Ali Berawi, M.Eng. Sc, Ph.D.</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>09:45 - 10:15</td>
-                            <td>30 min</td>
-                            <td>Keynote Speech 2 (Prof. Sr. Dr. Eugene Seah)</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Keynote Speaker 1 & Participants</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>10:15 - 10:30</td>
-                            <td>15 min</td>
-                            <td>Keynote 2 Discussion Session</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Prof. Sr. Dr. Eugene Seah</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>10:30 - 10:45</td>
-                            <td>15 min</td>
-                            <td>Parallel Session Briefing</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="group bg-neutral-300 text-warna-01">
-                            <td>10:45 - 11:00</td>
-                            <td>15 min</td>
-                            <td>Coffee Break</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>11:00 - 12:00</td>
-                            <td>60 min</td>
-                            <td>Parallel Session (5 participants)</td>
-                            <td>Parallel Session (5 participants)</td>
-                            <td>Parallel Session (5 participants)</td>
-                            <td>Parallel Session (5 participants)</td>
-                            <td>Participants</td>
-                        </tr>
-                        <tr class="group bg-neutral-300 text-warna-01">
-                            <td>12:00 - 13:00</td>
-                            <td>60 min</td>
-                            <td>Lunch & Prayer Break (ISHOMA)</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>13:00 - 15:00</td>
-                            <td>120 min</td>
-                            <td>Parallel Session (10 participants)</td>
-                            <td>Parallel Session (10 participants)</td>
-                            <td>Parallel Session (10 participants)</td>
-                            <td>Parallel Session (10 participants)</td>
-                            <td>Participants</td>
-                        </tr>
-                        <tr class="group hover:bg-neutral-100">
-                            <td>15:00 - 17:00</td>
-                            <td>120 min</td>
-                            <td>Parallel Session (10 participants)</td>
-                            <td>Parallel Session (10 participants)</td>
-                            <td>Parallel Session (10 participants)</td>
-                            <td>Parallel Session (10 participants)</td>
-                            <td>Participants</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="">
+                            <tr class="group hover:bg-sky-100">
+                                <td>22 August 2025</td>
+                                <td>YQS Workshop</td>
+                                <td>08.00 AM - 05.00 PM</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="group hover:bg-sky-100">
+                                <td>22 August 2025</td>
+                                <td>Dinner & Fun Games</td>
+                                <td>08.00 AM - Finish</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="group hover:bg-sky-100">
+                                <td>23 August 2025</td>
+                                <td>Technical Visit & City Tour</td>
+                                <td>08.00 AM - 05.00 PM</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="group hover:bg-sky-100">
+                                <td>23 August 2025</td>
+                                <td>Golf Tournament</td>
+                                <td>07.30 AM - 12.00 AM</td>
+                                <td>Pre-Congres</td>
+                            </tr>
+                            <tr class="group hover:bg-sky-100">
+                                <td>23 August 2025</td>
+                                <td>Committee Meeting</td>
+                                <td>01.00 PM - 05.00 PM</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="group hover:bg-sky-100">
+                                <td>24 August 2025</td>
+                                <td>Board Meeting</td>
+                                <td>08.00 AM - Finish</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             {{-- Main Program --}}
             <div class="mb-20 md:mb-40">
                 <p class="font-semibold text-2xl text-black mb-4">Main Program</p>
                 <div class="flex flex-wrap">
-
 
                     {{-- YOUNG QS --}}
                     <div class="w-full md:w-1/2 lg:w-1/4 p-3 h-auto drop-shadow-lg">
@@ -295,6 +170,7 @@
             </div>
 
             <!-- Modal Main Program -->
+            {{-- Young QS --}}
             <div class="modal fade" id="young-qs-modal" tabindex="-1" aria-labelledby="young-qs-modal"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[1024px]">
@@ -331,6 +207,8 @@
                     </div>
                 </div>
             </div>
+
+            {{-- PAQS Meeting --}}
             <div class="modal fade" id="paqs-meeting-modal" tabindex="-1" aria-labelledby="paqs-meeting-modal"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[1024px]">
@@ -366,6 +244,8 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Call for Papers --}}
             <div class="modal fade" id="call-for-papers-modal" tabindex="-1"
                 aria-labelledby="call-for-papers-modal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[1024px]">
@@ -383,6 +263,7 @@
                                     knowledge, collaborate, and contribute to the advancement of a more
                                     progressive and sustainable
                                     construction industry, with participants from various countries.</span>
+                                @include('frontend.components.table_call_of_papers')
                                 <x-swiper-gallery :programs="$main_programs['Call for Papers']" />
                             </div>
                         </div>
@@ -394,6 +275,8 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Plenary Session --}}
             <div class="modal fade" id="plenary-session-modal" tabindex="-1"
                 aria-labelledby="plenary-session-modal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[1024px]">
@@ -416,6 +299,10 @@
                                     serving
                                     as a platform for networking to capture opportunities and
                                     collaboration.</span>
+
+                                {{-- Table --}}
+                                @include('frontend.components.table_plenary_session')
+
                                 <x-swiper-gallery :programs="$main_programs['Plenary Session']" />
                             </div>
                         </div>
@@ -427,7 +314,6 @@
                     </div>
                 </div>
             </div>
-
 
             {{-- Social Activity --}}
             <div class="mb-60">

@@ -37,7 +37,7 @@
             @endforeach
         </div>
 
-        <div class="tab-pane fade relative" id="two" role="tabpanel" aria-labelledby="day-one">
+        <div class="tab-pane fade relative" id="two" role="tabpanel" aria-labelledby="day-two">
             @foreach ($itinerary_day2 as $day_2)
                 <div
                     class="relative w-full group flex flex-row justify-between items-center before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 after:contents[''] after:w-4 after:h-4 after:bg-sky-400  after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full py-2">
