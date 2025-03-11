@@ -26,58 +26,46 @@
     <div class="mt-20 md:mt-[15rem] min-h-screen md:mb-56 px-2 md:px-80">
         <div class="container">
 
-            {{-- Table --}}
-            <div class="w-full flex flex-row justify-center">
-                <div class="w-full md:w-1/2 overflow-x-auto mb-20 md:mb-40 bg-white rounded-xl border shadow-xl">
-                    <table class="w-full text-center">
-                        <thead class=" ">
-                            <tr class="font-bold  text-white">
-                                <th class="sticky top-0 text-center bg-warna-01 w-40">Date</th>
-                                <th class="sticky top-0 text-center bg-warna-01">Activities</th>
-                                <th class="sticky top-0 text-center bg-warna-01">Time</th>
-                                <th class="sticky top-0 text-center bg-warna-01">Information</th>
-                            </tr>
+            {{-- Programme --}}
+            <div class="mb-20 md:mb-40">
+                <p class="font-semibold text-2xl text-black mb-4 text-center">Activities</p>
+                <div class="hidden md:flex flex-col md:flex-row flex-wrap justify-center items-start md:items-center">
+                    @foreach ($programmes as $programme)
+                        <div
+                            class="flex flex-col justify-center items-start md:items-center p-4 relative before:contents[''] before:w-1 before:h-full  md:before:w-full md:before:h-1 before:bg-warna-01 before:opacity-20 before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 hover:before:opacity-100 cursor-pointer group">
+                            <div
+                                class="bg-neutral-50 rounded px-4 py-3 shadow-lg group-hover:translate-x-4 md:group-hover:-translate-y-4 md:group-hover:translate-x-0 duration-300 transition-transform group-hover:bg-warna-01 group-hover:text-neutral-50">
+                                {{ $programme->name }}
+                            </div>
+                            <div
+                                class="p-4 group-hover:translate-x-4 md:group-hover:translate-y-4 md:group-hover:translate-x-0 duration-300 group-hover:text-warna-01">
+                                {{ date('d F Y', strtotime($programme->date)) }}
+                            </div>
 
-                        </thead>
-                        <tbody class="">
-                            <tr class="group hover:bg-sky-100">
-                                <td>22 August 2025</td>
-                                <td>YQS Workshop</td>
-                                <td>08.00 AM - 05.00 PM</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class="group hover:bg-sky-100">
-                                <td>22 August 2025</td>
-                                <td>Dinner & Fun Games</td>
-                                <td>08.00 AM - Finish</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class="group hover:bg-sky-100">
-                                <td>23 August 2025</td>
-                                <td>Technical Visit & City Tour</td>
-                                <td>08.00 AM - 05.00 PM</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class="group hover:bg-sky-100">
-                                <td>23 August 2025</td>
-                                <td>Golf Tournament</td>
-                                <td>07.30 AM - 12.00 AM</td>
-                                <td>Pre-Congres</td>
-                            </tr>
-                            <tr class="group hover:bg-sky-100">
-                                <td>23 August 2025</td>
-                                <td>Committee Meeting</td>
-                                <td>01.00 PM - 05.00 PM</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class="group hover:bg-sky-100">
-                                <td>24 August 2025</td>
-                                <td>Board Meeting</td>
-                                <td>08.00 AM - Finish</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            <div
+                                class="hidden md:block absolute w-2 h-2 bg-warna-01 rounded-full group-hover:scale-150 duration-300">
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="flex md:hidden flex-col flex-wrap justify-center items-start">
+                    @foreach ($programmes as $programme)
+                        <div
+                            class="flex flex-row-reverse justify-center items-start p-4 relative before:contents[''] before:w-1 before:h-full before:bg-warna-01 before:opacity-20 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 hover:before:opacity-100 cursor-pointer group w-full">
+                            <div
+                                class="bg-neutral-50 rounded px-4 py-3 shadow-lg group-hover:translate-x-4duration-300 transition-transform group-hover:bg-warna-01 group-hover:text-neutral-50 w-1/2">
+                                {{ $programme->name }}
+                            </div>
+                            <div
+                                class="p-4 group-hover:-translate-x-4 duration-300 group-hover:text-warna-01 w-1/2 text-right">
+                                {{ date('d F Y', strtotime($programme->date)) }}
+                            </div>
+
+                            <div
+                                class="absolute w-2 h-2 bg-warna-01 top-1/2 -translate-y-1/2 rounded-full group-hover:scale-150 duration-300">
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
