@@ -28,8 +28,8 @@
 
             {{-- Programme --}}
             <div class="mb-20 md:mb-40">
-                <p class="font-semibold text-2xl text-black mb-4 text-center">Activities</p>
-                <div class="hidden md:flex flex-col md:flex-row flex-wrap justify-center items-start md:items-center">
+                <p class="font-semibold text-4xl text-warna-01 mb-4 text-center">Event Schedule PAQS 2025</p>
+                {{-- <div class="hidden md:flex flex-col md:flex-row flex-wrap justify-center items-start md:items-center">
                     @foreach ($programmes as $programme)
                         <div
                             class="flex flex-col justify-center items-start md:items-center p-4 relative before:contents[''] before:w-1 before:h-full  md:before:w-full md:before:h-1 before:bg-warna-01 before:opacity-20 before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 hover:before:opacity-100 cursor-pointer group">
@@ -47,26 +47,8 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
-                <div class="flex md:hidden flex-col flex-wrap justify-center items-start">
-                    @foreach ($programmes as $programme)
-                        <div
-                            class="flex flex-row-reverse justify-center items-start p-4 relative before:contents[''] before:w-1 before:h-full before:bg-warna-01 before:opacity-20 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 hover:before:opacity-100 cursor-pointer group w-full">
-                            <div
-                                class="bg-neutral-50 rounded px-4 py-3 shadow-lg group-hover:translate-x-4duration-300 transition-transform group-hover:bg-warna-01 group-hover:text-neutral-50 w-1/2">
-                                {{ $programme->name }}
-                            </div>
-                            <div
-                                class="p-4 group-hover:-translate-x-4 duration-300 group-hover:text-warna-01 w-1/2 text-right">
-                                {{ date('d F Y', strtotime($programme->date)) }}
-                            </div>
-
-                            <div
-                                class="absolute w-2 h-2 bg-warna-01 top-1/2 -translate-y-1/2 rounded-full group-hover:scale-150 duration-300">
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+                </div> --}}
+                @include('frontend.components.event_schedule')
             </div>
 
             {{-- Main Program --}}
@@ -245,12 +227,14 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="flex flex-col gap-4">
-                                <span>The Papers Conference provides a valuable platform for professionals and
+                            <div class="flex flex-col">
+                                <span class="mb-4">The Papers Conference provides a valuable platform for
+                                    professionals and
                                     academics to share
                                     knowledge, collaborate, and contribute to the advancement of a more
                                     progressive and sustainable
                                     construction industry, with participants from various countries.</span>
+                                <p class="text-center font-bold text-lg">25 August 2025</p>
                                 @include('frontend.components.table_call_of_papers')
                                 <x-swiper-gallery :programs="$main_programs['Call for Papers']" />
                             </div>
@@ -276,8 +260,9 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="flex flex-col gap-4">
-                                <span>This session will discuss the main topics of the congress, including panel
+                            <div class="flex flex-col">
+                                <span class="mb-4">This session will discuss the main topics of the congress,
+                                    including panel
                                     sessions and
                                     discussions, technical presentations, and research and innovation sessions
                                     from various
@@ -289,6 +274,7 @@
                                     collaboration.</span>
 
                                 {{-- Table --}}
+                                <p class="text-center font-bold text-lg">26 August 2025</p>
                                 @include('frontend.components.table_plenary_session')
 
                                 <x-swiper-gallery :programs="$main_programs['Plenary Session']" />

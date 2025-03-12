@@ -51,15 +51,14 @@ class FrontendController extends Controller implements ShouldQueue
     public function programme()
     {
         $activities = ActivityProgram::all()->groupBy('category');
-        // $main_programs  = MainProgram::where('category', 'Young QS')->get();
         $main_programs = MainProgram::all()->groupBy('category');
-        $programmes = Programme::all();
+        // $programmes = Programme::all();
 
         // dd($main_programs);
 
         $itinerary_day1 = Itinerary::where('day', 1)->orderBy('time_1', 'asc')->get();
         $itinerary_day2 = Itinerary::where('day', 2)->orderBy('time_1', 'asc')->get();
-        return view('frontend.programme', compact('itinerary_day1', 'itinerary_day2', 'activities', 'main_programs', 'programmes'));
+        return view('frontend.programme', compact('itinerary_day1', 'itinerary_day2', 'activities', 'main_programs'));
     }
 
     public function information()
