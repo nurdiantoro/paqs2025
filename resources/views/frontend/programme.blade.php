@@ -203,6 +203,8 @@
                                         country
                                     </li>
                                 </ul>
+                                <p class="text-center font-bold text-lg">23 August 2025</p>
+                                @include('frontend.components.itinerary_paqs_meeting')
                                 <x-swiper-gallery :programs="$main_programs['PAQS Meeting']" />
                             </div>
                         </div>
