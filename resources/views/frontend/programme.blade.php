@@ -29,25 +29,6 @@
             {{-- Programme --}}
             <div class="mb-20 md:mb-40">
                 <p class="font-semibold text-4xl text-warna-01 mb-4 text-center">Event Schedule PAQS 2025</p>
-                {{-- <div class="hidden md:flex flex-col md:flex-row flex-wrap justify-center items-start md:items-center">
-                    @foreach ($programmes as $programme)
-                        <div
-                            class="flex flex-col justify-center items-start md:items-center p-4 relative before:contents[''] before:w-1 before:h-full  md:before:w-full md:before:h-1 before:bg-warna-01 before:opacity-20 before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 hover:before:opacity-100 cursor-pointer group">
-                            <div
-                                class="bg-neutral-50 rounded px-4 py-3 shadow-lg group-hover:translate-x-4 md:group-hover:-translate-y-4 md:group-hover:translate-x-0 duration-300 transition-transform group-hover:bg-warna-01 group-hover:text-neutral-50">
-                                {{ $programme->name }}
-                            </div>
-                            <div
-                                class="p-4 group-hover:translate-x-4 md:group-hover:translate-y-4 md:group-hover:translate-x-0 duration-300 group-hover:text-warna-01">
-                                {{ date('d F Y', strtotime($programme->date)) }}
-                            </div>
-
-                            <div
-                                class="hidden md:block absolute w-2 h-2 bg-warna-01 rounded-full group-hover:scale-150 duration-300">
-                            </div>
-                        </div>
-                    @endforeach
-                </div> --}}
                 @include('frontend.components.event_schedule')
             </div>
 

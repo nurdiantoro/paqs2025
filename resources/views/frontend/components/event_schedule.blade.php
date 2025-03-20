@@ -4,7 +4,7 @@
     $programmes = [
         (object) ['name' => 'YQS Workshop', 'date' => '2025-08-22'],
         (object) ['name' => 'YQS Dinner', 'date' => '2025-08-22'],
-        (object) ['name' => 'Fun Game', 'date' => '2025-08-22'],
+        (object) ['name' => 'YQS Fun Game', 'date' => '2025-08-22'],
 
         (object) ['name' => 'YQS Technical Visit & City Tour', 'date' => '2025-08-23'],
         (object) ['name' => 'Golf Tournament', 'date' => '2025-08-23'],
@@ -12,7 +12,7 @@
 
         (object) ['name' => 'Board Meeting', 'date' => '2025-08-24'],
 
-        (object) ['name' => 'Opening', 'date' => '2025-08-25'],
+        (object) ['name' => 'Opening Congress', 'date' => '2025-08-25'],
         (object) ['name' => 'Plenary Session', 'date' => '2025-08-25'],
         (object) ['name' => 'Spouse Pogram', 'date' => '2025-08-25'],
 

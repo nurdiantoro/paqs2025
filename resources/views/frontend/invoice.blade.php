@@ -77,7 +77,7 @@
                                             {{ $data->quantity }}
                                         </td>
                                         <td class="cs-width_2 cs-text_right cs-primary_color cs-f15">
-                                            {{ number_format($total_category, 0, ',', '.') }}
+                                            {{ number_format($data->total_price, 2, ',', '.') }}
                                         </td>
                                     </tr>
                                     @if ($addon != null)
@@ -103,7 +103,7 @@
                                         <td class="cs-width_2"></td>
                                         <td class="cs-width_2"></td>
                                         <td class="cs-width_2 cs-text_right cs-semi_bold cs-primary_color cs-f15">
-                                            {{ $category->currency . ' ' . number_format($total_price, 0, ',', '.') }}
+                                            {{ $category->currency . ' ' . number_format($data->total_price, 2, ',', '.') }}
                                         </td>
                                     </tr>
                                 </tbody>
