@@ -70,6 +70,7 @@ class Order extends Model implements ShouldQueue
 
                             Ticket::create([
                                 'order_id' => $order->id,
+                                'no_invoice' => $order->no_invoice,
                                 'barcode' => $barcode,
                             ]);
                         }

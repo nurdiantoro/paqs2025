@@ -4,9 +4,9 @@ namespace App\Filament\Resources\LogScanTicketResource\Pages;
 
 use App\Filament\Resources\LogScanTicketResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Pages\ListRecords;
 
-class ManageLogScanTickets extends ManageRecords
+class ListLogScanTickets extends ListRecords
 {
     protected static string $resource = LogScanTicketResource::class;
 

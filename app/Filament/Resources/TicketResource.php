@@ -40,7 +40,7 @@ class TicketResource extends Resource
                 Tables\Columns\TextColumn::make('barcode')
                     ->searchable(),
 
-                Tables\Columns\IconColumn::make('is_used')->boolean()->disabled(),
+                // Tables\Columns\IconColumn::make('is_used')->boolean()->disabled(),
                 // Tables\Columns\TextColumn::make('used_at'),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('email'),

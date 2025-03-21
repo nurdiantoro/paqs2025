@@ -38,8 +38,12 @@ Route::get('/email/{no_invoice}/{email}', [EmailController::class, 'sendEmail'])
 Route::get('/invoice/{no_invoice}/pdf', [PdfController::class, 'receipt']);
 
 // Tickets
-Route::get('/scan_ticket', [TicketController::class, 'index']);
-Route::post('/scan_ticket/store', [TicketController::class, 'store']);
+Route::prefix('dashboard')->middleware(['auth'])->group(
+    function () {
+        Route::get('/scan_ticket', [TicketController::class, 'index']);
+        Route::post('/scan_ticket/store', [TicketController::class, 'store']);
+    }
+);
 
 // Matiin kalo udah production
 // Route::get('/barcode/{no_invoice}', [EmailController::class, 'testGetBarcode']);
