@@ -18,6 +18,8 @@ class ActivityProgramResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Root Access';
+
     public static function canCreate(): bool
     {
         return false;

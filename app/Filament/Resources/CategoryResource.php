@@ -54,6 +54,7 @@ class CategoryResource extends Resource
                             ->required()
                             ->maxLength(255),
                         Toggle::make('is_member'),
+                        Toggle::make('is_active'),
                     ])
             ]);
     }
@@ -62,8 +63,8 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('type')
-                    ->searchable(),
+                IconColumn::make('is_active')
+                    ->boolean(),
                 IconColumn::make('is_member')
                     ->boolean(),
                 TextColumn::make('name')

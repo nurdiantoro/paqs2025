@@ -4,6 +4,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 // Frontend
@@ -35,6 +36,10 @@ Route::get('/email/{no_invoice}/{email}', [EmailController::class, 'sendEmail'])
 
 // PDF
 Route::get('/invoice/{no_invoice}/pdf', [PdfController::class, 'receipt']);
+
+// Tickets
+Route::get('/scan_ticket', [TicketController::class, 'index']);
+Route::post('/scan_ticket/store', [TicketController::class, 'store']);
 
 // Matiin kalo udah production
 // Route::get('/barcode/{no_invoice}', [EmailController::class, 'testGetBarcode']);

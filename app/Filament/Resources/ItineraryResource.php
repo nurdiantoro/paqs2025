@@ -17,7 +17,9 @@ class ItineraryResource extends Resource
 {
     protected static ?string $model = Itinerary::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+
+    protected static ?string $navigationGroup = 'Root Access';
 
     public static function form(Form $form): Form
     {

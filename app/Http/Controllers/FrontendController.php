@@ -113,14 +113,14 @@ class FrontendController extends Controller implements ShouldQueue
 
     public function registration()
     {
-        $datas = Category::get()->groupBy('type');
+        $datas = Category::where('is_active', '1')->get()->groupBy('type');
         // dd($datas);
         return view('frontend.registration', compact('datas'));
     }
 
     public function registration_form()
     {
-        $categories = Category::get()->groupBy('type');
+        $categories = Category::where('is_active', '1')->get()->groupBy('type');
         $addons = Addon::all();
         $associations = Association::all();
 

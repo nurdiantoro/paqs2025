@@ -24,8 +24,8 @@ class TicketResource extends Resource
                 TextInput::make('barcode')->readOnly(),
                 TextInput::make('name')->readOnly(),
                 TextInput::make('email')->readOnly(),
-                TextInput::make('order.no_invoice')->readOnly(),
-                TextInput::make('used_at')->readOnly(),
+                TextInput::make('no_invoice')->readOnly(),
+                // TextInput::make('used_at')->readOnly(),
             ]);
     }
     public static function canCreate(): bool
@@ -41,13 +41,10 @@ class TicketResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\IconColumn::make('is_used')->boolean()->disabled(),
-                Tables\Columns\TextColumn::make('used_at'),
+                // Tables\Columns\TextColumn::make('used_at'),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('order.no_invoice')
-                    ->searchable()
-                    ->sortable()
-                    ->label('No Invoice'),
+                Tables\Columns\TextColumn::make('no_invoice'),
             ])
             ->defaultSort('created_at', 'desc')
             ->defaultPaginationPageOption(50)
@@ -77,7 +74,7 @@ class TicketResource extends Resource
         return [
             'index' => Pages\ListTickets::route('/'),
             // 'create' => Pages\CreateTicket::route('/create'),
-            'edit' => Pages\EditTicket::route('/{record}/edit'),
+            // 'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }
 }

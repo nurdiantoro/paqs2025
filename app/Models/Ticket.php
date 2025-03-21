@@ -11,15 +11,16 @@ class Ticket extends Model
 
     protected static function booted()
     {
-        static::updated(function ($ticket) {
-            // $order->isDirty('payment_status' => ada perubahan di field payment_status
-            // $order->payment_status === 'paid' => perubahan di field payment_status adalah paid
-            if ($ticket->isDirty('is_used') && $ticket->is_used = 'true') {
-                Ticket::where('id', $ticket->id)->update([
-                    'used_at' => now(),
-                ]);
-            }
-        });
+        // static::updated(function ($ticket) {
+        //     // $order->isDirty('payment_status' => ada perubahan di field payment_status
+        //     // $order->payment_status === 'paid' => perubahan di field payment_status adalah paid
+
+        //     if ($ticket->isDirty('is_used') && $ticket->is_used = 'true') {
+        //         Ticket::where('id', $ticket->id)->update([
+        //             'used_at' => now(),
+        //         ]);
+        //     }
+        // });
     }
 
     public function order(): BelongsTo

@@ -35,11 +35,13 @@ class Order extends Model implements ShouldQueue
         return $this->hasMany(Ticket::class);
     }
 
+    // Pembuatan Ticket Otomatis ketika sudah paid
     protected static function booted()
     {
         static::updated(function ($order) {
             // $order->isDirty('payment_status' => ada perubahan di field payment_status
             // $order->payment_status === 'paid' => perubahan di field payment_status adalah paid
+
             if ($order->isDirty('updated_at')) {
                 if ($order->is_confirmed == true) {
                     Ticket::where('order_id', $order->id)->delete();
@@ -52,6 +54,7 @@ class Order extends Model implements ShouldQueue
 
                         Ticket::create([
                             'order_id' => $order->id,
+                            'no_invoice' => $order->no_invoice,
                             'barcode' => $barcode,
                             'name' => $order->full_name,
                             'email' => $order->email,
