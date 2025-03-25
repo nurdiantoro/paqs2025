@@ -21,6 +21,10 @@ class Order extends Model implements ShouldQueue
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+    public function kategori()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
     public function association()
     {
         return $this->belongsTo(Association::class, 'association_id');

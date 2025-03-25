@@ -23,8 +23,10 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
-
+use pxlrbt\FilamentExcel\Columns\Column;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class OrderResource extends Resource
 {
@@ -149,11 +151,29 @@ class OrderResource extends Resource
                 ])
             ])
             ->bulkActions([
-                ExportBulkAction::make(),
-                // BulkActionGroup::make([
-                DeleteBulkAction::make()
-                    ->visible(fn() => auth()->user()->role === 'Root'),
-                // ]),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make()
+                        ->withFilename(date('Y-m-d') . ' Data REgistrasi Paqs 2025')
+                        ->withColumns([
+                            Column::make('created_at')->heading('Date')->format('d-m-Y'),
+                            Column::make('no_invoice')->heading('Invoice Number')->format(NumberFormat::FORMAT_NUMBER),
+                            Column::make('full_name')->heading('Full Name'),
+                            Column::make('company')->heading('Company'),
+                            Column::make('address')->heading('Address'),
+                            Column::make('telephone')->heading('Telephone'),
+                            Column::make('email')->heading('Email'),
+                            Column::make('is_member')->heading('Is Member'),
+                            Column::make('association.name')->heading('Association'),
+                            Column::make('quantity')->heading('QTY'),
+                            Column::make('kategori.currency')->heading('Currency'),
+                            Column::make('total_price')->heading('Total Price'),
+                            Column::make('payment_status')->heading('Peyment Status'),
+                        ]),
+                ]),
+                // DeleteBulkAction::make()
+                //     ->visible(fn() => auth()
+                //         ->user()
+                //         ->role === 'Root'),
             ]);
     }
 
