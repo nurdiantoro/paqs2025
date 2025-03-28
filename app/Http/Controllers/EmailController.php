@@ -33,7 +33,7 @@ class EmailController extends Controller implements ShouldQueue
         $tickets = Ticket::where('order_id', $data->id)->get();
 
         $kirim = Mail::to($email)
-            ->queue(new Invoice(
+            ->send(new Invoice(
                 $data,
                 $category,
                 $addon,
@@ -79,7 +79,7 @@ class EmailController extends Controller implements ShouldQueue
         $data = Order::where('no_invoice', $no_invoice)->first();
         $tickets = Ticket::where('order_id', $data->id)->get();
         // dd($tickets);
-        Mail::to($email)->queue(new GetBarcode($data, $tickets));
+        Mail::to($email)->send(new GetBarcode($data, $tickets));
     }
     public function testGetBarcode($no_invoice)
     {
