@@ -19,69 +19,78 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
 
-        // Generate no invoice random & unique
-        $no_invoice = date('Ymd') . rand(1000, 9999);
-        while (Order::where('no_invoice', $no_invoice)->exists()) {
+        // check apakah email memiliki order
+        $order = Order::where('email', $request->email)->first();
+        if ($order == null) {
+            // Generate no invoice random & unique
             $no_invoice = date('Ymd') . rand(1000, 9999);
-        }
+            while (Order::where('no_invoice', $no_invoice)->exists()) {
+                $no_invoice = date('Ymd') . rand(1000, 9999);
+            }
 
-        $request->validate([
-            'title' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'company' => 'required',
-            'address' => 'required',
-            'telephone' => 'required|numeric',
-            'email' => 'required|email',
-            'category' => 'required',
-            'quantity' => 'required|numeric',
-        ]);
-
-        $category = Category::find($request->category);
-        $total_price = $category->price * $request->quantity;
-
-        if ($request->association == true) {
             $request->validate([
-                'association' => 'required',
-                'member_id' => 'numeric|required',
+                'title' => 'required',
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'company' => 'required',
+                'address' => 'required',
+                'telephone' => 'required|numeric',
+                'email' => 'required|email',
+                'category' => 'required',
+                'quantity' => 'required|numeric',
             ]);
-            $association = $request->association;
-            $member_id = $request->member_id;
-        } else {
-            $association = NULL;
-            $member_id = NULL;
+
+            $category = Category::find($request->category);
+            $total_price = $category->price * $request->quantity;
+
+            if ($request->association == true) {
+                $request->validate([
+                    'association' => 'required',
+                    'member_id' => 'numeric|required',
+                ]);
+                $association = $request->association;
+                $member_id = $request->member_id;
+            } else {
+                $association = NULL;
+                $member_id = NULL;
+            }
+
+
+            // Simpan data ke database
+            Order::create(
+                [
+                    'no_invoice' => $no_invoice,
+                    'title' => ucwords($request->title),
+                    'first_name' => ucwords($request->first_name),
+                    'last_name' => ucwords($request->last_name),
+                    'full_name' => $request->first_name . ' ' . $request->last_name,
+                    'is_member' => $request->member,
+                    'member_id' => $member_id,
+                    'association_id' => $association,
+                    'company' => $request->company,
+                    'address' => $request->address,
+                    'telephone' => $request->telephone,
+                    'email' => $request->email,
+                    'category_id' => $request->category,
+                    'addon_id' => $request->add_on,
+                    'quantity' => $request->quantity,
+                    'total_price' => $total_price,
+                    'payment_status' => 'unpaid',
+                    'proof_of_payment' => $request->proof_of_payment,
+                ]
+            );
+
+            // kirim email ke user dulu, baru nanti redirect ke view invoice
+            // cek ke route /email/{no_invoice}/{email} biar lebih detail
+            return redirect(url('/email/' . $no_invoice . '/' . $request->email));
         }
 
-
-        // Simpan data ke database
-        Order::create(
-            [
-                'no_invoice' => $no_invoice,
-                'title' => ucwords($request->title),
-                'first_name' => ucwords($request->first_name),
-                'last_name' => ucwords($request->last_name),
-                'full_name' => $request->first_name . ' ' . $request->last_name,
-                'is_member' => $request->member,
-                'member_id' => $member_id,
-                'association_id' => $association,
-                'company' => $request->company,
-                'address' => $request->address,
-                'telephone' => $request->telephone,
-                'email' => $request->email,
-                'category_id' => $request->category,
-                'addon_id' => $request->add_on,
-                'quantity' => $request->quantity,
-                'total_price' => $total_price,
-                'payment_status' => 'unpaid',
-                'proof_of_payment' => $request->proof_of_payment,
-            ]
-        );
-
-        // Redirect ke halaman sukses
-        return redirect(url('/email/' . $no_invoice . '/' . $request->email));
-        // return redirect(url('/invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
+        // Jika order sudah ada
+        // akan di return ke view invoice
+        else {
+            return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
+        }
     }
 
     public function upload_payment($no_invoice, Request $request)

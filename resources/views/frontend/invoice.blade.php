@@ -7,8 +7,10 @@
     <div class="cs-container tm-consulting mt-140 min-h-screen">
         <div class="cs-invoice cs-style1">
 
+            {{-- INVOICE --}}
             <div class="cs-invoice_in " id="download_section">
 
+                {{-- INVOICE HEADER --}}
                 <div class="cs-type1 cs-mb25 flex-horizontal-center space-between">
                     <div class="cs-invoice_left">
                         <div class="cs-logo cs-mb5 tm-align-item-center flex-wrap">
@@ -32,6 +34,8 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- INVOICE BODY --}}
                 <div class="tm-border-1px cs-mb30"></div>
                 <div class="display-flex cs-mb30 flex-wrap justify-between gap-135">
                     <div class="cs-invoice_left items-center">
@@ -50,8 +54,15 @@
                                 Paid
                             </div>
                         @endif
+                    @else
+                        <div
+                            class="font-bold text-6xl text-warna-01 opacity-50 flex justify-center items-center rounded-xl">
+                            Unpaid
+                        </div>
                     @endif
                 </div>
+
+                {{-- INVOICE TABLE --}}
                 <div class="cs-table cs-style2 cs-mb50">
                     <div class="cs-round_border tm-border-radious-12">
                         <div class="cs-table_responsive">
@@ -111,6 +122,8 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- BARCODE / UPLOAD PAYMENT --}}
                 @if ($data->payment_status == 'paid')
                     @if ($data->is_confirmed == true)
                         <div class="w-full flex flex-row flex-wrap justify-center">
@@ -261,7 +274,7 @@
                         <span class="text-danger">*Max 2mb size of image</span>
                     </form>
 
-                    <!-- .cs-note -->
+                    <!-- Download button -->
                     <div class="cs-invoice_btns cs-hide_print w-full">
                         <a href="javascript:window.print()" class="cs-invoice_btn tm-bg-gray tm-border ">
                             <svg class="cs-primary_color" xmlns="http://www.w3.org/2000/svg"
@@ -294,11 +307,23 @@
                         </button>
                     </div>
 
-                    <p class="text-center mt-5 text-gray-500">
-                        Contact info@paqs2025.com for details.
-                    </p>
                 @endif
 
+                {{-- Contact --}}
+                <p class="text-center mt-5 text-gray-500">
+                    Contact info@paqs2025.com for details.
+                </p>
+
+                @if (session()->has('order_exist'))
+                    <script>
+                        Swal.fire({
+                            title: "You Already Have an Invoice!",
+                            text: "Your invoice has been created. Please verify its status. If you encounter any issues, reach out through the contact details provided below.",
+                            icon: "warning",
+                            confirmButtonColor: "#0c6196",
+                        });
+                    </script>
+                @endif
             </div>
         </div>
     </div>

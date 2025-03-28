@@ -15,6 +15,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
@@ -170,10 +171,13 @@ class OrderResource extends Resource
                             Column::make('payment_status')->heading('Peyment Status'),
                         ]),
                 ]),
-                // DeleteBulkAction::make()
-                //     ->visible(fn() => auth()
-                //         ->user()
-                //         ->role === 'Root'),
+                BulkActionGroup::make([
+
+                    DeleteBulkAction::make()
+                        ->visible(fn() => auth()
+                            ->user()
+                            ->role === 'Root'),
+                ]),
             ]);
     }
 
