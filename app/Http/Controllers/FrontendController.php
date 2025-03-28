@@ -190,7 +190,7 @@ class FrontendController extends Controller implements ShouldQueue
                     'name' => $request->name[$index],
                     'email' => $request->email[$index],
                 ]);
-                Mail::to($request->email[$index])->queue(new GetBarcodePersonal($ticket));
+                Mail::to($request->email[$index])->send(new GetBarcodePersonal($ticket));
             } else {
                 $ticket->update([
                     'name' => $request->name[$index],

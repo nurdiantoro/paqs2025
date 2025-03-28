@@ -82,7 +82,7 @@ class Order extends Model implements ShouldQueue
 
                     $data = Order::where('no_invoice', $order->no_invoice)->first();
                     $tickets = Ticket::where('order_id', $data->id)->get();
-                    Mail::to($data->email)->queue(new GetBarcode($data, $tickets));
+                    Mail::to($data->email)->send(new GetBarcode($data, $tickets));
                 } elseif ($order->is_confirmed == false) {
                     Ticket::where('order_id', $order->id)->delete();
                 }
