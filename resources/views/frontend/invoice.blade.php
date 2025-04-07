@@ -327,6 +327,22 @@
             </div>
         </div>
     </div>
+
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                title: 'Upload Failed!',
+                html: `
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            `,
+                icon: 'error',
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#032337',
+            })
+        </script>
+    @endif
 </main>
 <!-- main-area-end -->
 <!-- footer -->

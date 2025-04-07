@@ -95,9 +95,15 @@ class OrderController extends Controller
 
     public function upload_payment($no_invoice, Request $request)
     {
-        $request->validate([
-            'proof_of_payment' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        $request->validate(
+            [
+                'proof_of_payment' => 'required|mimes:jpeg,png,jpg|max:2048',
+            ],
+            [
+                'proof_of_payment.mimes' => 'File format must be .jpeg .png or .jpg',
+                'proof_of_payment.max' => 'File size must be less than 2MB',
+            ]
+        );
 
         // Upload bukti pembayaran
         $file = $request->file('proof_of_payment');
