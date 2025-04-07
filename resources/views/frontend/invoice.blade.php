@@ -332,11 +332,7 @@
         <script>
             Swal.fire({
                 title: 'Upload Failed!',
-                html: `
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            `,
+                text: 'The file must be in .png or .jpg format, with a maximum size of 2MB.',
                 icon: 'error',
                 confirmButtonText: 'Close',
                 confirmButtonColor: '#032337',
