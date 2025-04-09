@@ -66,7 +66,7 @@
                     <ul class="text-slate-700 mb-3">
                         <li><span class="font-bold">📍 Conference Venue:</span> Hotel Raffles Jakarta</li>
                         <li><span class="font-bold">📆 Conference Dates:</span> 25-26 August 2025</li>
-                        <li><span class="font-bold">📝 Paper Submission Deadline:</span> April 2025</li>
+                        <li><span class="font-bold">📝 Paper Submission Deadline:</span> 15 June 2025</li>
                     </ul>
                     <p class="text-slate-700 mb-3">
                         For full submission guidelines and to submit your paper, please visit:
