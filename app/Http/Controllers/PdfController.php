@@ -7,14 +7,12 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Ticket;
 use Barryvdh\DomPDF\Facade\Pdf;
-// use function Spatie\LaravelPdf\Support\pdf;
-
-use Illuminate\Http\Request;
 
 class PdfController extends Controller
 {
     public function index()
     {
+        // Percobaan doang
         $pdf = Pdf::loadView('frontend.about');
         return $pdf->download('invoice.pdf');
     }
@@ -32,18 +30,24 @@ class PdfController extends Controller
         }
         $total_price = $total_category + $total_addon;
         $tickets = Ticket::where('order_id', $data->id)->get();
-        // $logo = base64_encode('https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png');
         $logo = base64_encode(file_get_contents('https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png'));
 
+        $pdf = Pdf::loadView('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'))
+            ->setOption('fontDir', storage_path('/fonts/inter'));
+        return $pdf->download('Receipt #' . $data->no_invoice . '.pdf');
+    }
 
+    public function receipt_unpaid($no_invoice)
+    {
+        $data = Order::where('no_invoice', $no_invoice)->first();
+        $category = Category::where('id', $data->category_id)->first();
+        $tickets = Ticket::where('order_id', $data->id)->get();
+        $logo = base64_encode(file_get_contents('https://paqs2025.com/img/LOGO%20PAQS%20CONGRESS.png'));
 
-        // return view('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'));
+        $pdf = Pdf::loadView('frontend.pdf.receipt', compact('data', 'category', 'logo'));
+        return $pdf->download('Receipt #' . $data->no_invoice . '.pdf');
 
-        $pdf = Pdf::loadView('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'));
-        return $pdf->download('Receipt - #' . $data->no_invoice . '.pdf');
-
-        // return pdf()
-        //     ->view('frontend.pdf.receipt', compact('data', 'category', 'total_category', 'total_addon', 'total_price', 'addon', 'tickets', 'logo'))
-        //     ->name('Receipt #' . $data->no_invoice . ' - ' . date_format($data->created_at, 'd F Y') . '.pdf');
+        // test view, nonaktifkan jika production
+        // return view('frontend.pdf.receipt', compact('data', 'category', 'logo'));
     }
 }

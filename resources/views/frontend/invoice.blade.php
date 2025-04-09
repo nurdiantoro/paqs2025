@@ -27,7 +27,17 @@
                                     <p class="cs-mb0 cs-f14">
                                         Date: {{ date_format($data->created_at, 'd F Y') }} <br>
                                     </p>
-                                    <p>Status: {{ $data->payment_status }}</p>
+                                    <p>Status:
+                                        @if ($data->payment_status == 'paid')
+                                            @if ($data->is_confirmed == true)
+                                                Paid
+                                            @else
+                                                waiting for confirmation
+                                            @endif
+                                        @else
+                                            Unpaid
+                                        @endif
+                                    </p>
 
                                 </div>
                             </div>
@@ -124,7 +134,67 @@
                 </div>
 
                 {{-- BARCODE / UPLOAD PAYMENT --}}
-                @if ($data->payment_status == 'paid')
+                @if ($data->payment_status == 'unpaid')
+                    <div class="cs-note_right relative">
+                        <table class="border-none">
+                            <tr>
+                                <td class="border-none py-0">Contact</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">info@paqs2025.com for details.</td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">Payment method</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">Bank Transfer.</td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">Bank Name</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">BCA Cab. Andalas Kota Makassar</td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">Beneficiary</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">PT Debindo Mega Promo</td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">Account Number</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">1589766766</td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0">SWIFT Code</td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">CENAIDJA or CENAIDJAXXX</td>
+                            </tr>
+                            <tr>
+                                <td class="border-none py-0"><strong>Important</strong></td>
+                                <td class="border-none py-0">:</td>
+                                <td class="border-none py-0">Please use your full name as the reference for your bank
+                                    transfer.</td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <form action="{{ url('/order/upload_payment/' . $data->no_invoice) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="input-group mt-8">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="validatedInputGroupCustomFile"
+                                    name="proof_of_payment" required>
+                                <label class="custom-file-label" for="validatedInputGroupCustomFile">Upload
+                                    Payment...</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="px-3 border border-gray-400 rounded-r-md bg-warna-01 text-white"
+                                    type="submit">Send</button>
+                            </div>
+                        </div>
+                        <span class="text-danger">*Max 2mb size of image</span>
+                    </form>
+                @else
                     @if ($data->is_confirmed == true)
                         <div class="w-full flex flex-row flex-wrap justify-center">
                             <?php $i = 1; ?>
@@ -213,101 +283,18 @@
                             Please wait for confirmation.
                         </p>
                     @endif
-                @else
-                    <div class="cs-note_right relative">
-                        <table class="border-none">
-                            <tr>
-                                <td class="border-none py-0">Contact</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">info@paqs2025.com for details.</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Payment method</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Bank Transfer.</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Bank Name</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">BCA Cab. Andalas Kota Makassar</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Beneficiary</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">PT Debindo Mega Promo</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Account Number</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">1589766766</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">SWIFT Code</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">CENAIDJA or CENAIDJAXXX</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0"><strong>Important</strong></td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Please use your full name as the reference for your bank
-                                    transfer.</td>
-                            </tr>
-                        </table>
 
-                    </div>
-
-                    <form action="{{ url('/order/upload_payment/' . $data->no_invoice) }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="input-group mt-8">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="validatedInputGroupCustomFile"
-                                    name="proof_of_payment" required>
-                                <label class="custom-file-label" for="validatedInputGroupCustomFile">Upload
-                                    Payment...</label>
-                            </div>
-                            <div class="input-group-append">
-                                <button class="px-3 border border-gray-400 rounded-r-md bg-warna-01 text-white"
-                                    type="submit">Send</button>
-                            </div>
-                        </div>
-                        <span class="text-danger">*Max 2mb size of image</span>
-                    </form>
-
-                    <!-- Download button -->
-                    <div class="cs-invoice_btns cs-hide_print w-full">
-                        <a href="javascript:window.print()" class="cs-invoice_btn tm-bg-gray tm-border ">
-                            <svg class="cs-primary_color" xmlns="http://www.w3.org/2000/svg"
-                                class="ionicon cs_primary_color" viewBox="0 0 512 512">
-                                <path
-                                    d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
-                                    fill="none" stroke="currentColor" stroke-linejoin="round"
-                                    stroke-width="32" />
-                                <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32"
-                                    fill="none" stroke="currentColor" stroke-linejoin="round"
-                                    stroke-width="32" />
-                                <path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24"
-                                    fill="none" stroke="currentColor" stroke-linejoin="round"
-                                    stroke-width="32" />
-                                <circle cx="392" cy="184" r="24" />
-                            </svg>
-                            <span class="cs-primary_color">Print</span>
-                        </a>
-                        <button id="download_btn" class="cs-invoice_btn bg-warna-01 text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                                <title>Download</title>
-                                <path
-                                    d="M336 176h40a40 40 0 0140 40v208a40 40 0 01-40 40H136a40 40 0 01-40-40V216a40 40 0 0140-40h40"
-                                    fill="none" stroke="currentColor" stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="32" />
-                                <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="32" d="M176 272l80 80 80-80M256 48v288" />
-                            </svg>
-                            <span>Download PDF</span>
-                        </button>
-                    </div>
 
                 @endif
+                @if ($data->is_confirmed == false)
+                    <div class="text-center mt-4">
+                        <a href="{{ url('/invoice/' . $data->no_invoice . '/pdf') }}"
+                            class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-4 py-3 hover:text-white hover:bg-warna-01 mt-6">Download
+                            Invoice</a>
+                    </div>
+                @endif
+
+
 
                 {{-- Contact --}}
                 <p class="text-center mt-5 text-gray-500">

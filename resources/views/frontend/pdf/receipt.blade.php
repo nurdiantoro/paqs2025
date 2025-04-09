@@ -2,13 +2,79 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{{ 'Receipt #' . $data->no_invoice . ' - ' . date_format($data->created_at, 'd F Y') }}</title>
+
+    {{-- fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            src: url({{ asset('fonts/inter/Inter_18pt-Black.ttf') }}) format("truetype");
+            font-weight: 100;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url({{ asset('fonts/inter/Inter_18pt-Black.ttf') }}) format("truetype");
+            font-weight: 200;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url({{ asset('fonts/inter/Inter_18pt-Black.ttf') }}) format("truetype");
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url({{ asset('fonts/inter/Inter_18pt-Black.ttf') }}) format("truetype");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url({{ asset('fonts/inter/Inter_18pt-Black.ttf') }}) format("truetype");
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url({{ asset('fonts/inter/Inter_18pt-Black.ttf') }}) format("truetype");
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url({{ asset('fonts/inter/Inter_18pt-Black.ttf') }}) format("truetype");
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url({{ asset('fonts/inter/Inter_18pt-Black.ttf') }}) format("truetype");
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
-<body style=" font-family: Inter, sans-serif">
+<body>
     <main style="font-size: 14px; color: #777777">
         <div style="">
             <div style="background-color: #fff; border-radius: 0.75rem; padding: 1.5rem">
@@ -23,28 +89,53 @@
                         <div style="margin-left: 25px">
                             <span style="margin: 0px; font-weight: 600; color: #000;">
                                 Receipt No:
-                                <Span style="margin: 0px; color: #000; font-weight: 800">#{{ $data->no_invoice }}</Span>
+                                <Span
+                                    style="margin: 0px; color: #000; font-weight: 800">#{{ $data->no_invoice }}</Span>
                             </span>
                             <div style="margin: 0px; color: #47759d">
                                 <span>
                                     Date: {{ date_format($data->created_at, 'd F Y') }} <br>
                                 </span>
-                                <span
-                                    style="margin-top: 4px; margin-left: auto; font-size: 2rem; font-weight: bold; display: block">{{ $data->payment_status }}</span>
+                                <span>
+                                    Status : @if ($data->payment_status == 'paid')
+                                        @if ($data->is_confirmed == true)
+                                            Paid
+                                        @else
+                                            waiting for confirmation
+                                        @endif
+                                    @else
+                                        Unpaid
+                                    @endif <br>
+                                </span>
 
                             </div>
                         </div>
                     </div>
 
                     <div style="height: 1px; background-color: #ececef; width: 100%; margin-bottom: 30px"></div>
-                    <div style="margin-bottom: 30px">
+                    <div
+                        style="margin-bottom: 30px; display: flex; justify-content: space-between; flex-direction: row">
                         <div>
-                            <b style="color: #000">Receipt To:</b>
+                            <b style="color: #000">Invoice To:</b>
                             <p style="color: #47759d">
                                 {{ $data->full_name }}, <br />
                                 {{ $data->address }}, <br />
                                 {{ $data->email }}
                             </p>
+                        </div>
+                        <div>
+                            <div
+                                style="font-weight: bold; font-size:3.7rem; opacity: 0.5; color: #47759d; text-transform: capitalize;">
+                                @if ($data->payment_status == 'paid')
+                                    @if ($data->is_confirmed == true)
+                                        Paid
+                                    @else
+                                        Unpaid
+                                    @endif
+                                @else
+                                    Unpaid
+                                @endif
+                            </div>
                         </div>
                     </div>
                     <div
@@ -72,25 +163,9 @@
                                         {{ $data->quantity }}
                                     </td>
                                     <td style="padding: 12px 15px; text-align: right">
-                                        {{ number_format($total_category, 0, ',', '.') }}
+                                        {{ number_format($data->total_price, 2, ',', '.') }}
                                     </td>
                                 </tr>
-                                @if ($addon != null)
-                                    <tr>
-                                        <td style="padding: 12px 15px;">
-                                            {{ $addon->name }}
-                                        </td>
-                                        <td style="padding: 12px 15px;">
-                                            {{ number_format($addon->price, 0, ',', '.') }}
-                                        </td>
-                                        <td style="padding: 12px 15px;">
-                                            {{ $data->quantity }}
-                                        </td>
-                                        <td style="padding: 12px 15px; text-align: right">
-                                            {{ number_format($total_addon, 0, ',', '.') }}
-                                        </td>
-                                    </tr>
-                                @endif
                                 <tr>
                                     <td style="padding: 12px 15px;">
                                         Total
@@ -99,7 +174,7 @@
                                     <td style="padding: 12px 15px;"></td>
                                     <td
                                         style="padding: 12px 15px; text-align: right; font-weight: 600; text-wrap: nowrap;">
-                                        {{ $category->currency . ' ' . number_format($total_price, 0, ',', '.') }}
+                                        {{ $category->currency . ' ' . number_format($data->total_price, 2, ',', '.') }}
                                     </td>
                                 </tr>
                             </tbody>
