@@ -261,7 +261,7 @@
         </div>
     </section>
 
-    <section class="mb-10">
+    <section class="mt-120 mb-120 ">
         <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Glimpse from our
             last session </div>
 
@@ -282,6 +282,16 @@
             </div>
             <?php } ?>
         </div> --}}
+    </section>
+
+    <section class="mb-10">
+        <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Guide to Register
+            Paqs 2025 </div>
+
+        <iframe width="600" height="350" src="https://www.youtube.com/embed/HE9MGjqQYas?si=j4LPaCrBq974h4te"
+            title="Guide to Register Paqs 2025" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen class="mx-auto rounded-xl"></iframe>
     </section>
 
 </main>

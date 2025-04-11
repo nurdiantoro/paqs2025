@@ -36,6 +36,7 @@ Route::get('/email/{no_invoice}/{email}', [EmailController::class, 'sendEmail'])
 
 // PDF
 Route::get('/invoice/{no_invoice}/pdf', [PdfController::class, 'receipt']);
+Route::get('/invoice/{no_invoice}/pdf_unpaid', [PdfController::class, 'receipt_unpaid']);
 
 // Tickets
 Route::prefix('dashboard')->middleware(['auth'])->group(
