@@ -292,7 +292,7 @@
             title="Guide to Register Paqs 2025" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
-            class="mx-auto rounded-xl w-full aspect-video lg:w-1/2"></iframe>
+            class="mx-auto rounded-xl w-full aspect-video lg:w-1/3"></iframe>
     </section>
 
 </main>
