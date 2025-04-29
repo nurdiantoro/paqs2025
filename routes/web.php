@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,14 @@ Route::prefix('dashboard')->middleware(['auth'])->group(
     function () {
         Route::get('/scan_ticket', [TicketController::class, 'index']);
         Route::post('/scan_ticket/store', [TicketController::class, 'store']);
+    }
+);
+
+Route::prefix('espay')->group(
+    function () {
+        Route::get('/index', [PaymentController::class, 'index'])->name('payment.index');
+        Route::post('/initiatePayment', [PaymentController::class, 'initiatePayment'])->name('payment.initiate');
+        Route::get('/callback', [PaymentController::class, 'callback'])->name('payment.callback');
     }
 );
 

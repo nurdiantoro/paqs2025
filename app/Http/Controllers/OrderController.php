@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -20,77 +23,110 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-        // check apakah email memiliki order
+        // Cek apakah sudah pernah order
         $order = Order::where('email', $request->email)->first();
-        if ($order == null) {
-            // Generate no invoice random & unique
+        // if ($order != null) {
+        //     return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
+        // }
+
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'company' => 'required',
+            'address' => 'required',
+            'telephone' => 'required|numeric',
+            'email' => 'required|email',
+            'category' => 'required',
+            'quantity' => 'required|numeric',
+            'association' => 'nullable|numeric',
+            'member_id' => 'nullable|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Generate invoice unik
+        $no_invoice = date('Ymd') . rand(1000, 9999);
+        while (Order::where('no_invoice', $no_invoice)->exists()) {
             $no_invoice = date('Ymd') . rand(1000, 9999);
-            while (Order::where('no_invoice', $no_invoice)->exists()) {
-                $no_invoice = date('Ymd') . rand(1000, 9999);
-            }
-
-            $request->validate([
-                'title' => 'required',
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'company' => 'required',
-                'address' => 'required',
-                'telephone' => 'required|numeric',
-                'email' => 'required|email',
-                'category' => 'required',
-                'quantity' => 'required|numeric',
-            ]);
-
-            $category = Category::find($request->category);
-            $total_price = $category->price * $request->quantity;
-
-            if ($request->association == true) {
-                $request->validate([
-                    'association' => 'required',
-                    'member_id' => 'numeric|required',
-                ]);
-                $association = $request->association;
-                $member_id = $request->member_id;
-            } else {
-                $association = NULL;
-                $member_id = NULL;
-            }
-
-
-            // Simpan data ke database
-            Order::create(
-                [
-                    'no_invoice' => $no_invoice,
-                    'title' => ucwords($request->title),
-                    'first_name' => ucwords($request->first_name),
-                    'last_name' => ucwords($request->last_name),
-                    'full_name' => $request->first_name . ' ' . $request->last_name,
-                    'is_member' => $request->member,
-                    'member_id' => $member_id,
-                    'association_id' => $association,
-                    'company' => $request->company,
-                    'address' => $request->address,
-                    'telephone' => $request->telephone,
-                    'email' => $request->email,
-                    'category_id' => $request->category,
-                    'addon_id' => $request->add_on,
-                    'quantity' => $request->quantity,
-                    'total_price' => $total_price,
-                    'payment_status' => 'unpaid',
-                    'proof_of_payment' => $request->proof_of_payment,
-                ]
-            );
-
-            // kirim email ke user dulu, baru nanti redirect ke view invoice
-            // cek ke route /email/{no_invoice}/{email} biar lebih detail
-            return redirect(url('/email/' . $no_invoice . '/' . $request->email));
         }
 
-        // Jika order sudah ada
-        // akan di return ke view invoice
-        else {
-            return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
+        $category = Category::find($request->category);
+        $total_price = $category->price * $request->quantity;
+
+        // Simpan ke database
+        $order = Order::create([
+            'no_invoice' => $no_invoice,
+            'title' => ucwords($request->title),
+            'first_name' => ucwords($request->first_name),
+            'last_name' => ucwords($request->last_name),
+            'full_name' => $request->first_name . ' ' . $request->last_name,
+            'is_member' => $request->member,
+            'member_id' => $request->member_id ?? null,
+            'association_id' => $request->association ?? null,
+            'company' => $request->company,
+            'address' => $request->address,
+            'telephone' => $request->telephone,
+            'email' => $request->email,
+            'category_id' => $request->category,
+            'addon_id' => $request->add_on ?? null,
+            'quantity' => $request->quantity,
+            'total_price' => $total_price,
+            'payment_status' => 'unpaid',
+            'proof_of_payment' => $request->proof_of_payment ?? null,
+        ]);
+
+        // =============================
+        // === Integrasi ke ESPAY ===
+        // =============================
+
+        $body = [
+            'amount' => $total_price,
+            'invoice' => $no_invoice,
+            'merchantCode' => env('ESPAY_MERCHANT_CODE'),
+            'product' => 'Tiket Event',
+            'paymentExpired' => now()->addHours(2)->format('Y-m-d\TH:i:s'),
+            'description' => 'Pembayaran Tiket Seminar/Event',
+        ];
+
+        $timestamp = now()->toIso8601String();
+        $stringToSign = "POST:/api/v1.0/qr/qr-mpm-generate:" . strtolower(sha1(json_encode($body))) . ":$timestamp";
+
+        $privateKeyPath = storage_path('keys/private.pem');
+
+        if (!file_exists($privateKeyPath)) {
+            return redirect()->back()->with('error', 'Private key untuk Espay tidak ditemukan.');
         }
+
+        $privateKey = file_get_contents($privateKeyPath);
+        openssl_sign($stringToSign, $signature, $privateKey, OPENSSL_ALGO_SHA256);
+        $base64Signature = base64_encode($signature);
+
+        // Kirim ke API Espay
+        $response = Http::withHeaders([
+            'X-SIGNATURE' => $base64Signature,
+            'X-TIMESTAMP' => $timestamp,
+            'Content-Type' => 'application/json',
+        ])->post(env('ESPAY_BASE_URL') . '/api/v1.0/qr/qr-mpm-generate', $body);
+
+        $espayResponse = $response->json();
+
+        // Log untuk debugging
+        Log::info('Espay Response:', $espayResponse ?? []);
+
+        $order->update([
+            'espay_signature' => $base64Signature,
+            'espay_response' => $espayResponse,
+            'espay_status' => isset($espayResponse['responseCode']) && $espayResponse['responseCode'] === '00' ? 'pending' : 'failed',
+            'espay_invoice_id' => $no_invoice,
+            'espay_payment_url' => $espayResponse['data']['qrUrl'] ?? null,
+        ]);
+
+        // Redirect ke halaman invoice/email
+        return redirect(url('/email/' . $no_invoice . '/' . $request->email));
     }
 
     public function upload_payment($no_invoice, Request $request)
