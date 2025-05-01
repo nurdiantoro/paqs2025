@@ -18,9 +18,15 @@ class PaymentController extends Controller
     {
         $orderId = 'INV' . time();
         $amount = number_format(150000, 2, '.', '');
+        // $timestamp = '2023-08-31T07:49:28+07:00';
         $timestamp = now()->format('Y-m-d\TH:i:sP');
         $externalId = uniqid();
         $callbackUrl = route('payment.callback');
+        $relativeUrl = 'https://sandbox-api.espay.id/apimerchant/v1.0/debit/payment-host-to-host';
+        $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
+        $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
+
+        // dd($privateKey);
 
         $body = [
             'partnerReferenceNo' => $orderId,
@@ -38,8 +44,8 @@ class PaymentController extends Controller
             'validUpTo' => now()->addHours(2)->format('Y-m-d\TH:i:sP'),
             'pointOfInitiation' => 'Website',
             'payOptionDetails' => [
-                'payMethod' => '014',
-                'payOption' => 'BCAATM',
+                'payMethod' => '008',
+                'payOption' => 'CREDITCARD',
                 'transAmount' => [
                     'value' => $amount,
                     'currency' => 'IDR',
@@ -58,18 +64,30 @@ class PaymentController extends Controller
                 'balanceType' => 'CASH',
             ],
         ];
+        dd($body);
 
-        $stringToSign = 'POST:' . env('ESPAY_BASE_URL') . ':' . strtolower(sha1(json_encode($body))) . ':' . $timestamp;
-        $privateKey = file_get_contents(storage_path('keys/private.pem'));
+        $minifiedJson = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        $sha256Hash  = hash('sha256', $minifiedJson);
+        $hexLowercase = strtolower($sha256Hash);
+        // dd($hexLowercase);
+
+        $stringToSign = 'POST:' . $relativeUrl . ':' . $hexLowercase . ':' . $timestamp;
         openssl_sign($stringToSign, $signature, $privateKey, OPENSSL_ALGO_SHA256);
-        $base64Signature = base64_encode($signature);
+        $x_signature  = base64_encode($signature);
+        // dd($stringToSign);
 
-        // dd($base64Signature);
+        // decode =======================================================================
+        $x_signature_decode  = base64_decode($x_signature);
+        $verificationResult = openssl_verify($stringToSign, $x_signature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+
+        // dd($x_signature);
+
+        dd([$minifiedJson, $stringToSign, $privateKey, $x_signature, $verificationResult]);
 
         $headers = [
             'Content-Type' => 'application/json',
             'X-TIMESTAMP' => $timestamp,
-            'X-SIGNATURE' => $base64Signature,
+            'X-SIGNATURE' => $x_signature,
             'X-EXTERNAL-ID' => $externalId,
             'X-PARTNER-ID' => env('ESPAY_MERCHANT_CODE'),
             'CHANNEL-ID' => 'ESPAY',
@@ -77,7 +95,8 @@ class PaymentController extends Controller
 
         // dd($headers);
 
-        $response = Http::withHeaders($headers)->post(env('ESPAY_BASE_URL'), $body);
+        $response = Http::withHeaders($headers)->post($relativeUrl, $body);
+        // $response = Http::withHeaders($headers)->post(env('ESPAY_BASE_URL'), $body);
 
         dd($response);
 
