@@ -16,9 +16,9 @@ class PaymentController extends Controller
 
     public function initiatePayment()
     {
+        // return 'test';
         $orderId = 'INV' . time();
         $amount = number_format(150000, 2, '.', '');
-        // $timestamp = '2023-08-31T07:49:28+07:00';
         $timestamp = now()->format('Y-m-d\TH:i:sP');
         $externalId = uniqid();
         $callbackUrl = route('payment.callback');
@@ -64,7 +64,7 @@ class PaymentController extends Controller
                 'balanceType' => 'CASH',
             ],
         ];
-        dd($body);
+        // dd($body);
 
         $minifiedJson = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         $sha256Hash  = hash('sha256', $minifiedJson);
@@ -82,7 +82,7 @@ class PaymentController extends Controller
 
         // dd($x_signature);
 
-        dd([$minifiedJson, $stringToSign, $privateKey, $x_signature, $verificationResult]);
+        // dd([$minifiedJson, $stringToSign, $privateKey, $x_signature, $verificationResult]);
 
         $headers = [
             'Content-Type' => 'application/json',
