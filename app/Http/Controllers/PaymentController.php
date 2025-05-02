@@ -16,18 +16,21 @@ class PaymentController extends Controller
 
     public function initiatePayment()
     {
-        // return 'test';
         $orderId = 'INV' . time();
-        $amount = number_format(150000, 2, '.', '');
         $timestamp = now()->format('Y-m-d\TH:i:sP');
         $externalId = uniqid();
+        // $orderId = 'INV1746118133';
+        // $timestamp = '2025-05-01T23:49:22+07:00';
+        // $externalId = '6b13fe32-0a63-4af2-911b-e6c9a0f9c7f4';
+        $amount = number_format(150000, 2, '.', '');
         $callbackUrl = route('payment.callback');
-        $relativeUrl = 'https://sandbox-api.espay.id/apimerchant/v1.0/debit/payment-host-to-host';
+        $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
 
-        // dd($privateKey);
+        // dd($externalId);
 
+        // Body v.1.0 =======================================================================
         $body = [
             'partnerReferenceNo' => $orderId,
             'merchantId' => env('ESPAY_MERCHANT_CODE'),
@@ -42,7 +45,7 @@ class PaymentController extends Controller
                 'isDeeplink' => 'N',
             ],
             'validUpTo' => now()->addHours(2)->format('Y-m-d\TH:i:sP'),
-            'pointOfInitiation' => 'Website',
+            'pointOfInitiation' => 'Web',
             'payOptionDetails' => [
                 'payMethod' => '008',
                 'payOption' => 'CREDITCARD',
@@ -66,39 +69,54 @@ class PaymentController extends Controller
         ];
         // dd($body);
 
+        // Signature v.1.0 =======================================================================
         $minifiedJson = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         $sha256Hash  = hash('sha256', $minifiedJson);
         $hexLowercase = strtolower($sha256Hash);
         // dd($hexLowercase);
 
-        $stringToSign = 'POST:' . $relativeUrl . ':' . $hexLowercase . ':' . $timestamp;
+        $stringToSign = 'POST:' . $relativeUrl . ':' . $sha256Hash . ':' . $timestamp;
         openssl_sign($stringToSign, $signature, $privateKey, OPENSSL_ALGO_SHA256);
-        $x_signature  = base64_encode($signature);
+        $xSignature  = base64_encode($signature);
         // dd($stringToSign);
 
-        // decode =======================================================================
-        $x_signature_decode  = base64_decode($x_signature);
-        $verificationResult = openssl_verify($stringToSign, $x_signature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+        // $xSignature = 'gLEzw6GN7mHTs8K4RIEol6zwe+FghvHUdHDDtWLAcX10uhRbsdCjoMZjKAVetmYcSYciQO4b9EqK9gEEcfKCecMZ9vviIipWuT9gio8JoOCzbIW+NQjFs7FDSWs1xdClJOjHG5WHrSIDP/fxPlaZe+M0c8qk9vMwbHUfWL8PdAE/tqjU0taYVWoii8dOBEc9UjjvdjYTvJ+L8916+xDcngTNGDvb8Ks64o5vCJzI7Pn6NVhN219RNvM3D/APBRdq8wvToqr1kjnz6+DjqlleeBhr4hji5Gz63MCKCdZ/5bk9P0Mq2LG3OsAN/xahr64i+nh6G1da7tSh15Bwy0i8Xg==';
 
-        // dd($x_signature);
+        // decode
+        $xSignature_decode  = base64_decode($xSignature);
+        $verificationResult = openssl_verify($stringToSign, $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
 
-        // dd([$minifiedJson, $stringToSign, $privateKey, $x_signature, $verificationResult]);
 
+        // dd($xSignature);
+
+        // Headers =======================================================================
         $headers = [
             'Content-Type' => 'application/json',
             'X-TIMESTAMP' => $timestamp,
-            'X-SIGNATURE' => $x_signature,
+            'X-SIGNATURE' => $xSignature,
             'X-EXTERNAL-ID' => $externalId,
             'X-PARTNER-ID' => env('ESPAY_MERCHANT_CODE'),
             'CHANNEL-ID' => 'ESPAY',
         ];
 
-        // dd($headers);
+        dump((
+            [
+                $externalId,
+                $relativeUrl,
+                $timestamp,
+                $headers,
+                $body,
+                $minifiedJson,
+                $stringToSign,
+                $xSignature,
+                $verificationResult,
+            ]
+        ));
 
-        $response = Http::withHeaders($headers)->post($relativeUrl, $body);
-        // $response = Http::withHeaders($headers)->post(env('ESPAY_BASE_URL'), $body);
 
-        dd($response);
+        $response = Http::withHeaders($headers)->post('https://sandbox-api.espay.id' . $relativeUrl, $body);
+
+        dd($response->body());
 
         if ($response->successful()) {
             return 'berhasil';
