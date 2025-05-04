@@ -16,12 +16,9 @@ class PaymentController extends Controller
 
     public function initiatePayment()
     {
-        $orderId = 'INV' . time();
         $timestamp = now()->format('Y-m-d\TH:i:sP');
-        $externalId = uniqid();
-        // $orderId = 'INV1746118133';
-        // $timestamp = '2025-05-01T23:49:22+07:00';
-        // $externalId = '6b13fe32-0a63-4af2-911b-e6c9a0f9c7f4';
+        $externalId = 'INV' . time();
+        // $externalId = 'INV1746195322';
         $amount = number_format(150000, 2, '.', '');
         $callbackUrl = route('payment.callback');
         $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
@@ -32,7 +29,7 @@ class PaymentController extends Controller
 
         // Body v.1.0 =======================================================================
         $body = [
-            'partnerReferenceNo' => $orderId,
+            'partnerReferenceNo' => $externalId,
             'merchantId' => env('ESPAY_MERCHANT_CODE'),
             'subMerchantId' => env('ESPAY_API_KEY'),
             'amount' => [
@@ -63,7 +60,7 @@ class PaymentController extends Controller
                 'userName' => 'Nama Pelanggan',
                 'userEmail' => 'email@pelanggan.com',
                 'userPhone' => '081234567890',
-                'productCode' => 'OVOLINK',
+                'productCode' => 'CREDITCARD',
                 'balanceType' => 'CASH',
             ],
         ];
@@ -73,7 +70,7 @@ class PaymentController extends Controller
         $minifiedJson = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         $sha256Hash  = hash('sha256', $minifiedJson);
         $hexLowercase = strtolower($sha256Hash);
-        // dd($hexLowercase);
+        // dd([$sha256Hash, $hexLowercase]);
 
         $stringToSign = 'POST:' . $relativeUrl . ':' . $sha256Hash . ':' . $timestamp;
         openssl_sign($stringToSign, $signature, $privateKey, OPENSSL_ALGO_SHA256);
@@ -131,4 +128,6 @@ class PaymentController extends Controller
             return back()->withErrors(['message' => 'Terjadi kesalahan saat memproses pembayaran.']);
         }
     }
+
+    public function callback() {}
 }
