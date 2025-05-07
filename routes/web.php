@@ -56,6 +56,7 @@ Route::prefix('espay')->group(
 );
 
 Route::post('/v1.0/transfer-va/inquiry', [PaymentController::class, 'inquiry']);
+Route::post('/v1.0/transfer-va/payment', [PaymentController::class, 'payment'])->name('payment.payment');
 
 // Matiin kalo udah production
 // Route::get('/barcode/{no_invoice}', [EmailController::class, 'testGetBarcode']);
