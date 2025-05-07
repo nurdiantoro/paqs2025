@@ -21,10 +21,10 @@ class PaymentController extends Controller
         // $externalId = 'INV1746195322';
         $amount = number_format(150000, 2, '.', '');
         $callbackUrl = route('payment.payment');
-        $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
+        $relativeUrl = env('ESPAY_HOSTTOHOST_RELATIVE_URL');
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
-        $url = env('ESPAY_BASE_URL');
+        $url = env('ESPAY_HOSTTOHOST_URL');
 
         // Body v.1.0 =======================================================================
         $body = [
@@ -112,7 +112,7 @@ class PaymentController extends Controller
 
         $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
 
-        dump($response->body());
+        dd($response->body());
 
         if ($response->successful()) {
             $responseData = $response->json();
