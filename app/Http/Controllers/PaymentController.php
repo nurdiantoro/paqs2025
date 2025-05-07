@@ -14,17 +14,32 @@ class PaymentController extends Controller
         return view('payment.index');
     }
 
+    function generateEspaySignature(array $body, string $relativeUrl, string $timestamp, $privateKey): array
+    {
+        $minifiedJson = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        $sha256Hash  = hash('sha256', $minifiedJson);
+        $stringToSign = 'POST:' . $relativeUrl . ':' . $sha256Hash . ':' . $timestamp;
+        openssl_sign($stringToSign, $signature, $privateKey, OPENSSL_ALGO_SHA256);
+        $xSignature = base64_encode($signature);
+
+        return [
+            'minifiedJson' => $minifiedJson,
+            'stringToSign' => $stringToSign,
+            'xSignature' => $xSignature,
+        ];
+    }
+
     public function initiatePayment()
     {
         $timestamp = now()->format('Y-m-d\TH:i:sP');
         $externalId = 'INV' . time();
         // $externalId = 'INV1746195322';
         $amount = number_format(150000, 2, '.', '');
-        $callbackUrl = route('payment.payment');
-        $relativeUrl = env('ESPAY_HOSTTOHOST_RELATIVE_URL');
+        $callbackUrl = route('payment.inquiry');
+        $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
-        $url = env('ESPAY_HOSTTOHOST_URL');
+        $url = env('ESPAY_BASE_URL');
 
         // Body v.1.0 =======================================================================
         $body = [
@@ -63,24 +78,12 @@ class PaymentController extends Controller
                 'balanceType' => 'CASH',
             ],
         ];
-        // dd($body);
 
-        // Signature v.1.0 =======================================================================
-        $minifiedJson = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        $sha256Hash  = hash('sha256', $minifiedJson);
-        $hexLowercase = strtolower($sha256Hash);
-        // dd([$sha256Hash, $hexLowercase]);
-
-        $stringToSign = 'POST:' . $relativeUrl . ':' . $sha256Hash . ':' . $timestamp;
-        openssl_sign($stringToSign, $signature, $privateKey, OPENSSL_ALGO_SHA256);
-        $xSignature  = base64_encode($signature);
-        // dd($stringToSign);
-
-        // $xSignature = 'gLEzw6GN7mHTs8K4RIEol6zwe+FghvHUdHDDtWLAcX10uhRbsdCjoMZjKAVetmYcSYciQO4b9EqK9gEEcfKCecMZ9vviIipWuT9gio8JoOCzbIW+NQjFs7FDSWs1xdClJOjHG5WHrSIDP/fxPlaZe+M0c8qk9vMwbHUfWL8PdAE/tqjU0taYVWoii8dOBEc9UjjvdjYTvJ+L8916+xDcngTNGDvb8Ks64o5vCJzI7Pn6NVhN219RNvM3D/APBRdq8wvToqr1kjnz6+DjqlleeBhr4hji5Gz63MCKCdZ/5bk9P0Mq2LG3OsAN/xahr64i+nh6G1da7tSh15Bwy0i8Xg==';
+        $signatureData = $this->generateEspaySignature($body, $relativeUrl, $timestamp, $privateKey);
 
         // decode
-        $xSignature_decode  = base64_decode($xSignature);
-        $verificationResult = openssl_verify($stringToSign, $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+        $xSignature_decode  = base64_decode($signatureData['xSignature']);
+        $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
 
 
         // dd($xSignature);
@@ -89,7 +92,7 @@ class PaymentController extends Controller
         $headers = [
             'Content-Type' => 'application/json',
             'X-TIMESTAMP' => $timestamp,
-            'X-SIGNATURE' => $xSignature,
+            'X-SIGNATURE' => $signatureData['xSignature'],
             'X-EXTERNAL-ID' => $externalId,
             'X-PARTNER-ID' => env('ESPAY_MERCHANT_CODE'),
             'CHANNEL-ID' => 'ESPAY',
@@ -102,9 +105,9 @@ class PaymentController extends Controller
                 $timestamp,
                 $headers,
                 $body,
-                $minifiedJson,
-                $stringToSign,
-                $xSignature,
+                $signatureData['minifiedJson'],
+                $signatureData['stringToSign'],
+                $signatureData['xSignature'],
                 $verificationResult,
             ]
         ));
@@ -112,7 +115,7 @@ class PaymentController extends Controller
 
         $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
 
-        dd($response->body());
+        // dd($response->body());
 
         if ($response->successful()) {
             $responseData = $response->json();
@@ -126,7 +129,40 @@ class PaymentController extends Controller
         }
     }
 
-    public function callback() {}
+
+    public function inquiry(Request $request)
+    {
+        $body = [
+            'partnerServiceId' => ' ESPAY',
+            'customerNo' => env('ESPAY_MERCHANT_CODE'),
+            'virtualAccountNo' => $request->query('partnerReferenceNo'),
+            'trxDateInit' => $request->header('X-TIMESTAMP'),
+            'inquiryRequestId' => uniqid(),
+        ];
+
+        $headers = [
+            'Content-Type' => 'application/json',
+            'X-TIMESTAMP' => $request->header('X-TIMESTAMP'),
+            'X-SIGNATURE' => $request->header('X-SIGNATURE'),
+            'X-EXTERNAL-ID' => $request->header('X-EXTERNAL-ID'),
+            'X-PARTNER-ID' => $request->header('X-PARTNER-ID'),
+            'CHANNEL-ID' => 'ESPAY',
+        ];
+
+        Http::withHeaders($headers)->post(route('payment.inquiry'), $body);
+
+        // if ($response->successful()) {
+        //     $responseData = $response->json();
+        //     dump($responseData);
+        //     return view('payment.status', ['status' => $responseData]);
+        // } else {
+        //     Log::error('Espay Inquiry Error', [
+        //         'response_body' => $response->body(),
+        //         'status' => $response->status(),
+        //     ]);
+        //     return back()->withErrors(['message' => 'Terjadi kesalahan saat memproses inquiry.']);
+        // }
+    }
 
     public function payment(Request $request)
     {
