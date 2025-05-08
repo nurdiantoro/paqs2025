@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EspayResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -132,36 +133,23 @@ class PaymentController extends Controller
 
     public function inquiry(Request $request)
     {
-        $body = [
-            'partnerServiceId' => ' ESPAY',
-            'customerNo' => env('ESPAY_MERCHANT_CODE'),
-            'virtualAccountNo' => $request->query('partnerReferenceNo'),
-            'trxDateInit' => $request->header('X-TIMESTAMP'),
-            'inquiryRequestId' => uniqid(),
+        $paymentId     = $request->query('paymentId');
+        $paymentAmount = $request->query('paymentAmount');
+        $commCode      = $request->query('commCode');
+        $bankCode      = $request->query('bankCode');
+        $productCode   = $request->query('productCode');
+
+
+        $responseData = [
+            'paymentId' => $paymentId,
+            'paymentAmount' => $paymentAmount,
+            'commCode' => $commCode,
+            'bankCode' => $bankCode,
+            'productCode' => $productCode,
         ];
 
-        $headers = [
-            'Content-Type' => 'application/json',
-            'X-TIMESTAMP' => $request->header('X-TIMESTAMP'),
-            'X-SIGNATURE' => $request->header('X-SIGNATURE'),
-            'X-EXTERNAL-ID' => $request->header('X-EXTERNAL-ID'),
-            'X-PARTNER-ID' => $request->header('X-PARTNER-ID'),
-            'CHANNEL-ID' => 'ESPAY',
-        ];
-
-        Http::withHeaders($headers)->post(route('payment.inquiry'), $body);
-
-        // if ($response->successful()) {
-        //     $responseData = $response->json();
-        //     dump($responseData);
-        //     return view('payment.status', ['status' => $responseData]);
-        // } else {
-        //     Log::error('Espay Inquiry Error', [
-        //         'response_body' => $response->body(),
-        //         'status' => $response->status(),
-        //     ]);
-        //     return back()->withErrors(['message' => 'Terjadi kesalahan saat memproses inquiry.']);
-        // }
+        // Kirim data ke dalam resource
+        return new EspayResource($paymentId, $paymentAmount, $commCode, $bankCode, $productCode);
     }
 
     public function payment(Request $request)
