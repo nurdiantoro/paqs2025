@@ -10,5 +10,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('/posts', BelajarApiController::class);
+Route::apiResource('/belajar-api', BelajarApiController::class);
 Route::post('/v1.0/transfer-va/inquiry', [PaymentController::class, 'inquiry'])->name('payment.inquiry');
