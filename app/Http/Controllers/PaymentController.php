@@ -47,7 +47,7 @@ class PaymentController extends Controller
         // Body v.1.0 =======================================================================
         $body = [
             'partnerReferenceNo' => $externalId,
-            'merchantId' => config('services.espay.merchant_code'),
+            'merchantId' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
             'subMerchantId' => env('ESPAY_API_KEY', '976846332bc02b07add6e4ed7c2abe71'),
             'amount' => [
                 'value' => $amount,
@@ -97,7 +97,7 @@ class PaymentController extends Controller
             'X-TIMESTAMP' => $timestamp,
             'X-SIGNATURE' => $signatureData['xSignature'],
             'X-EXTERNAL-ID' => $externalId,
-            'X-PARTNER-ID' => config('services.espay.merchant_code'),
+            'X-PARTNER-ID' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
             'CHANNEL-ID' => 'ESPAY',
         ];
 
@@ -144,7 +144,7 @@ class PaymentController extends Controller
 
         // Validasi Partner ID
         // dd([$timestamp, $signature, $externalId, $partnerId, $channelId]);
-        if ($partnerId !== config('services.espay.merchant_code')) {
+        if ($partnerId !== 'SGWPTDMP') {
             return response()->json([
                 'responseCode' => '4032401',
                 'responseMessage' => 'Unauthorized Partner ID',
@@ -165,7 +165,7 @@ class PaymentController extends Controller
             'responseMessage' => 'Success',
             'virtualAccountData' => [
                 'partnerServiceId' => ' ESPAY',
-                'customerNo' => config('services.espay.merchant_code'),
+                'customerNo' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
                 'virtualAccountNo' => 'DIGOERDER00001',
                 'virtualAccountName' => 'Jokul Doe',
                 'virtualAccountEmail' => 'john@email.com',
