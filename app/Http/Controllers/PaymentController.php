@@ -144,7 +144,7 @@ class PaymentController extends Controller
 
         // Validasi Partner ID
         // dd([$timestamp, $signature, $externalId, $partnerId, $channelId]);
-        if ($partnerId !== 'SGWYESSISHOP') {
+        if ($partnerId !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
             return response()->json([
                 'responseCode' => '4032401',
                 'responseMessage' => 'Unauthorized Partner ID',
