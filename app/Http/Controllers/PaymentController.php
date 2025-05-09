@@ -133,7 +133,7 @@ class PaymentController extends Controller
     }
 
 
-    public function inquiry(Request $request)
+    public function inquiry_old(Request $request)
     {
         // Ambil semua header
         $timestamp    = $request->header('X-TIMESTAMP');
@@ -255,6 +255,128 @@ class PaymentController extends Controller
                 ],
             ],
         ];
+
+        return response()->json($response, 200);
+    }
+
+    public function inquiry(Request $request)
+    {
+        // Ambil data dari request body
+        $partnerServiceId   = $request->input('partnerServiceId');
+        $customerNo         = $request->input('customerNo');
+        $virtualAccountNo   = $request->input('virtualAccountNo');
+        $trxDateInit        = $request->input('trxDateInit');
+        $inquiryRequestId   = $request->input('inquiryRequestId');
+
+        // Contoh logika respons
+
+        $response = [
+            'responseCode' => '2002400',
+            'responseMessage' => 'Success',
+            'virtualAccountData' => [
+                'partnerServiceId' => ' ESPAY',
+                'customerNo' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
+                'virtualAccountNo' => $virtualAccountNo,
+                'virtualAccountName' => 'Jokul Doe',
+                'virtualAccountEmail' => 'john@email.com',
+                'virtualAccountPhone' => '6281828384858',
+                'inquiryRequestId' => $inquiryRequestId,
+                'totalAmount' => [
+                    'value' => '150000.00',
+                    'currency' => 'IDR',
+                ],
+                'billDetails' => [
+                    [
+                        'billDescription' => [
+                            'english' => 'Invoice No 123456',
+                            'indonesia' => 'Tagihan No 123456',
+                        ],
+                    ],
+                ],
+                'additionalInfo' => [
+                    'token' => '2023011167618274122',
+                    'transactionDate' => now()->format('Y-m-d\TH:i:sP'),
+                    'dataMerchant' => [
+                        'kodeCa' => '880105',
+                        'kodeSubCa' => '-',
+                        'noKontrak' => '060223118342',
+                        'namaPelanggan' => 'Yories Yolanda',
+                        'angsuranKe' => '15',
+                        'jmlBayarExcAdm' => 5000000.00,
+                        'denda' => 0.00,
+                        'feeCa' => 5000.00,
+                        'feeSwitcher' => 0.00,
+                        'totalAdmin' => 5000.00,
+                        'jumlahBayar' => 5005000.00,
+                        'minimumAmount' => 2000000.00,
+                        'totalAngsuran' => 48,
+                        'customer' => [
+                            'email' => 'test@gmail.com',
+                        ],
+                        'jatuhTempo' => '2025-03-10',
+                        'listBills' => [
+                            [
+                                'billCode' => '01',
+                                'billName' => 'Bill Invoice 1',
+                                'billAmount' => [
+                                    'value' => '70000.00',
+                                    'currency' => 'IDR',
+                                ],
+                                'billSubCompany' => '00001',
+                            ],
+                            [
+                                'billCode' => '02',
+                                'billName' => 'Bill Invoice 2',
+                                'billAmount' => [
+                                    'value' => '50000.00',
+                                    'currency' => 'IDR',
+                                ],
+                                'billSubCompany' => '00002',
+                            ],
+                        ],
+                        'shippingAddress' => [
+                            'firstName' => 'Jokul',
+                            'lastName' => 'Doe',
+                            'address' => 'Jl. Teknologi Indonesia No. 25',
+                            'city' => 'Jakarta',
+                            'postalCode' => '12960',
+                            'phoneNumber' => '6281828384858',
+                            'countryCode' => 'IDN',
+                        ],
+                        'items' => [
+                            [
+                                'id' => '1',
+                                'name' => 'Newlook Charm',
+                                'price' => '10000',
+                                'type' => 'Contact Lens',
+                                'url' => 'https://domain.com/products/detail?id=1',
+                                'quantity' => '1',
+                            ],
+                            [
+                                'id' => '2',
+                                'name' => 'Newlook Playful',
+                                'price' => '10000',
+                                'type' => 'Contact Lens',
+                                'url' => 'https://domain.com/products/detail?id=2',
+                                'quantity' => '1',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        // return response()->json([
+        //     'status' => 'received',
+        //     'message' => 'Inquiry received successfully',
+        //     'data' => [
+        //         'partnerServiceId' => $partnerServiceId,
+        //         'customerNo'       => $customerNo,
+        //         'virtualAccountNo' => $virtualAccountNo,
+        //         'trxDateInit'      => $trxDateInit,
+        //         'inquiryRequestId' => $inquiryRequestId
+        //     ]
+        // ]);
 
         return response()->json($response, 200);
     }
