@@ -38,4 +38,8 @@ return [
         'key' => env('WEATHER_API_KEY'),
     ],
 
+    'espay' => [
+        'merchant_code' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
+    ],
+
 ];
