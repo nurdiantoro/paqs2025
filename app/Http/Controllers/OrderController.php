@@ -25,9 +25,9 @@ class OrderController extends Controller
 
         // Cek apakah sudah pernah order
         $order = Order::where('email', $request->email)->first();
-        // if ($order != null) {
-        //     return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
-        // }
+        if ($order != null) {
+            return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
+        }
 
         // Validasi input
         $validator = Validator::make($request->all(), [
@@ -51,14 +51,14 @@ class OrderController extends Controller
         // Generate invoice unik
         $no_invoice = date('Ymd') . rand(1000, 9999);
         while (Order::where('no_invoice', $no_invoice)->exists()) {
-            $no_invoice = date('Ymd') . rand(1000, 9999);
+            $no_invoice = date('Ymd') . rand(100000, 999999);
         }
 
         $category = Category::find($request->category);
         $total_price = $category->price * $request->quantity;
 
         // Simpan ke database
-        $order = Order::create([
+        Order::create([
             'no_invoice' => $no_invoice,
             'title' => ucwords($request->title),
             'first_name' => ucwords($request->first_name),
@@ -77,52 +77,6 @@ class OrderController extends Controller
             'total_price' => $total_price,
             'payment_status' => 'unpaid',
             'proof_of_payment' => $request->proof_of_payment ?? null,
-        ]);
-
-        // =============================
-        // === Integrasi ke ESPAY ===
-        // =============================
-
-        $body = [
-            'amount' => $total_price,
-            'invoice' => $no_invoice,
-            'merchantCode' => env('ESPAY_MERCHANT_CODE'),
-            'product' => 'Tiket Event',
-            'paymentExpired' => now()->addHours(2)->format('Y-m-d\TH:i:s'),
-            'description' => 'Pembayaran Tiket Seminar/Event',
-        ];
-
-        $timestamp = now()->toIso8601String();
-        $stringToSign = "POST:/api/v1.0/qr/qr-mpm-generate:" . strtolower(sha1(json_encode($body))) . ":$timestamp";
-
-        $privateKeyPath = storage_path('keys/private.pem');
-
-        if (!file_exists($privateKeyPath)) {
-            return redirect()->back()->with('error', 'Private key untuk Espay tidak ditemukan.');
-        }
-
-        $privateKey = file_get_contents($privateKeyPath);
-        openssl_sign($stringToSign, $signature, $privateKey, OPENSSL_ALGO_SHA256);
-        $base64Signature = base64_encode($signature);
-
-        // Kirim ke API Espay
-        $response = Http::withHeaders([
-            'X-SIGNATURE' => $base64Signature,
-            'X-TIMESTAMP' => $timestamp,
-            'Content-Type' => 'application/json',
-        ])->post(env('ESPAY_BASE_URL') . '/api/v1.0/qr/qr-mpm-generate', $body);
-
-        $espayResponse = $response->json();
-
-        // Log untuk debugging
-        Log::info('Espay Response:', $espayResponse ?? []);
-
-        $order->update([
-            'espay_signature' => $base64Signature,
-            'espay_response' => $espayResponse,
-            'espay_status' => isset($espayResponse['responseCode']) && $espayResponse['responseCode'] === '00' ? 'pending' : 'failed',
-            'espay_invoice_id' => $no_invoice,
-            'espay_payment_url' => $espayResponse['data']['qrUrl'] ?? null,
         ]);
 
         // Redirect ke halaman invoice/email

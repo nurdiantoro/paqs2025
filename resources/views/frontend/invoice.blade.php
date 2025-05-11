@@ -178,21 +178,33 @@
                     </div>
 
                     <form action="{{ url('/order/upload_payment/' . $data->no_invoice) }}" method="POST"
-                        enctype="multipart/form-data">
+                        enctype="multipart/form-data" class="text-center">
                         @csrf
                         <div class="input-group mt-8">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="validatedInputGroupCustomFile"
                                     name="proof_of_payment" required>
-                                <label class="custom-file-label" for="validatedInputGroupCustomFile">Upload
-                                    Payment...</label>
-                            </div>
-                            <div class="input-group-append">
-                                <button class="px-3 border border-gray-400 rounded-r-md bg-warna-01 text-white"
-                                    type="submit">Send</button>
+                                <label class="custom-file-label" for="validatedInputGroupCustomFile">Choose
+                                    File...</label>
                             </div>
                         </div>
-                        <span class="text-danger">*Max 2mb size of image</span>
+                        <div class="text-danger">*Max 2mb size of image</div>
+                        <button class="font-semibold text-lg rounded-md bg-warna-01 text-white px-3 py-2 mt-6"
+                            type="submit">Upload Payment Proof</button>
+
+                    </form>
+                    <div class="text-center">or</div>
+                    <form action="{{ route('payment.initiate') }}" method="POST" class="text-center">
+                        @csrf
+                        <input type="hidden" required value="{{ $data->no_invoice }}" name="no_invoice">
+                        <input type="hidden" required value="{{ $category->currency }}" name="currency">
+                        <input type="hidden" required value="{{ $data->total_price }}" name="total_price">
+                        <input type="hidden" required value="{{ $data->full_name }}" name="full_name">
+                        <input type="hidden" required value="{{ $data->email }}" name="email">
+                        <input type="hidden" required value="{{ $data->telephone }}" name="telephone">
+                        <button class="font-semibold text-lg rounded-md bg-warna-01 text-white px-3 py-2"
+                            type="submit">Pay with Credit
+                            Card</button>
                     </form>
                 @else
                     @if ($data->is_confirmed == true)
@@ -289,7 +301,7 @@
                 @if ($data->is_confirmed == false)
                     <div class="text-center mt-4">
                         <a href="{{ url('/invoice/' . $data->no_invoice . '/pdf') }}"
-                            class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-4 py-3 hover:text-white hover:bg-warna-01 mt-6">Download
+                            class="font-semibold text-lg rounded-md bg-slate-100 text-warna-01 px-3 py-2 mt-6 hover:text-white hover:bg-warna-01">Download
                             Invoice</a>
                     </div>
                 @endif
@@ -316,7 +328,12 @@
     </div>
 
     @if ($errors->any())
-        <script>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        {{-- <script>
             Swal.fire({
                 title: 'Upload Failed!',
                 text: 'The file must be in .png or .jpg format, with a maximum size of 2MB.',
@@ -324,7 +341,7 @@
                 confirmButtonText: 'Close',
                 confirmButtonColor: '#032337',
             })
-        </script>
+        </script> --}}
     @endif
 </main>
 <!-- main-area-end -->

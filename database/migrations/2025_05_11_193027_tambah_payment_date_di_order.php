@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('telephone')->nullable()->change();
+            $table->string('payment_datetime')->nullable()->after('proof_of_payment');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            // $table->integer('telephone')->nullable()->change();
+            $table->dropColumn('payment_datetime');
         });
     }
 };

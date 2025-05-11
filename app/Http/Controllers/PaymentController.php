@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\EspayResource;
+use App\Models\EspayPayment;
+use App\Models\Order;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -32,13 +35,13 @@ class PaymentController extends Controller
         ];
     }
 
-    public function initiatePayment()
+    public function initiatePayment(Request $request)
     {
         $timestamp = now()->format('Y-m-d\TH:i:sP');
-        $externalId = 'INV' . time();
+        $externalId = $request->input('no_invoice');
         // $externalId = 'INV1746195322';
-        $amount = number_format(150000, 2, '.', '');
-        $callbackUrl = route('payment.inquiry');
+        $amount = $request->input('total_price');
+        $redirect = url('invoice/' . $externalId);
         $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
@@ -51,10 +54,10 @@ class PaymentController extends Controller
             'subMerchantId' => env('ESPAY_API_KEY', '976846332bc02b07add6e4ed7c2abe71'),
             'amount' => [
                 'value' => $amount,
-                'currency' => 'IDR',
+                'currency' => $request->input('currency'),
             ],
             'urlParam' => [
-                'url' => $callbackUrl,
+                'url' => $redirect,
                 'type' => 'PAY_RETURN',
                 'isDeeplink' => 'N',
             ],
@@ -65,18 +68,18 @@ class PaymentController extends Controller
                 'payOption' => 'CREDITCARD',
                 'transAmount' => [
                     'value' => $amount,
-                    'currency' => 'IDR',
+                    'currency' => $request->input('currency'),
                 ],
                 'feeAmount' => [
                     'value' => '0.00',
-                    'currency' => 'IDR',
+                    'currency' => $request->input('currency'),
                 ],
             ],
             'additionalInfo' => [
                 'payType' => 'REDIRECT',
-                'userName' => 'Nama Pelanggan',
-                'userEmail' => 'email@pelanggan.com',
-                'userPhone' => '081234567890',
+                'userName' => $request->input('full_name'),
+                'userEmail' => $request->input('email'),
+                'userPhone' => $request->input('telephone'),
                 'productCode' => 'CREDITCARD',
                 'balanceType' => 'CASH',
             ],
@@ -101,19 +104,19 @@ class PaymentController extends Controller
             'CHANNEL-ID' => 'ESPAY',
         ];
 
-        dump((
-            [
-                $externalId,
-                $relativeUrl,
-                $timestamp,
-                $headers,
-                $body,
-                $signatureData['minifiedJson'],
-                $signatureData['stringToSign'],
-                $signatureData['xSignature'],
-                $verificationResult,
-            ]
-        ));
+        // dump((
+        //     [
+        //         $externalId,
+        //         $relativeUrl,
+        //         $timestamp,
+        //         $headers,
+        //         $body,
+        //         $signatureData['minifiedJson'],
+        //         $signatureData['stringToSign'],
+        //         $signatureData['xSignature'],
+        //         $verificationResult,
+        //     ]
+        // ));
 
 
         $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
@@ -132,143 +135,13 @@ class PaymentController extends Controller
         }
     }
 
-
-    public function inquiry_old(Request $request)
-    {
-        // Ambil semua header
-        $timestamp    = $request->header('X-TIMESTAMP');
-        $signature    = $request->header('X-SIGNATURE');
-        $externalId   = $request->header('X-EXTERNAL-ID');
-        $partnerId    = $request->header('X-PARTNER-ID');
-        $channelId    = $request->header('CHANNEL-ID');
-
-        // Validasi Partner ID
-        // dd([$timestamp, $signature, $externalId, $partnerId, $channelId]);
-        // if ($partnerId !== 'SGWPTDMP') {
-        //     return response()->json([
-        //         'responseCode' => '4032401',
-        //         'responseMessage' => 'Unauthorized Partner ID',
-        //     ], 403);
-        // }
-
-        // Validasi parameter yang diterima
-        $request->validate([
-            'paymentId' => 'required|string',
-            'paymentAmount' => 'required|numeric',
-            'commCode' => 'required|string',
-            'bankCode' => 'required|string',
-            'productCode' => 'required|string',
-        ]);
-
-        $response = [
-            'responseCode' => '2002400',
-            'responseMessage' => 'Success',
-            'virtualAccountData' => [
-                'partnerServiceId' => ' ESPAY',
-                'customerNo' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
-                'virtualAccountNo' => 'DIGOERDER00001',
-                'virtualAccountName' => 'Jokul Doe',
-                'virtualAccountEmail' => 'john@email.com',
-                'virtualAccountPhone' => '6281828384858',
-                'inquiryRequestId' => (string) Str::uuid(),
-                'totalAmount' => [
-                    'value' => '150000.00',
-                    'currency' => 'IDR',
-                ],
-                'billDetails' => [
-                    [
-                        'billDescription' => [
-                            'english' => 'Invoice No 123456',
-                            'indonesia' => 'Tagihan No 123456',
-                        ],
-                    ],
-                ],
-                'additionalInfo' => [
-                    'token' => '2023011167618274122',
-                    'transactionDate' => now()->format('Y-m-d\TH:i:sP'),
-                    'dataMerchant' => [
-                        'kodeCa' => '880105',
-                        'kodeSubCa' => '-',
-                        'noKontrak' => '060223118342',
-                        'namaPelanggan' => 'Yories Yolanda',
-                        'angsuranKe' => '15',
-                        'jmlBayarExcAdm' => 5000000.00,
-                        'denda' => 0.00,
-                        'feeCa' => 5000.00,
-                        'feeSwitcher' => 0.00,
-                        'totalAdmin' => 5000.00,
-                        'jumlahBayar' => 5005000.00,
-                        'minimumAmount' => 2000000.00,
-                        'totalAngsuran' => 48,
-                        'customer' => [
-                            'email' => 'test@gmail.com',
-                        ],
-                        'jatuhTempo' => '2025-03-10',
-                        'listBills' => [
-                            [
-                                'billCode' => '01',
-                                'billName' => 'Bill Invoice 1',
-                                'billAmount' => [
-                                    'value' => '70000.00',
-                                    'currency' => 'IDR',
-                                ],
-                                'billSubCompany' => '00001',
-                            ],
-                            [
-                                'billCode' => '02',
-                                'billName' => 'Bill Invoice 2',
-                                'billAmount' => [
-                                    'value' => '50000.00',
-                                    'currency' => 'IDR',
-                                ],
-                                'billSubCompany' => '00002',
-                            ],
-                        ],
-                        'shippingAddress' => [
-                            'firstName' => 'Jokul',
-                            'lastName' => 'Doe',
-                            'address' => 'Jl. Teknologi Indonesia No. 25',
-                            'city' => 'Jakarta',
-                            'postalCode' => '12960',
-                            'phoneNumber' => '6281828384858',
-                            'countryCode' => 'IDN',
-                        ],
-                        'items' => [
-                            [
-                                'id' => '1',
-                                'name' => 'Newlook Charm',
-                                'price' => '10000',
-                                'type' => 'Contact Lens',
-                                'url' => 'https://domain.com/products/detail?id=1',
-                                'quantity' => '1',
-                            ],
-                            [
-                                'id' => '2',
-                                'name' => 'Newlook Playful',
-                                'price' => '10000',
-                                'type' => 'Contact Lens',
-                                'url' => 'https://domain.com/products/detail?id=2',
-                                'quantity' => '1',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ];
-
-        return response()->json($response, 200);
-    }
-
     public function inquiry(Request $request)
     {
-        // Ambil data dari request body
         $partnerServiceId   = $request->input('partnerServiceId');
         $customerNo         = $request->input('customerNo');
         $virtualAccountNo   = $request->input('virtualAccountNo');
         $trxDateInit        = $request->input('trxDateInit');
         $inquiryRequestId   = $request->input('inquiryRequestId');
-
-        // Contoh logika respons
 
         $response = [
             'responseCode' => '2002400',
@@ -366,62 +239,119 @@ class PaymentController extends Controller
             ],
         ];
 
-        // return response()->json([
-        //     'status' => 'received',
-        //     'message' => 'Inquiry received successfully',
-        //     'data' => [
-        //         'partnerServiceId' => $partnerServiceId,
-        //         'customerNo'       => $customerNo,
-        //         'virtualAccountNo' => $virtualAccountNo,
-        //         'trxDateInit'      => $trxDateInit,
-        //         'inquiryRequestId' => $inquiryRequestId
-        //     ]
-        // ]);
-
         return response()->json($response, 200);
     }
 
-    public function payment(Request $request)
+    public function paymentNotification(Request $request)
     {
-        $timestamp = $request->header('X-TIMESTAMP');
-        $signature = $request->header('X-SIGNATURE');
-        $externalId = $request->header('X-EXTERNAL-ID');
-        $partnerId = $request->header('X-PARTNER-ID');
-        $channelId = $request->header('CHANNEL-ID');
+        $rq_uuid = $request->input('rq_uuid');
+        $rq_datetime = $request->input('rq_datetime');
+        $password = $request->input('password');
+        $signature = $request->input('signature');
+        $member_id = $request->input('member_id');
+        $comm_code = $request->input('comm_code');
+        $order_id = $request->input('order_id');
+        $ccy = $request->input('ccy');
+        $amount = $request->input('amount');
+        $debit_from_bank = $request->input('debit_from_bank');
+        $debit_from = $request->input('debit_from');
+        $debit_from_name = $request->input('debit_from_name');
+        $credit_to_bank = $request->input('credit_to_bank');
+        $credit_to = $request->input('credit_to');
+        $credit_to_name = $request->input('credit_to_name');
+        $product_code = $request->input('product_code');
+        $message = $request->input('message');
+        $payment_datetime = $request->input('payment_datetime');
+        $payment_ref = $request->input('payment_ref');
+        $approval_code_full_bca = $request->input('approval_code_full_bca');
+        $approval_code_installment_bca = $request->input('approval_code_installment_bca');
 
-        $payload = $request->getContent();
+        $response = [
+            "rq_uuid" => $rq_uuid,
+            "rs_datetime" => now()->format('Y-m-d\TH:i:sP'),
+            "error_code" => "0000",
+            "error_message" => "Success",
+            "signature" => $signature,
+            "order_id" => $order_id,
+            "reconcile_id" => "2020100121183111",
+            "reconcile_datetime" => now()->format('Y-m-d\TH:i:sP')
+        ];
 
-        // Bangun stringToSign dengan struktur yang sama dengan saat sign
-        $body = json_decode($request->getContent(), true);
-        $minifiedJson = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        $sha256Hash  = hash('sha256', $minifiedJson);
+        $response_failed = [
+            "rq_uuid" => "ebf8e9df-639e-424f-8148-94d2741edd03",
+            "rs_datetime" => "2024-04-01T22:55:14+07:00",
+            "error_code" => "0014",
+            "error_message" => "invalid order id"
+        ];
 
-        $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host'; // Pastikan ini benar
-        $stringToSign = 'POST:' . $relativeUrl . ':' . $sha256Hash . ':' . $timestamp;
 
-        // Verifikasi signature menggunakan public key Espay
-        $espayPublicKey = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
-        $decodedSignature = base64_decode($signature);
-        $verified = openssl_verify($stringToSign, $decodedSignature, $espayPublicKey, OPENSSL_ALGO_SHA256);
-
-        if ($verified !== 1) {
-            Log::warning('Signature verification failed for Espay callback.', [
-                'external_id' => $externalId,
-                'string_to_sign' => $stringToSign,
-                'payload' => $payload,
-            ]);
-            return response()->json(['message' => 'Invalid signature'], 400);
+        $order = Order::where('no_invoice', $order_id)->first();
+        if (!$order) {
+            return response()->json($response_failed, 200);
         }
 
-        // Decode body
-        $data = json_decode($payload, true);
-
-        // Simpan atau update status pembayaran
-        Log::info('Valid Espay Payment Callback Received', [
-            'external_id' => $externalId,
-            'payload' => $data,
+        $order->update([
+            'payment_status' => 'paid',
+            'is_confirmed' => true,
+            'payment_datetime' => $payment_datetime,
         ]);
 
-        return response()->json(['message' => 'Callback received'], 200);
+        Ticket::where('order_id', $order->id)->delete();
+        // jika daftar personal namanya langsung ditambah
+        if ($order->quantity == 1) {
+            do {
+                $barcode = random_int(10000000, 99999999);
+            } while (Ticket::where('barcode', $barcode)->exists());
+
+            Ticket::create([
+                'order_id' => $order->id,
+                'no_invoice' => $order->no_invoice,
+                'barcode' => $barcode,
+                'name' => $order->full_name,
+                'email' => $order->email,
+            ]);
+        }
+
+        // jika daftar group namanya kosong
+        else {
+            for ($i = 0; $i < $order->quantity; $i++) {
+                do {
+                    $barcode = random_int(10000000, 99999999);
+                } while (Ticket::where('barcode', $barcode)->exists());
+
+                Ticket::create([
+                    'order_id' => $order->id,
+                    'no_invoice' => $order->no_invoice,
+                    'barcode' => $barcode,
+                ]);
+            }
+        }
+
+        EspayPayment::create([
+            'rq_uuid' => $rq_uuid,
+            'rq_datetime' => $rq_datetime,
+            'password' => $password,
+            'signature' => $signature,
+            'member_id' => $member_id,
+            'comm_code' => $comm_code,
+            'order_id' => $order_id,
+            'ccy' => $ccy,
+            'amount' => $amount,
+            'debit_from_bank' => $debit_from_bank,
+            'debit_from' => $debit_from,
+            'debit_from_name' => $debit_from_name,
+            'credit_to_bank' => $credit_to_bank,
+            'credit_to' => $credit_to,
+            'credit_to_name' => $credit_to_name,
+            'product_code' => $product_code,
+            'message' => $message,
+            'payment_datetime' => $payment_datetime,
+            'payment_ref' => $payment_ref,
+            'approval_code_full_bca' => $approval_code_full_bca,
+            'approval_code_installment_bca' => $approval_code_installment_bca,
+
+        ]);
+
+        return response()->json($response, 200);
     }
 }
