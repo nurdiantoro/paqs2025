@@ -296,37 +296,6 @@ class PaymentController extends Controller
             'payment_datetime' => $payment_datetime,
         ]);
 
-        Ticket::where('order_id', $order->id)->delete();
-        // jika daftar personal namanya langsung ditambah
-        if ($order->quantity == 1) {
-            do {
-                $barcode = random_int(10000000, 99999999);
-            } while (Ticket::where('barcode', $barcode)->exists());
-
-            Ticket::create([
-                'order_id' => $order->id,
-                'no_invoice' => $order->no_invoice,
-                'barcode' => $barcode,
-                'name' => $order->full_name,
-                'email' => $order->email,
-            ]);
-        }
-
-        // jika daftar group namanya kosong
-        else {
-            for ($i = 0; $i < $order->quantity; $i++) {
-                do {
-                    $barcode = random_int(10000000, 99999999);
-                } while (Ticket::where('barcode', $barcode)->exists());
-
-                Ticket::create([
-                    'order_id' => $order->id,
-                    'no_invoice' => $order->no_invoice,
-                    'barcode' => $barcode,
-                ]);
-            }
-        }
-
         EspayPayment::create([
             'rq_uuid' => $rq_uuid,
             'rq_datetime' => $rq_datetime,
