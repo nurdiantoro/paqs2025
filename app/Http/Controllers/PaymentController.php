@@ -130,7 +130,7 @@ class PaymentController extends Controller
         $trxDateInit        = $request->input('trxDateInit');
         $inquiryRequestId   = $request->input('inquiryRequestId');
 
-        if ($partnerServiceId !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
+        if ($customerNo !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
             return response()->json([
                 'responseCode' => '4012400',
                 'responseMessage' => 'Unauthorized Signature',
