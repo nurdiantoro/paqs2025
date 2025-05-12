@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\EspayResource;
+use App\Models\Category;
 use App\Models\EspayPayment;
 use App\Models\Order;
 use App\Models\Ticket;
@@ -138,6 +139,7 @@ class PaymentController extends Controller
         }
 
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
+        $category = Category::where('id', $order->category_id)->first();
 
         $response = [
             'responseCode' => '2002400',
@@ -152,7 +154,7 @@ class PaymentController extends Controller
                 'inquiryRequestId' => $inquiryRequestId,
                 'totalAmount' => [
                     'value' => $order->total_price,
-                    'currency' => $order->currency,
+                    'currency' => $category->currency,
                 ],
                 'billDetails' => [
                     [
