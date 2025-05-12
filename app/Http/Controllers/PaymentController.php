@@ -91,9 +91,6 @@ class PaymentController extends Controller
         $xSignature_decode  = base64_decode($signatureData['xSignature']);
         $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
 
-
-        // dd($xSignature);
-
         // Headers =======================================================================
         $headers = [
             'Content-Type' => 'application/json',
@@ -105,17 +102,7 @@ class PaymentController extends Controller
         ];
 
         // dump((
-        //     [
-        //         $externalId,
-        //         $relativeUrl,
-        //         $timestamp,
-        //         $headers,
-        //         $body,
-        //         $signatureData['minifiedJson'],
-        //         $signatureData['stringToSign'],
-        //         $signatureData['xSignature'],
-        //         $verificationResult,
-        //     ]
+        //     [$externalId, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult,]
         // ));
 
 
@@ -143,99 +130,108 @@ class PaymentController extends Controller
         $trxDateInit        = $request->input('trxDateInit');
         $inquiryRequestId   = $request->input('inquiryRequestId');
 
+        if ($partnerServiceId !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
+            return response()->json([
+                'responseCode' => '4012400',
+                'responseMessage' => 'Unauthorized Signature',
+            ], 400);
+        }
+
+        $order = Order::where('no_invoice', $virtualAccountNo)->first();
+
         $response = [
             'responseCode' => '2002400',
             'responseMessage' => 'Success',
             'virtualAccountData' => [
-                'partnerServiceId' => ' ESPAY',
-                'customerNo' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
+                'partnerServiceId' => $partnerServiceId,
+                'customerNo' => $partnerServiceId,
                 'virtualAccountNo' => $virtualAccountNo,
-                'virtualAccountName' => 'Jokul Doe',
-                'virtualAccountEmail' => 'john@email.com',
-                'virtualAccountPhone' => '6281828384858',
+                'virtualAccountName' => $order->full_name,
+                'virtualAccountEmail' => $order->email,
+                'virtualAccountPhone' => $order->telephone,
                 'inquiryRequestId' => $inquiryRequestId,
                 'totalAmount' => [
-                    'value' => '150000.00',
-                    'currency' => 'IDR',
+                    'value' => $order->total_price,
+                    'currency' => $order->currency,
                 ],
                 'billDetails' => [
                     [
                         'billDescription' => [
-                            'english' => 'Invoice No 123456',
-                            'indonesia' => 'Tagihan No 123456',
+                            'english' => 'PAQS 2025 Invoice No ' . $order->no_invoice,
+                            'indonesia' => 'Tagihan PAQS 2025 No ' . $order->no_invoice,
                         ],
                     ],
                 ],
-                'additionalInfo' => [
-                    'token' => '2023011167618274122',
-                    'transactionDate' => now()->format('Y-m-d\TH:i:sP'),
-                    'dataMerchant' => [
-                        'kodeCa' => '880105',
-                        'kodeSubCa' => '-',
-                        'noKontrak' => '060223118342',
-                        'namaPelanggan' => 'Yories Yolanda',
-                        'angsuranKe' => '15',
-                        'jmlBayarExcAdm' => 5000000.00,
-                        'denda' => 0.00,
-                        'feeCa' => 5000.00,
-                        'feeSwitcher' => 0.00,
-                        'totalAdmin' => 5000.00,
-                        'jumlahBayar' => 5005000.00,
-                        'minimumAmount' => 2000000.00,
-                        'totalAngsuran' => 48,
-                        'customer' => [
-                            'email' => 'test@gmail.com',
-                        ],
-                        'jatuhTempo' => '2025-03-10',
-                        'listBills' => [
-                            [
-                                'billCode' => '01',
-                                'billName' => 'Bill Invoice 1',
-                                'billAmount' => [
-                                    'value' => '70000.00',
-                                    'currency' => 'IDR',
-                                ],
-                                'billSubCompany' => '00001',
-                            ],
-                            [
-                                'billCode' => '02',
-                                'billName' => 'Bill Invoice 2',
-                                'billAmount' => [
-                                    'value' => '50000.00',
-                                    'currency' => 'IDR',
-                                ],
-                                'billSubCompany' => '00002',
-                            ],
-                        ],
-                        'shippingAddress' => [
-                            'firstName' => 'Jokul',
-                            'lastName' => 'Doe',
-                            'address' => 'Jl. Teknologi Indonesia No. 25',
-                            'city' => 'Jakarta',
-                            'postalCode' => '12960',
-                            'phoneNumber' => '6281828384858',
-                            'countryCode' => 'IDN',
-                        ],
-                        'items' => [
-                            [
-                                'id' => '1',
-                                'name' => 'Newlook Charm',
-                                'price' => '10000',
-                                'type' => 'Contact Lens',
-                                'url' => 'https://domain.com/products/detail?id=1',
-                                'quantity' => '1',
-                            ],
-                            [
-                                'id' => '2',
-                                'name' => 'Newlook Playful',
-                                'price' => '10000',
-                                'type' => 'Contact Lens',
-                                'url' => 'https://domain.com/products/detail?id=2',
-                                'quantity' => '1',
-                            ],
-                        ],
-                    ],
-                ],
+                // 'additionalInfo' => [
+                //     'token' => '2023011167618274122',
+                //     'transactionDate' => now()->format('Y-m-d\TH:i:sP'),
+                //     'dataMerchant' => [
+                //         'kodeCa' => '880105',
+                //         'kodeSubCa' => '-',
+                //         'noKontrak' => '060223118342',
+                //         'namaPelanggan' => 'Yories Yolanda',
+                //         'angsuranKe' => '15',
+                //         'jmlBayarExcAdm' => 5000000.00,
+                //         'denda' => 0.00,
+                //         'feeCa' => 5000.00,
+                //         'feeSwitcher' => 0.00,
+                //         'totalAdmin' => 5000.00,
+                //         'jumlahBayar' => 5005000.00,
+                //         'minimumAmount' => 2000000.00,
+                //         'totalAngsuran' => 48,
+                //         'customer' => [
+                //             'email' => 'test@gmail.com',
+                //         ],
+                //         'jatuhTempo' => '2025-03-10',
+                //         'listBills' => [
+                //             [
+                //                 'billCode' => '01',
+                //                 'billName' => 'Bill Invoice 1',
+                //                 'billAmount' => [
+                //                     'value' => '70000.00',
+                //                     'currency' => 'IDR',
+                //                 ],
+                //                 'billSubCompany' => '00001',
+                //             ],
+                //             [
+                //                 'billCode' => '02',
+                //                 'billName' => 'Bill Invoice 2',
+                //                 'billAmount' => [
+                //                     'value' => '50000.00',
+                //                     'currency' => 'IDR',
+                //                 ],
+                //                 'billSubCompany' => '00002',
+                //             ],
+                //         ],
+                //         'shippingAddress' => [
+                //             'firstName' => 'Jokul',
+                //             'lastName' => 'Doe',
+                //             'address' => 'Jl. Teknologi Indonesia No. 25',
+                //             'city' => 'Jakarta',
+                //             'postalCode' => '12960',
+                //             'phoneNumber' => '6281828384858',
+                //             'countryCode' => 'IDN',
+                //         ],
+                //         'items' => [
+                //             [
+                //                 'id' => '1',
+                //                 'name' => 'Newlook Charm',
+                //                 'price' => '10000',
+                //                 'type' => 'Contact Lens',
+                //                 'url' => 'https://domain.com/products/detail?id=1',
+                //                 'quantity' => '1',
+                //             ],
+                //             [
+                //                 'id' => '2',
+                //                 'name' => 'Newlook Playful',
+                //                 'price' => '10000',
+                //                 'type' => 'Contact Lens',
+                //                 'url' => 'https://domain.com/products/detail?id=2',
+                //                 'quantity' => '1',
+                //             ],
+                //         ],
+                //     ],
+                // ],
             ],
         ];
 

@@ -333,7 +333,7 @@
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
-        {{-- <script>
+        <script>
             Swal.fire({
                 title: 'Upload Failed!',
                 text: 'The file must be in .png or .jpg format, with a maximum size of 2MB.',
@@ -341,7 +341,7 @@
                 confirmButtonText: 'Close',
                 confirmButtonColor: '#032337',
             })
-        </script> --}}
+        </script>
     @endif
 </main>
 <!-- main-area-end -->

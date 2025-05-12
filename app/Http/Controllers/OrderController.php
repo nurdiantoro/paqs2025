@@ -25,9 +25,9 @@ class OrderController extends Controller
 
         // Cek apakah sudah pernah order
         $order = Order::where('email', $request->email)->first();
-        if ($order != null) {
-            return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
-        }
+        // if ($order != null) {
+        //     return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
+        // }
 
         // Validasi input
         $validator = Validator::make($request->all(), [
