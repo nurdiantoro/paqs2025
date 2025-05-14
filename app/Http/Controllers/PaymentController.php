@@ -321,4 +321,52 @@ class PaymentController extends Controller
 
         return response()->json($response, 200);
     }
+
+    public function payment(Request $request)
+    {
+        $reponse_failed = [
+            "responseCode" => "4012500",
+            "responseMessage" => "Unauthorized Signature"
+        ];
+
+        $order = Order::where('no_invoice', $request->virtualAccountNo)->first();
+
+        if ($request->customerNo !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP' && !$order)) {
+            return response()->json($reponse_failed, 200);
+        }
+
+        $order->update([
+            'payment_status' => 'paid',
+            'is_confirmed' => true,
+            'payment_datetime' => $request->trxDateTime,
+        ]);
+
+
+
+        $response = [
+            'responseCode' => '2002500',
+            'responseMessage' => 'Success',
+            'virtualAccountData' => [
+                'partnerServiceId' => ' ESPAY',
+                'customerNo' => $request->customerNo,
+                'virtualAccountNo' => $request->virtualAccountNo,
+                'virtualAccountName' => $order->full_name,
+                'paymentRequestId' => $request->paymentRequestId,
+                'totalAmount' => [
+                    'value' => $request->totalAmount['value'],
+                    'currency' => $request->totalAmount['currency'],
+                ],
+                'billDetails' => [
+                    [
+                        'billDescription' => [
+                            'english' => 'Tagihan No ' . $order->no_invoice,
+                            'indonesia' => 'Invoice ' . $order->no_invoice,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        return response()->json($response, 200);
+    }
 }

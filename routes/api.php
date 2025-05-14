@@ -12,4 +12,5 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('/belajar-api', BelajarApiController::class);
 Route::post('/v1.0/transfer-va/inquiry', [PaymentController::class, 'inquiry'])->name('payment.inquiry');
+Route::post('/v1.0/transfer-va/payment', [PaymentController::class, 'payment'])->name('payment.paymentCallback');
 Route::post('/espay/notification', [PaymentController::class, 'paymentNotification'])->name('payment.notification');
