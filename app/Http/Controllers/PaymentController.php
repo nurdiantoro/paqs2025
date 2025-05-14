@@ -324,14 +324,19 @@ class PaymentController extends Controller
 
     public function payment(Request $request)
     {
-        $reponse_failed = [
-            "responseCode" => "4012500",
-            "responseMessage" => "Unauthorized Signature"
-        ];
+
 
         $order = Order::where('no_invoice', $request->virtualAccountNo)->first();
 
-        if ($request->customerNo !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP' && !$order)) {
+        if ($request->customerNo !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
+            $message = 'Unauthorized Signature';
+            if (!$order) {
+                $message = 'Order not found';
+            }
+            $reponse_failed = [
+                "responseCode" => "4012500",
+                "responseMessage" => $message
+            ];
             return response()->json($reponse_failed, 200);
         }
 
