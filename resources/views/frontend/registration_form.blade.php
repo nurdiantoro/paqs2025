@@ -4,9 +4,12 @@
     <!-- breadcrumb-area -->
     <section id="parallax" class="slider-area breadcrumb-area d-flex align-items-center justify-content-center fix"
         style="background-image:url({{ asset('img/forum.jpg') }})">
-        <div class="slider-shape ss-one layer" data-depth="0.10"><img src="img/doddle_6.png" alt="shape"></div>
-        <div class="slider-shape ss-three layer" data-depth="0.40"><img src="img/doddle_9.png" alt="shape"></div>
-        <div class="slider-shape ss-four layer" data-depth="0.60"><img src="img/doddle_7.png" alt="shape"></div>
+        <div class="slider-shape ss-one layer" data-depth="0.10"><img src="{{ asset('img/doddle_6.png') }}" alt="shape">
+        </div>
+        <div class="slider-shape ss-three layer" data-depth="0.40"><img src="{{ asset('img/doddle_9.png') }}"
+                alt="shape"></div>
+        <div class="slider-shape ss-four layer" data-depth="0.60"><img src="{{ asset('img/doddle_7.png') }}"
+                alt="shape"></div>
         <div class="container">
             <div class="row">
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
@@ -24,13 +27,13 @@
 
     <!-- team-area -->
     <section id="team" class="team-area p-relative pt-120 pb-120 fix row">
-        <form method="POST" action="{{ url('/order/store') }}" class="col-md-6 mx-auto">
+        <form method="POST" action="{{ url('/registration/payment_method') }}" class="col-md-6 mx-auto">
             @csrf
             <div class="shadow-xl bg-white rounded-xl border border-blue-900 p-4 mb-4">
 
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="mb-8">
-                        <span for="title" class="text-warna-02 text-[16px] font-semibold block mb-2">Title <span
+                        <span for="title" class="text-warna-02 text-[16px] font-semibold block mb-2">Salutation <span
                                 class="text-red-700">*</span></span>
                         @error('title')
                             <span class="text-danger block m-0 text-sm">{{ $message }}</span>

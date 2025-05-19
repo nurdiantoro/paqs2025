@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use libphonenumber\PhoneNumberFormat;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class FrontendController extends Controller implements ShouldQueue
 {
@@ -120,11 +121,43 @@ class FrontendController extends Controller implements ShouldQueue
 
     public function registration_form()
     {
+        session()->forget('order_data');
         $categories = Category::where('is_active', '1')->get()->groupBy('type');
         $addons = Addon::all();
         $associations = Association::all();
 
         return view('frontend.registration_form', compact('categories', 'addons', 'associations'));
+    }
+
+    public function registration_payment_method(Request $request)
+    {
+        // Cek apakah sudah pernah order
+        $order = Order::where('email', $request->email)->first();
+        // if ($order != null) {
+        //     return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
+        // }
+
+        $validator = $request->validate([
+            'title' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'member' => 'required',
+            'member_id' => 'nullable|numeric',
+            'association' => 'nullable|numeric',
+            'company' => 'required',
+            'address' => 'required',
+            'telephone' => 'required|numeric',
+            'email' => 'required|email',
+            'category' => 'required',
+            'quantity' => 'required|numeric',
+        ]);
+
+        session(['order_data' => $validator]);
+
+        $category = Category::where('id', $request->category)->first();
+        $associations = Association::where('id', $request->association)->first();
+        // dd($category->name);
+        return view('frontend.registration_payment_method', compact('request', 'associations', 'category'));
     }
 
     public function ticket()

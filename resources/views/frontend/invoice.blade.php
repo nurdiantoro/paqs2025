@@ -193,19 +193,6 @@
                             type="submit">Upload Payment Proof</button>
 
                     </form>
-                    <div class="text-center">or</div>
-                    <form action="{{ route('payment.initiate') }}" method="POST" class="text-center">
-                        @csrf
-                        <input type="hidden" required value="{{ $data->no_invoice }}" name="no_invoice">
-                        <input type="hidden" required value="{{ $category->currency }}" name="currency">
-                        <input type="hidden" required value="{{ $data->total_price }}" name="total_price">
-                        <input type="hidden" required value="{{ $data->full_name }}" name="full_name">
-                        <input type="hidden" required value="{{ $data->email }}" name="email">
-                        <input type="hidden" required value="{{ $data->telephone }}" name="telephone">
-                        <button class="font-semibold text-lg rounded-md bg-warna-01 text-white px-3 py-2"
-                            type="submit">Pay with Credit
-                            Card</button>
-                    </form>
                 @else
                     @if ($data->is_confirmed == true)
                         <div class="w-full flex flex-row flex-wrap justify-center">

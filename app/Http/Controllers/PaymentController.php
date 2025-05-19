@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\Validator;
+
+
 
 class PaymentController extends Controller
 {
@@ -38,11 +43,77 @@ class PaymentController extends Controller
 
     public function initiatePayment(Request $request)
     {
+        // TAHAPAN KODE DI BAWAH INI, BIAR PAHAM!!!!
+        // 0. Bikin Variable dulu biar gak pusing
+        // 1. Jika USD, dikonvert dulu jadi IDR
+        // 2. Insert data order ke database PAQS
+        // 3. Cek apakah payment pakai credit card atau manual
+        // 4. ESPAYYYYY!!!!!!!!
+        // ==================================================================
+        // ==================================================================
+
+
+        // ==================================================================
+        // 0. Bikin Variable
+        // ==================================================================
+        $orderData = session('order_data');
+        $no_invoice = date('Ymd') . rand(1000, 9999);
+        while (Order::where('no_invoice', $no_invoice)->exists()) {
+            $no_invoice = date('Ymd') . rand(100000, 999999);
+        }
+        $category = Category::find($orderData['category']);
+        $total_price = $category->price * $request->quantity;
+
+
+        // ==================================================================
+        // 1. Konversi USD Ke IDR
+        // ==================================================================
+        if ($category->currency == 'USD') {
+            $total_price = $total_price * env('USD_TO_IDR', 16452);
+        }
+
+
+        // ==================================================================
+        // 2. Insert data order ke database PAQS
+        // ==================================================================
+        $order = Order::create([
+            'no_invoice'       => $no_invoice,
+            'title'            => $orderData['title'],
+            'first_name'       => $orderData['first_name'],
+            'last_name'        => $orderData['last_name'],
+            'full_name'        => $orderData['first_name'] . ' ' . $orderData['last_name'],
+            'is_member'        => $orderData['member'],
+            'member_id'        => $orderData['member_id'] ?? null,
+            'association_id'   => $orderData['association'] ?? null,
+            'company'          => $orderData['company'],
+            'address'          => $orderData['address'],
+            'telephone'        => $orderData['telephone'],
+            'email'            => $orderData['email'],
+            'category_id'      => $orderData['category'],
+            'addon_id'         => $orderData['add_on'] ?? null,
+            'quantity'         => $orderData['quantity'],
+            'total_price'      => $total_price,
+            'payment_status'   => 'unpaid',
+            'proof_of_payment' => $orderData['proof_of_payment'] ?? null,
+        ]);
+
+
+        // ==================================================================
+        // 3. Cek apakah payment pake credit card
+        // 3a. kalau gak ada, langsung kirim email tagihan yang nantinya redirect ke halaman invoice
+        // ==================================================================
+        if ($request->payment !== 'credit_card') {
+            return redirect(url('email/' . $no_invoice . '/' . $order->email));
+        }
+
+
+        // ==================================================================
+        // 4. ESPAYYYYY!!!!!!!!!
+        // ==================================================================
         $timestamp = now()->format('Y-m-d\TH:i:sP');
-        $externalId = $request->input('no_invoice');
         // $externalId = 'INV1746195322';
-        $amount = $request->input('total_price');
-        $redirect = url('invoice/' . $externalId);
+        $amount = $total_price;
+        $redirect = url('invoice/' . $no_invoice);
         $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
@@ -50,54 +121,52 @@ class PaymentController extends Controller
 
         // Body v.1.0 =======================================================================
         $body = [
-            'partnerReferenceNo' => $externalId,
+            'partnerReferenceNo' => $no_invoice,
             'merchantId' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
             'subMerchantId' => env('ESPAY_API_KEY', '976846332bc02b07add6e4ed7c2abe71'),
             'amount' => [
                 'value' => $amount,
-                'currency' => $request->input('currency'),
+                'currency' => 'IDR',
             ],
             'urlParam' => [
                 'url' => $redirect,
                 'type' => 'PAY_RETURN',
                 'isDeeplink' => 'N',
             ],
-            // 'validUpTo' => now()->addHours(2)->format('Y-m-d\TH:i:sP'),
             'pointOfInitiation' => 'Web',
             'payOptionDetails' => [
                 'payMethod' => '008',
                 'payOption' => 'CREDITCARD',
                 'transAmount' => [
                     'value' => $amount,
-                    'currency' => $request->input('currency'),
+                    'currency' => 'IDR',
                 ],
                 'feeAmount' => [
                     'value' => '0.00',
-                    'currency' => $request->input('currency'),
+                    'currency' => 'IDR',
                 ],
             ],
             'additionalInfo' => [
                 'payType' => 'REDIRECT',
-                'userName' => $request->input('full_name'),
-                'userEmail' => $request->input('email'),
-                'userPhone' => $request->input('telephone'),
+                'userName' => $order->full_name,
+                'userEmail' => $order->email,
+                'userPhone' => $order->telephone,
                 'productCode' => 'CREDITCARD',
                 'balanceType' => 'CASH',
             ],
         ];
 
         $signatureData = $this->generateEspaySignature($body, $relativeUrl, $timestamp, $privateKey);
-
         // decode
-        $xSignature_decode  = base64_decode($signatureData['xSignature']);
-        $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+        // $xSignature_decode  = base64_decode($signatureData['xSignature']);
+        // $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
 
         // Headers =======================================================================
         $headers = [
             'Content-Type' => 'application/json',
             'X-TIMESTAMP' => $timestamp,
             'X-SIGNATURE' => $signatureData['xSignature'],
-            'X-EXTERNAL-ID' => $externalId,
+            'X-EXTERNAL-ID' => $no_invoice,
             'X-PARTNER-ID' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
             'CHANNEL-ID' => 'ESPAY',
         ];
