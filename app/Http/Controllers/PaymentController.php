@@ -110,8 +110,8 @@ class PaymentController extends Controller
         // ==================================================================
         // 4. ESPAYYYYY!!!!!!!!!
         // ==================================================================
+        // $no_invoice = 'INV1746195322';
         $timestamp = now()->format('Y-m-d\TH:i:sP');
-        // $externalId = 'INV1746195322';
         $amount = $total_price;
         $redirect = url('invoice/' . $no_invoice);
         $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
@@ -158,8 +158,8 @@ class PaymentController extends Controller
 
         $signatureData = $this->generateEspaySignature($body, $relativeUrl, $timestamp, $privateKey);
         // decode
-        // $xSignature_decode  = base64_decode($signatureData['xSignature']);
-        // $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+        $xSignature_decode  = base64_decode($signatureData['xSignature']);
+        $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
 
         // Headers =======================================================================
         $headers = [
@@ -171,9 +171,9 @@ class PaymentController extends Controller
             'CHANNEL-ID' => 'ESPAY',
         ];
 
-        // dump((
-        //     [$externalId, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult,]
-        // ));
+        dump((
+            [$no_invoice, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult,]
+        ));
 
 
         $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
