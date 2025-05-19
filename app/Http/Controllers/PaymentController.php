@@ -222,7 +222,7 @@ class PaymentController extends Controller
                 'inquiryRequestId' => $inquiryRequestId,
                 'totalAmount' => [
                     'value' => $order->total_price,
-                    'currency' => $category->currency,
+                    'currency' => 'IDR',
                 ],
                 'billDetails' => [
                     [
