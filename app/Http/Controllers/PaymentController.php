@@ -207,7 +207,14 @@ class PaymentController extends Controller
         }
 
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
+        $order->update(['inquiry_request_id' => $inquiryRequestId]);
         $category = Category::where('id', $order->category_id)->first();
+
+        if ($category->currency == 'USD') {
+            $total_price = $order->total_price * env('USD_TO_IDR', 16452);
+        } else {
+            $total_price = $order->total_price;
+        }
 
         $response = [
             'responseCode' => '2002400',
@@ -221,7 +228,7 @@ class PaymentController extends Controller
                 'virtualAccountPhone' => $order->telephone,
                 'inquiryRequestId' => $inquiryRequestId,
                 'totalAmount' => [
-                    'value' => $order->total_price,
+                    'value' => $total_price,
                     'currency' => 'IDR',
                 ],
                 'billDetails' => [
@@ -409,6 +416,7 @@ class PaymentController extends Controller
         $order->update([
             'payment_status' => 'paid',
             'is_confirmed' => true,
+            'payment_request_id' => $request->paymentRequestId,
             'payment_datetime' => $request->trxDateTime,
         ]);
 
