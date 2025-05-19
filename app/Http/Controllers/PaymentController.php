@@ -62,7 +62,7 @@ class PaymentController extends Controller
             $no_invoice = date('Ymd') . rand(100000, 999999);
         }
         $category = Category::find($orderData['category']);
-        $total_price = $category->price * $request->quantity;
+        $total_price = $category->price * $orderData['quantity'];
 
 
         // ==================================================================
@@ -112,7 +112,6 @@ class PaymentController extends Controller
         // ==================================================================
         // $no_invoice = 'INV1746195322';
         $timestamp = now()->format('Y-m-d\TH:i:sP');
-        $amount = $total_price;
         $redirect = url('invoice/' . $no_invoice);
         $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
@@ -125,7 +124,7 @@ class PaymentController extends Controller
             'merchantId' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
             'subMerchantId' => env('ESPAY_API_KEY', '976846332bc02b07add6e4ed7c2abe71'),
             'amount' => [
-                'value' => $amount,
+                'value' => $total_price,
                 'currency' => 'IDR',
             ],
             'urlParam' => [
@@ -138,7 +137,7 @@ class PaymentController extends Controller
                 'payMethod' => '008',
                 'payOption' => 'CREDITCARD',
                 'transAmount' => [
-                    'value' => $amount,
+                    'value' => $total_price,
                     'currency' => 'IDR',
                 ],
                 'feeAmount' => [
@@ -171,9 +170,9 @@ class PaymentController extends Controller
             'CHANNEL-ID' => 'ESPAY',
         ];
 
-        dump((
-            [$no_invoice, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult,]
-        ));
+        // dd((
+        //     [$no_invoice, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult, $total_price]
+        // ));
 
 
         $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
