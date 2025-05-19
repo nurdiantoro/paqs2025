@@ -45,9 +45,9 @@ class PaymentController extends Controller
     {
         // TAHAPAN KODE DI BAWAH INI, BIAR PAHAM!!!!
         // 0. Bikin Variable dulu biar gak pusing
-        // 1. Jika USD, dikonvert dulu jadi IDR
-        // 2. Insert data order ke database PAQS
-        // 3. Cek apakah payment pakai credit card atau manual
+        // 1. Insert data order ke database PAQS
+        // 2. Cek apakah payment pakai credit card atau manual
+        // 3. Jika USD, dikonvert dulu jadi IDR
         // 4. ESPAYYYYY!!!!!!!!
         // ==================================================================
         // ==================================================================
@@ -65,16 +65,9 @@ class PaymentController extends Controller
         $total_price = $category->price * $orderData['quantity'];
 
 
-        // ==================================================================
-        // 1. Konversi USD Ke IDR
-        // ==================================================================
-        if ($category->currency == 'USD') {
-            $total_price = $total_price * env('USD_TO_IDR', 16452);
-        }
-
 
         // ==================================================================
-        // 2. Insert data order ke database PAQS
+        // 1. Insert data order ke database PAQS
         // ==================================================================
         $order = Order::create([
             'no_invoice'       => $no_invoice,
@@ -99,13 +92,20 @@ class PaymentController extends Controller
 
 
         // ==================================================================
-        // 3. Cek apakah payment pake credit card
-        // 3a. kalau gak ada, langsung kirim email tagihan yang nantinya redirect ke halaman invoice
+        // 2. Cek apakah payment pake credit card
+        // 2a. kalau gak ada, langsung kirim email tagihan yang nantinya redirect ke halaman invoice
         // ==================================================================
         if ($request->payment !== 'credit_card') {
             return redirect(url('email/' . $no_invoice . '/' . $order->email));
         }
 
+
+        // ==================================================================
+        // 3. Konversi USD Ke IDR
+        // ==================================================================
+        if ($category->currency == 'USD') {
+            $total_price = $total_price * env('USD_TO_IDR', 16452);
+        }
 
         // ==================================================================
         // 4. ESPAYYYYY!!!!!!!!!
@@ -118,7 +118,7 @@ class PaymentController extends Controller
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
         $url = env('ESPAY_BASE_URL', 'https://sandbox-api.espay.id');
 
-        // Body v.1.0 =======================================================================
+        // Body v.2.0 =======================================================================
         $body = [
             'partnerReferenceNo' => $no_invoice,
             'merchantId' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
@@ -392,8 +392,6 @@ class PaymentController extends Controller
 
     public function payment(Request $request)
     {
-
-
         $order = Order::where('no_invoice', $request->virtualAccountNo)->first();
 
         if ($request->customerNo !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
@@ -413,8 +411,6 @@ class PaymentController extends Controller
             'is_confirmed' => true,
             'payment_datetime' => $request->trxDateTime,
         ]);
-
-
 
         $response = [
             'responseCode' => '2002500',
