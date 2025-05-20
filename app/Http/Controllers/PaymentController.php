@@ -87,6 +87,7 @@ class PaymentController extends Controller
             'quantity'         => $orderData['quantity'],
             'total_price'      => $total_price,
             'payment_status'   => 'unpaid',
+            'payment_method'   => $request->payment,
             'proof_of_payment' => $orderData['proof_of_payment'] ?? null,
         ]);
 
