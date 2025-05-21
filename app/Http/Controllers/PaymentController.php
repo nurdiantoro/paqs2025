@@ -414,6 +414,14 @@ class PaymentController extends Controller
             return response()->json($reponse_failed, 200);
         }
 
+        if ($order->payment_request_id == $request->paymentRequestId) {
+            $reponse_failed = [
+                "responseCode" => "4042514",
+                "responseMessage" => 'Bill has been paid'
+            ];
+            return response()->json($reponse_failed, 200);
+        }
+
         $order->update([
             'payment_status' => 'paid',
             'is_confirmed' => true,
