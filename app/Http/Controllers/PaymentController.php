@@ -45,10 +45,9 @@ class PaymentController extends Controller
     {
         // TAHAPAN KODE DI BAWAH INI, BIAR PAHAM!!!!
         // 0. Bikin Variable dulu biar gak pusing
-        // 1. Insert data order ke database PAQS
-        // 2. Cek apakah payment pakai credit card atau manual
-        // 3. Jika USD, dikonvert dulu jadi IDR
-        // 4. ESPAYYYYY!!!!!!!!
+        // 1. Cek apakah payment pakai credit card atau manual
+        // 2. Jika USD, dikonvert dulu jadi IDR
+        // 3. ESPAYYYYY!!!!!!!!
         // ==================================================================
         // ==================================================================
 
@@ -65,51 +64,45 @@ class PaymentController extends Controller
         $total_price = $category->price * $orderData['quantity'];
 
 
-
         // ==================================================================
-        // 1. Insert data order ke database PAQS
-        // ==================================================================
-        $order = Order::create([
-            'no_invoice'       => $no_invoice,
-            'title'            => $orderData['title'],
-            'first_name'       => $orderData['first_name'],
-            'last_name'        => $orderData['last_name'],
-            'full_name'        => $orderData['first_name'] . ' ' . $orderData['last_name'],
-            'is_member'        => $orderData['member'],
-            'member_id'        => $orderData['member_id'] ?? null,
-            'association_id'   => $orderData['association'] ?? null,
-            'company'          => $orderData['company'],
-            'address'          => $orderData['address'],
-            'telephone'        => $orderData['telephone'],
-            'email'            => $orderData['email'],
-            'category_id'      => $orderData['category'],
-            'addon_id'         => $orderData['add_on'] ?? null,
-            'quantity'         => $orderData['quantity'],
-            'total_price'      => $total_price,
-            'payment_status'   => 'unpaid',
-            'payment_method'   => $request->payment,
-            'proof_of_payment' => $orderData['proof_of_payment'] ?? null,
-        ]);
-
-
-        // ==================================================================
-        // 2. Cek apakah payment pake credit card
-        // 2a. kalau gak ada, langsung kirim email tagihan yang nantinya redirect ke halaman invoice
+        // 1. Cek apakah payment pake credit card
+        // 1a. kalau gak ada, langsung kirim email tagihan yang nantinya redirect ke halaman invoice
         // ==================================================================
         if ($request->payment !== 'credit_card') {
+            $order = Order::create([
+                'no_invoice'       => $no_invoice,
+                'title'            => $orderData['title'],
+                'first_name'       => $orderData['first_name'],
+                'last_name'        => $orderData['last_name'],
+                'full_name'        => $orderData['first_name'] . ' ' . $orderData['last_name'],
+                'is_member'        => $orderData['member'],
+                'member_id'        => $orderData['member_id'] ?? null,
+                'association_id'   => $orderData['association'] ?? null,
+                'company'          => $orderData['company'],
+                'address'          => $orderData['address'],
+                'telephone'        => $orderData['telephone'],
+                'email'            => $orderData['email'],
+                'category_id'      => $orderData['category'],
+                'addon_id'         => $orderData['add_on'] ?? null,
+                'quantity'         => $orderData['quantity'],
+                'total_price'      => $total_price,
+                'payment_status'   => 'unpaid',
+                'payment_method'   => $request->payment,
+                'proof_of_payment' => $orderData['proof_of_payment'] ?? null,
+            ]);
+            session()->forget('order_data');
             return redirect(url('email/' . $no_invoice . '/' . $order->email));
         }
 
-
         // ==================================================================
-        // 3. Konversi USD Ke IDR
+        // 2. Konversi USD Ke IDR
         // ==================================================================
         if ($category->currency == 'USD') {
             $total_price = $total_price * env('USD_TO_IDR', 16452);
         }
 
         // ==================================================================
-        // 4. ESPAYYYYY!!!!!!!!!
+        // 3. ESPAYYYYY!!!!!!!!!
         // ==================================================================
         // $no_invoice = 'INV1746195322';
         $timestamp = now()->format('Y-m-d\TH:i:sP');
@@ -148,9 +141,9 @@ class PaymentController extends Controller
             ],
             'additionalInfo' => [
                 'payType' => 'REDIRECT',
-                'userName' => $order->full_name,
-                'userEmail' => $order->email,
-                'userPhone' => $order->telephone,
+                'userName' => $orderData['first_name'] . ' ' . $orderData['last_name'],
+                'userEmail' => $orderData['email'],
+                'userPhone' => $orderData['telephone'],
                 'productCode' => 'CREDITCARD',
                 'balanceType' => 'CASH',
             ],
@@ -175,7 +168,6 @@ class PaymentController extends Controller
         //     [$no_invoice, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult, $total_price]
         // ));
 
-
         $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
 
         // dd($response->body());
@@ -188,7 +180,7 @@ class PaymentController extends Controller
                 'response_body' => $response->body(),
                 'status' => $response->status(),
             ]);
-            return back()->withErrors(['message' => 'Terjadi kesalahan saat memproses pembayaran.']);
+            return back()->withErrors(['message' => $response->body()]);
         }
     }
 
@@ -218,7 +210,7 @@ class PaymentController extends Controller
         }
 
         $response = [
-            'responseCode' => '2002400',
+            'responseCode' => '2005400',
             'responseMessage' => 'Success',
             'virtualAccountData' => [
                 'partnerServiceId' => $partnerServiceId,
@@ -240,160 +232,8 @@ class PaymentController extends Controller
                         ],
                     ],
                 ],
-                // 'additionalInfo' => [
-                //     'token' => '2023011167618274122',
-                //     'transactionDate' => now()->format('Y-m-d\TH:i:sP'),
-                //     'dataMerchant' => [
-                //         'kodeCa' => '880105',
-                //         'kodeSubCa' => '-',
-                //         'noKontrak' => '060223118342',
-                //         'namaPelanggan' => 'Yories Yolanda',
-                //         'angsuranKe' => '15',
-                //         'jmlBayarExcAdm' => 5000000.00,
-                //         'denda' => 0.00,
-                //         'feeCa' => 5000.00,
-                //         'feeSwitcher' => 0.00,
-                //         'totalAdmin' => 5000.00,
-                //         'jumlahBayar' => 5005000.00,
-                //         'minimumAmount' => 2000000.00,
-                //         'totalAngsuran' => 48,
-                //         'customer' => [
-                //             'email' => 'test@gmail.com',
-                //         ],
-                //         'jatuhTempo' => '2025-03-10',
-                //         'listBills' => [
-                //             [
-                //                 'billCode' => '01',
-                //                 'billName' => 'Bill Invoice 1',
-                //                 'billAmount' => [
-                //                     'value' => '70000.00',
-                //                     'currency' => 'IDR',
-                //                 ],
-                //                 'billSubCompany' => '00001',
-                //             ],
-                //             [
-                //                 'billCode' => '02',
-                //                 'billName' => 'Bill Invoice 2',
-                //                 'billAmount' => [
-                //                     'value' => '50000.00',
-                //                     'currency' => 'IDR',
-                //                 ],
-                //                 'billSubCompany' => '00002',
-                //             ],
-                //         ],
-                //         'shippingAddress' => [
-                //             'firstName' => 'Jokul',
-                //             'lastName' => 'Doe',
-                //             'address' => 'Jl. Teknologi Indonesia No. 25',
-                //             'city' => 'Jakarta',
-                //             'postalCode' => '12960',
-                //             'phoneNumber' => '6281828384858',
-                //             'countryCode' => 'IDN',
-                //         ],
-                //         'items' => [
-                //             [
-                //                 'id' => '1',
-                //                 'name' => 'Newlook Charm',
-                //                 'price' => '10000',
-                //                 'type' => 'Contact Lens',
-                //                 'url' => 'https://domain.com/products/detail?id=1',
-                //                 'quantity' => '1',
-                //             ],
-                //             [
-                //                 'id' => '2',
-                //                 'name' => 'Newlook Playful',
-                //                 'price' => '10000',
-                //                 'type' => 'Contact Lens',
-                //                 'url' => 'https://domain.com/products/detail?id=2',
-                //                 'quantity' => '1',
-                //             ],
-                //         ],
-                //     ],
-                // ],
             ],
         ];
-
-        return response()->json($response, 200);
-    }
-
-    public function paymentNotification(Request $request)
-    {
-        $rq_uuid = $request->input('rq_uuid');
-        $rq_datetime = $request->input('rq_datetime');
-        $password = $request->input('password');
-        $signature = $request->input('signature');
-        $member_id = $request->input('member_id');
-        $comm_code = $request->input('comm_code');
-        $order_id = $request->input('order_id');
-        $ccy = $request->input('ccy');
-        $amount = $request->input('amount');
-        $debit_from_bank = $request->input('debit_from_bank');
-        $debit_from = $request->input('debit_from');
-        $debit_from_name = $request->input('debit_from_name');
-        $credit_to_bank = $request->input('credit_to_bank');
-        $credit_to = $request->input('credit_to');
-        $credit_to_name = $request->input('credit_to_name');
-        $product_code = $request->input('product_code');
-        $message = $request->input('message');
-        $payment_datetime = $request->input('payment_datetime');
-        $payment_ref = $request->input('payment_ref');
-        $approval_code_full_bca = $request->input('approval_code_full_bca');
-        $approval_code_installment_bca = $request->input('approval_code_installment_bca');
-
-        $response = [
-            "rq_uuid" => $rq_uuid,
-            "rs_datetime" => now()->format('Y-m-d\TH:i:sP'),
-            "error_code" => "0000",
-            "error_message" => "Success",
-            "signature" => $signature,
-            "order_id" => $order_id,
-            "reconcile_id" => "2020100121183111",
-            "reconcile_datetime" => now()->format('Y-m-d\TH:i:sP')
-        ];
-
-        $response_failed = [
-            "rq_uuid" => "ebf8e9df-639e-424f-8148-94d2741edd03",
-            "rs_datetime" => "2024-04-01T22:55:14+07:00",
-            "error_code" => "0014",
-            "error_message" => "invalid order id"
-        ];
-
-
-        $order = Order::where('no_invoice', $order_id)->first();
-        if (!$order) {
-            return response()->json($response_failed, 200);
-        }
-
-        $order->update([
-            'payment_status' => 'paid',
-            'is_confirmed' => true,
-            'payment_datetime' => $payment_datetime,
-        ]);
-
-        EspayPayment::create([
-            'rq_uuid' => $rq_uuid,
-            'rq_datetime' => $rq_datetime,
-            'password' => $password,
-            'signature' => $signature,
-            'member_id' => $member_id,
-            'comm_code' => $comm_code,
-            'order_id' => $order_id,
-            'ccy' => $ccy,
-            'amount' => $amount,
-            'debit_from_bank' => $debit_from_bank,
-            'debit_from' => $debit_from,
-            'debit_from_name' => $debit_from_name,
-            'credit_to_bank' => $credit_to_bank,
-            'credit_to' => $credit_to,
-            'credit_to_name' => $credit_to_name,
-            'product_code' => $product_code,
-            'message' => $message,
-            'payment_datetime' => $payment_datetime,
-            'payment_ref' => $payment_ref,
-            'approval_code_full_bca' => $approval_code_full_bca,
-            'approval_code_installment_bca' => $approval_code_installment_bca,
-
-        ]);
 
         return response()->json($response, 200);
     }
@@ -401,19 +241,20 @@ class PaymentController extends Controller
     public function payment(Request $request)
     {
         $order = Order::where('no_invoice', $request->virtualAccountNo)->first();
+        $orderData = session('order_data');
+        $category = Category::find($orderData['category']);
+        $total_price = $category->price * $orderData['quantity'];
 
+        // Jika customerNo tidak sama dengan merchant code
         if ($request->customerNo !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
-            $message = 'Unauthorized Signature';
-            if (!$order) {
-                $message = 'Order not found';
-            }
             $reponse_failed = [
                 "responseCode" => "4012500",
-                "responseMessage" => $message
+                "responseMessage" => "Unauthorized Signature"
             ];
             return response()->json($reponse_failed, 200);
         }
 
+        // Jika order sudah dibayar/Double payment
         if ($order->payment_request_id == $request->paymentRequestId) {
             $reponse_failed = [
                 "responseCode" => "4042514",
@@ -422,6 +263,28 @@ class PaymentController extends Controller
             return response()->json($reponse_failed, 200);
         }
 
+        $order = Order::create([
+            'no_invoice'       => $request->virtualAccountNo,
+            'title'            => $orderData['title'],
+            'first_name'       => $orderData['first_name'],
+            'last_name'        => $orderData['last_name'],
+            'full_name'        => $orderData['first_name'] . ' ' . $orderData['last_name'],
+            'is_member'        => $orderData['member'],
+            'member_id'        => $orderData['member_id'] ?? null,
+            'association_id'   => $orderData['association'] ?? null,
+            'company'          => $orderData['company'],
+            'address'          => $orderData['address'],
+            'telephone'        => $orderData['telephone'],
+            'email'            => $orderData['email'],
+            'category_id'      => $orderData['category'],
+            'quantity'         => $orderData['quantity'],
+            'total_price'      => $total_price,
+            'payment_status'   => 'paid',
+            'payment_method'   => 'credit_card',
+            'is_confirmed'          => true,
+            'payment_request_id'    => $request->paymentRequestId,
+            'payment_datetime'      => $request->trxDateTime,
+        ]);
         $order->update([
             'payment_status' => 'paid',
             'is_confirmed' => true,
