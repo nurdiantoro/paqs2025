@@ -199,14 +199,13 @@ class PaymentController extends Controller
             ], 400);
         }
 
-        $order = Order::where('no_invoice', $virtualAccountNo)->first();
-        $order->update(['inquiry_request_id' => $inquiryRequestId]);
-        $category = Category::where('id', $order->category_id)->first();
+        $orderData = session('order_data');
+        $category = Category::where('id', $orderData['category'])->first();
+        $total_price = $category->price * $orderData['quantity'];
 
+        // Konversi USD ke IDR
         if ($category->currency == 'USD') {
-            $total_price = $order->total_price * env('USD_TO_IDR', 16452);
-        } else {
-            $total_price = $order->total_price;
+            $total_price = $total_price * env('USD_TO_IDR', 16452);
         }
 
         $response = [
@@ -216,9 +215,9 @@ class PaymentController extends Controller
                 'partnerServiceId' => $partnerServiceId,
                 'customerNo' => $partnerServiceId,
                 'virtualAccountNo' => $virtualAccountNo,
-                'virtualAccountName' => $order->full_name,
-                'virtualAccountEmail' => $order->email,
-                'virtualAccountPhone' => $order->telephone,
+                'virtualAccountName' => $orderData['first_name'] . ' ' . $orderData['last_name'],
+                'virtualAccountEmail' => $orderData['email'],
+                'virtualAccountPhone' => $orderData['telephone'],
                 'inquiryRequestId' => $inquiryRequestId,
                 'totalAmount' => [
                     'value' => $total_price,
@@ -227,8 +226,8 @@ class PaymentController extends Controller
                 'billDetails' => [
                     [
                         'billDescription' => [
-                            'english' => 'PAQS 2025 Invoice No ' . $order->no_invoice,
-                            'indonesia' => 'Tagihan PAQS 2025 No ' . $order->no_invoice,
+                            'english' => 'PAQS 2025 Invoice No ' . $partnerServiceId,
+                            'indonesia' => 'Tagihan PAQS 2025 No ' . $partnerServiceId,
                         ],
                     ],
                 ],
