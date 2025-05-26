@@ -203,12 +203,14 @@ class PaymentController extends Controller
         // ================================================================================
         // Cek apakah semua header ada dan tidak kosong
         // ================================================================================
-        $xTimestamp = request()->header('X-TIMESTAMP');
-        $xSignature = request()->header('X-SIGNATURE');
-        $externalId = request()->header('X-EXTERNAL-ID');
-        $partnerId = request()->header('X-PARTNER-ID');
-        $channelId = request()->header('CHANNEL-ID');
-        if (empty($xTimestamp) || empty($xSignature) || empty($externalId) || empty($partnerId) || empty($channelId)) {) {
+        $requiredHeaders = ['Content-Type', 'X-TIMESTAMP', 'X-SIGNATURE', 'X-EXTERNAL-ID', 'X-PARTNER-ID', 'CHANNEL-ID',];
+        $missing = [];
+        foreach ($requiredHeaders as $header) {
+            if (empty($request->header($header))) {
+                $missing[] = $header;
+            }
+        }
+        if (!empty($missing)) {
             return response()->json([
                 'responseCode' => '4012400',
                 'responseMessage' => 'Unauthorized Signature',
@@ -233,15 +235,17 @@ class PaymentController extends Controller
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
         $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
+        $xTimestamp = request()->header('X-TIMESTAMP');
+        $xSignature = request()->header('X-SIGNATURE');
         $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $xTimestamp, $privateKey);
 
         // decode v.1
-        // $xSignature_decode  = base64_decode($xSignature);
+        // $xSignature_decode  = base64_decode($x_signature);
         // $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
 
         // decode v.2
         $requestSignature = base64_decode($xSignature);
-        $stringToSign = 'POST' . ':' . $relativeUrl . ':' . strtolower((hash('sha256', json_encode(json_decode($_POST['bodyRequest']), JSON_UNESCAPED_SLASHES)))) . ':' . $timestamp;
+        $stringToSign = 'POST' . ':' . $relativeUrl . ':' . strtolower((hash('sha256', json_encode(json_decode($_POST['bodyRequest']), JSON_UNESCAPED_SLASHES)))) . ':' . $xTimestamp;
         $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
 
 
