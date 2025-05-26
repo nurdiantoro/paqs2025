@@ -171,6 +171,11 @@ class PaymentController extends Controller
             'CHANNEL-ID' => 'ESPAY',
         ];
 
+        $order->update([
+            'x_signature' => $signatureData['xSignature'],
+            'x_timestamp' => $timestamp
+        ]);
+
         // dd((
         //     [$no_invoice, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult, $total_price]
         // ));
@@ -252,25 +257,25 @@ class PaymentController extends Controller
         $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
 
 
-        if ($verificationResult == false) {
-            return response()->json([
-                'responseCode' => '4015400',
-                'responseMessage' => 'Unauthorized Signature',
+        // if ($verificationResult == false) {
+        //     return response()->json([
+        //         'responseCode' => '4015400',
+        //         'responseMessage' => 'Unauthorized Signature',
 
-                'requestSignature' => $requestSignature,
-                'x-signature' => $xSignature,
-                'x-timestamp' => $xTimestamp,
-                'requestBody' => $bodyReencoded,
-                'publicKey' => $publicKey,
-                'stringToSign' => $stringToSign,
-                'result' => $verificationResult,
-            ], 400);
-        } else {
-            return response()->json([
-                'responseCode' => '200',
-                'responseMessage' => 'Signature',
-            ], 200);
-        }
+        //         'requestSignature' => $requestSignature,
+        //         'x-signature' => $xSignature,
+        //         'x-timestamp' => $xTimestamp,
+        //         'requestBody' => $bodyReencoded,
+        //         'publicKey' => $publicKey,
+        //         'stringToSign' => $stringToSign,
+        //         'result' => $verificationResult,
+        //     ], 400);
+        // } else {
+        //     return response()->json([
+        //         'responseCode' => '200',
+        //         'responseMessage' => 'Signature',
+        //     ], 200);
+        // }
 
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
         $order->update(['inquiry_request_id' => $inquiryRequestId]);
