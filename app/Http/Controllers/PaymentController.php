@@ -245,7 +245,10 @@ class PaymentController extends Controller
 
         // decode v.2
         $requestSignature = base64_decode($xSignature);
-        $stringToSign = 'POST' . ':' . $relativeUrl . ':' . strtolower((hash('sha256', json_encode(json_decode($_POST['bodyRequest']), JSON_UNESCAPED_SLASHES)))) . ':' . $xTimestamp;
+        $body = file_get_contents('php://input');
+        $bodyDecoded = json_decode($body, true);
+        $bodyReencoded = json_encode($bodyDecoded, JSON_UNESCAPED_SLASHES);
+        $stringToSign = 'POST' . ':' . $relativeUrl . ':' . strtolower(hash('sha256', $bodyReencoded)) . ':' . $xTimestamp;
         $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
 
 
