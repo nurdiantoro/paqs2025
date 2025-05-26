@@ -238,24 +238,32 @@ class PaymentController extends Controller
         $x_timestamp = $request->header('X-TIMESTAMP');
         $x_signature = $request->header('X-SIGNATURE');
         $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $x_timestamp, $privateKey);
-        // decode
-        $xSignature_decode  = base64_decode($x_signature);
-        $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
-        if ($verificationResult == false) {
-            // return response()->json([
-            //     'responseCode' => '4015400',
-            //     'responseMessage' => 'Unauthorized Signature',
 
-            //     'stringToSign' => $signatureData['stringToSign'],
-            //     'x-signature' => $signature,
-            //     'requestBody' => $request->getContent(),
-            //     'result' => $verificationResult,
-            // ], 400);
+        // decode v.1
+        // $xSignature_decode  = base64_decode($x_signature);
+        // $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+
+        // decode v.2
+        $requestSignature = base64_decode($x_signature);
+        $stringToSign = 'POST' . ':' . $relativeUrl . ':' . strtolower((hash('sha256', json_encode(json_decode($_POST['bodyRequest']), JSON_UNESCAPED_SLASHES)))) . ':' . $timestamp;
+        $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
+
+
+        if ($verificationResult == false) {
+            return response()->json([
+                'responseCode' => '4015400',
+                'responseMessage' => 'Unauthorized Signature',
+
+                'stringToSign' => $signatureData['stringToSign'],
+                'x-signature' => $x_signature,
+                'requestBody' => $request->getContent(),
+                'result' => $verificationResult,
+            ], 400);
         } else {
-            // return response()->json([
-            //     'responseCode' => '200',
-            //     'responseMessage' => 'Signature',
-            // ], 200);
+            return response()->json([
+                'responseCode' => '200',
+                'responseMessage' => 'Signature',
+            ], 200);
         }
 
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
