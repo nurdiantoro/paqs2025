@@ -237,9 +237,9 @@ class PaymentController extends Controller
         $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
         $xTimestamp = request()->header('X-TIMESTAMP');
         $xSignature = request()->header('X-SIGNATURE');
-        $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $xTimestamp, $privateKey);
 
         // decode v.1
+        // $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $xTimestamp, $privateKey);
         // $xSignature_decode  = base64_decode($x_signature);
         // $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
 
@@ -257,9 +257,12 @@ class PaymentController extends Controller
                 'responseCode' => '4015400',
                 'responseMessage' => 'Unauthorized Signature',
 
-                'stringToSign' => $signatureData['stringToSign'],
+                'requestSignature' => $requestSignature,
                 'x-signature' => $xSignature,
-                'requestBody' => $request->getContent(),
+                'x-timestamp' => $xTimestamp,
+                'requestBody' => $bodyReencoded,
+                'publicKey' => $publicKey,
+                'stringToSign' => $stringToSign,
                 'result' => $verificationResult,
             ], 400);
         } else {
