@@ -235,10 +235,11 @@ class PaymentController extends Controller
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
         $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
-        $timestamp = $requiredHeaders['X-TIMESTAMP'];
-        $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $timestamp, $privateKey);
+        $x_timestamp = $request->header('X-TIMESTAMP');
+        $x_signature = $request->header('X-SIGNATURE');
+        $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $x_timestamp, $privateKey);
         // decode
-        $xSignature_decode  = base64_decode($requiredHeaders['X-SIGNATURE']);
+        $xSignature_decode  = base64_decode($x_signature);
         $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
         if ($verificationResult == false) {
             // return response()->json([
