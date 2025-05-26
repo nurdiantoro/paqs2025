@@ -239,7 +239,7 @@ class PaymentController extends Controller
         // ================================================================================
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
-        $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
+        $relativeUrl = '/api/v1.0/transfer-va/inquiry';
         $xTimestamp = request()->header('X-TIMESTAMP');
         $xSignature = request()->header('X-SIGNATURE');
 
@@ -257,25 +257,20 @@ class PaymentController extends Controller
         $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
 
 
-        // if ($verificationResult == false) {
-        //     return response()->json([
-        //         'responseCode' => '4015400',
-        //         'responseMessage' => 'Unauthorized Signature',
+        if ($verificationResult == false) {
+            return response()->json([
+                'responseCode' => '4015400',
+                'responseMessage' => 'Unauthorized Signature',
 
-        //         'requestSignature' => $requestSignature,
-        //         'x-signature' => $xSignature,
-        //         'x-timestamp' => $xTimestamp,
-        //         'requestBody' => $bodyReencoded,
-        //         'publicKey' => $publicKey,
-        //         'stringToSign' => $stringToSign,
-        //         'result' => $verificationResult,
-        //     ], 400);
-        // } else {
-        //     return response()->json([
-        //         'responseCode' => '200',
-        //         'responseMessage' => 'Signature',
-        //     ], 200);
-        // }
+                // 'requestSignature' => $requestSignature,
+                // 'x-signature' => $xSignature,
+                // 'x-timestamp' => $xTimestamp,
+                // 'requestBody' => $bodyReencoded,
+                // 'publicKey' => $publicKey,
+                // 'stringToSign' => $stringToSign,
+                // 'result' => $verificationResult,
+            ], 400);
+        }
 
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
         $order->update(['inquiry_request_id' => $inquiryRequestId]);
