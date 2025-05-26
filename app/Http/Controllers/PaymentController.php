@@ -195,21 +195,6 @@ class PaymentController extends Controller
 
     public function inquiry(Request $request)
     {
-        // Cek apakah semua header ada dan tidak kosong
-        $requiredHeaders = ['Content-Type', 'X-TIMESTAMP', 'X-SIGNATURE', 'X-EXTERNAL-ID', 'X-PARTNER-ID', 'CHANNEL-ID',];
-        $missing = [];
-        foreach ($requiredHeaders as $header) {
-            if (empty($request->header($header))) {
-                $missing[] = $header;
-            }
-        }
-        if (!empty($missing)) {
-            return response()->json([
-                'responseCode' => '4005402',
-                'message' => 'Missing Mandatory Field {' . implode(', ', $missing) . '}',
-            ], 400);
-        }
-
         // Header
         $contentType   = $request->header('Content-Type');
         $timestamp     = $request->header('X-TIMESTAMP');
@@ -225,22 +210,65 @@ class PaymentController extends Controller
         $trxDateInit        = $request->input('trxDateInit');
         $inquiryRequestId   = $request->input('inquiryRequestId');
 
-        if ($customerNo !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
+        // ================================================================================
+        // Cek apakah semua header ada dan tidak kosong
+        // ================================================================================
+        $requiredHeaders = ['Content-Type', 'X-TIMESTAMP', 'X-SIGNATURE', 'X-EXTERNAL-ID', 'X-PARTNER-ID', 'CHANNEL-ID',];
+        $missing = [];
+        foreach ($requiredHeaders as $header) {
+            if (empty($request->header($header))) {
+                $missing[] = $header;
+            }
+        }
+        if (!empty($missing)) {
             return response()->json([
-                'responseCode' => '4015400',
-                'responseMessage' => 'Missing Mandatory Field',
+                'responseCode' => '4005402',
+                'message' => 'Missing Mandatory Field {' . implode(', ', $missing) . '}',
             ], 400);
         }
 
-        if ($signature) {
+        // ================================================================================
+        // Cek format partnerReferenceNo
+        // ================================================================================
+        if (preg_match('/[^a-zA-Z0-9\s]/', $virtualAccountNo)) {
             return response()->json([
-                'responseCode' => '4015400',
-                'responseMessage' => 'Unauthorized Signature',
+                'responseCode' => '4005401',
+                'responseMessage' => 'Invalid Field Format virtualAccountNo',
             ], 400);
+        }
+
+        // ================================================================================
+        // Cek signature
+        // ================================================================================
+        $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
+        $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
+        $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
+        $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $timestamp, $privateKey);
+        // decode
+        $xSignature_decode  = base64_decode($signature);
+        $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+        if ($verificationResult == false) {
+            // return response()->json([
+            //     'responseCode' => '4015400',
+            //     'responseMessage' => 'Unauthorized Signature',
+
+            //     'stringToSign' => $signatureData['stringToSign'],
+            //     'x-signature' => $signature,
+            //     'requestBody' => $request->getContent(),
+            //     'result' => $verificationResult,
+            // ], 400);
+        } else {
+            return response()->json([
+                'responseCode' => '200',
+                'responseMessage' => 'Signature',
+            ], 200);
         }
 
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
-        $order->update(['inquiry_request_id' => $inquiryRequestId]);
+        $order->update([
+            'inquiry_request_id' => $inquiryRequestId,
+            'x_signature' => $signature,
+        ]);
         $category = Category::where('id', $order->category_id)->first();
 
         if ($category->currency == 'USD') {
@@ -274,88 +302,6 @@ class PaymentController extends Controller
                 ],
             ],
         ];
-
-        return response()->json($response, 200);
-    }
-
-    public function paymentNotification(Request $request)
-    {
-        $rq_uuid = $request->input('rq_uuid');
-        $rq_datetime = $request->input('rq_datetime');
-        $password = $request->input('password');
-        $signature = $request->input('signature');
-        $member_id = $request->input('member_id');
-        $comm_code = $request->input('comm_code');
-        $order_id = $request->input('order_id');
-        $ccy = $request->input('ccy');
-        $amount = $request->input('amount');
-        $debit_from_bank = $request->input('debit_from_bank');
-        $debit_from = $request->input('debit_from');
-        $debit_from_name = $request->input('debit_from_name');
-        $credit_to_bank = $request->input('credit_to_bank');
-        $credit_to = $request->input('credit_to');
-        $credit_to_name = $request->input('credit_to_name');
-        $product_code = $request->input('product_code');
-        $message = $request->input('message');
-        $payment_datetime = $request->input('payment_datetime');
-        $payment_ref = $request->input('payment_ref');
-        $approval_code_full_bca = $request->input('approval_code_full_bca');
-        $approval_code_installment_bca = $request->input('approval_code_installment_bca');
-
-        $response = [
-            "rq_uuid" => $rq_uuid,
-            "rs_datetime" => now()->format('Y-m-d\TH:i:sP'),
-            "error_code" => "0000",
-            "error_message" => "Success",
-            "signature" => $signature,
-            "order_id" => $order_id,
-            "reconcile_id" => "2020100121183111",
-            "reconcile_datetime" => now()->format('Y-m-d\TH:i:sP')
-        ];
-
-        $response_failed = [
-            "rq_uuid" => "ebf8e9df-639e-424f-8148-94d2741edd03",
-            "rs_datetime" => "2024-04-01T22:55:14+07:00",
-            "error_code" => "0014",
-            "error_message" => "invalid order id"
-        ];
-
-
-        $order = Order::where('no_invoice', $order_id)->first();
-        if (!$order) {
-            return response()->json($response_failed, 200);
-        }
-
-        $order->update([
-            'payment_status' => 'paid',
-            'is_confirmed' => true,
-            'payment_datetime' => $payment_datetime,
-        ]);
-
-        EspayPayment::create([
-            'rq_uuid' => $rq_uuid,
-            'rq_datetime' => $rq_datetime,
-            'password' => $password,
-            'signature' => $signature,
-            'member_id' => $member_id,
-            'comm_code' => $comm_code,
-            'order_id' => $order_id,
-            'ccy' => $ccy,
-            'amount' => $amount,
-            'debit_from_bank' => $debit_from_bank,
-            'debit_from' => $debit_from,
-            'debit_from_name' => $debit_from_name,
-            'credit_to_bank' => $credit_to_bank,
-            'credit_to' => $credit_to,
-            'credit_to_name' => $credit_to_name,
-            'product_code' => $product_code,
-            'message' => $message,
-            'payment_datetime' => $payment_datetime,
-            'payment_ref' => $payment_ref,
-            'approval_code_full_bca' => $approval_code_full_bca,
-            'approval_code_installment_bca' => $approval_code_installment_bca,
-
-        ]);
 
         return response()->json($response, 200);
     }
