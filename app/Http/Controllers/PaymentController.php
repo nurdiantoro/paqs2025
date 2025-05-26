@@ -200,11 +200,61 @@ class PaymentController extends Controller
         $trxDateInit        = $request->input('trxDateInit');
         $inquiryRequestId   = $request->input('inquiryRequestId');
 
-        if ($customerNo !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
+        // ================================================================================
+        // Cek apakah semua header ada dan tidak kosong
+        // ================================================================================
+        $requiredHeaders = ['Content-Type', 'X-TIMESTAMP', 'X-SIGNATURE', 'X-EXTERNAL-ID', 'X-PARTNER-ID', 'CHANNEL-ID',];
+        $missing = [];
+        foreach ($requiredHeaders as $header) {
+            if (empty($request->header($header))) {
+                $missing[] = $header;
+            }
+        }
+        if (!empty($missing)) {
             return response()->json([
                 'responseCode' => '4012400',
                 'responseMessage' => 'Unauthorized Signature',
+                'responseCode' => '4005402',
+                'message' => 'Missing Mandatory Field {' . implode(', ', $missing) . '}',
             ], 400);
+        }
+
+        // ================================================================================
+        // Cek format partnerReferenceNo
+        // ================================================================================
+        if (preg_match('/[^a-zA-Z0-9\s]/', $virtualAccountNo)) {
+            return response()->json([
+                'responseCode' => '4005401',
+                'responseMessage' => 'Invalid Field Format virtualAccountNo',
+            ], 400);
+        }
+
+        // ================================================================================
+        // Cek signature
+        // ================================================================================
+        $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
+        $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
+        $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
+        $timestamp = $requiredHeaders['X-TIMESTAMP'];
+        $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $timestamp, $privateKey);
+        // decode
+        $xSignature_decode  = base64_decode($requiredHeaders['X-SIGNATURE']);
+        $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+        if ($verificationResult == false) {
+            // return response()->json([
+            //     'responseCode' => '4015400',
+            //     'responseMessage' => 'Unauthorized Signature',
+
+            //     'stringToSign' => $signatureData['stringToSign'],
+            //     'x-signature' => $signature,
+            //     'requestBody' => $request->getContent(),
+            //     'result' => $verificationResult,
+            // ], 400);
+        } else {
+            // return response()->json([
+            //     'responseCode' => '200',
+            //     'responseMessage' => 'Signature',
+            // ], 200);
         }
 
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
