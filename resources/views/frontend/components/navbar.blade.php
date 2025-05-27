@@ -2,7 +2,7 @@
 
 @php
     $navbarColor = 'hover:text-warna-temp-02 font-semibold text-gray-400';
-    $home = $about = $information = $programme = $contact = $call_for_paper = 'text-gray-400';
+    $home = $about = $information = $programme = $contact = $call_for_abstract = 'text-gray-400';
     if (url()->current() == url('')) {
         $home = 'text-warna-temp-02';
     } elseif (url()->current() == url('/about')) {
@@ -23,8 +23,8 @@
         $sponsor = 'text-warna-temp-02';
     } elseif (url()->current() == url('/registration')) {
         $registration = 'text-warna-temp-02';
-    } elseif (url()->current() == url('/call-for-paper')) {
-        $call_for_paper = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/call-for-abstract')) {
+        $call_for_abstract = 'text-warna-temp-02';
     }
 @endphp
 
@@ -68,9 +68,9 @@
                                             <li><a href="{{ url('invoice') }}">Check Invoice</a></li>
                                         </ul>
                                     </li>
-                                    <li class="has-sub {{ $call_for_paper . ' ' . $navbarColor }}">
-                                        <a href="{{ url('call-for-paper') }}">
-                                            <span class="text-2xl">Call for paper</span>
+                                    <li class="has-sub {{ $call_for_abstract . ' ' . $navbarColor }}">
+                                        <a href="{{ url('call-for-abstract') }}">
+                                            <span class="text-2xl">Call for Abstract</span>
                                         </a>
                                     </li>
                                     <li class="has-sub {{ $contact . ' ' . $navbarColor }}">
