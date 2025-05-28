@@ -53,6 +53,7 @@ Route::prefix('espay')->group(
         Route::get('/index', [PaymentController::class, 'index'])->name('payment.index');
         Route::post('/initiatePayment', [PaymentController::class, 'initiatePayment'])->name('payment.initiate');
         Route::get('/callback', [PaymentController::class, 'callback'])->name('payment.callback');
+        Route::get('/virtualAccount', [PaymentController::class, 'virtualAccount'])->name('payment.virtualAccount');
     }
 );
 

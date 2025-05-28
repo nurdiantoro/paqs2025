@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\EspayPayment;
 use App\Models\Order;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -367,5 +368,46 @@ class PaymentController extends Controller
         ];
 
         return response()->json($response, 200);
+    }
+
+    public function virtualAccount()
+    {
+        // Membuat signature
+        // $signature = hash('sha256', $merchantCode . $orderId . $amount . $signatureKey);
+
+        $signatureKey = env('ESPAY_SIGNATURE', '1uq3l0np1hq9l5hu');
+        $rq_uuid = Str::uuid()->toString();
+        $rq_datetime = Carbon::now()->format('Y-m-d H:i:s');
+        $order_id = 'INV-' . strtoupper(Str::random(10));
+        $amount = '1000000';
+        $ccy = 'IDR';
+        $comm_code = env('ESPAY_MERCHANT_CODE', 'SGWPTDMP');
+        $action = 'SENDINVOICE';
+
+        $raw_string = strtoupper("##{$signatureKey}##{$rq_uuid}##{$rq_datetime}##{$order_id}##{$amount}##{$ccy}##{$comm_code}##{$action}##");
+        $signature = hash('sha256', $raw_string);
+        // echo "Raw String: " . $raw_string . PHP_EOL;
+        // echo "Signature : " . $signature;
+
+        $response = Http::asForm()->post('https://sandbox-api.espay.id/rest/merchantpg/sendinvoice', [
+            'rq_uuid' => $rq_uuid,
+            'rq_datetime' => $rq_datetime,
+            'order_id' => $order_id,
+            'amount' => $amount,
+            'ccy' => 'IDR',
+            'comm_code' => $comm_code,
+            'remark1' => '081808501959',
+            'remark2' => 'Nur Diantoro',
+            'remark3' => 'nurdiantoro100@gmail.com',
+            'update' => 'N',
+            'bank_code' => '014',
+            'signature' => $signature,
+        ]);
+
+        if ($response->successful()) {
+            return response()->json($response->json());
+        }
+
+        return response()->json(['error' => 'Gagal membuat Virtual Account', $response->json()], 500);
     }
 }
