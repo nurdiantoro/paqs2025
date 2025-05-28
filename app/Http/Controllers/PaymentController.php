@@ -97,7 +97,6 @@ class PaymentController extends Controller
         // 2a. kalau gak ada, langsung kirim email tagihan yang nantinya redirect ke halaman invoice
         // ==================================================================
         if ($request->payment !== 'credit_card') {
-            session()->forget('order_data');
             return redirect(url('email/' . $no_invoice . '/' . $order->email));
         }
 
@@ -172,6 +171,11 @@ class PaymentController extends Controller
             'CHANNEL-ID' => 'ESPAY',
         ];
 
+        $order->update([
+            'x_signature' => $signatureData['xSignature'],
+            'x_timestamp' => $timestamp
+        ]);
+
         // dd((
         //     [$no_invoice, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult, $total_price]
         // ));
@@ -195,15 +199,6 @@ class PaymentController extends Controller
 
     public function inquiry(Request $request)
     {
-        // Header
-        $contentType   = $request->header('Content-Type');
-        $timestamp     = $request->header('X-TIMESTAMP');
-        $signature     = $request->header('X-SIGNATURE');
-        $externalId    = $request->header('X-EXTERNAL-ID');
-        $partnerId     = $request->header('X-PARTNER-ID');
-        $channelId     = $request->header('CHANNEL-ID');
-
-        // Request
         $partnerServiceId   = $request->input('partnerServiceId');
         $customerNo         = $request->input('customerNo');
         $virtualAccountNo   = $request->input('virtualAccountNo');
@@ -222,6 +217,8 @@ class PaymentController extends Controller
         }
         if (!empty($missing)) {
             return response()->json([
+                'responseCode' => '4012400',
+                'responseMessage' => 'Unauthorized Signature',
                 'responseCode' => '4005402',
                 'message' => 'Missing Mandatory Field {' . implode(', ', $missing) . '}',
             ], 400);
@@ -242,33 +239,41 @@ class PaymentController extends Controller
         // ================================================================================
         $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
-        $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
-        $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $timestamp, $privateKey);
-        // decode
-        $xSignature_decode  = base64_decode($signature);
-        $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
-        if ($verificationResult == false) {
-            // return response()->json([
-            //     'responseCode' => '4015400',
-            //     'responseMessage' => 'Unauthorized Signature',
+        $relativeUrl = '/api/v1.0/transfer-va/inquiry';
+        $xTimestamp = request()->header('X-TIMESTAMP');
+        $xSignature = request()->header('X-SIGNATURE');
 
-            //     'stringToSign' => $signatureData['stringToSign'],
-            //     'x-signature' => $signature,
-            //     'requestBody' => $request->getContent(),
-            //     'result' => $verificationResult,
-            // ], 400);
-        } else {
+        // decode v.1
+        // $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $xTimestamp, $privateKey);
+        // $xSignature_decode  = base64_decode($x_signature);
+        // $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+
+        // decode v.2
+        $requestSignature = base64_decode($xSignature);
+        $body = file_get_contents('php://input');
+        $bodyDecoded = json_decode($body, true);
+        $bodyReencoded = json_encode($bodyDecoded, JSON_UNESCAPED_SLASHES);
+        $stringToSign = 'POST' . ':' . $relativeUrl . ':' . strtolower(hash('sha256', $bodyReencoded)) . ':' . $xTimestamp;
+        $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
+
+
+        if ($verificationResult == false) {
             return response()->json([
-                'responseCode' => '200',
-                'responseMessage' => 'Signature',
-            ], 200);
+                'responseCode' => '4015400',
+                'responseMessage' => 'Unauthorized Signature',
+
+                // 'requestSignature' => $requestSignature,
+                // 'x-signature' => $xSignature,
+                // 'x-timestamp' => $xTimestamp,
+                // 'requestBody' => $bodyReencoded,
+                // 'publicKey' => $publicKey,
+                // 'stringToSign' => $stringToSign,
+                // 'result' => $verificationResult,
+            ], 400);
         }
 
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
-        $order->update([
-            'inquiry_request_id' => $inquiryRequestId,
-            'x_signature' => $signature,
-        ]);
+        $order->update(['inquiry_request_id' => $inquiryRequestId]);
         $category = Category::where('id', $order->category_id)->first();
 
         if ($category->currency == 'USD') {
@@ -278,7 +283,7 @@ class PaymentController extends Controller
         }
 
         $response = [
-            'responseCode' => '2005400',
+            'responseCode' => '2002400',
             'responseMessage' => 'Success',
             'virtualAccountData' => [
                 'partnerServiceId' => $partnerServiceId,

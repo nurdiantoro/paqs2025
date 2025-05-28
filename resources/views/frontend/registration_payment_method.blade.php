@@ -97,14 +97,15 @@
                                     class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:bg-warna-01 peer-checked:text-white peer-checked:border-warna-01  group-hover:opacity-100">Upload
                                     Proof of Payment (Manual Confirmation)</label>
                             </div>
-
-                            <div class="flex flex-row gap-2 items-center group">
-                                <input type="radio" name="payment" id="payment2" value="credit_card"
-                                    class="peer mr-2 hidden" required>
-                                <label for="payment2"
-                                    class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:bg-warna-01 peer-checked:text-white peer-checked:border-warna-01  group-hover:opacity-100">Credit
-                                    Card (Auto Confirmation)</label>
-                            </div>
+                            @if (auth()->check())
+                                <div class="flex flex-row gap-2 items-center group">
+                                    <input type="radio" name="payment" id="payment2" value="credit_card"
+                                        class="peer mr-2 hidden" required>
+                                    <label for="payment2"
+                                        class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:bg-warna-01 peer-checked:text-white peer-checked:border-warna-01  group-hover:opacity-100">Credit
+                                        Card (Auto Confirmation)</label>
+                                </div>
+                            @endif
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn">Check Out</button>

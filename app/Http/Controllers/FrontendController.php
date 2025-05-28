@@ -86,7 +86,7 @@ class FrontendController extends Controller implements ShouldQueue
         return view('frontend.venue', compact('hotels'));
     }
 
-    public function call_for_paper()
+    public function call_for_abstract()
     {
         $speakers = Speaker::all();
         return view('frontend.call_for_paper', compact('speakers'));
