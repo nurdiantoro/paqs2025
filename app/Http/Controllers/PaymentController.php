@@ -97,12 +97,144 @@ class PaymentController extends Controller
         // 2. Cek apakah payment pake credit card
         // 2a. kalau gak ada, langsung kirim email tagihan yang nantinya redirect ke halaman invoice
         // ==================================================================
-        if ($request->payment == 'credit_card') {
-            $this->creditCard($order);
-        } elseif ($request->payment == 'virtual_account') {
-            $this->virtualAccount($order);
-        } elseif ($request->payment == 'manual') {
+        if ($request->payment == 'manual') {
             return redirect(url('email/' . $no_invoice . '/' . $order->email));
+        }
+
+
+        // ==================================================================
+        // 3. Konversi USD Ke IDR
+        // ==================================================================
+        if ($category->currency == 'USD') {
+            $total_price = $total_price * env('USD_TO_IDR', 16452);
+        }
+
+
+        // ==================================================================
+        // 4. ESPAYYYYY -> Credit Card atau Virtual Account
+        // ==================================================================
+        if ($request->payment == 'credit_card') {
+            $timestamp = now()->format('Y-m-d\TH:i:sP');
+            $redirect = url('invoice/' . $no_invoice);
+            $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
+            $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
+            $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
+            $url = env('ESPAY_BASE_URL', 'https://sandbox-api.espay.id');
+
+            // Body v.2.0 =======================================================================
+            $body = [
+                'partnerReferenceNo' => $no_invoice,
+                'merchantId' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
+                'subMerchantId' => env('ESPAY_API_KEY', '976846332bc02b07add6e4ed7c2abe71'),
+                'amount' => [
+                    'value' => $total_price,
+                    'currency' => 'IDR',
+                ],
+                'urlParam' => [
+                    'url' => $redirect,
+                    'type' => 'PAY_RETURN',
+                    'isDeeplink' => 'N',
+                ],
+                'pointOfInitiation' => 'Web',
+                'payOptionDetails' => [
+                    'payMethod' => '008',
+                    'payOption' => 'CREDITCARD',
+                    'transAmount' => [
+                        'value' => $total_price,
+                        'currency' => 'IDR',
+                    ],
+                    'feeAmount' => [
+                        'value' => '0.00',
+                        'currency' => 'IDR',
+                    ],
+                ],
+                'additionalInfo' => [
+                    'payType' => 'REDIRECT',
+                    'userName' => $order->full_name,
+                    'userEmail' => $order->email,
+                    'userPhone' => $order->telephone,
+                    'productCode' => 'CREDITCARD',
+                    'balanceType' => 'CASH',
+                ],
+            ];
+
+            $signatureData = $this->generateEspaySignature($body, $relativeUrl, $timestamp, $privateKey);
+            // decode
+            $xSignature_decode  = base64_decode($signatureData['xSignature']);
+            $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
+
+            // Headers =======================================================================
+            $headers = [
+                'Content-Type' => 'application/json',
+                'X-TIMESTAMP' => $timestamp,
+                'X-SIGNATURE' => $signatureData['xSignature'],
+                'X-EXTERNAL-ID' => $no_invoice,
+                'X-PARTNER-ID' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
+                'CHANNEL-ID' => 'ESPAY',
+            ];
+
+            $order->update([
+                'x_signature' => $signatureData['xSignature'],
+                'x_timestamp' => $timestamp
+            ]);
+
+            // dd((
+            //     [$no_invoice, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult, $total_price]
+            // ));
+
+
+            $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
+
+            // dd($response->body());
+
+            if ($response->successful()) {
+                $responseData = $response->json();
+                return redirect($responseData['webRedirectUrl']);
+            } else {
+                Log::error('Espay Payment Error', [
+                    'response_body' => $response->body(),
+                    'status' => $response->status(),
+                ]);
+                return back()->withErrors(['message' => 'Terjadi kesalahan saat memproses pembayaran.']);
+            }
+        } elseif ($request->payment == 'virtual_account') {
+            // Membuat signature
+            // $signature = hash('sha256', $merchantCode . $orderId . $amount . $signatureKey);
+
+            $signatureKey = env('ESPAY_SIGNATURE', '1uq3l0np1hq9l5hu');
+            $rq_uuid = Str::uuid()->toString();
+            $rq_datetime = Carbon::now()->format('Y-m-d H:i:s');
+            $order_id = $order->no_invoice;
+            // $amount = '1000000';
+            $ccy = 'IDR';
+            $comm_code = env('ESPAY_MERCHANT_CODE', 'SGWPTDMP');
+            $action = 'SENDINVOICE';
+
+            $raw_string = strtoupper("##{$signatureKey}##{$rq_uuid}##{$rq_datetime}##{$order_id}##{$total_price}##{$ccy}##{$comm_code}##{$action}##");
+            $signature = hash('sha256', $raw_string);
+            // echo "Raw String: " . $raw_string . PHP_EOL;
+            // echo "Signature : " . $signature;
+
+            $response = Http::asForm()->post('https://sandbox-api.espay.id/rest/merchantpg/sendinvoice', [
+                'rq_uuid' => $rq_uuid,
+                'rq_datetime' => $rq_datetime,
+                'order_id' => $order_id,
+                'amount' => $total_price,
+                'ccy' => 'IDR',
+                'comm_code' => $comm_code,
+                'remark1' => $order->telephone,
+                'remark2' => $order->full_name,
+                'remark3' => $order->email,
+                'update' => 'N',
+                'bank_code' => '008',
+                'signature' => $signature,
+            ]);
+
+            if ($response->successful()) {
+                return response()->json($response->json());
+            }
+
+            return response()->json(['error' => 'Gagal membuat Virtual Account', $response->json()], 500);
         }
     }
 
@@ -276,147 +408,5 @@ class PaymentController extends Controller
         ];
 
         return response()->json($response, 200);
-    }
-
-
-    public function creditCard($order)
-    {
-        // ==================================================================
-        // 3. Konversi USD Ke IDR
-        // ==================================================================
-        $category = Category::find($order->category_id);
-        $total_price = $category->total_price;
-        if ($category->currency == 'USD') {
-            $total_price = $total_price * env('USD_TO_IDR', 16452);
-        }
-
-        // ==================================================================
-        // 4. ESPAYYYYY!!!!!!!!!
-        // ==================================================================
-        // $no_invoice = 'INV1746195322';
-        $timestamp = now()->format('Y-m-d\TH:i:sP');
-        $redirect = url('invoice/' . $order->no_invoice);
-        $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
-        $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
-        $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
-        $url = env('ESPAY_BASE_URL', 'https://sandbox-api.espay.id');
-
-        // Body v.2.0 =======================================================================
-        $body = [
-            'partnerReferenceNo' => $order->no_invoice,
-            'merchantId' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
-            'subMerchantId' => env('ESPAY_API_KEY', '976846332bc02b07add6e4ed7c2abe71'),
-            'amount' => [
-                'value' => $total_price,
-                'currency' => 'IDR',
-            ],
-            'urlParam' => [
-                'url' => $redirect,
-                'type' => 'PAY_RETURN',
-                'isDeeplink' => 'N',
-            ],
-            'pointOfInitiation' => 'Web',
-            'payOptionDetails' => [
-                'payMethod' => '008',
-                'payOption' => 'CREDITCARD',
-                'transAmount' => [
-                    'value' => $total_price,
-                    'currency' => 'IDR',
-                ],
-                'feeAmount' => [
-                    'value' => '0.00',
-                    'currency' => 'IDR',
-                ],
-            ],
-            'additionalInfo' => [
-                'payType' => 'REDIRECT',
-                'userName' => $order->full_name,
-                'userEmail' => $order->email,
-                'userPhone' => $order->telephone,
-                'productCode' => 'CREDITCARD',
-                'balanceType' => 'CASH',
-            ],
-        ];
-
-        $signatureData = $this->generateEspaySignature($body, $relativeUrl, $timestamp, $privateKey);
-        // decode
-        $xSignature_decode  = base64_decode($signatureData['xSignature']);
-        $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
-
-        // Headers =======================================================================
-        $headers = [
-            'Content-Type' => 'application/json',
-            'X-TIMESTAMP' => $timestamp,
-            'X-SIGNATURE' => $signatureData['xSignature'],
-            'X-EXTERNAL-ID' => $order->no_invoice,
-            'X-PARTNER-ID' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
-            'CHANNEL-ID' => 'ESPAY',
-        ];
-
-        $order->update([
-            'x_signature' => $signatureData['xSignature'],
-            'x_timestamp' => $timestamp
-        ]);
-
-        // dd((
-        //     [$order->no_invoice, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult, $total_price]
-        // ));
-
-
-        $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
-
-        // dd($response->body());
-
-        if ($response->successful()) {
-            $responseData = $response->json();
-            return redirect($responseData['webRedirectUrl']);
-        } else {
-            Log::error('Espay Payment Error', [
-                'response_body' => $response->body(),
-                'status' => $response->status(),
-            ]);
-            return back()->withErrors(['message' => 'Terjadi kesalahan saat memproses pembayaran.']);
-        }
-    }
-
-    public function virtualAccount($order)
-    {
-        // Membuat signature
-        // $signature = hash('sha256', $merchantCode . $orderId . $amount . $signatureKey);
-
-        $signatureKey = env('ESPAY_SIGNATURE', '1uq3l0np1hq9l5hu');
-        $rq_uuid = Str::uuid()->toString();
-        $rq_datetime = Carbon::now()->format('Y-m-d H:i:s');
-        $order_id = 'INV-' . strtoupper(Str::random(10));
-        $amount = '1000000';
-        $ccy = 'IDR';
-        $comm_code = env('ESPAY_MERCHANT_CODE', 'SGWPTDMP');
-        $action = 'SENDINVOICE';
-
-        $raw_string = strtoupper("##{$signatureKey}##{$rq_uuid}##{$rq_datetime}##{$order_id}##{$amount}##{$ccy}##{$comm_code}##{$action}##");
-        $signature = hash('sha256', $raw_string);
-        // echo "Raw String: " . $raw_string . PHP_EOL;
-        // echo "Signature : " . $signature;
-
-        $response = Http::asForm()->post('https://sandbox-api.espay.id/rest/merchantpg/sendinvoice', [
-            'rq_uuid' => $rq_uuid,
-            'rq_datetime' => $rq_datetime,
-            'order_id' => $order_id,
-            'amount' => $amount,
-            'ccy' => 'IDR',
-            'comm_code' => $comm_code,
-            'remark1' => '081808501959',
-            'remark2' => 'Nur Diantoro',
-            'remark3' => 'nurdiantoro100@gmail.com',
-            'update' => 'N',
-            'bank_code' => '014',
-            'signature' => $signature,
-        ]);
-
-        if ($response->successful()) {
-            return response()->json($response->json());
-        }
-
-        return response()->json(['error' => 'Gagal membuat Virtual Account', $response->json()], 500);
     }
 }
