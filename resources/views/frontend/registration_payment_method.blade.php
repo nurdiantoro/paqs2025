@@ -105,6 +105,13 @@
                                         class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:bg-warna-01 peer-checked:text-white peer-checked:border-warna-01  group-hover:opacity-100">Credit
                                         Card (Auto Confirmation)</label>
                                 </div>
+                                <div class="flex flex-row gap-2 items-center group">
+                                    <input type="radio" name="payment" id="payment3" value="virtual_account"
+                                        class="peer mr-2 hidden" required>
+                                    <label for="payment3"
+                                        class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:bg-warna-01 peer-checked:text-white peer-checked:border-warna-01  group-hover:opacity-100">Mandiri
+                                        Virtual Account (Auto Confirmation)</label>
+                                </div>
                             @endif
                         </div>
                         <div class="text-center">
