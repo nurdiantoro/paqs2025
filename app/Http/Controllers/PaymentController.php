@@ -52,8 +52,6 @@ class PaymentController extends Controller
         // 4. ESPAYYYYY!!!!!!!!
         // ==================================================================
         // ==================================================================
-
-
         // ==================================================================
         // 0. Bikin Variable
         // ==================================================================
@@ -64,9 +62,7 @@ class PaymentController extends Controller
         }
         $category = Category::find($orderData['category']);
         $total_price = $category->price * $orderData['quantity'];
-
-
-
+        // ==================================================================
         // ==================================================================
         // 1. Insert data order ke database PAQS
         // ==================================================================
@@ -91,8 +87,8 @@ class PaymentController extends Controller
             'payment_method'   => $request->payment,
             'proof_of_payment' => $orderData['proof_of_payment'] ?? null,
         ]);
-
-
+        session()->forget('order_data');
+        // ==================================================================
         // ==================================================================
         // 2. Cek apakah payment pake credit card
         // 2a. kalau gak ada, langsung kirim email tagihan yang nantinya redirect ke halaman invoice
@@ -100,28 +96,24 @@ class PaymentController extends Controller
         if ($request->payment == 'manual') {
             return redirect(url('email/' . $no_invoice . '/' . $order->email));
         }
-
-
+        // ==================================================================
         // ==================================================================
         // 3. Konversi USD Ke IDR
         // ==================================================================
         if ($category->currency == 'USD') {
             $total_price = $total_price * env('USD_TO_IDR', 16452);
         }
-
-
+        // ==================================================================
         // ==================================================================
         // 4. ESPAYYYYY -> Credit Card atau Virtual Account
+        // 4a. ESPAYYYYY -> Credit Card
         // ==================================================================
         if ($request->payment == 'credit_card') {
             $timestamp = now()->format('Y-m-d\TH:i:sP');
             $redirect = url('invoice/' . $no_invoice);
             $relativeUrl = '/apimerchant/v1.0/debit/payment-host-to-host';
             $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
-            $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
             $url = env('ESPAY_BASE_URL', 'https://sandbox-api.espay.id');
-
-            // Body v.2.0 =======================================================================
             $body = [
                 'partnerReferenceNo' => $no_invoice,
                 'merchantId' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
@@ -157,13 +149,7 @@ class PaymentController extends Controller
                     'balanceType' => 'CASH',
                 ],
             ];
-
             $signatureData = $this->generateEspaySignature($body, $relativeUrl, $timestamp, $privateKey);
-            // decode
-            $xSignature_decode  = base64_decode($signatureData['xSignature']);
-            $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
-
-            // Headers =======================================================================
             $headers = [
                 'Content-Type' => 'application/json',
                 'X-TIMESTAMP' => $timestamp,
@@ -172,21 +158,19 @@ class PaymentController extends Controller
                 'X-PARTNER-ID' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
                 'CHANNEL-ID' => 'ESPAY',
             ];
-
             $order->update([
                 'x_signature' => $signatureData['xSignature'],
                 'x_timestamp' => $timestamp
             ]);
-
+            //
             // dd((
             //     [$no_invoice, $relativeUrl, $timestamp, $headers, $body, $signatureData['minifiedJson'], $signatureData['stringToSign'], $signatureData['xSignature'], $verificationResult, $total_price]
             // ));
-
-
+            //
             $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
-
+            //
             // dd($response->body());
-
+            //
             if ($response->successful()) {
                 $responseData = $response->json();
                 return redirect($responseData['webRedirectUrl']);
@@ -197,57 +181,70 @@ class PaymentController extends Controller
                 ]);
                 return back()->withErrors(['message' => 'Terjadi kesalahan saat memproses pembayaran.']);
             }
-        } elseif ($request->payment == 'virtual_account') {
+        }
+        // ==================================================================
+        // ==================================================================
+        // 4b. ESPAYYYYY -> Virtual Account
+        // ==================================================================
+        elseif ($request->payment == 'virtual_account') {
+            // Variable untuk Signature
+            $signatureKey   = env('ESPAY_SIGNATURE', '1uq3l0np1hq9l5hu');
+            $rq_uuid        = Str::uuid()->toString();
+            $rq_datetime    = Carbon::now()->format('Y-m-d H:i:s');
+            $order_id       = $order->no_invoice;
+            $ccy            = 'IDR';
+            $comm_code      = env('ESPAY_MERCHANT_CODE', 'SGWPTDMP');
+            $action         = 'SENDINVOICE';
+            //
             // Membuat signature
-            // $signature = hash('sha256', $merchantCode . $orderId . $amount . $signatureKey);
-
-            $signatureKey = env('ESPAY_SIGNATURE', '1uq3l0np1hq9l5hu');
-            $rq_uuid = Str::uuid()->toString();
-            $rq_datetime = Carbon::now()->format('Y-m-d H:i:s');
-            $order_id = $order->no_invoice;
-            // $amount = '1000000';
-            $ccy = 'IDR';
-            $comm_code = env('ESPAY_MERCHANT_CODE', 'SGWPTDMP');
-            $action = 'SENDINVOICE';
-
             $raw_string = strtoupper("##{$signatureKey}##{$rq_uuid}##{$rq_datetime}##{$order_id}##{$total_price}##{$ccy}##{$comm_code}##{$action}##");
             $signature = hash('sha256', $raw_string);
-            // echo "Raw String: " . $raw_string . PHP_EOL;
-            // echo "Signature : " . $signature;
-
+            //
+            // response
             $response = Http::asForm()->post('https://sandbox-api.espay.id/rest/merchantpg/sendinvoice', [
-                'rq_uuid' => $rq_uuid,
-                'rq_datetime' => $rq_datetime,
-                'order_id' => $order_id,
-                'amount' => $total_price,
-                'ccy' => 'IDR',
-                'comm_code' => $comm_code,
-                'remark1' => $order->telephone,
-                'remark2' => $order->full_name,
-                'remark3' => $order->email,
-                'update' => 'N',
-                'bank_code' => '008',
-                'signature' => $signature,
+                'rq_uuid'       => $rq_uuid,
+                'rq_datetime'   => $rq_datetime,
+                'order_id'      => $order_id,
+                'amount'        => $total_price,
+                'ccy'           => 'IDR',
+                'comm_code'     => $comm_code,
+                'remark1'       => $order->telephone,
+                'remark2'       => $order->full_name,
+                'remark3'       => $order->email,
+                'update'        => 'N',
+                'bank_code'     => '008',
+                'signature'     => $signature,
             ]);
-
             if ($response->successful()) {
                 return response()->json($response->json());
             }
-
             return response()->json(['error' => 'Gagal membuat Virtual Account', $response->json()], 500);
         }
     }
 
     public function inquiry(Request $request)
     {
+        // ================================================================================
+        // RINGKASAN
+        // 0. Ambil semua data yang dikirim
+        // 1. Cek apakah semua header ada dan tidak kosong
+        // 2. Cek format partnerReferenceNo
+        // 3. Cek signature
+        // 4. Update data ke database (inquiry_request_id)
+        // 5. Ubah USD ke IDR
+        // 6. Response
+        // ================================================================================
+        // ================================================================================
+        // 0. Ambil semua data yang dikirim
+        // ================================================================================
         $partnerServiceId   = $request->input('partnerServiceId');
         $customerNo         = $request->input('customerNo');
         $virtualAccountNo   = $request->input('virtualAccountNo');
         $trxDateInit        = $request->input('trxDateInit');
         $inquiryRequestId   = $request->input('inquiryRequestId');
-
         // ================================================================================
-        // Cek apakah semua header ada dan tidak kosong
+        // ================================================================================
+        // 1. Cek apakah semua header ada dan tidak kosong
         // ================================================================================
         $requiredHeaders = ['Content-Type', 'X-TIMESTAMP', 'X-SIGNATURE', 'X-EXTERNAL-ID', 'X-PARTNER-ID', 'CHANNEL-ID',];
         $missing = [];
@@ -264,9 +261,9 @@ class PaymentController extends Controller
                 'message' => 'Missing Mandatory Field {' . implode(', ', $missing) . '}',
             ], 400);
         }
-
         // ================================================================================
-        // Cek format partnerReferenceNo
+        // ================================================================================
+        // 2. Cek format partnerReferenceNo
         // ================================================================================
         if (preg_match('/[^a-zA-Z0-9\s]/', $virtualAccountNo)) {
             return response()->json([
@@ -274,22 +271,16 @@ class PaymentController extends Controller
                 'responseMessage' => 'Invalid Field Format virtualAccountNo',
             ], 400);
         }
-
         // ================================================================================
-        // Cek signature
         // ================================================================================
-        $privateKey = openssl_pkey_get_private(file_get_contents(storage_path('keys/private.pem')));
+        // 3. Cek signature
+        // ================================================================================
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
         $relativeUrl = '/api/v1.0/transfer-va/inquiry';
         $xTimestamp = request()->header('X-TIMESTAMP');
         $xSignature = request()->header('X-SIGNATURE');
 
-        // decode v.1
-        // $signatureData = $this->generateEspaySignature($request->all(), $relativeUrl, $xTimestamp, $privateKey);
-        // $xSignature_decode  = base64_decode($x_signature);
-        // $verificationResult = openssl_verify($signatureData['stringToSign'], $xSignature_decode, $publicKey, OPENSSL_ALGO_SHA256);
-
-        // decode v.2
+        // decode
         $requestSignature = base64_decode($xSignature);
         $body = file_get_contents('php://input');
         $bodyDecoded = json_decode($body, true);
@@ -297,32 +288,32 @@ class PaymentController extends Controller
         $stringToSign = 'POST' . ':' . $relativeUrl . ':' . strtolower(hash('sha256', $bodyReencoded)) . ':' . $xTimestamp;
         $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
 
-
         if ($verificationResult == false) {
             return response()->json([
                 'responseCode' => '4015400',
                 'responseMessage' => 'Unauthorized Signature',
-
-                // 'requestSignature' => $requestSignature,
-                // 'x-signature' => $xSignature,
-                // 'x-timestamp' => $xTimestamp,
-                // 'requestBody' => $bodyReencoded,
-                // 'publicKey' => $publicKey,
-                // 'stringToSign' => $stringToSign,
-                // 'result' => $verificationResult,
             ], 400);
         }
-
+        // ================================================================================
+        // ================================================================================
+        // 4. Update data ke database (inquiry_request_id)
+        // ================================================================================
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
         $order->update(['inquiry_request_id' => $inquiryRequestId]);
         $category = Category::where('id', $order->category_id)->first();
-
+        // ================================================================================
+        // ================================================================================
+        // 5. Ubah USD ke IDR
+        // ================================================================================
         if ($category->currency == 'USD') {
             $total_price = $order->total_price * env('USD_TO_IDR', 16452);
         } else {
             $total_price = $order->total_price;
         }
-
+        // ================================================================================
+        // ================================================================================
+        // 6. Response
+        // ================================================================================
         $response = [
             'responseCode' => '2002400',
             'responseMessage' => 'Success',
@@ -348,7 +339,6 @@ class PaymentController extends Controller
                 ],
             ],
         ];
-
         return response()->json($response, 200);
     }
 

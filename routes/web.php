@@ -26,7 +26,7 @@ Route::get('/invoice', [FrontendController::class, 'ticket']);
 Route::get('/invoice/{no_invoice}', [FrontendController::class, 'invoice']);
 
 // Post
-Route::post('/order/check', [FrontendController::class, 'check_invoice']);
+Route::post('/invoice/check', [FrontendController::class, 'check_invoice']);
 Route::post('/order/store', [OrderController::class, 'store']);
 Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'upload_payment']);
 Route::post('/inbox/store/', [FrontendController::class, 'inbox_store']);
@@ -52,7 +52,6 @@ Route::prefix('espay')->group(
     function () {
         Route::get('/index', [PaymentController::class, 'index'])->name('payment.index');
         Route::post('/initiatePayment', [PaymentController::class, 'initiatePayment'])->name('payment.initiate');
-        Route::get('/callback', [PaymentController::class, 'callback'])->name('payment.callback');
         Route::get('/virtualAccount', [PaymentController::class, 'virtualAccount'])->name('payment.virtualAccount');
     }
 );

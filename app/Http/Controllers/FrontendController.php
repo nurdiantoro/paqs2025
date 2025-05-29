@@ -192,13 +192,17 @@ class FrontendController extends Controller implements ShouldQueue
 
     public function check_invoice(Request $request)
     {
-        // dd($request);
-        $order = Order::where('no_invoice', $request->no_invoice)->first();
+        $orders = Order::where('email', $request->email)
+            ->where('telephone', $request->telephone)
+            ->with('category')
+            ->select('no_invoice', 'quantity', 'category_id', 'total_price', 'payment_method', 'payment_status')
+            ->get();
+        // return $orders;
 
-        if ($order != null) {
-            return redirect(url('/invoice/' . $order->no_invoice));
-        } else {
+        if ($orders->isEmpty()) {
             return redirect()->back()->with('error', 'Invoice tidak ditemukan!');
+        } else {
+            return view('frontend.invoice_list', compact('orders'));
         }
     }
 

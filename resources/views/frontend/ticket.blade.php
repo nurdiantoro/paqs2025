@@ -28,16 +28,18 @@
                         Data not found !
                     </div>
                 @endif
-                <form action="{{ url('/order/check') }}" method="POST">
+                <form action="{{ url('/invoice/check') }}" method="POST">
                     @csrf
                     <div class="input-group mt-8">
                         <input type="text" class="form-control w-full border rounded-l-md border-gray-400 p-2"
-                            placeholder="Invoice number" name="no_invoice">
-                        <div class="input-group-append">
-                            <button class="px-3 border border-gray-400 rounded-r-md bg-warna-01 text-white"
-                                type="submit">Check</button>
-                        </div>
+                            placeholder="Your Email" name="email">
                     </div>
+                    <div class="input-group mt-2">
+                        <input type="text" class="form-control w-full border rounded-l-md border-gray-400 p-2"
+                            placeholder="Phone Number" name="telephone">
+                    </div>
+                    <button class="font-semibold text-lg rounded-md bg-warna-01 text-white px-3 py-2 mt-2 block w-full"
+                        type="submit">Check</button>
                 </form>
             </div>
         </div>
