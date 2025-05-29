@@ -307,9 +307,9 @@ class PaymentController extends Controller
 
         $response = [
             'responseCode' => '2002400',
-            'responseMessage' => 'Success',
+            'responseMessage' => 'Successful',
             'virtualAccountData' => [
-                'partnerServiceId' => $partnerServiceId,
+                'partnerServiceId' => ' ESPAY',
                 'customerNo' => $partnerServiceId,
                 'virtualAccountNo' => $virtualAccountNo,
                 'virtualAccountName' => $order->full_name,
@@ -317,7 +317,7 @@ class PaymentController extends Controller
                 'virtualAccountPhone' => $order->telephone,
                 'inquiryRequestId' => $inquiryRequestId,
                 'totalAmount' => [
-                    'value' => $total_price,
+                    'value' => number_format($total_price, 2, '.', ''),
                     'currency' => 'IDR',
                 ],
                 'billDetails' => [
@@ -401,7 +401,7 @@ class PaymentController extends Controller
         $rq_uuid = Str::uuid()->toString();
         $rq_datetime = Carbon::now()->format('Y-m-d H:i:s');
         $order_id = 'INV-' . strtoupper(Str::random(10));
-        $amount = '1000000';
+        $amount = number_format('1000000', 2, '.', '');
         $ccy = 'IDR';
         $comm_code = env('ESPAY_MERCHANT_CODE', 'SGWPTDMP');
         $action = 'SENDINVOICE';
