@@ -213,10 +213,18 @@ class PaymentController extends Controller
                 'remark3'       => $order->email,
                 'update'        => 'N',
                 'bank_code'     => '008',
+                'va_expired'    => '120',
                 'signature'     => $signature,
             ]);
             if ($response->successful()) {
-                return response()->json($response->json());
+                $order->update([
+                    'va_number' => $response->json()['va_number'],
+                    'valit_to' => $response->json()['expired'],
+                    'total_amount' => $response->json()['total_amount'],
+                    'admin_fee' => $response->json()['fee'],
+                ]);
+                // return response()->json($response->json());
+                return redirect(url('email/' . $order->no_invoice . '/' . $order->email));
             }
             return response()->json(['error' => 'Gagal membuat Virtual Account', $response->json()], 500);
         }
