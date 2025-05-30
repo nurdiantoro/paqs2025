@@ -133,66 +133,98 @@
                     </div>
                 </div>
 
-                {{-- BARCODE / UPLOAD PAYMENT --}}
+                {{-- 1. Jika belum dibayar (manual & virtual account)  --}}
                 @if ($data->payment_status == 'unpaid')
-                    <div class="cs-note_right relative">
-                        <table class="border-none">
-                            <tr>
-                                <td class="border-none py-0">Contact</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">info@paqs2025.com for details.</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Payment method</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Bank Transfer.</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Bank Name</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">BCA Cab. Andalas Kota Makassar</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Beneficiary</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">PT Debindo Mega Promo</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">Account Number</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">1589766766</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0">SWIFT Code</td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">CENAIDJA or CENAIDJAXXX</td>
-                            </tr>
-                            <tr>
-                                <td class="border-none py-0"><strong>Important</strong></td>
-                                <td class="border-none py-0">:</td>
-                                <td class="border-none py-0">Please use your full name as the reference for your bank
-                                    transfer.</td>
-                            </tr>
-                        </table>
+                    @if ($data->payment_method == 'manual')
+                        <div class="cs-note_right relative">
+                            <table class="border-none">
+                                <tr>
+                                    <td class="border-none py-0">Contact</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">info@paqs2025.com for details.</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-none py-0">Payment method</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">Bank Transfer.</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-none py-0">Bank Name</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">BCA Cab. Andalas Kota Makassar</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-none py-0">Beneficiary</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">PT Debindo Mega Promo</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-none py-0">Account Number</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">1589766766</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-none py-0">SWIFT Code</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">CENAIDJA or CENAIDJAXXX</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-none py-0"><strong>Important</strong></td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">Please use your full name as the reference for your
+                                        bank
+                                        transfer.</td>
+                                </tr>
+                            </table>
 
-                    </div>
-
-                    <form action="{{ url('/order/upload_payment/' . $data->no_invoice) }}" method="POST"
-                        enctype="multipart/form-data" class="text-center">
-                        @csrf
-                        <div class="input-group mt-8">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="validatedInputGroupCustomFile"
-                                    name="proof_of_payment" required>
-                                <label class="custom-file-label" for="validatedInputGroupCustomFile">Choose
-                                    File...</label>
-                            </div>
                         </div>
-                        <div class="text-danger">*Max 2mb size of image</div>
-                        <button class="font-semibold text-lg rounded-md bg-warna-01 text-white px-3 py-2 mt-6"
-                            type="submit">Upload Payment Proof</button>
 
-                    </form>
+                        <form action="{{ url('/order/upload_payment/' . $data->no_invoice) }}" method="POST"
+                            enctype="multipart/form-data" class="text-center">
+                            @csrf
+                            <div class="input-group mt-8">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="validatedInputGroupCustomFile"
+                                        name="proof_of_payment" required>
+                                    <label class="custom-file-label" for="validatedInputGroupCustomFile">Choose
+                                        File...</label>
+                                </div>
+                            </div>
+                            <div class="text-danger">*Max 2mb size of image</div>
+                            <button class="font-semibold text-lg rounded-md bg-warna-01 text-white px-3 py-2 mt-6"
+                                type="submit">Upload Payment Proof</button>
+
+                        </form>
+                    @elseif ($data->payment_method == 'virtual_account')
+                        <div class="cs-note_right relative">
+                            <table class="border-none">
+                                <tr>
+                                    <td class="border-none py-0">Payment method</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">Mandiri Virtual Account</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-none py-0">Bank Name</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">PT DEBINDO MEGA PROMO</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-none py-0">Account Number</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">{{ $data->va_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-none py-0">Expired at</td>
+                                    <td class="border-none py-0">:</td>
+                                    <td class="border-none py-0">{{ $data->valid_to }}</td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    @endif
+
+                    {{-- 2. Cek apakah sudah dibayar (semua payment)  --}}
+                    {{-- 2a. Cek apakah sudah dibayar (semua payment)  --}}
                 @else
                     @if ($data->is_confirmed == true)
                         <div class="w-full flex flex-row flex-wrap justify-center">
