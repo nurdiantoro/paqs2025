@@ -289,7 +289,7 @@ class PaymentController extends Controller
             'url' => $request->fullUrl(),
             'method' => $request->method(),
             'external_id' => $request->header('X-EXTERNAL-ID'),
-            'headers' => json_encode(collect($request->headers->all())->map(fn($v) => $v[0]), JSON_UNESCAPED_SLASHES),
+            'headers' => collect($request->headers->all())->map(fn($v) => $v[0]),
             'body' => $request->all(),
         ]);
         // ================================================================================
@@ -444,6 +444,16 @@ class PaymentController extends Controller
     {
         // ================================================================================
         // ================================================================================
+        // Rangkuman
+        // 0. Cek apakah x external id ada di database
+        // 1. Input log API
+        // 2. Jika order tidak ditemukan
+        // 3. Jika order Sudah dibayar
+        // 4. Jika amount tidak sesuai
+        // 5. Response Pembayaran Berhasil
+        // ================================================================================
+        // ================================================================================
+        // ================================================================================
         // 0. Cek apakah x external id ada di database
         // ================================================================================
         if (ApiLogs::where('external_id', $request->header('X-EXTERNAL-ID'))->exists()) {
@@ -461,7 +471,7 @@ class PaymentController extends Controller
             'url' => $request->fullUrl(),
             'method' => $request->method(),
             'external_id' => $request->header('X-EXTERNAL-ID'),
-            'headers' => json_encode(collect($request->headers->all())->map(fn($v) => $v[0]), JSON_UNESCAPED_SLASHES),
+            'headers' => collect($request->headers->all())->map(fn($v) => $v[0]),
             'body' => $request->all(),
         ]);
         // ==================================================================
@@ -492,7 +502,19 @@ class PaymentController extends Controller
         }
         // ==================================================================
         // ==================================================================
-        // 4. Pembayaran Berhasil
+        // 4. Jika amount tidak sesuai
+        // ==================================================================
+        if ($request->paidAmount['value'] !== $request->totalAmount['value']) {
+            $response = [
+                "responseCode" => "4042513",
+                "responseMessage" => 'Invalid Amoun'
+            ];
+            $apiLog->update(['response' => $response]);
+            return response()->json($response, 200);
+        }
+        // ==================================================================
+        // ==================================================================
+        // 5. Response Pembayaran Berhasil
         // ==================================================================
         $order->update([
             'payment_status' => 'paid',
