@@ -256,7 +256,7 @@ class PaymentController extends Controller
 
     public function inquiry(Request $request)
     {
-        ApiLogs::create([
+        $apiLog = ApiLogs::create([
             'url' => $request->fullUrl(),
             'method' => $request->method(),
             'external_id' => $request->header('X-EXTERNAL-ID'),
@@ -341,30 +341,36 @@ class PaymentController extends Controller
         // ================================================================================
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
         if (!$order) {
-            return response()->json([
+            $response = [
                 'responseCode' => '4042412',
                 'responseMessage' => 'Bill not found',
-            ], 400);
+            ];
+            $apiLog->update(['response' => $response]);
+            return response()->json($response, 400);
         }
         // ================================================================================
         // ================================================================================
         // 6. Cek jika bill sudah dibayar
         // ================================================================================
         if ($order->payment_request_id != NULL && $order->payment_status == 'paid') {
-            return response()->json([
+            $response = [
                 'responseCode' => '4042414',
                 'responseMessage' => 'Bill has been paid',
-            ], 400);
+            ];
+            $apiLog->update(['response' => $response]);
+            return response()->json($response, 400);
         }
         // ================================================================================
         // ================================================================================
         // 7. Cek jika bill sudah expired
         // ================================================================================
         if ($order->valid_to < Carbon::now()) {
-            return response()->json([
+            $response = [
                 'responseCode' => '4042419',
                 'responseMessage' => 'Bill expired',
-            ], 400);
+            ];
+            $apiLog->update(['response' => $response]);
+            return response()->json($response, 400);
         }
         // ================================================================================
         // ================================================================================
@@ -410,6 +416,7 @@ class PaymentController extends Controller
                 ],
             ],
         ];
+        $apiLog->update(['response' => $response]);
         return response()->json($response, 200);
     }
 
