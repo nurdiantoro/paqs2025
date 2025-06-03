@@ -507,7 +507,7 @@ class PaymentController extends Controller
         if ($request->paidAmount['value'] !== $request->totalAmount['value']) {
             $response = [
                 "responseCode" => "4042513",
-                "responseMessage" => 'Invalid Amoun'
+                "responseMessage" => 'Invalid Amount'
             ];
             $apiLog->update(['response' => $response]);
             return response()->json($response, 200);
