@@ -256,6 +256,35 @@ class PaymentController extends Controller
 
     public function inquiry(Request $request)
     {
+        // ================================================================================
+        // RINGKASAN
+        // 0. Cek apakah x external id ada di database
+        // 1. Input log API
+        // 2. Ambil semua data yang dikirim
+        // 3. Cek apakah semua header ada dan tidak kosong
+        // 4. Cek format partnerReferenceNo
+        // 5. Cek signature
+        // 6. Cek jika order tidak ditemukan
+        // 7. Cek jika bill sudah dibayar
+        // 8. Cek jika bill sudah expired
+        // 9. Update data ke database (inquiry_request_id)
+        // 10. Ubah USD ke IDR
+        // 11. Response
+        // ================================================================================
+        // ================================================================================
+        // 0. Cek apakah x external id ada di database
+        // ================================================================================
+        if (ApiLogs::where('external_id', $request->header('X-EXTERNAL-ID'))->exists()) {
+            $response = [
+                'responseCode' => '4092400',
+                'responseMessage' => 'Conflict',
+            ];
+            return response()->json($response, 400);
+        }
+        // ================================================================================
+        // ================================================================================
+        // 1. Input log API
+        // ================================================================================
         $apiLog = ApiLogs::create([
             'url' => $request->fullUrl(),
             'method' => $request->method(),
@@ -264,21 +293,8 @@ class PaymentController extends Controller
             'body' => $request->all(),
         ]);
         // ================================================================================
-        // RINGKASAN
-        // 0. Ambil semua data yang dikirim
-        // 1. Cek apakah semua header ada dan tidak kosong
-        // 2. Cek format partnerReferenceNo
-        // 3. Cek signature
-        // 4. Update data ke database (inquiry_request_id)
-        // 5. Cek jika order tidak ditemukan
-        // 6. Cek jika bill sudah dibayar
-        // 7. Cek jika bill sudah expired
-        // 8. Update data ke database (inquiry_request_id)
-        // 9. Ubah USD ke IDR
-        // 10. Response
         // ================================================================================
-        // ================================================================================
-        // 0. Ambil semua data yang dikirim
+        // 2. Ambil semua data yang dikirim
         // ================================================================================
         $partnerServiceId   = $request->input('partnerServiceId');
         $customerNo         = $request->input('customerNo');
@@ -287,7 +303,7 @@ class PaymentController extends Controller
         $inquiryRequestId   = $request->input('inquiryRequestId');
         // ================================================================================
         // ================================================================================
-        // 1. Cek apakah semua header ada dan tidak kosong (Optional)
+        // 3. Cek apakah semua header ada dan tidak kosong (Optional)
         // ================================================================================
         $requiredHeaders = ['Content-Type', 'X-TIMESTAMP', 'X-SIGNATURE', 'X-EXTERNAL-ID', 'X-PARTNER-ID', 'CHANNEL-ID',];
         $missing = [];
@@ -306,7 +322,7 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 2. Cek format partnerReferenceNo (Optional)
+        // 4. Cek format partnerReferenceNo (Optional)
         // ================================================================================
         if (preg_match('/[^a-zA-Z0-9\s]/', $virtualAccountNo)) {
             return response()->json([
@@ -316,7 +332,7 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 3. Cek signature (Optional)
+        // 5. Cek signature (Optional)
         // ================================================================================
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
         $relativeUrl = '/api/v1.0/transfer-va/inquiry';
@@ -330,14 +346,16 @@ class PaymentController extends Controller
         $stringToSign = 'POST' . ':' . $relativeUrl . ':' . strtolower(hash('sha256', $bodyReencoded)) . ':' . $xTimestamp;
         $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
         if ($verificationResult == false) {
-            return response()->json([
+            $response = [
                 'responseCode' => '4015400',
                 'responseMessage' => 'Unauthorized Signature',
-            ], 400);
+            ];
+            $apiLog->update(['response' => $response]);
+            return response()->json($response, 400);
         }
         // ================================================================================
         // ================================================================================
-        // 5. Cek jika order tidak ditemukan
+        // 6. Cek jika order tidak ditemukan
         // ================================================================================
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
         if (!$order) {
@@ -350,7 +368,7 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 6. Cek jika bill sudah dibayar
+        // 7. Cek jika bill sudah dibayar
         // ================================================================================
         if ($order->payment_request_id != NULL && $order->payment_status == 'paid') {
             $response = [
@@ -362,7 +380,7 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 7. Cek jika bill sudah expired
+        // 8. Cek jika bill sudah expired
         // ================================================================================
         if ($order->valid_to < Carbon::now()) {
             $response = [
@@ -374,13 +392,13 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 8. Update data ke database (inquiry_request_id)
+        // 9. Update data ke database (inquiry_request_id)
         // ================================================================================
         $order->update(['inquiry_request_id' => $inquiryRequestId]);
         $category = Category::where('id', $order->category_id)->first();
         // ================================================================================
         // ================================================================================
-        // 9. Ubah USD ke IDR
+        // 10. Ubah USD ke IDR
         // ================================================================================
         if ($category->currency == 'USD') {
             $total_price = $order->total_price * env('USD_TO_IDR', 16452);
@@ -389,7 +407,7 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 10. Response
+        // 11. Response
         // ================================================================================
         $response = [
             'responseCode' => '2002400',
@@ -422,6 +440,21 @@ class PaymentController extends Controller
 
     public function payment(Request $request)
     {
+        // ================================================================================
+        // ================================================================================
+        // 0. Cek apakah x external id ada di database
+        // ================================================================================
+        if (ApiLogs::where('external_id', $request->header('X-EXTERNAL-ID'))->exists()) {
+            $response = [
+                'responseCode' => '4092500',
+                'responseMessage' => 'Conflict',
+            ];
+            return response()->json($response, 400);
+        }
+        // ================================================================================
+        // ================================================================================
+        // 1. Input log API
+        // ================================================================================
         $apiLog = ApiLogs::create([
             'url' => $request->fullUrl(),
             'method' => $request->method(),
@@ -431,7 +464,7 @@ class PaymentController extends Controller
         ]);
         // ==================================================================
         // ==================================================================
-        // 1. Jika order tidak ditemukan
+        // 2. Jika order tidak ditemukan
         // ==================================================================
         $order = Order::where('no_invoice', $request->virtualAccountNo)->first();
         if (!$order) {
@@ -445,7 +478,7 @@ class PaymentController extends Controller
         }
         // ==================================================================
         // ==================================================================
-        // 2. Jika order Sudah dibayar
+        // 3. Jika order Sudah dibayar
         // ==================================================================
         if ($order->payment_request_id == $request->paymentRequestId) {
             $response = [
