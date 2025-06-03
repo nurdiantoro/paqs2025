@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\EspayResource;
+use App\Models\ApiLogs;
 use App\Models\Category;
 use App\Models\EspayPayment;
 use App\Models\Order;
@@ -63,6 +64,7 @@ class PaymentController extends Controller
         $category = Category::find($orderData['category']);
         $total_price = $category->price * $orderData['quantity'];
         $validTo = Carbon::now()->addHours(2);
+        $externalId = (string) Str::uuid();
         // ==================================================================
         // ==================================================================
         // 1. Insert data order ke database PAQS
@@ -157,7 +159,7 @@ class PaymentController extends Controller
                 'Content-Type' => 'application/json',
                 'X-TIMESTAMP' => $timestamp,
                 'X-SIGNATURE' => $signatureData['xSignature'],
-                'X-EXTERNAL-ID' => $no_invoice,
+                'X-EXTERNAL-ID' => $externalId,
                 'X-PARTNER-ID' => env('ESPAY_MERCHANT_CODE', 'SGWPTDMP'),
                 'CHANNEL-ID' => 'ESPAY',
             ];
@@ -171,12 +173,20 @@ class PaymentController extends Controller
             // ));
             //
             $response = Http::withHeaders($headers)->post($url . $relativeUrl, $body);
+            ApiLogs::create([
+                'external_id' => $externalId,
+                'url' => $url . $relativeUrl,
+                'method' => 'POST',
+                'headers' => $headers,
+                'body' => $body,
+                'response' => $response->json(),
+            ]);
             //
             // dd($response->body());
             //
             if ($response->successful()) {
-                $responseData = $response->json();
-                return redirect($responseData['webRedirectUrl']);
+                $response = $response->json();
+                return redirect($response['webRedirectUrl']);
             } else {
                 Log::error('Espay Payment Error', [
                     'response_body' => $response->body(),
@@ -198,13 +208,14 @@ class PaymentController extends Controller
             $ccy            = 'IDR';
             $comm_code      = env('ESPAY_MERCHANT_CODE', 'SGWPTDMP');
             $action         = 'SENDINVOICE';
+            $url            = 'https://sandbox-api.espay.id/rest/merchantpg/sendinvoice';
             //
             // Membuat signature
             $raw_string = strtoupper("##{$signatureKey}##{$rq_uuid}##{$rq_datetime}##{$order_id}##{$total_price}##{$ccy}##{$comm_code}##{$action}##");
             $signature = hash('sha256', $raw_string);
             //
-            // response
-            $response = Http::asForm()->post('https://sandbox-api.espay.id/rest/merchantpg/sendinvoice', [
+            //
+            $body = [
                 'rq_uuid'       => $rq_uuid,
                 'rq_datetime'   => $rq_datetime,
                 'order_id'      => $order_id,
@@ -218,6 +229,16 @@ class PaymentController extends Controller
                 'bank_code'     => '008',
                 'va_expired'    => '120',
                 'signature'     => $signature,
+            ];
+            //
+            // response
+            $response = Http::asForm()->post($url, $body);
+            ApiLogs::create([
+                'external_id' => $externalId,
+                'method' => 'POST',
+                'url' => $url,
+                'body' => $body,
+                'response' => $response->json(),
             ]);
             if ($response->successful()) {
                 $order->update([
@@ -235,6 +256,13 @@ class PaymentController extends Controller
 
     public function inquiry(Request $request)
     {
+        ApiLogs::create([
+            'url' => $request->fullUrl(),
+            'method' => $request->method(),
+            'external_id' => $request->header('X-EXTERNAL-ID'),
+            'headers' => collect($request->headers->all())->map(fn($v) => $v[0]),
+            'body' => $request->all(),
+        ]);
         // ================================================================================
         // RINGKASAN
         // 0. Ambil semua data yang dikirim
@@ -387,29 +415,38 @@ class PaymentController extends Controller
 
     public function payment(Request $request)
     {
-        $order = Order::where('no_invoice', $request->virtualAccountNo)->first();
+        $apiLog = ApiLogs::create([
+            'url' => $request->fullUrl(),
+            'method' => $request->method(),
+            'external_id' => $request->header('X-EXTERNAL-ID'),
+            'headers' => collect($request->headers->all())->map(fn($v) => $v[0]),
+            'body' => $request->all(),
+        ]);
         // ==================================================================
         // ==================================================================
         // 1. Jika order tidak ditemukan
         // ==================================================================
+        $order = Order::where('no_invoice', $request->virtualAccountNo)->first();
         if (!$order) {
             $message = 'Bill not found';
-            $reponse_failed = [
+            $response = [
                 "responseCode" => "4042512",
                 "responseMessage" => $message
             ];
-            return response()->json($reponse_failed, 200);
+            $apiLog->update(['response' => $response]);
+            return response()->json($response, 200);
         }
         // ==================================================================
         // ==================================================================
         // 2. Jika order Sudah dibayar
         // ==================================================================
         if ($order->payment_request_id == $request->paymentRequestId) {
-            $reponse_failed = [
+            $response = [
                 "responseCode" => "4042514",
                 "responseMessage" => 'Bill has been paid'
             ];
-            return response()->json($reponse_failed, 200);
+            $apiLog->update(['response' => $response]);
+            return response()->json($response, 200);
         }
         // ==================================================================
         // ==================================================================
@@ -448,6 +485,7 @@ class PaymentController extends Controller
                 'reconcileDatetime' => now()->toIso8601String()
             ],
         ];
+        $apiLog->update(['response' => $response]);
         return response()->json($response, 200);
     }
 }
