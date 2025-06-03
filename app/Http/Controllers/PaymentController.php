@@ -219,7 +219,7 @@ class PaymentController extends Controller
             if ($response->successful()) {
                 $order->update([
                     'va_number' => $response->json()['va_number'],
-                    'valit_to' => $response->json()['expired'],
+                    'valid_to' => $response->json()['expired'],
                     'total_amount' => $response->json()['total_amount'],
                     'admin_fee' => $response->json()['fee'],
                 ]);
@@ -239,8 +239,12 @@ class PaymentController extends Controller
         // 2. Cek format partnerReferenceNo
         // 3. Cek signature
         // 4. Update data ke database (inquiry_request_id)
-        // 5. Ubah USD ke IDR
-        // 6. Response
+        // 5. Cek jika order tidak ditemukan
+        // 6. Cek jika bill sudah dibayar
+        // 7. Cek jika bill sudah expired
+        // 8. Update data ke database (inquiry_request_id)
+        // 9. Ubah USD ke IDR
+        // 10. Response
         // ================================================================================
         // ================================================================================
         // 0. Ambil semua data yang dikirim
@@ -252,7 +256,7 @@ class PaymentController extends Controller
         $inquiryRequestId   = $request->input('inquiryRequestId');
         // ================================================================================
         // ================================================================================
-        // 1. Cek apakah semua header ada dan tidak kosong
+        // 1. Cek apakah semua header ada dan tidak kosong (Optional)
         // ================================================================================
         $requiredHeaders = ['Content-Type', 'X-TIMESTAMP', 'X-SIGNATURE', 'X-EXTERNAL-ID', 'X-PARTNER-ID', 'CHANNEL-ID',];
         $missing = [];
@@ -271,7 +275,7 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 2. Cek format partnerReferenceNo
+        // 2. Cek format partnerReferenceNo (Optional)
         // ================================================================================
         if (preg_match('/[^a-zA-Z0-9\s]/', $virtualAccountNo)) {
             return response()->json([
@@ -281,13 +285,12 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 3. Cek signature
+        // 3. Cek signature (Optional)
         // ================================================================================
         $publicKey  = openssl_pkey_get_public(file_get_contents(storage_path('keys/public.pub')));
         $relativeUrl = '/api/v1.0/transfer-va/inquiry';
         $xTimestamp = request()->header('X-TIMESTAMP');
         $xSignature = request()->header('X-SIGNATURE');
-
         // decode
         $requestSignature = base64_decode($xSignature);
         $body = file_get_contents('php://input');
@@ -295,7 +298,6 @@ class PaymentController extends Controller
         $bodyReencoded = json_encode($bodyDecoded, JSON_UNESCAPED_SLASHES);
         $stringToSign = 'POST' . ':' . $relativeUrl . ':' . strtolower(hash('sha256', $bodyReencoded)) . ':' . $xTimestamp;
         $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
-
         if ($verificationResult == false) {
             return response()->json([
                 'responseCode' => '4015400',
@@ -304,14 +306,44 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 4. Update data ke database (inquiry_request_id)
+        // 5. Cek jika order tidak ditemukan
         // ================================================================================
         $order = Order::where('no_invoice', $virtualAccountNo)->first();
+        if (!$order) {
+            return response()->json([
+                'responseCode' => '4042412',
+                'responseMessage' => 'Bill not found',
+            ], 400);
+        }
+        // ================================================================================
+        // ================================================================================
+        // 6. Cek jika bill sudah dibayar
+        // ================================================================================
+        if ($order->payment_request_id != NULL && $order->payment_status == 'paid') {
+            return response()->json([
+                'responseCode' => '4042414',
+                'responseMessage' => 'Bill has been paid',
+            ], 400);
+        }
+        // ================================================================================
+        // ================================================================================
+        // 7. Cek jika bill sudah expired
+        // ================================================================================
+        if ($order->valid_to < Carbon::now()) {
+            return response()->json([
+                'responseCode' => '4042419',
+                'responseMessage' => 'Bill expired',
+            ], 400);
+        }
+        // ================================================================================
+        // ================================================================================
+        // 8. Update data ke database (inquiry_request_id)
+        // ================================================================================
         $order->update(['inquiry_request_id' => $inquiryRequestId]);
         $category = Category::where('id', $order->category_id)->first();
         // ================================================================================
         // ================================================================================
-        // 5. Ubah USD ke IDR
+        // 9. Ubah USD ke IDR
         // ================================================================================
         if ($category->currency == 'USD') {
             $total_price = $order->total_price * env('USD_TO_IDR', 16452);
@@ -320,7 +352,7 @@ class PaymentController extends Controller
         }
         // ================================================================================
         // ================================================================================
-        // 6. Response
+        // 10. Response
         // ================================================================================
         $response = [
             'responseCode' => '2002400',
@@ -353,19 +385,22 @@ class PaymentController extends Controller
     public function payment(Request $request)
     {
         $order = Order::where('no_invoice', $request->virtualAccountNo)->first();
-
-        if ($request->customerNo !== env('ESPAY_MERCHANT_CODE', 'SGWPTDMP')) {
-            $message = 'Unauthorized Signature';
-            if (!$order) {
-                $message = 'Order not found';
-            }
+        // ==================================================================
+        // ==================================================================
+        // 1. Jika order tidak ditemukan
+        // ==================================================================
+        if (!$order) {
+            $message = 'Bill not found';
             $reponse_failed = [
-                "responseCode" => "4012500",
+                "responseCode" => "4042512",
                 "responseMessage" => $message
             ];
             return response()->json($reponse_failed, 200);
         }
-
+        // ==================================================================
+        // ==================================================================
+        // 2. Jika order Sudah dibayar
+        // ==================================================================
         if ($order->payment_request_id == $request->paymentRequestId) {
             $reponse_failed = [
                 "responseCode" => "4042514",
@@ -373,14 +408,16 @@ class PaymentController extends Controller
             ];
             return response()->json($reponse_failed, 200);
         }
-
+        // ==================================================================
+        // ==================================================================
+        // 4. Pembayaran Berhasil
+        // ==================================================================
         $order->update([
             'payment_status' => 'paid',
             'is_confirmed' => true,
             'payment_request_id' => $request->paymentRequestId,
             'payment_datetime' => $request->trxDateTime,
         ]);
-
         $response = [
             'responseCode' => '2002500',
             'responseMessage' => 'Success',
@@ -403,8 +440,11 @@ class PaymentController extends Controller
                     ],
                 ],
             ],
+            'additionalInfo' => [
+                'reconcileId' => now()->format('YmdHis') . random_int(10, 99),
+                'reconcileDatetime' => now()->toIso8601String()
+            ],
         ];
-
         return response()->json($response, 200);
     }
 }

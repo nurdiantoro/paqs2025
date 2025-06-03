@@ -94,8 +94,8 @@
                                 <input type="radio" name="payment" id="payment" value="manual"
                                     class="peer mr-2 hidden" required>
                                 <label for="payment"
-                                    class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:bg-warna-01 peer-checked:text-white peer-checked:border-warna-01  group-hover:opacity-100">Upload
-                                    Proof of Payment (Manual Confirmation)</label>
+                                    class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:bg-warna-01 peer-checked:text-white peer-checked:border-warna-01  group-hover:opacity-100">Bank
+                                    Transfer (Manual Confirmation)</label>
                             </div>
                             @if (auth()->check())
                                 <div class="flex flex-row gap-2 items-center group">
