@@ -177,7 +177,7 @@ class PaymentController extends Controller
                 'external_id' => $externalId,
                 'url' => $url . $relativeUrl,
                 'method' => 'POST',
-                'headers' => $headers,
+                'headers' => json_encode($headers, JSON_UNESCAPED_SLASHES),
                 'body' => $body,
                 'response' => $response->json(),
             ]);
@@ -289,7 +289,7 @@ class PaymentController extends Controller
             'url' => $request->fullUrl(),
             'method' => $request->method(),
             'external_id' => $request->header('X-EXTERNAL-ID'),
-            'headers' => collect($request->headers->all())->map(fn($v) => $v[0]),
+            'headers' => json_encode(collect($request->headers->all())->map(fn($v) => $v[0]), JSON_UNESCAPED_SLASHES),
             'body' => $request->all(),
         ]);
         // ================================================================================
@@ -313,22 +313,24 @@ class PaymentController extends Controller
             }
         }
         if (!empty($missing)) {
-            return response()->json([
+            $response = [
                 'responseCode' => '4012400',
-                'responseMessage' => 'Unauthorized Signature',
-                'responseCode' => '4005402',
-                'message' => 'Missing Mandatory Field {' . implode(', ', $missing) . '}',
-            ], 400);
+                'responseMessage' => 'Missing Mandatory Field {' . implode(', ', $missing) . '}',
+            ];
+            $apiLog->update(['response' => $response]);
+            return response()->json($response, 400);
         }
         // ================================================================================
         // ================================================================================
         // 4. Cek format partnerReferenceNo (Optional)
         // ================================================================================
         if (preg_match('/[^a-zA-Z0-9\s]/', $virtualAccountNo)) {
-            return response()->json([
-                'responseCode' => '4005401',
+            $response = [
+                'responseCode' => '4002401',
                 'responseMessage' => 'Invalid Field Format virtualAccountNo',
-            ], 400);
+            ];
+            $apiLog->update(['response' => $response]);
+            return response()->json($response, 400);
         }
         // ================================================================================
         // ================================================================================
@@ -459,7 +461,7 @@ class PaymentController extends Controller
             'url' => $request->fullUrl(),
             'method' => $request->method(),
             'external_id' => $request->header('X-EXTERNAL-ID'),
-            'headers' => collect($request->headers->all())->map(fn($v) => $v[0]),
+            'headers' => json_encode(collect($request->headers->all())->map(fn($v) => $v[0]), JSON_UNESCAPED_SLASHES),
             'body' => $request->all(),
         ]);
         // ==================================================================
