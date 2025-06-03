@@ -62,6 +62,7 @@ class PaymentController extends Controller
         }
         $category = Category::find($orderData['category']);
         $total_price = $category->price * $orderData['quantity'];
+        $validTo = Carbon::now()->addHours(2)->toIso8601String();
         // ==================================================================
         // ==================================================================
         // 1. Insert data order ke database PAQS
@@ -85,6 +86,7 @@ class PaymentController extends Controller
             'total_price'      => $total_price,
             'payment_status'   => 'unpaid',
             'payment_method'   => $request->payment,
+            'valid_to'         => $validTo,
             'proof_of_payment' => $orderData['proof_of_payment'] ?? null,
         ]);
         session()->forget('order_data');
@@ -127,7 +129,7 @@ class PaymentController extends Controller
                     'type' => 'PAY_RETURN',
                     'isDeeplink' => 'N',
                 ],
-                'validUpTo' => Carbon::now()->addHours(2)->toIso8601String(),
+                'validUpTo' => $validTo,
                 'pointOfInitiation' => 'Web',
                 'payOptionDetails' => [
                     'payMethod' => '008',
