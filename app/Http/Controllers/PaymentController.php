@@ -177,7 +177,7 @@ class PaymentController extends Controller
                 'external_id' => $externalId,
                 'url' => $url . $relativeUrl,
                 'method' => 'POST',
-                'headers' => json_encode($headers, JSON_UNESCAPED_SLASHES),
+                'headers' => $headers,
                 'body' => $body,
                 'response' => $response->json(),
             ]);
@@ -349,7 +349,7 @@ class PaymentController extends Controller
         $verificationResult = openssl_verify($stringToSign, $requestSignature, $publicKey, 'sha256WithRSAEncryption');
         if ($verificationResult == false) {
             $response = [
-                'responseCode' => '4015400',
+                'responseCode' => '4012400',
                 'responseMessage' => 'Unauthorized Signature',
             ];
             $apiLog->update(['response' => $response]);
