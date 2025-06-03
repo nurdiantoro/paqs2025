@@ -127,6 +127,7 @@ class PaymentController extends Controller
                     'type' => 'PAY_RETURN',
                     'isDeeplink' => 'N',
                 ],
+                'validUpTo' => Carbon::now()->addHours(2)->toIso8601String(),
                 'pointOfInitiation' => 'Web',
                 'payOptionDetails' => [
                     'payMethod' => '008',
