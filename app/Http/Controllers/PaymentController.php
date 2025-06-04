@@ -63,6 +63,7 @@ class PaymentController extends Controller
         }
         $category = Category::find($orderData['category']);
         $total_price = $category->price * $orderData['quantity'];
+        $total_price = number_format($total_price, 2, '.', '');
         $validTo = Carbon::now()->addHours(2);
         $externalId = (string) Str::uuid();
         // ==================================================================
@@ -106,6 +107,7 @@ class PaymentController extends Controller
         // ==================================================================
         if ($category->currency == 'USD') {
             $total_price = $total_price * env('USD_TO_IDR', 16452);
+            $total_price = number_format($total_price, 2, '.', '');
         }
         // ==================================================================
         // ==================================================================
@@ -305,17 +307,38 @@ class PaymentController extends Controller
         // ================================================================================
         // 3. Cek apakah semua header ada dan tidak kosong (Optional)
         // ================================================================================
-        $requiredHeaders = ['Content-Type', 'X-TIMESTAMP', 'X-SIGNATURE', 'X-EXTERNAL-ID', 'X-PARTNER-ID', 'CHANNEL-ID',];
-        $missing = [];
+        $requiredHeaders = [
+            'Content-Type',
+            'X-TIMESTAMP',
+            'X-SIGNATURE',
+            'X-EXTERNAL-ID',
+            'X-PARTNER-ID',
+            'CHANNEL-ID',
+        ];
+        $requiredBodyFields = [
+            'partnerServiceId',
+            'customerNo',
+            'virtualAccountNo',
+            'trxDateInit',
+            'inquiryRequestId',
+        ];
+        $missingFields = [];
+        // Cek header
         foreach ($requiredHeaders as $header) {
             if (empty($request->header($header))) {
-                $missing[] = $header;
+                $missingFields[] = $header;
+            }
+        }
+        // Cek body
+        foreach ($requiredBodyFields as $field) {
+            if (empty($request->input($field))) {
+                $missingFields[] = $field;
             }
         }
         if (!empty($missing)) {
             $response = [
-                'responseCode' => '4012400',
-                'responseMessage' => 'Missing Mandatory Field {' . implode(', ', $missing) . '}',
+                'responseCode' => '4012402',
+                'responseMessage' => 'Missing Mandatory Field {' . implode(', ', $missingFields) . '}',
             ];
             $apiLog->update(['response' => $response]);
             return response()->json($response, 400);
@@ -423,7 +446,7 @@ class PaymentController extends Controller
                 'virtualAccountPhone' => $order->telephone,
                 'inquiryRequestId' => $inquiryRequestId,
                 'totalAmount' => [
-                    'value' => $total_price,
+                    'value' => $total_price = round($total_price, 2),
                     'currency' => 'IDR',
                 ],
                 'billDetails' => [
