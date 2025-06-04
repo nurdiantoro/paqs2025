@@ -335,7 +335,7 @@ class PaymentController extends Controller
                 $missingFields[] = $field;
             }
         }
-        if (!empty($missing)) {
+        if (!empty($missingFields)) {
             $response = [
                 'responseCode' => '4012402',
                 'responseMessage' => 'Missing Mandatory Field {' . implode(', ', $missingFields) . '}',
@@ -446,7 +446,7 @@ class PaymentController extends Controller
                 'virtualAccountPhone' => $order->telephone,
                 'inquiryRequestId' => $inquiryRequestId,
                 'totalAmount' => [
-                    'value' => $total_price = round($total_price, 2),
+                    'value' => $total_price = number_format($total_price, 2, '.', ''),
                     'currency' => 'IDR',
                 ],
                 'billDetails' => [
