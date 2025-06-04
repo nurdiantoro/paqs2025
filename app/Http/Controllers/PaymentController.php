@@ -337,7 +337,7 @@ class PaymentController extends Controller
         }
         if (!empty($missingFields)) {
             $response = [
-                'responseCode' => '4012402',
+                'responseCode' => '4002402',
                 'responseMessage' => 'Missing Mandatory Field {' . implode(', ', $missingFields) . '}',
             ];
             $apiLog->update(['response' => $response]);
