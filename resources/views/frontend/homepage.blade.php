@@ -284,17 +284,6 @@
         </div> --}}
     </section>
 
-    <section class="mb-10 p-2">
-        <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Guide to Register
-            Paqs 2025 </div>
-
-        <iframe src="https://www.youtube.com/embed/HE9MGjqQYas?si=j4LPaCrBq974h4te"
-            title="Guide to Register Paqs 2025" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
-            class="mx-auto rounded-xl w-full aspect-video lg:w-1/3"></iframe>
-    </section>
-
 </main>
 
 @include('frontend.components.footer')

@@ -16,6 +16,19 @@
                 </div>
             </div>
         </div>
+
+        <div class="mb-10 p-2">
+            <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Guide to
+                Register
+                Paqs 2025 </div>
+
+            <iframe src="https://www.youtube.com/embed/HE9MGjqQYas?si=j4LPaCrBq974h4te"
+                title="Guide to Register Paqs 2025" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                class="mx-auto rounded-xl w-full aspect-video lg:w-1/3"></iframe>
+        </div>
+
         <div class="container">
             @foreach ($datas as $type => $items)
                 <span class="text-4xl font-bold text-black block mb-4">{{ $type }}</span>
