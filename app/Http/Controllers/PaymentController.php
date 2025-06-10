@@ -112,8 +112,20 @@ class PaymentController extends Controller
         // ==================================================================
         // 3. Konversi USD Ke IDR
         // ==================================================================
+        $usdToIdr_api = Http::get('https://api.currencyfreaks.com/v2.0/rates/latest', [
+            'apikey' => env('USD_TO_IDR_API', '10797241c0a441e2953400962abfc9a1'),
+            'base' => 'USD'
+        ]);
+        $usdToIdr = env('USD_TO_IDR', 16452);
+        if ($usdToIdr_api->successful()) {
+            $data = $usdToIdr_api->json();
+            $idrRate = $data['rates']['IDR'] ?? null;
+            if ($idrRate) {
+                $usdToIdr = $idrRate;
+            }
+        }
         if ($category->currency == 'USD') {
-            $total_price = $total_price * env('USD_TO_IDR', 16452);
+            $total_price = $total_price * $usdToIdr;
             $total_price = number_format($total_price, 2, '.', '');
         }
         // ==================================================================
@@ -432,8 +444,20 @@ class PaymentController extends Controller
         // ================================================================================
         // 10. Ubah USD ke IDR
         // ================================================================================
+        $usdToIdr_api = Http::get('https://api.currencyfreaks.com/v2.0/rates/latest', [
+            'apikey' => env('USD_TO_IDR_API', '10797241c0a441e2953400962abfc9a1'),
+            'base' => 'USD'
+        ]);
+        $usdToIdr = env('USD_TO_IDR', 16452);
+        if ($usdToIdr_api->successful()) {
+            $data = $usdToIdr_api->json();
+            $idrRate = $data['rates']['IDR'] ?? null;
+            if ($idrRate) {
+                $usdToIdr = $idrRate;
+            }
+        }
         if ($category->currency == 'USD') {
-            $total_price = $order->total_price * env('USD_TO_IDR', 16452);
+            $total_price = $order->total_price * $usdToIdr;
         } else {
             $total_price = $order->total_price;
         }
