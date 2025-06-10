@@ -19,8 +19,8 @@ Route::get('/call-for-abstract', [FrontendController::class, 'call_for_abstract'
 Route::get('/contact', [FrontendController::class, 'contact']);
 
 // Registrasi & Invoice
-Route::get('/registration', [FrontendController::class, 'registration']);
-Route::get('/registration/form', [FrontendController::class, 'registration_form']);
+Route::get('/registration', [FrontendController::class, 'registration'])->name('registration');
+Route::get('/registration/form', [FrontendController::class, 'registration_form'])->name('registration.form');
 Route::post('/registration/payment_method', [FrontendController::class, 'registration_payment_method']);
 Route::get('/invoice', [FrontendController::class, 'ticket']);
 Route::get('/invoice/{no_invoice}', [FrontendController::class, 'invoice']);

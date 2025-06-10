@@ -112,7 +112,7 @@
                     </div>
                 </div>
 
-                <div class="mb-8">
+                <div class="">
                     <label for="address" class="text-warna-02 text-[16px] font-semibold">Address <span
                             class="text-red-700">*</span></label>
                     @error('address')
@@ -122,8 +122,8 @@
                         class="custom_form">{{ old('address') }}</textarea>
                 </div>
 
-
-                <div class="mb-8">
+                {{-- Versi sebelum category dipisah --}}
+                {{-- <div class="mb-8">
                     <label for="member_id" class="text-warna-02 text-[16px] font-semibold">Are you a
                         member?</label>
                     @error('title')
@@ -144,66 +144,47 @@
                                 class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:border-sky-300 group-hover:opacity-100">No</label>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="flex-col md:flex-row gap-4" id="member_details" style="display: none">
-                    <div class="mb-8 flex-1">
-                        <label for="association" class="text-warna-02 text-[16px] font-semibold">Name of Association
-                            <span class="text-red-700">*</span></label>
-                        @error('association')
-                            <span class="text-danger block m-0 text-sm">{{ $message }}</span>
-                        @enderror
-                        <select name="association" id="association" border-slate-300 shadow-lg class="custom_form">
-                            <option disabled hidden selected>Select Association</option>
-                            @foreach ($associations as $association)
-                                <option value="{{ $association->id }}" <?php if (old('association') == $association->id) {
-                                    echo 'selected';
-                                }
-                                ?>>
-                                    <span>{{ $association->name }}</span>
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-8 flex-1">
-                        <label for="member_id" class="text-warna-02 text-[16px] font-semibold">Member ID
-                            <span class="text-red-700">*</span></label>
-                        @error('member_id')
-                            <span class="text-danger block m-0 text-sm">{{ $message }}</span>
-                        @enderror
-                        <input type="text" name="member_id" id="member_id" value="{{ old('member_id') }}"
-                            class="custom_form">
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="shadow-xl bg-white rounded-xl border border-blue-900 p-4 mb-4">
-                <div class="mb-8">
-                    <label for="category" class="text-warna-02 text-[16px] font-semibold">Category <span
-                            class="text-red-700">*</span></label>
-                    @error('category')
-                        <span class="text-danger block m-0 text-sm">{{ $message }}</span>
-                    @enderror
-                    <select name="category" id="category" border-slate-300 shadow-lg class="custom_form">
-                        <option disabled hidden selected>Select Category</option>
-                        @foreach ($categories as $type => $items)
-                            <optgroup label="{{ $type }}">
-                                @foreach ($items as $category)
-                                    <option value="{{ $category->id }}"
-                                        class="{{ $category->is_member ? 'toggle_category' : '' }}"
-                                        {{ old('category') == $category->id ? 'selected' : '' }}
-                                        {{ $category->is_member ? 'hidden' : '' }}>
-                                        {{ $category->name }} -
-                                        <strong class="text-warna-01">
-                                            {{ $category->currency . ' ' . number_format($category->price, 0, ',', '.') }}
-                                        </strong>
+                {{-- Versi sesudah category dipisah --}}
+                @if ($category->is_member == false)
+                    <input type="hidden" name="member" id="member" value=0>
+                @else
+                    <input type="hidden" name="member" id="member" value=1>
+                    <div class="flex-col md:flex-row gap-4 mt-8">
+                        <div class="mb-8 flex-1">
+                            <label for="association" class="text-warna-02 text-[16px] font-semibold">Name of
+                                Association
+                                <span class="text-red-700">*</span></label>
+                            @error('association')
+                                <span class="text-danger block m-0 text-sm">{{ $message }}</span>
+                            @enderror
+                            <select name="association" id="association" border-slate-300 shadow-lg
+                                class="custom_form">
+                                <option disabled hidden selected>Select Association</option>
+                                @foreach ($associations as $association)
+                                    <option value="{{ $association->id }}" <?php if (old('association') == $association->id) {
+                                        echo 'selected';
+                                    }
+                                    ?>>
+                                        <span>{{ $association->name }}</span>
                                     </option>
                                 @endforeach
-                            </optgroup>
-                        @endforeach
-                    </select>
-                </div>
+                            </select>
+                        </div>
+                        <div class="mb-8 flex-1">
+                            <label for="member_id" class="text-warna-02 text-[16px] font-semibold">Member ID
+                                <span class="text-red-700">*</span></label>
+                            @error('member_id')
+                                <span class="text-danger block m-0 text-sm">{{ $message }}</span>
+                            @enderror
+                            <input type="text" name="member_id" id="member_id" value="{{ old('member_id') }}"
+                                class="custom_form">
+                        </div>
+                    </div>
+                @endif
+
+                <input type="hidden" name="category" id="category" value={{ $category->id }}>
 
                 <div class="mb-8">
                     <label for="quantity" class="text-warna-02 text-[16px] font-semibold">Quantity <span
@@ -218,6 +199,7 @@
                     <button type="submit" class="btn">Check Out</button>
                 </div>
             </div>
+
         </form>
     </section>
     <!-- team-area-end -->

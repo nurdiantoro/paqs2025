@@ -35,7 +35,8 @@
                 <div class="flex flex-wrap mb-32">
                     @foreach ($items as $item)
                         <div class="w-full md:w-1/4 p-2 h-auto">
-                            <a href="{{ url('registration/form') }}">
+                            {{-- <a href="{{ url('registration/form') }}"> --}}
+                            <a href="{{ route('registration.form', ['category' => $item->id]) }}">
                                 <div class="h-full p-4 rounded-xl flex flex-col bg-cover border-[1px] border-slate-100  hover:shadow-lg hover:border-slate-300"
                                     style="background-image: url('{{ asset('img/glass.png') }}')">
                                     <div class="font-bold text-warna-01 mx-auto mb-12">
