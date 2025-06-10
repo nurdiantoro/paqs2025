@@ -17,6 +17,7 @@
             </div>
         </div>
 
+        {{-- Video --}}
         <div class="mb-10 p-2">
             <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Guide to
                 Register
@@ -27,6 +28,9 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
                 class="mx-auto rounded-xl w-full aspect-video lg:w-1/3"></iframe>
+            <div class="text-center mt-4">Already registered? Check your order here. <span><a href="/invoice"
+                        class="text-warna-01">Check
+                        Invoice</a></span> </div>
         </div>
 
         <div class="container">

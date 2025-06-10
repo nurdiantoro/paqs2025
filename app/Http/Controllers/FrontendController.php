@@ -151,7 +151,7 @@ class FrontendController extends Controller implements ShouldQueue
                 'telephone' => 'required|numeric',
                 'email' => 'required|email',
                 'category' => 'required',
-                'quantity' => 'required|numeric',
+                'quantity' => 'required|numeric|min:1',
             ]);
         } else {
             $validator = $request->validate([
@@ -166,7 +166,7 @@ class FrontendController extends Controller implements ShouldQueue
                 'telephone' => 'required|numeric',
                 'email' => 'required|email',
                 'category' => 'required',
-                'quantity' => 'required|numeric',
+                'quantity' => 'required|numeric|min:1',
             ]);
         }
 
