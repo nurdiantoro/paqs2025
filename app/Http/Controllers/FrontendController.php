@@ -114,47 +114,62 @@ class FrontendController extends Controller implements ShouldQueue
 
     public function registration()
     {
+        // session()->forget('order_data');
         $datas = Category::where('is_active', '1')->get()->groupBy('type');
         // dd($datas);
         return view('frontend.registration', compact('datas'));
     }
 
-    public function registration_form()
+    public function registration_form(Request $request)
     {
-        session()->forget('order_data');
-        $categories = Category::where('is_active', '1')->get()->groupBy('type');
+        // session()->forget('order_data');
+        if ($request->has('category')) {
+            session(['order_data.category' => $request->query('category')]);
+        } else {
+            return redirect(url('/registration'));
+        }
+        // $categories = Category::where('is_active', '1')->get()->groupBy('type');
+        $category = Category::findOrFail($request->query('category'));
         $addons = Addon::all();
         $associations = Association::all();
 
-        return view('frontend.registration_form', compact('categories', 'addons', 'associations'));
+        return view('frontend.registration_form', compact('addons', 'associations', 'category'));
     }
 
     public function registration_payment_method(Request $request)
     {
+
         // Cek apakah sudah pernah order
         $order = Order::where('email', $request->email)->first();
         // if ($order != null) {
         //     return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
         // }
 
+        $category = Category::find(session('order_data.category'));
+        // dd(session('order_data.category'));
+
         $validator = $request->validate([
             'title' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
-            'member' => 'required',
-            'member_id' => 'nullable|numeric',
-            'association' => 'nullable|numeric',
             'company' => 'required',
             'address' => 'required',
             'telephone' => 'required|numeric',
             'email' => 'required|email',
-            'category' => 'required',
             'quantity' => 'required|numeric',
         ]);
 
+        if ($category->is_member == true) {
+            $validator = $request->validate([
+                'member' => 'required|nullable',
+                'member_id' => 'required|nullable|numeric',
+                'association' => 'required|nullable|numeric',
+            ]);
+        }
+
         session(['order_data' => $validator]);
 
-        $category = Category::where('id', $request->category)->first();
+        // $category = Category::where('id', $request->category)->first();
         $associations = Association::where('id', $request->association)->first();
         // dd($category->name);
         return view('frontend.registration_payment_method', compact('request', 'associations', 'category'));

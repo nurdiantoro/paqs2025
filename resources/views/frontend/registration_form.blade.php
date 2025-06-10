@@ -25,7 +25,14 @@
         </div>
     </section>
 
-    <!-- team-area -->
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
     <section id="team" class="team-area p-relative pt-120 pb-120 fix row">
         <form method="POST" action="{{ url('/registration/payment_method') }}" class="col-md-6 mx-auto">
             @csrf
@@ -112,7 +119,7 @@
                     </div>
                 </div>
 
-                <div class="mb-8">
+                <div class="">
                     <label for="address" class="text-warna-02 text-[16px] font-semibold">Address <span
                             class="text-red-700">*</span></label>
                     @error('address')
@@ -122,59 +129,63 @@
                         class="custom_form">{{ old('address') }}</textarea>
                 </div>
 
-
-                <div class="mb-8">
-                    <label for="member_id" class="text-warna-02 text-[16px] font-semibold">Are you a
-                        member?</label>
-                    @error('title')
-                        <span class="text-danger block m-0 text-sm">{{ $message }}</span>
-                    @enderror
-                    <div class="flex flex-row gap-2">
-                        <div class="flex flex-row gap-2 items-center group">
-                            <input type="radio" name="member" id="member" value=1 class="peer mr-2 hidden"
-                                <?= old('member') == 1 ? 'checked' : '' ?>>
-                            <label for="member"
-                                class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:border-sky-300  group-hover:opacity-100">Yes</label>
-                        </div>
-
-                        <div class="flex flex-row gap-2 items-center group">
-                            <input type="radio" name="member" id="member2" value=0 class="peer mr-2 hidden"
-                                <?= old('member') == 0 || old('member') === null ? 'checked' : '' ?>>
-                            <label for="member2"
-                                class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:border-sky-300 group-hover:opacity-100">No</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex-col md:flex-row gap-4" id="member_details" style="display: none">
-                    <div class="mb-8 flex-1">
-                        <label for="association" class="text-warna-02 text-[16px] font-semibold">Name of Association
-                            <span class="text-red-700">*</span></label>
-                        @error('association')
+                @if ($category->is_member == true)
+                    {{-- <div class="mb-8 mt-8">
+                        <label for="member_id" class="text-warna-02 text-[16px] font-semibold">Are you a
+                            member?</label>
+                        @error('title')
                             <span class="text-danger block m-0 text-sm">{{ $message }}</span>
                         @enderror
-                        <select name="association" id="association" border-slate-300 shadow-lg class="custom_form">
-                            <option disabled hidden selected>Select Association</option>
-                            @foreach ($associations as $association)
-                                <option value="{{ $association->id }}" <?php if (old('association') == $association->id) {
-                                    echo 'selected';
-                                }
-                                ?>>
-                                    <span>{{ $association->name }}</span>
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-8 flex-1">
-                        <label for="member_id" class="text-warna-02 text-[16px] font-semibold">Member ID
-                            <span class="text-red-700">*</span></label>
-                        @error('member_id')
-                            <span class="text-danger block m-0 text-sm">{{ $message }}</span>
-                        @enderror
-                        <input type="text" name="member_id" id="member_id" value="{{ old('member_id') }}"
-                            class="custom_form">
-                    </div>
-                </div>
+                        <div class="flex flex-row gap-2">
+                            <div class="flex flex-row gap-2 items-center group">
+                                <input type="radio" name="member" id="member" value=1 class="peer mr-2 hidden"
+                                    <?= old('member') == 1 ? 'checked' : '' ?>>
+                                <label for="member"
+                                    class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:border-sky-300  group-hover:opacity-100">Yes</label>
+                            </div>
+
+                            <div class="flex flex-row gap-2 items-center group">
+                                <input type="radio" name="member" id="member2" value=0 class="peer mr-2 hidden"
+                                    <?= old('member') == 0 || old('member') === null ? 'checked' : '' ?>>
+                                <label for="member2"
+                                    class="text-warna-02 text-[16px] font-semibold opacity-50 py-2 px-4 bg-sky-50 border-[2px] border-sky-50 rounded peer-checked:opacity-100 peer-checked:border-sky-300 group-hover:opacity-100">No</label>
+                            </div>
+                        </div>
+                    </div> --}}
+
+
+                    <div class="flex-col md:flex-row gap-4 mt-8" id="member_details">
+                        <div class="mb-8 flex-1">
+                            <label for="association" class="text-warna-02 text-[16px] font-semibold">Name of
+                                Association
+                                <span class="text-red-700">*</span></label>
+                            @error('association')
+                                <span class="text-danger block m-0 text-sm">{{ $message }}</span>
+                            @enderror
+                            <select name="association" id="association" border-slate-300 shadow-lg
+                                class="custom_form">
+                                <option disabled hidden selected>Select Association</option>
+                                @foreach ($associations as $association)
+                                    <option value="{{ $association->id }}" <?php if (old('association') == $association->id) {
+                                        echo 'selected';
+                                    }
+                                    ?>>
+                                        <span>{{ $association->name }}</span>
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-8 flex-1">
+                            <label for="member_id" class="text-warna-02 text-[16px] font-semibold">Member ID
+                                <span class="text-red-700">*</span></label>
+                            @error('member_id')
+                                <span class="text-danger block m-0 text-sm">{{ $message }}</span>
+                            @enderror
+                            <input type="text" name="member_id" id="member_id" value="{{ old('member_id') }}"
+                                class="custom_form">
+                        </div>
+                @endif
+            </div>
 
             </div>
 
@@ -182,7 +193,11 @@
                 <div class="mb-8">
                     <label for="category" class="text-warna-02 text-[16px] font-semibold">Category <span
                             class="text-red-700">*</span></label>
-                    @error('category')
+                    <input type="hidden" name="category" id="category" value="{{ $category->id }}"
+                        class="custom_form" disabled>
+                    <input type="text" name="category_name" id="category_name" value="{{ $category->name }}"
+                        class="custom_form" disabled>
+                    {{-- @error('category')
                         <span class="text-danger block m-0 text-sm">{{ $message }}</span>
                     @enderror
                     <select name="category" id="category" border-slate-300 shadow-lg class="custom_form">
@@ -202,7 +217,7 @@
                                 @endforeach
                             </optgroup>
                         @endforeach
-                    </select>
+                    </select> --}}
                 </div>
 
                 <div class="mb-8">

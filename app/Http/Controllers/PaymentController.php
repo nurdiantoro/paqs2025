@@ -57,6 +57,7 @@ class PaymentController extends Controller
         // 0. Bikin Variable
         // ==================================================================
         $orderData = session('order_data');
+        // dd($orderData);
         $no_invoice = date('Ymd') . rand(1000, 9999);
         while (Order::where('no_invoice', $no_invoice)->exists()) {
             $no_invoice = date('Ymd') . rand(100000, 999999);
@@ -76,7 +77,7 @@ class PaymentController extends Controller
             'first_name'       => $orderData['first_name'],
             'last_name'        => $orderData['last_name'],
             'full_name'        => $orderData['first_name'] . ' ' . $orderData['last_name'],
-            'is_member'        => $orderData['member'],
+            'is_member'        => $orderData['member'] ?? false,
             'member_id'        => $orderData['member_id'] ?? null,
             'association_id'   => $orderData['association'] ?? null,
             'company'          => $orderData['company'],
@@ -92,7 +93,7 @@ class PaymentController extends Controller
             'valid_to'         => $validTo,
             'proof_of_payment' => $orderData['proof_of_payment'] ?? null,
         ]);
-        session()->forget('order_data');
+        // session()->forget('order_data');
         // ==================================================================
         // ==================================================================
         // 2. Cek apakah payment pake credit card
