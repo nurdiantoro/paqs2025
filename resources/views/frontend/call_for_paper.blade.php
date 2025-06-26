@@ -89,6 +89,10 @@
                     <a href="{{ asset('documents/Fullpaper_Template_PAQS_Congress_2025.docx') }}" download=""
                         class="text-warna-temp-02 bg-rose-100 hover:text-white hover:bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Download
                         Paper Template</a>
+                    <a href="{{ asset('documents/PAQS 2025 Registration Fee Terms and Classification.pdf') }}"
+                        download=""
+                        class="text-warna-temp-02 bg-rose-100 hover:text-white hover:bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Registration
+                        Fee Terms and Classification</a>
                     <a href="http://bit.ly/Submission-PAQS2025" target="_blank"
                         class="text-warna-temp-02 bg-rose-100 hover:text-white hover:bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Book
                         now</a>
