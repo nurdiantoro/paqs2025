@@ -29,7 +29,7 @@
     <div class="lg:mt-200 mb-50 px-2 md:px-80 container flex flex-wrap">
 
         <div class="flex justify-center w-full lg:w-1/3 p-4 wow animated fadeInLeftBig">
-            <img src="{{ asset('img/call_for_paper_3.jpeg') }}" alt="call for paper" class="rounded-xl object-contain">
+            <img src="{{ asset('img/call_for_paper_4.jpeg') }}" alt="call for paper" class="rounded-xl object-contain">
         </div>
 
         <div class="flex flex-col w-full lg:w-2/3 p-4 wow animated fadeInRightBig">
