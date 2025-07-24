@@ -288,7 +288,7 @@
         <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Our Sponsor
         </div>
 
-        <img src="{{ asset('img/Glodon Logo - Standard.png') }}" alt="Glodon Logo">
+        <img src="{{ asset('img/Glodon Logo - Standard.png') }}" alt="Glodon Logo" class="mx-auto h-8 md:h-12">
     </section>
 
 </main>
