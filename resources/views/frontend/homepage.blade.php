@@ -284,6 +284,13 @@
         </div> --}}
     </section>
 
+    <section class="mt-120 mb-120 ">
+        <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Our Sponsor
+        </div>
+
+        <img src="{{ asset('img/Glodon Logo - Standard.png') }}" alt="Glodon Logo">
+    </section>
+
 </main>
 
 @include('frontend.components.footer')
