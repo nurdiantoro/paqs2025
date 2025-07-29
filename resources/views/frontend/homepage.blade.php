@@ -288,7 +288,14 @@
         <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Our Sponsor
         </div>
 
-        <img src="{{ asset('img/Glodon Logo - Standard.png') }}" alt="Glodon Logo" class="mx-auto h-8 md:h-12">
+        <div class="flex flex-row flex-wrap justify-center gap-16 items-center mx-auto">
+            <img src="{{ asset('img/Glodon Logo - Standard.png') }}" alt="Glodon Logo" class="h-8 md:h-12">
+            <img src="{{ asset('img/Logo Duta.png') }}" alt="Duta Logo" class="h-32">
+        </div>
+        <div class="flex flex-row flex-wrap justify-center gap-16 items-center mx-auto mt-12">
+            <img src="{{ asset('img/Rifyo_Logo.png') }}" alt="Rifyo Logo" class="h-8 md:h-12">
+            <img src="{{ asset('img/Logo - GGS.png') }}" alt="GGS Logo" class="h-8 md:h-12">
+        </div>
     </section>
 
 </main>
