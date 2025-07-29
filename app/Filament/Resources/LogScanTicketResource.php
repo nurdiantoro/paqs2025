@@ -45,6 +45,8 @@ class LogScanTicketResource extends Resource
                     ->dateTime(' d M Y - H:i')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('gate')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('ticket.barcode')
                     ->label('Barcode')
                     ->sortable()
@@ -54,8 +56,19 @@ class LogScanTicketResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('gate')
+                Tables\Columns\TextColumn::make('ticket.order.full_name')
+                    ->label('Ticket Order By')
+                    ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('ticket.order.no_invoice')
+                    ->label('Order Invoice')
+                    ->sortable()
+                    ->searchable()
+                    ->html() // Aktifkan HTML rendering
+                    ->formatStateUsing(
+                        fn($state, $record) =>
+                        '<a href="' . route('filament.dashboard.resources.orders.edit', ['record' => $record->ticket->order->id]) . '" class="text-primary underline">' . e($state) . '</a>'
+                    ),
 
             ])
             ->defaultSort('created_at', 'desc')
@@ -63,7 +76,7 @@ class LogScanTicketResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

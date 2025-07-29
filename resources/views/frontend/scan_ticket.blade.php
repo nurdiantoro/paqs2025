@@ -10,10 +10,8 @@
             <form id="scanForm" action="{{ url('dashboard/scan_ticket/store') }}" method="POST"
                 class="flex gap-6 flex-col">
                 @csrf
-                <select name="gate" id="" class="form-control w-full border rounded-md border-gray-400 p-2"
-                    required>
-                    <option value="Main Gate" selected>Main Gate</option>
-                </select>
+                <span>Gate : {{ auth()->user()->name }}</span>
+                <input type="hidden" name="gate" value="{{ auth()->user()->name }}">
                 <input type="number" id="barcodeInput"
                     class="form-control w-full border rounded-md border-gray-400 p-2" placeholder="Ticket Number"
                     name="barcode" required>
