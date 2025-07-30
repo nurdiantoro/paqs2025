@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class LogScanTicketResource extends Resource
 {
@@ -39,10 +41,19 @@ class LogScanTicketResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                // ExportAction::make(),
+                ExportAction::make()->exports([
+                    ExcelExport::make()
+                        ->fromTable()
+                        ->withFilename(date('Y-m-d') . ' - Log Scan Ticket')
+                        ->ignoreFormatting(),
+                ])
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Scan Time')
-                    ->dateTime(' d M Y - H:i')
+                    ->dateTime(' Y/m/d - H:i')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gate')
@@ -63,13 +74,16 @@ class LogScanTicketResource extends Resource
                 Tables\Columns\TextColumn::make('ticket.order.no_invoice')
                     ->label('Order Invoice')
                     ->sortable()
-                    ->searchable()
-                    ->html() // Aktifkan HTML rendering
-                    ->formatStateUsing(
-                        fn($state, $record) =>
-                        '<a href="' . route('filament.dashboard.resources.orders.edit', ['record' => $record->ticket->order->id]) . '" class="text-primary underline">' . e($state) . '</a>'
-                    ),
-
+                    // ->html() // Aktifkan HTML rendering
+                    // ->formatStateUsing(
+                    //     fn($state, $record) =>
+                    //     '<a href="' . route('filament.dashboard.resources.orders.edit', ['record' => $record->ticket->order->id]) . '" class="text-primary underline">' . e($state) . '</a>'
+                    // )
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('ticket.order.category.name')
+                    ->label('Order Category')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
