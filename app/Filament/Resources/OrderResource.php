@@ -105,11 +105,15 @@ class OrderResource extends Resource
                 ExportAction::make()->exports([
                     ExcelExport::make()
                         ->fromTable()
-                        ->withFilename(date('Y-m-d') . ' Data Registrasi Paqs 2025')
-                        ->ignoreFormatting(),
+                        ->withFilename(date('Y-m-d') . ' Data Registrasi Paqs 2025'),
                 ])
             ])
             ->columns([
+                TextColumn::make('created_at')
+                    ->label('Date')
+                    ->dateTime('d-m-Y')
+                    ->sortable()
+                    ->searchable(),
                 IconColumn::make('is_confirmed')->boolean(),
                 TextColumn::make('payment_status')
                     ->sortable()
