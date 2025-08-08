@@ -290,6 +290,7 @@
 
         <div class="flex flex-row flex-wrap justify-center gap-16 items-center mx-auto">
             <img src="{{ asset('img/Glodon Logo - Standard.png') }}" alt="Glodon Logo" class="h-8 md:h-12">
+            <img src="{{ asset('img/DLSC Logo.png') }}" alt="Duta Logo" class="h-8 md:h-12">
             <img src="{{ asset('img/Logo Duta.png') }}" alt="Duta Logo" class="h-32">
         </div>
         <div class="flex flex-row flex-wrap justify-center gap-4 md:gap-16 items-center mx-auto mt-12 px-6">
