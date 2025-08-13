@@ -11,10 +11,10 @@
         (object) ['name' => 'Committee Meeting', 'date' => '2025-08-23'],
 
         (object) ['name' => 'Board Meeting', 'date' => '2025-08-24'],
+        (object) ['name' => 'Spouse Pogram', 'date' => '2025-08-24'],
 
         (object) ['name' => 'Opening Congress', 'date' => '2025-08-25'],
         (object) ['name' => 'Plenary Session', 'date' => '2025-08-25'],
-        (object) ['name' => 'Spouse Pogram', 'date' => '2025-08-25'],
 
         (object) ['name' => 'Plenary Session', 'date' => '2025-08-26'],
         (object) ['name' => 'Gala Dinner', 'date' => '2025-08-26'],
