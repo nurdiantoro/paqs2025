@@ -142,12 +142,12 @@
                 <td> </td>
             </tr>
             <tr>
-                <td class="bg-orange-400 text-white">14:00</td>
-                <td class="bg-orange-400 text-white">14:10</td>
-                <td colspan="2" class="text-center bg-orange-400 text-white">Mobilisasi Peserta</td>
+                <td class="bg-warna-01 text-white">14:00</td>
+                <td class="bg-warna-01 text-white">14:10</td>
+                <td colspan="2" class="text-center bg-warna-01 text-white">Mobilisasi Peserta</td>
             </tr>
             <tr>
-                <td colspan="4" class="text-center bg-green-400 text-white">Parallel session</td>
+                <td colspan="4" class="text-center bg-warna-01 text-white">Parallel session</td>
             </tr>
             <tr>
                 <td>14:10</td>
@@ -171,9 +171,9 @@
                     Project: A conceptual framework for an innovative failure assessment Model (FAM)”</td>
             </tr>
             <tr>
-                <td class="bg-orange-400 text-white">15:00</td>
-                <td class="bg-orange-400 text-white">15:15</td>
-                <td colspan="2" class="text-center bg-orange-400 text-white">Coffee Break</td>
+                <td class="bg-warna-01 text-white">15:00</td>
+                <td class="bg-warna-01 text-white">15:15</td>
+                <td colspan="2" class="text-center bg-warna-01 text-white">Coffee Break</td>
             </tr>
             <tr>
                 <td rowspan="3">15:15</td>
