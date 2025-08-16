@@ -15,28 +15,30 @@
                     CONGRESS
                     <span class="text-sky-500">2025</span>
                 </h2>
-                <div countdown class="conterdown wow fadeInDown animated mb-4" data-animation="fadeInDown animated"
-                    data-delay=".2s" data-date="Aug 22 2025 00:00:00">
-                    <div class="flex flex-row gap-8 lg:gap-16 text-center text-white font-bold">
-                        <div class="">
-                            <span class="days text-4xl md:text-2xl lg:text-6xl" data-days>0</span>
-                            <div class="smalltext">Days</div>
+                @if (today() < Carbon\Carbon::parse('Aug 22 2025 00:00:00'))
+                    <div countdown class="conterdown wow fadeInDown animated mb-4" data-animation="fadeInDown animated"
+                        data-delay=".2s" data-date="Aug 22 2025 00:00:00">
+                        <div class="flex flex-row gap-8 lg:gap-16 text-center text-white font-bold">
+                            <div class="">
+                                <span class="days text-4xl md:text-2xl lg:text-6xl" data-days>0</span>
+                                <div class="smalltext">Days</div>
+                            </div>
+                            <div class="">
+                                <span class="hours text-4xl md:text-2xl lg:text-6xl" data-hours>0</span>
+                                <div class="smalltext">Hours</div>
+                            </div>
+                            <div class="">
+                                <span class="minutes text-4xl md:text-2xl lg:text-6xl" data-minutes>0</span>
+                                <div class="smalltext">Minutes</div>
+                            </div>
+                            <div class="">
+                                <span class="seconds text-4xl md:text-2xl lg:text-6xl" data-seconds>0</span>
+                                <div class="smalltext">Seconds</div>
+                            </div>
+                            <p id="time-up"></p>
                         </div>
-                        <div class="">
-                            <span class="hours text-4xl md:text-2xl lg:text-6xl" data-hours>0</span>
-                            <div class="smalltext">Hours</div>
-                        </div>
-                        <div class="">
-                            <span class="minutes text-4xl md:text-2xl lg:text-6xl" data-minutes>0</span>
-                            <div class="smalltext">Minutes</div>
-                        </div>
-                        <div class="">
-                            <span class="seconds text-4xl md:text-2xl lg:text-6xl" data-seconds>0</span>
-                            <div class="smalltext">Seconds</div>
-                        </div>
-                        <p id="time-up"></p>
                     </div>
-                </div>
+                @endif
                 <ul data-animation="fadeInUp animated" data-delay=".2s">
                     <li class="wow fadeInLeft animated"><i class="fas fa-map-marker-alt text-3xl"></i> Raffles Hotel
                         Jakarta - Indonesia</li>

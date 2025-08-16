@@ -28,7 +28,8 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Barcode</th>
-                        <th>Name</th>
+                        <th>Order By </th>
+                        <th>Invoice Number</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +38,8 @@
                             <td>{{ $ticket->created_at->format('d-m-Y') }}</td>
                             <td>{{ $ticket->created_at->format('H:i') }}</td>
                             <td>{{ $ticket->ticket->barcode }}</td>
-                            <td>{{ $ticket->ticket->name }}</td>
+                            <td>{{ $ticket->ticket->order->full_name }}</td>
+                            <td>{{ $ticket->ticket->order->no_invoice }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -69,7 +71,7 @@
     <script>
         Swal.fire({
             title: 'Barcode already scanned!',
-            icon: 'success',
+            icon: 'error',
             confirmButtonText: 'Close',
             confirmButtonColor: '#545454',
         });

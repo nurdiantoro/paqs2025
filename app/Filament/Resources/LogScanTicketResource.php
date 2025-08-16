@@ -80,8 +80,20 @@ class LogScanTicketResource extends Resource
                     //     '<a href="' . route('filament.dashboard.resources.orders.edit', ['record' => $record->ticket->order->id]) . '" class="text-primary underline">' . e($state) . '</a>'
                     // )
                     ->searchable(),
+                Tables\Columns\TextColumn::make('ticket.order.association.name')
+                    ->label('Order Association')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('ticket.order.category.name')
                     ->label('Order Category')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('ticket.order.category.currency')
+                    ->label('Order Currency')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('ticket.order.category.price')
+                    ->label('Order Price')
                     ->sortable()
                     ->searchable(),
             ])

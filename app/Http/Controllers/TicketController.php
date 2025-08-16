@@ -18,8 +18,8 @@ class TicketController extends Controller
 
     public function store(Request $request)
     {
-        // Batas waktu scan (5 menit terakhir)
-        $batasWaktuScan = Carbon::now()->subMinutes(5);
+        // Batas waktu scan (1 hari)
+        $batasWaktuScan = Carbon::today();
 
         // Cek apakah tiket ada berdasarkan barcode
         $ticket = Ticket::where('barcode', $request->barcode)->first();
@@ -31,7 +31,7 @@ class TicketController extends Controller
 
         // Cek apakah tiket sudah di-scan dalam 5 menit terakhir
         $alreadyScanned = LogScanTicket::where('ticket_id', $ticket->id)
-            ->where('created_at', '>=', $batasWaktuScan)
+            ->whereDate('created_at', $batasWaktuScan)
             ->exists();
 
         if ($alreadyScanned) {
@@ -42,6 +42,11 @@ class TicketController extends Controller
         LogScanTicket::create([
             'ticket_id' => $ticket->id,
             'gate' => $request->gate,
+        ]);
+
+        $ticket->update([
+            'is_used' => true,
+            'used_at' => Carbon::now(),
         ]);
 
         return redirect(url('/dashboard/scan_ticket'))->with('success', 'Tiket berhasil di-scan!');
