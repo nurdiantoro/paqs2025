@@ -45,9 +45,9 @@ class EmailController extends Controller implements ShouldQueue
             ));
 
         if ($kirim) {
-            return redirect(url('/invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
+            return redirect(url('invoice/' . $no_invoice))->with('success', 'Order berhasil disimpan!');
         } else {
-            return redirect(url('/invoice/' . $no_invoice))->with('error', 'email tidak terkirim!');
+            return redirect(url('invoice/' . $no_invoice))->with('error', 'email tidak terkirim!');
         }
     }
 

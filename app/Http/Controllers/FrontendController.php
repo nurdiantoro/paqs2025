@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use libphonenumber\PhoneNumberFormat;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class FrontendController extends Controller implements ShouldQueue
 {
@@ -85,7 +86,7 @@ class FrontendController extends Controller implements ShouldQueue
         return view('frontend.venue', compact('hotels'));
     }
 
-    public function call_for_paper()
+    public function call_for_abstract()
     {
         $speakers = Speaker::all();
         return view('frontend.call_for_paper', compact('speakers'));
@@ -118,13 +119,63 @@ class FrontendController extends Controller implements ShouldQueue
         return view('frontend.registration', compact('datas'));
     }
 
-    public function registration_form()
+    public function registration_form(Request $request)
     {
-        $categories = Category::where('is_active', '1')->get()->groupBy('type');
+        session()->forget('order_data');
+        // $categories = Category::where('is_active', '1')->get()->groupBy('type');
+        $category = Category::where('id', $request->query('category'))->first();
         $addons = Addon::all();
         $associations = Association::all();
 
-        return view('frontend.registration_form', compact('categories', 'addons', 'associations'));
+        return view('frontend.registration_form', compact('category', 'addons', 'associations'));
+    }
+
+    public function registration_payment_method(Request $request)
+    {
+        // Cek apakah sudah pernah order
+        $order = Order::where('email', $request->email)->first();
+        // if ($order != null) {
+        //     return redirect(url('invoice/' . $order->no_invoice))->with('order_exist', 'Email telah terdaftar!');
+        // }
+        $category = Category::where('id', $request->category)->first();
+        if ($category->is_member == true) {
+            $validator = $request->validate([
+                'title' => 'required',
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'member' => 'required',
+                'member_id' => 'required|nullable|numeric',
+                'association' => 'required|nullable|numeric',
+                'company' => 'required',
+                'address' => 'required',
+                'telephone' => 'required|numeric',
+                'email' => 'required|email',
+                'category' => 'required',
+                'quantity' => 'required|numeric|min:1',
+            ]);
+        } else {
+            $validator = $request->validate([
+                'title' => 'required',
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'member' => 'required',
+                'member_id' => 'nullable|numeric',
+                'association' => 'nullable|numeric',
+                'company' => 'required',
+                'address' => 'required',
+                'telephone' => 'required|numeric',
+                'email' => 'required|email',
+                'category' => 'required',
+                'quantity' => 'required|numeric|min:1',
+            ]);
+        }
+
+        session(['order_data' => $validator]);
+
+
+        $associations = Association::where('id', $request->association)->first();
+        // dd($category->name);
+        return view('frontend.registration_payment_method', compact('request', 'associations', 'category'));
     }
 
     public function ticket()
@@ -159,13 +210,17 @@ class FrontendController extends Controller implements ShouldQueue
 
     public function check_invoice(Request $request)
     {
-        // dd($request);
-        $order = Order::where('no_invoice', $request->no_invoice)->first();
+        $orders = Order::where('email', $request->email)
+            ->where('telephone', $request->telephone)
+            ->with('category')
+            ->select('no_invoice', 'quantity', 'category_id', 'total_price', 'payment_method', 'payment_status')
+            ->get();
+        // return $orders;
 
-        if ($order != null) {
-            return redirect(url('/invoice/' . $order->no_invoice));
-        } else {
+        if ($orders->isEmpty()) {
             return redirect()->back()->with('error', 'Invoice tidak ditemukan!');
+        } else {
+            return view('frontend.invoice_list', compact('orders'));
         }
     }
 

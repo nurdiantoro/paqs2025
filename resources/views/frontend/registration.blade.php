@@ -16,13 +16,31 @@
                 </div>
             </div>
         </div>
+
+        {{-- Video --}}
+        <div class="mb-10 p-2">
+            <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Guide to
+                Register
+                Paqs 2025 </div>
+
+            <iframe src="https://www.youtube.com/embed/HE9MGjqQYas?si=j4LPaCrBq974h4te"
+                title="Guide to Register Paqs 2025" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                class="mx-auto rounded-xl w-full aspect-video lg:w-1/3"></iframe>
+            <div class="text-center mt-4">Already registered? Check your order here. <span><a href="/invoice"
+                        class="text-warna-01">Check
+                        Invoice</a></span> </div>
+        </div>
+
         <div class="container">
             @foreach ($datas as $type => $items)
                 <span class="text-4xl font-bold text-black block mb-4">{{ $type }}</span>
                 <div class="flex flex-wrap mb-32">
                     @foreach ($items as $item)
                         <div class="w-full md:w-1/4 p-2 h-auto">
-                            <a href="{{ url('registration_form') }}">
+                            {{-- <a href="{{ url('registration/form') }}"> --}}
+                            <a href="{{ route('registration.form', ['category' => $item->id]) }}">
                                 <div class="h-full p-4 rounded-xl flex flex-col bg-cover border-[1px] border-slate-100  hover:shadow-lg hover:border-slate-300"
                                     style="background-image: url('{{ asset('img/glass.png') }}')">
                                     <div class="font-bold text-warna-01 mx-auto mb-12">

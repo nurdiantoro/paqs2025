@@ -29,11 +29,11 @@
     <div class="lg:mt-200 mb-50 px-2 md:px-80 container flex flex-wrap">
 
         <div class="flex justify-center w-full lg:w-1/3 p-4 wow animated fadeInLeftBig">
-            <img src="{{ asset('img/call_for_paper_2.jpeg') }}" alt="call for paper" class="rounded-xl object-contain">
+            <img src="{{ asset('img/call_for_paper_4.jpeg') }}" alt="call for paper" class="rounded-xl object-contain">
         </div>
 
         <div class="flex flex-col w-full lg:w-2/3 p-4 wow animated fadeInRightBig">
-            <div class="text-warna-temp-02 font-bold text-4xl text-left w-full mb-2">CALL FOR PAPER – PAQS
+            <div class="text-warna-temp-02 font-bold text-4xl text-left w-full mb-2">CALL FOR ABSTRACT – PAQS
                 CONGRESS
                 2025</div>
             <div class="rounded-xl bg-white shadow-xl p-8 border w-full h-full flex flex-col gap-4 justify-between">
@@ -66,14 +66,18 @@
                     <ul class="text-slate-700 mb-3">
                         <li><span class="font-bold">📍 Conference Venue:</span> Hotel Raffles Jakarta</li>
                         <li><span class="font-bold">📆 Conference Dates:</span> 25-26 August 2025</li>
-                        <li><span class="font-bold">📝 Paper Submission Deadline:</span> 15 June 2025</li>
+                        <li><span class="font-bold">📝 Paper Submission Deadline:</span> 30 July 2025</li>
                     </ul>
                     <p class="text-slate-700 mb-3">
-                        For full submission guidelines and to submit your paper, please visit:
+                        Note : free paper submission for PAQS Member
+                    </p>
+                    <p class="text-slate-700 mb-3">
+                        For full submission guidelines, Registration fee information and to submit your paper, please
+                        visit:
                         <br>
                         🔗
                         <a href="http://bit.ly/Submission-PAQS2025"
-                            class="text-warna-temp-02 hover:text-warna-temp-02 hover:underline">
+                            class="text-warna-temp-02 hover:text-warna-temp-02 hover:underline" target="_blank">
                             http://bit.ly/Submission-PAQS2025</a>
                     </p>
                     <p class="text-slate-700 mb-3">
@@ -85,6 +89,10 @@
                     <a href="{{ asset('documents/Fullpaper_Template_PAQS_Congress_2025.docx') }}" download=""
                         class="text-warna-temp-02 bg-rose-100 hover:text-white hover:bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Download
                         Paper Template</a>
+                    <a href="{{ asset('documents/PAQS 2025 Registration Fee Terms and Classification.pdf') }}"
+                        download=""
+                        class="text-warna-temp-02 bg-rose-100 hover:text-white hover:bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Registration
+                        Fee Terms and Classification</a>
                     <a href="http://bit.ly/Submission-PAQS2025" target="_blank"
                         class="text-warna-temp-02 bg-rose-100 hover:text-white hover:bg-warna-temp-02 px-6 py-3 rounded-full hover:shadow-md">Book
                         now</a>

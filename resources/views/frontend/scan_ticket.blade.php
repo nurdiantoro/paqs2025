@@ -10,10 +10,8 @@
             <form id="scanForm" action="{{ url('dashboard/scan_ticket/store') }}" method="POST"
                 class="flex gap-6 flex-col">
                 @csrf
-                <select name="gate" id="" class="form-control w-full border rounded-md border-gray-400 p-2"
-                    required>
-                    <option value="Main Gate" selected>Main Gate</option>
-                </select>
+                <span>Gate : {{ auth()->user()->name }}</span>
+                <input type="hidden" name="gate" value="{{ auth()->user()->name }}">
                 <input type="number" id="barcodeInput"
                     class="form-control w-full border rounded-md border-gray-400 p-2" placeholder="Ticket Number"
                     name="barcode" required>
@@ -30,7 +28,8 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Barcode</th>
-                        <th>Name</th>
+                        <th>Order By </th>
+                        <th>Invoice Number</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +38,8 @@
                             <td>{{ $ticket->created_at->format('d-m-Y') }}</td>
                             <td>{{ $ticket->created_at->format('H:i') }}</td>
                             <td>{{ $ticket->ticket->barcode }}</td>
-                            <td>{{ $ticket->ticket->name }}</td>
+                            <td>{{ $ticket->ticket->order->full_name }}</td>
+                            <td>{{ $ticket->ticket->order->no_invoice }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -71,7 +71,7 @@
     <script>
         Swal.fire({
             title: 'Barcode already scanned!',
-            icon: 'success',
+            icon: 'error',
             confirmButtonText: 'Close',
             confirmButtonColor: '#545454',
         });

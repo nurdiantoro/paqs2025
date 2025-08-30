@@ -25,6 +25,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use pxlrbt\FilamentExcel\Columns\Column;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
@@ -99,9 +100,21 @@ class OrderResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                // ExportAction::make(),
+                ExportAction::make()->exports([
+                    ExcelExport::make()
+                        ->fromTable()
+                        ->withFilename(date('Y-m-d') . ' Data Registrasi Paqs 2025'),
+                ])
+            ])
             ->columns([
-                IconColumn::make('is_confirmed')
-                    ->boolean(),
+                TextColumn::make('created_at')
+                    ->label('Date')
+                    ->dateTime('d-m-Y')
+                    ->sortable()
+                    ->searchable(),
+                IconColumn::make('is_confirmed')->boolean(),
                 TextColumn::make('payment_status')
                     ->sortable()
                     ->badge()
@@ -113,14 +126,20 @@ class OrderResource extends Resource
                     }),
                 TextColumn::make('no_invoice')->sortable()->searchable(),
                 TextColumn::make('full_name')->sortable()->searchable(),
+                TextColumn::make('company')->sortable()->searchable(),
+                TextColumn::make('address')->sortable()->searchable(),
+                TextColumn::make('telephone')->sortable()->searchable(),
                 TextColumn::make('email')->sortable()->searchable(),
+                IconColumn::make('is_member')->sortable()->boolean(),
+                TextColumn::make('association.name')->sortable()->label('Association'),
                 TextColumn::make('quantity')->sortable(),
+                TextColumn::make('category.name')->sortable()->label('Category'),
                 TextColumn::make('category.currency')->sortable()->label('Currency'),
                 TextColumn::make('total_price')->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
-            ->defaultPaginationPageOption(50)
-            ->paginated([50, 100, 'all'])
+            ->defaultPaginationPageOption(10)
+            ->paginated([10, 50, 100, 'all'])
             ->filters([
                 SelectFilter::make('payment_status')
                     ->options([
@@ -152,25 +171,25 @@ class OrderResource extends Resource
                 ])
             ])
             ->bulkActions([
-                ExportBulkAction::make()->exports([
-                    ExcelExport::make()
-                        ->withFilename(date('Y-m-d') . ' Data REgistrasi Paqs 2025')
-                        ->withColumns([
-                            Column::make('created_at')->heading('Date')->format('d-m-Y'),
-                            Column::make('no_invoice')->heading('Invoice Number')->format(NumberFormat::FORMAT_NUMBER),
-                            Column::make('full_name')->heading('Full Name'),
-                            Column::make('company')->heading('Company'),
-                            Column::make('address')->heading('Address'),
-                            Column::make('telephone')->heading('Telephone'),
-                            Column::make('email')->heading('Email'),
-                            Column::make('is_member')->heading('Is Member'),
-                            Column::make('association.name')->heading('Association'),
-                            Column::make('quantity')->heading('QTY'),
-                            Column::make('kategori.currency')->heading('Currency'),
-                            Column::make('total_price')->heading('Total Price'),
-                            Column::make('payment_status')->heading('Peyment Status'),
-                        ]),
-                ]),
+                // ExportBulkAction::make()->exports([
+                //     ExcelExport::make()
+                //         ->withFilename(date('Y-m-d') . ' Data REgistrasi Paqs 2025')
+                //         ->withColumns([
+                //             Column::make('created_at')->heading('Date')->format('d-m-Y'),
+                //             Column::make('no_invoice')->heading('Invoice Number')->format(NumberFormat::FORMAT_NUMBER),
+                //             Column::make('full_name')->heading('Full Name'),
+                //             Column::make('company')->heading('Company'),
+                //             Column::make('address')->heading('Address'),
+                //             Column::make('telephone')->heading('Telephone'),
+                //             Column::make('email')->heading('Email'),
+                //             Column::make('is_member')->heading('Is Member'),
+                //             Column::make('association.name')->heading('Association'),
+                //             Column::make('quantity')->heading('QTY'),
+                //             Column::make('kategori.currency')->heading('Currency'),
+                //             Column::make('total_price')->heading('Total Price'),
+                //             Column::make('payment_status')->heading('Peyment Status'),
+                //         ]),
+                // ]),
                 BulkActionGroup::make([
 
                     DeleteBulkAction::make()

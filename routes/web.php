@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
@@ -14,17 +15,18 @@ Route::get('/programme', [FrontendController::class, 'programme']);
 Route::get('/general-information', [FrontendController::class, 'information']);
 Route::get('/venue', [FrontendController::class, 'venue']);
 Route::get('/programme', [FrontendController::class, 'programme']);
-Route::get('/call-for-paper', [FrontendController::class, 'call_for_paper']);
+Route::get('/call-for-abstract', [FrontendController::class, 'call_for_abstract']);
 Route::get('/contact', [FrontendController::class, 'contact']);
 
 // Registrasi & Invoice
-Route::get('/registration', [FrontendController::class, 'registration']);
-Route::get('/registration_form', [FrontendController::class, 'registration_form']);
+Route::get('/registration', [FrontendController::class, 'registration'])->name('registration');
+Route::get('/registration/form', [FrontendController::class, 'registration_form'])->name('registration.form');
+Route::post('/registration/payment_method', [FrontendController::class, 'registration_payment_method']);
 Route::get('/invoice', [FrontendController::class, 'ticket']);
 Route::get('/invoice/{no_invoice}', [FrontendController::class, 'invoice']);
 
 // Post
-Route::post('/order/check', [FrontendController::class, 'check_invoice']);
+Route::post('/invoice/check', [FrontendController::class, 'check_invoice']);
 Route::post('/order/store', [OrderController::class, 'store']);
 Route::post('/order/upload_payment/{no_invoice}', [OrderController::class, 'upload_payment']);
 Route::post('/inbox/store/', [FrontendController::class, 'inbox_store']);
@@ -43,6 +45,14 @@ Route::prefix('dashboard')->middleware(['auth'])->group(
     function () {
         Route::get('/scan_ticket', [TicketController::class, 'index']);
         Route::post('/scan_ticket/store', [TicketController::class, 'store']);
+    }
+);
+
+Route::prefix('espay')->group(
+    function () {
+        Route::get('/index', [PaymentController::class, 'index'])->name('payment.index');
+        Route::post('/initiatePayment', [PaymentController::class, 'initiatePayment'])->name('payment.initiate');
+        Route::get('/virtualAccount', [PaymentController::class, 'virtualAccount'])->name('payment.virtualAccount');
     }
 );
 

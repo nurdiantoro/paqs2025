@@ -2,7 +2,7 @@
 
 @php
     $navbarColor = 'hover:text-warna-temp-02 font-semibold text-gray-400';
-    $home = $about = $information = $programme = $contact = $call_for_paper = 'text-gray-400';
+    $home = $about = $information = $programme = $contact = $call_for_abstract = $invoice = 'text-gray-400';
     if (url()->current() == url('')) {
         $home = 'text-warna-temp-02';
     } elseif (url()->current() == url('/about')) {
@@ -13,8 +13,6 @@
         $information = 'text-warna-temp-02';
     } elseif (url()->current() == url('/venue')) {
         $information = 'text-warna-temp-02';
-    } elseif (url()->current() == url('/invoice')) {
-        $information = 'text-warna-temp-02';
     } elseif (url()->current() == url('/contact')) {
         $contact = 'text-warna-temp-02';
     } elseif (url()->current() == url('/news')) {
@@ -23,8 +21,10 @@
         $sponsor = 'text-warna-temp-02';
     } elseif (url()->current() == url('/registration')) {
         $registration = 'text-warna-temp-02';
-    } elseif (url()->current() == url('/call-for-paper')) {
-        $call_for_paper = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/call-for-abstract')) {
+        $call_for_abstract = 'text-warna-temp-02';
+    } elseif (url()->current() == url('/invoice')) {
+        $invoice = 'text-warna-temp-02';
     }
 @endphp
 
@@ -46,18 +46,18 @@
                         </div>
                         <div class="main-menu text-right text-xl-center">
                             <nav id="mobile-menu">
-                                <ul>
-                                    <li class="has-sub {{ $home . ' ' . $navbarColor }}">
+                                <ul class="flex gap-8 justify-center align-item-center flex-col md:flex-row">
+                                    <li class="ml-0 text-nowrap  {{ $home . ' ' . $navbarColor }}">
                                         <a href="{{ url('/') }}">
                                             <span class="text-2xl">Home</span>
                                         </a>
                                     </li>
-                                    <li class="has-sub {{ $about . ' ' . $navbarColor }}">
+                                    <li class="ml-0 text-nowrap  {{ $about . ' ' . $navbarColor }}">
                                         <a href="{{ url('about') }}">
                                             <span class="text-2xl">About</span>
                                         </a>
                                     </li>
-                                    <li class="has-sub {{ $information . ' ' . $navbarColor }}">
+                                    <li class="ml-0 text-nowrap has-sub {{ $information . ' ' . $navbarColor }}">
                                         <a href="#">
                                             <span class="text-2xl">Information</span>
                                         </a>
@@ -65,17 +65,21 @@
                                             <li><a href="{{ url('programme') }}">Programme</a></li>
                                             <li><a href="{{ url('general-information') }}">General Information</a></li>
                                             <li><a href="{{ url('venue') }}">Venue & Acomodation</a></li>
-                                            <li><a href="{{ url('invoice') }}">Check Invoice</a></li>
                                         </ul>
                                     </li>
-                                    <li class="has-sub {{ $call_for_paper . ' ' . $navbarColor }}">
-                                        <a href="{{ url('call-for-paper') }}">
-                                            <span class="text-2xl">Call for paper</span>
+                                    <li class="ml-0 text-nowrap  {{ $call_for_abstract . ' ' . $navbarColor }}">
+                                        <a href="{{ url('call-for-abstract') }}">
+                                            <span class="text-2xl">Call for Abstract</span>
                                         </a>
                                     </li>
-                                    <li class="has-sub {{ $contact . ' ' . $navbarColor }}">
+                                    <li class="ml-0 text-nowrap  {{ $contact . ' ' . $navbarColor }}">
                                         <a href="{{ url('contact') }}">
                                             <span class="text-2xl">Contact</span>
+                                        </a>
+                                    </li>
+                                    <li class="ml-0 text-nowrap  {{ $invoice . ' ' . $navbarColor }}">
+                                        <a href="{{ url('invoice') }}">
+                                            <span class="text-2xl">Check Invoice</span>
                                         </a>
                                     </li>
                                 </ul>

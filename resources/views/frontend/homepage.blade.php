@@ -15,28 +15,30 @@
                     CONGRESS
                     <span class="text-sky-500">2025</span>
                 </h2>
-                <div countdown class="conterdown wow fadeInDown animated mb-4" data-animation="fadeInDown animated"
-                    data-delay=".2s" data-date="Aug 22 2025 00:00:00">
-                    <div class="flex flex-row gap-8 lg:gap-16 text-center text-white font-bold">
-                        <div class="">
-                            <span class="days text-4xl md:text-2xl lg:text-6xl" data-days>0</span>
-                            <div class="smalltext">Days</div>
+                @if (today() < Carbon\Carbon::parse('Aug 22 2025 00:00:00'))
+                    <div countdown class="conterdown wow fadeInDown animated mb-4" data-animation="fadeInDown animated"
+                        data-delay=".2s" data-date="Aug 22 2025 00:00:00">
+                        <div class="flex flex-row gap-8 lg:gap-16 text-center text-white font-bold">
+                            <div class="">
+                                <span class="days text-4xl md:text-2xl lg:text-6xl" data-days>0</span>
+                                <div class="smalltext">Days</div>
+                            </div>
+                            <div class="">
+                                <span class="hours text-4xl md:text-2xl lg:text-6xl" data-hours>0</span>
+                                <div class="smalltext">Hours</div>
+                            </div>
+                            <div class="">
+                                <span class="minutes text-4xl md:text-2xl lg:text-6xl" data-minutes>0</span>
+                                <div class="smalltext">Minutes</div>
+                            </div>
+                            <div class="">
+                                <span class="seconds text-4xl md:text-2xl lg:text-6xl" data-seconds>0</span>
+                                <div class="smalltext">Seconds</div>
+                            </div>
+                            <p id="time-up"></p>
                         </div>
-                        <div class="">
-                            <span class="hours text-4xl md:text-2xl lg:text-6xl" data-hours>0</span>
-                            <div class="smalltext">Hours</div>
-                        </div>
-                        <div class="">
-                            <span class="minutes text-4xl md:text-2xl lg:text-6xl" data-minutes>0</span>
-                            <div class="smalltext">Minutes</div>
-                        </div>
-                        <div class="">
-                            <span class="seconds text-4xl md:text-2xl lg:text-6xl" data-seconds>0</span>
-                            <div class="smalltext">Seconds</div>
-                        </div>
-                        <p id="time-up"></p>
                     </div>
-                </div>
+                @endif
                 <ul data-animation="fadeInUp animated" data-delay=".2s">
                     <li class="wow fadeInLeft animated"><i class="fas fa-map-marker-alt text-3xl"></i> Raffles Hotel
                         Jakarta - Indonesia</li>
@@ -284,15 +286,20 @@
         </div> --}}
     </section>
 
-    <section class="mb-10 p-2">
-        <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Guide to Register
-            Paqs 2025 </div>
+    <section class="mt-120 mb-120 ">
+        <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Our Sponsor
+        </div>
 
-        <iframe src="https://www.youtube.com/embed/HE9MGjqQYas?si=j4LPaCrBq974h4te"
-            title="Guide to Register Paqs 2025" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
-            class="mx-auto rounded-xl w-full aspect-video lg:w-1/3"></iframe>
+        <div class="flex flex-row flex-wrap justify-center gap-16 items-center mx-auto">
+            <img src="{{ asset('img/Glodon Logo - Standard.png') }}" alt="Glodon Logo" class="h-8 md:h-12">
+            <img src="{{ asset('img/DLSC Logo.png') }}" alt="Duta Logo" class="h-8 md:h-12">
+            <img src="{{ asset('img/Logo Duta.png') }}" alt="Duta Logo" class="h-32">
+        </div>
+        <div class="flex flex-row flex-wrap justify-center gap-4 md:gap-16 items-center mx-auto mt-12 px-6">
+            <img src="{{ asset('img/Rifyo_Logo.png') }}" alt="Rifyo Logo" class="h-8 md:h-12">
+            <img src="{{ asset('img/Logo Total.jpeg') }}" alt="Total Logo" class="h-8 md:h-12">
+            <img src="{{ asset('img/Logo - GGS.png') }}" alt="GGS Logo" class="h-8 md:h-12">
+        </div>
     </section>
 
 </main>

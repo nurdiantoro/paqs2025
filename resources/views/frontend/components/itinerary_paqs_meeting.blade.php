@@ -32,7 +32,7 @@
     <div
         class="relative w-full group flex flex-row justify-between items-center before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 after:contents[''] after:w-4 after:h-4 after:bg-green-400  after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full px-2">
         <div class="w-[49%] px-3 rounded-lg mr-6 md:mr-12 text-right">
-            14.00 - 16.00
+            13.00 - 15.00
         </div>
         <div class="w-[49%] px-3 rounded-lg ml-6 md:ml-12">
             Session 1 : Education Committee
@@ -41,7 +41,7 @@
     <div
         class="relative w-full group flex flex-row justify-between items-center before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 after:contents[''] after:w-4 after:h-4 after:bg-green-400  after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full px-2">
         <div class="w-[49%] px-3 rounded-lg mr-6 md:mr-12 text-right">
-            16.00 - 18.30
+            15.00 - 17.00
         </div>
         <div class="w-[49%] px-3 rounded-lg ml-6 md:ml-12">
             Session 2 : Digitalization Committee
@@ -71,7 +71,7 @@
     <div
         class="relative w-full group flex flex-row justify-between items-center before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 after:contents[''] after:w-4 after:h-4 after:bg-red-400  after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full px-2">
         <div class="w-[49%] px-3 rounded-lg mr-6 md:mr-12 text-right">
-            14.00 - 16.00
+            13.00 - 15.00
         </div>
         <div class="w-[49%] px-3 rounded-lg ml-6 md:ml-12">
             Session 1 : Sustainability Committee
@@ -80,7 +80,7 @@
     <div
         class="relative w-full group flex flex-row justify-between items-center before:contents[''] before:w-[1px] before:h-full before:bg-slate-400 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 after:contents[''] after:w-4 after:h-4 after:bg-red-400  after:border-slate-400 after:shadow-md after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full px-2">
         <div class="w-[49%] px-3 rounded-lg mr-6 md:mr-12 text-right">
-            16.00 - 18.30
+            15.00 - 17.00
         </div>
         <div class="w-[49%] px-3 rounded-lg ml-6 md:ml-12">
             Session 2 : Research Committee
