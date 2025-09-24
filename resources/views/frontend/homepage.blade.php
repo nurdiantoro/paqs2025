@@ -212,7 +212,7 @@
         <div class="grid grid-cols-5 gap-4">
             <?php for ($i = 1; $i < 6; $i++) { ?>
             <div class="wow fadeInUp animated">
-                <img src="{{ asset('img/dokumentasi/dokumentasi/Day ' . $i . '.JPG') }}" alt=""
+                <img src="{{ asset('img/dokumentasi/dokumentasi/Day-' . $i . '.JPG') }}" alt=""
                     class="rounded-xl h-full w-full">
             </div>
             <?php } ?>
