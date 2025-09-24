@@ -205,6 +205,20 @@
         </div>
     </section>
 
+    <section class="mt-120 mb-120 max-w-[100rem] mx-auto md:mb-96">
+        <div class="text-center text-4xl font-semibold text-warna-temp-02 mb-4 wow fadeInUp animated">Documentation
+        </div>
+
+        <div class="grid grid-cols-5 gap-4">
+            <?php for ($i = 1; $i < 6; $i++) { ?>
+            <div class="wow fadeInUp animated">
+                <img src="{{ asset('img/dokumentasi/dokumentasi/Day ' . $i . '.JPG') }}" alt=""
+                    class="rounded-xl h-full w-full">
+            </div>
+            <?php } ?>
+        </div>
+    </section>
+
     {{-- Register --}}
     <section class="mt-120 mb-120 max-w-[100rem] mx-auto md:mb-40">
         <div class="container">
